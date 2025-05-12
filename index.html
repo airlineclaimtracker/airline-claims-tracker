@@ -1,0 +1,1127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="Create and share your unresolved airline claim to raise awareness. Privacy-focused tool with no data collection.">
+    <title>Airline Claims Tracker - Create Awareness</title>
+    
+    <style>
+        :root {
+            --primary: #e63946;
+            --secondary: #1d3557;
+            --light: #f1faee;
+            --accent: #a8dadc;
+            --dark: #457b9d;
+        }
+        
+        * {
+            box-sizing: border-box;
+            margin: 0;
+            padding: 0;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        header {
+            background-color: var(--secondary);
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        
+        header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            font-weight: 800;
+        }
+        
+        .subtitle {
+            font-style: italic;
+            margin-top: 10px;
+            opacity: 0.9;
+        }
+        
+        nav {
+            background-color: var(--dark);
+            padding: 10px 0;
+        }
+        
+        nav ul {
+            display: flex;
+            justify-content: center;
+            list-style: none;
+        }
+        
+        nav li {
+            margin: 0 15px;
+        }
+        
+        nav a {
+            color: white;
+            text-decoration: none;
+            font-weight: 500;
+            transition: opacity 0.3s;
+        }
+        
+        nav a:hover {
+            opacity: 0.8;
+        }
+        
+        .intro {
+            text-align: center;
+            max-width: 800px;
+            margin: 30px auto;
+            line-height: 1.6;
+        }
+        
+        .card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin: 20px 0;
+        }
+        
+        .form-title {
+            color: var(--secondary);
+            margin-top: 0;
+            border-bottom: 2px solid var(--accent);
+            padding-bottom: 10px;
+        }
+        
+        .form-group {
+            margin-bottom: 20px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: bold;
+            color: var(--secondary);
+        }
+        
+        input, textarea, select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            font-size: 1rem;
+        }
+        
+        select {
+            appearance: none;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='currentColor' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+            background-repeat: no-repeat;
+            background-position: right 1rem center;
+            background-size: 1em;
+        }
+        
+        button {
+            background-color: var(--primary);
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            font-size: 1rem;
+            cursor: pointer;
+            border-radius: 4px;
+            transition: background-color 0.3s;
+            font-weight: 600;
+        }
+        
+        button:hover {
+            background-color: #d32f2f;
+        }
+        
+        button:disabled {
+            background-color: #cccccc;
+            cursor: not-allowed;
+        }
+        
+        small {
+            font-size: 0.8rem;
+            color: #666;
+            display: block;
+            margin-top: 5px;
+        }
+        
+        .alert {
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+            display: none;
+        }
+        
+        .alert-error {
+            background-color: #ffebee;
+            color: #c62828;
+            border: 1px solid #ffcdd2;
+        }
+        
+        .alert-success {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+            border: 1px solid #c8e6c9;
+        }
+        
+        .privacy-notice {
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+            background-color: #e8f5e9;
+            border: 1px solid #c8e6c9;
+            font-size: 0.9rem;
+        }
+        
+        .important-note {
+            background-color: #fff3cd;
+            border: 1px solid #ffeeba;
+            padding: 15px;
+            margin: 20px 0;
+            border-radius: 4px;
+        }
+        
+        .claim-preview {
+            display: none;
+            margin-top: 30px;
+        }
+        
+        .preview-title {
+            color: var(--secondary);
+            margin-top: 0;
+            border-bottom: 2px solid var(--accent);
+            padding-bottom: 10px;
+        }
+        
+        .claim-card {
+            background-color: white;
+            border-radius: 8px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            margin: 20px 0;
+            position: relative;
+        }
+        
+        .airline-logo {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            width: 80px;
+            height: 80px;
+            background-color: #f1f1f1;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: var(--secondary);
+            font-size: 24px;
+        }
+        
+        .claim-header {
+            font-size: 1.5rem;
+            color: var(--secondary);
+            margin-top: 0;
+        }
+        
+        .claim-details {
+            margin: 15px 0;
+        }
+        
+        .claim-details div {
+            margin-bottom: 10px;
+        }
+        
+        .claim-amount {
+            font-size: 2rem;
+            color: var(--primary);
+            font-weight: bold;
+        }
+        
+        .claim-date {
+            color: #666;
+        }
+        
+        .claim-days {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: var(--secondary);
+            margin: 15px 0;
+        }
+        
+        .hashtag {
+            font-weight: bold;
+            color: var(--primary);
+        }
+        
+        .sharing-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .sharing-option {
+            display: flex;
+            align-items: center;
+            background-color: white;
+            border-radius: 8px;
+            padding: 15px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        
+        .sharing-option:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        
+        .share-icon {
+            margin-right: 15px;
+            padding: 10px;
+            border-radius: 50%;
+            background-color: #f8f8f8;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+        
+        .share-details {
+            flex: 1;
+        }
+        
+        .share-details h4 {
+            margin: 0 0 5px 0;
+            color: #333;
+        }
+        
+        .share-details p {
+            margin: 0 0 10px 0;
+            font-size: 0.9rem;
+            color: #666;
+        }
+        
+        .share-button {
+            width: 100%;
+            padding: 8px;
+            font-size: 0.9rem;
+        }
+        
+        .instagram-btn {
+            background: linear-gradient(45deg, #405DE6, #5851DB, #833AB4, #C13584, #E1306C, #FD1D1D);
+        }
+        
+        .facebook-btn {
+            background-color: #1877F2;
+        }
+        
+        .twitter-btn {
+            background-color: #1DA1F2;
+        }
+        
+        .whatsapp-btn {
+            background-color: #25D366;
+        }
+        
+        .native-share-btn {
+            background-color: #333;
+        }
+        
+        .loading-indicator {
+            display: none;
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .spinner {
+            border: 4px solid rgba(0, 0, 0, 0.1);
+            border-left-color: var(--primary);
+            border-radius: 50%;
+            width: 40px;
+            height: 40px;
+            animation: spin 1s linear infinite;
+            margin: 0 auto;
+        }
+        
+        @keyframes spin {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+        
+        canvas {
+            max-width: 100%;
+            margin-top: 20px;
+            display: none;
+        }
+        
+        footer {
+            background-color: var(--secondary);
+            color: white;
+            padding: 20px 0;
+            text-align: center;
+            margin-top: 50px;
+        }
+        
+        .footer-links {
+            margin: 10px 0;
+        }
+        
+        .footer-links a {
+            color: white;
+            margin: 0 10px;
+            text-decoration: none;
+        }
+        
+        .cookie-banner {
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            background-color: var(--secondary);
+            color: white;
+            padding: 15px;
+            text-align: center;
+            z-index: 1000;
+            display: none;
+        }
+        
+        .cookie-banner button {
+            background-color: white;
+            color: var(--secondary);
+            padding: 8px 16px;
+            margin-left: 15px;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+        }
+        
+        .mobile-share-portal {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background-color: rgba(0,0,0,0.8);
+            display: none;
+            align-items: center;
+            justify-content: center;
+            z-index: 1000;
+        }
+        
+        .portal-content {
+            background-color: white;
+            border-radius: 10px;
+            width: 90%;
+            max-width: 400px;
+            padding: 20px;
+        }
+        
+        .claim-image-container {
+            margin-bottom: 20px;
+        }
+        
+        .claim-image-container img {
+            width: 100%;
+            border-radius: 5px;
+        }
+        
+        .portal-actions {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+        
+        .portal-actions button {
+            padding: 12px;
+            border: none;
+            border-radius: 5px;
+            font-weight: 500;
+        }
+        
+        #copy-image {
+            background-color: #E1306C;
+            color: white;
+            grid-column: span 2;
+        }
+        
+        #open-instagram {
+            background-color: #833AB4;
+            color: white;
+        }
+        
+        #close-portal {
+            background-color: #f1f1f1;
+            color: #333;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            header h1 {
+                font-size: 2rem;
+            }
+            
+            .form-title, .preview-title {
+                font-size: 1.5rem;
+            }
+            
+            .airline-logo {
+                width: 60px;
+                height: 60px;
+                top: 15px;
+                right: 15px;
+                font-size: 18px;
+            }
+            
+            .claim-amount {
+                font-size: 1.5rem;
+            }
+            
+            .claim-days {
+                font-size: 1rem;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                align-items: center;
+            }
+            
+            nav li {
+                margin: 5px 0;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="cookie-banner" id="cookie-banner">
+        <span>This website uses only essential cookies to ensure the best experience. No personal data is collected.</span>
+        <button id="accept-cookies">Accept</button>
+    </div>
+
+    <header>
+        <div class="container">
+            <h1>Airline Claims Tracker</h1>
+            <p class="subtitle">Create awareness for unresolved airline claims - Privacy First!</p>
+        </div>
+    </header>
+    
+    <nav>
+        <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="about.html">About</a></li>
+            <li><a href="privacy.html">Privacy Policy</a></li>
+        </ul>
+    </nav>
+    
+    <div class="container">
+        <div class="intro">
+            <p>Use this tool to generate a shareable image of your unresolved airline claim. Create your claim card, share it on social media using <span class="hashtag">#AirlineClaimsTracker</span>, and join others in building awareness!</p>
+            <p><strong>Privacy First:</strong> We never store your information. All processing happens on your device only. We don't display any personally identifiable information or claim IDs.</p>
+        </div>
+        
+        <div class="important-note">
+            <strong>⚠️ Important Privacy Note:</strong> Do NOT enter your actual claim ID. This tool will generate a random reference number instead to protect your privacy and security.
+        </div>
+        
+        <div class="card">
+            <h2 class="form-title">Create Your Claim Card</h2>
+            <div id="error-alert" class="alert alert-error"></div>
+            
+            <div class="privacy-notice">
+                <p><strong>Privacy Protection:</strong> This form is for generating a shareable image only. The data you enter is <strong>never stored or transmitted</strong> to our servers. We do not collect your actual claim ID to protect your privacy. Everything happens in your browser only.</p>
+            </div>
+            
+            <form id="claim-form">
+                <div class="form-group">
+                    <label for="airline-select">Airline*</label>
+                    <select id="airline-select" required>
+                        <option value="" disabled selected>-- Select Airline --</option>
+                        <option value="Lufthansa">Lufthansa</option>
+                        <option value="British Airways">British Airways</option>
+                        <option value="Delta">Delta</option>
+                        <option value="United">United</option>
+                        <option value="American Airlines">American Airlines</option>
+                        <option value="Air France">Air France</option>
+                        <option value="KLM">KLM</option>
+                        <option value="Emirates">Emirates</option>
+                        <option value="Qatar Airways">Qatar Airways</option>
+                        <option value="Singapore Airlines">Singapore Airlines</option>
+                        <option value="Other">Other (specify)</option>
+                    </select>
+                    <div id="other-airline" style="display: none; margin-top: 10px;">
+                        <input type="text" id="airline-other" placeholder="Enter airline name">
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="submission-month">Submission Month & Year*</label>
+                    <input type="month" id="submission-month" required>
+                    <small>We only use month and year to protect your privacy</small>
+                </div>
+                
+                <div class="form-group">
+                    <label for="approx-days">Approximately how many days has your claim been unresolved?*</label>
+                    <input type="number" id="approx-days" required min="1" max="9999" placeholder="e.g. 45">
+                </div>
+                
+                <div class="form-group">
+                    <label for="claim-amount">Claim Amount*</label>
+                    <input type="number" id="claim-amount" required min="1" max="999999" placeholder="e.g. 620">
+                </div>
+                
+                <div class="form-group">
+                    <label for="currency">Currency*</label>
+                    <select id="currency" required>
+                        <option value="USD">US Dollar (USD)</option>
+                        <option value="EUR">Euro (EUR)</option>
+                        <option value="GBP">British Pound (GBP)</option>
+                        <option value="PLN" selected>Polish Złoty (PLN)</option>
+                        <option value="CAD">Canadian Dollar (CAD)</option>
+                        <option value="AUD">Australian Dollar (AUD)</option>
+                        <option value="JPY">Japanese Yen (JPY)</option>
+                        <option value="CHF">Swiss Franc (CHF)</option>
+                        <option value="CNY">Chinese Yuan (CNY)</option>
+                        <option value="INR">Indian Rupee (INR)</option>
+                    </select>
+                </div>
+                
+                <button type="submit" id="generate-btn">Generate Claim Card</button>
+            </form>
+            
+            <div class="loading-indicator" id="loading-indicator">
+                <div class="spinner"></div>
+                <p>Generating your claim card...</p>
+            </div>
+        </div>
+        
+        <div id="claim-preview" class="claim-preview">
+            <h2 class="preview-title">Your Claim Card</h2>
+            
+            <div class="claim-card" id="claim-card">
+                <div class="airline-logo" id="airline-logo">AA</div>
+                <h3 class="claim-header">Unresolved Airline Claim</h3>
+                
+                <div class="claim-details">
+                    <div><strong>Airline:</strong> <span id="preview-airline">Airline Name</span></div>
+                    <div><strong>Reference:</strong> #<span id="preview-reference">5743</span></div>
+                    <div class="claim-amount"><span id="preview-currency">$</span><span id="preview-amount">620</span></div>
+                    <div class="claim-date">Submitted in <span id="preview-month">March 2025</span></div>
+                </div>
+                
+                <div class="claim-days"><span id="preview-days">45</span>+ days without resolution</div>
+                
+                <div class="hashtag">#AirlineClaimsTracker</div>
+            </div>
+            
+            <canvas id="claim-canvas" width="1080" height="1080"></canvas>
+            
+            <h3>Share Your Claim Card</h3>
+            
+            <div class="sharing-options">
+                <div class="sharing-option">
+                    <div class="share-icon">
+                        <svg viewBox="0 0 24 24" width="24" height="24">
+                            <path fill="#E1306C" d="M12,2.163c3.204,0,3.584,0.012,4.85,0.07c3.252,0.148,4.771,1.691,4.919,4.919c0.058,1.265,0.069,1.645,0.069,4.849c0,3.205-0.012,3.584-0.069,4.849c-0.149,3.225-1.664,4.771-4.919,4.919c-1.266,0.058-1.644,0.07-4.85,0.07c-3.204,0-3.584-0.012-4.849-0.07c-3.26-0.149-4.771-1.699-4.919-4.92c-0.058-1.265-0.07-1.644-0.07-4.849c0-3.204,0.013-3.583,0.07-4.849c0.149-3.227,1.664-4.771,4.919-4.919c1.266-0.057,1.645-0.069,4.849-0.069Z"/>
+                        </svg>
+                    </div>
+                    <div class="share-details">
+                        <h4>Instagram</h4>
+                        <p>Share your claim card on Instagram</p>
+                        <button class="share-button instagram-btn" id="instagram-share">Share to Instagram</button>
+                    </div>
+                </div>
+                
+                <div class="sharing-option">
+                    <div class="share-icon">
+                        <svg viewBox="0 0 24 24" width="24" height="24">
+                            <path fill="#1877F2" d="M12 2.04C6.5 2.04 2 6.53 2 12.06C2 17.06 5.66 21.21 10.44 21.96V14.96H7.9V12.06H10.44V9.85C10.44 7.34 11.93 5.96 14.22 5.96C15.31 5.96 16.45 6.15 16.45 6.15V8.62H15.19C13.95 8.62 13.56 9.39 13.56 10.18V12.06H16.34L15.89 14.96H13.56V21.96A10 10 0 0 0 22 12.06C22 6.53 17.5 2.04 12 2.04Z"/>
+                        </svg>
+                    </div>
+                    <div class="share-details">
+                        <h4>Facebook</h4>
+                        <p>Share to your Facebook timeline</p>
+                        <button class="share-button facebook-btn" id="facebook-share">Share to Facebook</button>
+                    </div>
+                </div>
+                
+                <div class="sharing-option">
+                    <div class="share-icon">
+                        <svg viewBox="0 0 24 24" width="24" height="24">
+                            <path fill="#1DA1F2" d="M22.46,6C21.69,6.35 20.86,6.58 20,6.69C20.88,6.16 21.56,5.32 21.88,4.31C21.05,4.81 20.13,5.16 19.16,5.36C18.37,4.5 17.26,4 16,4C13.65,4 11.73,5.92 11.73,8.29C11.73,8.63 11.77,8.96 11.84,9.27C8.28,9.09 5.11,7.38 3,4.79C2.63,5.42 2.42,6.16 2.42,6.94C2.42,8.43 3.17,9.75 4.33,10.5C3.62,10.5 2.96,10.3 2.38,10C2.38,10 2.38,10 2.38,10.03C2.38,12.11 3.86,13.85 5.82,14.24C5.46,14.34 5.08,14.39 4.69,14.39C4.42,14.39 4.15,14.36 3.89,14.31C4.43,16 6,17.26 7.89,17.29C6.43,18.45 4.58,19.13 2.56,19.13C2.22,19.13 1.88,19.11 1.54,19.07C3.44,20.29 5.7,21 8.12,21C16,21 20.33,14.46 20.33,8.79C20.33,8.6 20.33,8.42 20.32,8.23C21.16,7.63 21.88,6.87 22.46,6Z"/>
+                        </svg>
+                    </div>
+                    <div class="share-details">
+                        <h4>Twitter/X</h4>
+                        <p>Tweet your claim card</p>
+                        <button class="share-button twitter-btn" id="twitter-share">Share on Twitter</button>
+                    </div>
+                </div>
+                
+                <div class="sharing-option">
+                    <div class="share-icon">
+                        <svg viewBox="0 0 24 24" width="24" height="24">
+                            <path fill="#25D366" d="M12 2c5.5 0 10 4.5 10 10s-4.5 10-10 10c-1.8 0-3.5-.5-5-1.3L2 22l1.3-5c-.8-1.5-1.3-3.2-1.3-5C2 6.5 6.5 2 12 2M8.5 7.7c-.2 0-.5 0-.7.1-.3.1-.5.3-.7.6-.3.4-.8 1.1-.8 2 0 1 .5 2 .7 2.1.2.1.9.9 2.2 2.5 1.3 1.6 2.4 2.3 2.8 2.5 1.4.7 2 .9 2.5.9.3 0 .5 0 .7-.1.3-.1.6-.3 1-.6.2-.2.4-.5.6-.8.2-.4.2-.9.2-1.1 0-.2-.1-.4-.2-.5s-.2-.1-.4-.2c-.2-.1-.9-.4-1.7-.8-.8-.4-1.3-.6-1.5-.6-.2 0-.4.1-.6.3l-.7.7c-.2.2-.5.3-.7.3-.2 0-.5-.1-.8-.3-.6-.2-1.1-.6-1.7-1.1-1.9-1.7-2.2-2.4-2.2-3 0-.5.5-1 .9-1.2.2-.2.5-.3.7-.5.3-.2.5-.4.6-.6.2-.4.2-.7.3-1 .1-.3 0-.5-.1-.7-.1-.2-.7-1.6-.9-2.2-.2-.3-.4-.7-.8-.7H8.5z"/>
+                        </svg>
+                    </div>
+                    <div class="share-details">
+                        <h4>WhatsApp</h4>
+                        <p>Share with friends and family</p>
+                        <button class="share-button whatsapp-btn" id="whatsapp-share">Share via WhatsApp</button>
+                    </div>
+                </div>
+                
+                <div class="sharing-option">
+                    <div class="share-icon">
+                        <svg viewBox="0 0 24 24" width="24" height="24">
+                            <path fill="#333333" d="M18,16.08C17.24,16.08 16.56,16.38 16.04,16.85L8.91,12.7C8.96,12.47 9,12.24 9,12C9,11.76 8.96,11.53 8.91,11.3L15.96,7.19C16.5,7.69 17.21,8 18,8A3,3 0 0,0 21,5A3,3 0 0,0 18,2A3,3 0 0,0 15,5C15,5.24 15.04,5.47 15.09,5.7L8.04,9.81C7.5,9.31 6.79,9 6,9A3,3 0 0,0 3,12A3,3 0 0,0 6,15C6.79,15 7.5,14.69 8.04,14.19L15.16,18.34C15.11,18.55 15.08,18.77 15.08,19C15.08,20.61 16.39,21.91 18,21.91C19.61,21.91 20.92,20.61 20.92,19A2.92,2.92 0 0,0 18,16.08Z"/>
+                        </svg>
+                    </div>
+                    <div class="share-details">
+                        <h4>Quick Share</h4>
+                        <p>Use your device's sharing options</p>
+                        <button class="share-button native-share-btn" id="native-share">Share Now</button>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="download-section">
+                <p>Don't forget to use <span class="hashtag">#AirlineClaimsTracker</span> in your post to help us count all unresolved claims!</p>
+            </div>
+        </div>
+        
+        <div
+<div id="mobile-share-portal" class="mobile-share-portal">
+            <div class="portal-content">
+                <p>Follow these steps to share your claim card:</p>
+                <div class="claim-image-container">
+                    <img id="portal-image" src="#" alt="Your claim card">
+                </div>
+                <div class="portal-actions">
+                    <button id="copy-image">Copy Image</button>
+                    <button id="open-instagram">Open Instagram</button>
+                    <button id="close-portal">Cancel</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    
+    <footer>
+        <div class="container">
+            <p>This is a consumer advocacy tool. We do not collect, store, or process any personal data.</p>
+            <div class="footer-links">
+                <a href="about.html">About</a>
+                <a href="privacy.html">Privacy Policy</a>
+                <a href="mailto:contact@example.com">Contact</a>
+            </div>
+            <p>&copy; <span id="current-year">2025</span> Airline Claims Tracker</p>
+        </div>
+    </footer>
+    
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    
+    <script>
+        // DOM elements
+        const claimForm = document.getElementById('claim-form');
+        const errorAlert = document.getElementById('error-alert');
+        const claimPreview = document.getElementById('claim-preview');
+        const claimCanvas = document.getElementById('claim-canvas');
+        const loadingIndicator = document.getElementById('loading-indicator');
+        const mobileSharePortal = document.getElementById('mobile-share-portal');
+        const portalImage = document.getElementById('portal-image');
+        const cookieBanner = document.getElementById('cookie-banner');
+        
+        // Update copyright year
+        document.getElementById('current-year').textContent = new Date().getFullYear();
+        
+        // Airline select logic
+        const airlineSelect = document.getElementById('airline-select');
+        const otherAirlineDiv = document.getElementById('other-airline');
+        const airlineOtherInput = document.getElementById('airline-other');
+        
+        airlineSelect.addEventListener('change', function() {
+            if (this.value === 'Other') {
+                otherAirlineDiv.style.display = 'block';
+                airlineOtherInput.required = true;
+            } else {
+                otherAirlineDiv.style.display = 'none';
+                airlineOtherInput.required = false;
+            }
+        });
+        
+        // Input sanitization function
+        function sanitizeInput(input) {
+            if (typeof input !== 'string') return input;
+            
+            // Basic sanitization - remove HTML tags and trim
+            return input.replace(/</g, '&lt;').replace(/>/g, '&gt;').trim();
+        }
+        
+        // Get airline initials
+        function getAirlineInitials(airline) {
+            if (!airline) return '';
+            
+            const words = airline.split(' ');
+            if (words.length === 1) {
+                // If it's a single word, return first two letters
+                return airline.substring(0, 2).toUpperCase();
+            } else {
+                // Otherwise return initials
+                return words.map(word => word[0]).join('').toUpperCase();
+            }
+        }
+        
+        // Generate a random reference number
+        function generateReference() {
+            return Math.floor(1000 + Math.random() * 9000); // 4-digit number
+        }
+        
+        // Format month for display
+        function formatMonth(monthYearStr) {
+            try {
+                const date = new Date(monthYearStr);
+                return date.toLocaleDateString(navigator.language || 'en-US', { month: 'long', year: 'numeric' });
+            } catch (e) {
+                console.error('Error formatting date:', e);
+                return monthYearStr; // Fallback
+            }
+        }
+        
+        // Detect mobile devices
+        function isMobile() {
+            return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        }
+        
+        // Update claim preview
+        function updateClaimPreview() {
+            // Show loading indicator
+            loadingIndicator.style.display = 'block';
+            
+            // Get form values and sanitize
+            let airline = airlineSelect.value === 'Other' ? airlineOtherInput.value : airlineSelect.value;
+            airline = sanitizeInput(airline);
+            
+            const submissionMonth = document.getElementById('submission-month').value;
+            const days = sanitizeInput(document.getElementById('approx-days').value);
+            const amount = sanitizeInput(document.getElementById('claim-amount').value);
+            const currency = document.getElementById('currency').value;
+            
+            const currencySymbols = {
+                'USD': '$',
+                'EUR': '€',
+                'GBP': '£',
+                'PLN': 'zł',
+                'CAD': 'C$',
+                'AUD': 'A$',
+                'JPY': '¥',
+                'CHF': 'Fr',
+                'CNY': '¥',
+                'INR': '₹'
+            };
+            
+            // Generate a random reference number - not the actual claim ID
+            const reference = generateReference();
+            
+            // Update preview elements
+            document.getElementById('preview-airline').textContent = airline;
+            document.getElementById('preview-reference').textContent = reference;
+            document.getElementById('preview-currency').textContent = currencySymbols[currency] || currency;
+            document.getElementById('preview-amount').textContent = Number(amount).toLocaleString();
+            document.getElementById('preview-month').textContent = formatMonth(submissionMonth);
+            document.getElementById('preview-days').textContent = days;
+            
+            // Update airline logo
+            const airlineLogo = document.getElementById('airline-logo');
+            airlineLogo.textContent = getAirlineInitials(airline);
+            
+            // Generate canvas image
+            setTimeout(() => {
+                generateCanvasImage().then(() => {
+                    // Show preview section
+                    claimPreview.style.display = 'block';
+                    
+                    // Hide loading indicator
+                    loadingIndicator.style.display = 'none';
+                    
+                    // Scroll to preview
+                    claimPreview.scrollIntoView({ behavior: 'smooth' });
+                }).catch(err => {
+                    console.error('Error generating image:', err);
+                    errorAlert.textContent = 'There was an error generating your claim card. Please try again.';
+                    errorAlert.style.display = 'block';
+                    loadingIndicator.style.display = 'none';
+                });
+            }, 300); // Small delay for better UX
+        }
+        
+        // Generate canvas image for sharing
+        async function generateCanvasImage() {
+            const claimCard = document.getElementById('claim-card');
+            
+            try {
+                const canvas = await html2canvas(claimCard, {
+                    scale: 2, // Higher resolution
+                    logging: false,
+                    useCORS: true,
+                    backgroundColor: '#ffffff'
+                });
+                
+                // Replace the empty canvas with our rendered one
+                const oldCanvas = document.getElementById('claim-canvas');
+                oldCanvas.width = canvas.width;
+                oldCanvas.height = canvas.height;
+                
+                const ctx = oldCanvas.getContext('2d');
+                ctx.drawImage(canvas, 0, 0);
+                
+                return oldCanvas.toDataURL('image/png');
+            } catch (err) {
+                console.error('Canvas generation error:', err);
+                throw err;
+            }
+        }
+        
+        // Handle form submission
+        claimForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Disable submit button to prevent multiple submissions
+            document.getElementById('generate-btn').disabled = true;
+            
+            // Hide previous error
+            errorAlert.style.display = 'none';
+            
+            try {
+                // Get values
+                const airline = airlineSelect.value;
+                const submissionMonth = document.getElementById('submission-month').value;
+                const days = document.getElementById('approx-days').value;
+                const amount = document.getElementById('claim-amount').value;
+                
+                // Validate airline
+                if (airline === '') {
+                    throw new Error('Please select an airline.');
+                }
+                
+                // If "Other" is selected, validate other airline input
+                if (airline === 'Other' && airlineOtherInput.value.trim() === '') {
+                    throw new Error('Please enter the airline name.');
+                }
+                
+                // Validate submission month
+                if (!submissionMonth) {
+                    throw new Error('Please select submission month and year.');
+                }
+                
+                // Validate that month is not in the future
+                const selectedDate = new Date(submissionMonth + '-01'); // Add day to make a valid date
+                const today = new Date();
+                if (selectedDate > today) {
+                    throw new Error('Submission month cannot be in the future.');
+                }
+                
+                // Validate days
+                if (isNaN(days) || days < 1) {
+                    throw new Error('Please enter a valid number of days.');
+                }
+                
+                // Validate amount
+                if (isNaN(amount) || amount < 1) {
+                    throw new Error('Please enter a valid claim amount.');
+                }
+                
+                // Update preview
+                updateClaimPreview();
+                
+            } catch (error) {
+                // Show error message
+                errorAlert.textContent = error.message;
+                errorAlert.style.display = 'block';
+                
+                // Re-enable submit button
+                document.getElementById('generate-btn').disabled = false;
+            }
+        });
+        
+        // Capture claim card as an image
+        async function captureClaimCard() {
+            try {
+                return await generateCanvasImage();
+            } catch (err) {
+                console.error('Error capturing claim card:', err);
+                errorAlert.textContent = 'There was an error capturing your claim card. Please try again.';
+                errorAlert.style.display = 'block';
+                throw err;
+            }
+        }
+        
+        // Setup sharing buttons
+        
+        // Instagram Share
+        document.getElementById('instagram-share').addEventListener('click', async function() {
+            try {
+                const imageData = await captureClaimCard();
+                
+                if (isMobile()) {
+                    // On mobile, use Instagram deep link
+                    portalImage.src = imageData;
+                    mobileSharePortal.style.display = 'flex';
+                    
+                    // Set up portal buttons
+                    document.getElementById('copy-image').addEventListener('click', function() {
+                        // In a real implementation, would use Clipboard API for images
+                        // This is a browser limitation, so we show instructions instead
+                        alert('To share on Instagram: Save this image to your device, then open Instagram and create a new post or story with this image.');
+                        
+                        // Create download link
+                        const link = document.createElement('a');
+                        link.href = imageData;
+                        link.download = `claim-${Date.now()}.png`;
+                        link.click();
+                        
+                        // Close portal after download started
+                        setTimeout(() => {
+                            mobileSharePortal.style.display = 'none';
+                        }, 500);
+                    });
+                    
+                    document.getElementById('open-instagram').addEventListener('click', function() {
+                        // Open Instagram app
+                        window.location.href = 'instagram://camera';
+                    });
+                    
+                    document.getElementById('close-portal').addEventListener('click', function() {
+                        mobileSharePortal.style.display = 'none';
+                    });
+                } else {
+                    // On desktop, download the image
+                    const link = document.createElement('a');
+                    link.href = imageData;
+                    link.download = `claim-${Date.now()}.png`;
+                    link.click();
+                    
+                    alert('Image downloaded. Open Instagram on your mobile device and create a new post or story with this image.');
+                }
+            } catch (err) {
+                console.error('Instagram share error:', err);
+            }
+        });
+        
+        // Facebook Share
+        document.getElementById('facebook-share').addEventListener('click', async function() {
+            const airline = document.getElementById('preview-airline').textContent;
+            const days = document.getElementById('preview-days').textContent;
+            const amount = document.getElementById('preview-amount').textContent;
+            const currency = document.getElementById('currency').value;
+            
+            const text = `I have an unresolved claim with ${airline} for ${currency} ${amount}. It has been ${days}+ days without resolution. #AirlineClaimsTracker`;
+            
+            // Use Facebook's web share dialog
+            window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}&quote=${encodeURIComponent(text)}`, '_blank');
+        });
+        
+        // Twitter/X Share
+        document.getElementById('twitter-share').addEventListener('click', function() {
+            const airline = document.getElementById('preview-airline').textContent;
+            const days = document.getElementById('preview-days').textContent;
+            const amount = document.getElementById('preview-amount').textContent;
+            const currency = document.getElementById('currency').value;
+            
+            const text = `I have an unresolved claim with ${airline} for ${currency} ${amount}. It has been ${days}+ days without resolution. #AirlineClaimsTracker`;
+            
+            window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(window.location.href)}`, '_blank');
+        });
+        
+        // WhatsApp Share
+        document.getElementById('whatsapp-share').addEventListener('click', function() {
+            const airline = document.getElementById('preview-airline').textContent;
+            const days = document.getElementById('preview-days').textContent;
+            const amount = document.getElementById('preview-amount').textContent;
+            const currency = document.getElementById('currency').value;
+            
+            const text = `I have an unresolved claim with ${airline} for ${currency} ${amount}. It has been ${days}+ days without resolution. #AirlineClaimsTracker ${window.location.href}`;
+            
+            window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank');
+        });
+        
+        // Native Share API
+        document.getElementById('native-share').addEventListener('click', async function() {
+            // Check if the Web Share API is supported
+            if (navigator.share) {
+                try {
+                    const imageData = await captureClaimCard();
+                    
+                    // On most mobile browsers we can share text but not files
+                    // We'll try with file first, then fall back to just text
+                    const airline = document.getElementById('preview-airline').textContent;
+                    const days = document.getElementById('preview-days').textContent;
+                    const amount = document.getElementById('preview-amount').textContent;
+                    const currency = document.getElementById('currency').value;
+                    
+                    const text = `I have an unresolved claim with ${airline} for ${currency} ${amount}. It has been ${days}+ days without resolution. #AirlineClaimsTracker`;
+                    
+                    try {
+                        // Try to share with file
+                        const blob = await (await fetch(imageData)).blob();
+                        const file = new File([blob], 'claim-card.png', { type: 'image/png' });
+                        
+                        await navigator.share({
+                            title: 'My Unresolved Airline Claim',
+                            text: text,
+                            url: window.location.href,
+                            files: [file]
+                        });
+                    } catch (fileError) {
+                        // If file sharing fails, try without file
+                        console.log('File sharing not supported, falling back to text only');
+                        await navigator.share({
+                            title: 'My Unresolved Airline Claim',
+                            text: text,
+                            url: window.location.href
+                        });
+                    }
+                } catch (err) {
+                    console.error('Error sharing:', err);
+                    alert('There was an error using the share functionality. Try another sharing option.');
+                }
+            } else {
+                // Fallback for browsers that don't support the Web Share API
+                alert('Your browser doesn\'t support direct sharing. Please use one of the other share options.');
+            }
+        });
+        
+        // Cookie consent handling
+        if (!localStorage.getItem('cookiesAccepted')) {
+            cookieBanner.style.display = 'block';
+        }
+        
+        document.getElementById('accept-cookies').addEventListener('click', function() {
+            localStorage.setItem('cookiesAccepted', 'true');
+            cookieBanner.style.display = 'none';
+        });
+        
+        // Set current month as default
+        window.addEventListener('DOMContentLoaded', function() {
+            const today = new Date();
+            const year = today.getFullYear();
+            const month = (today.getMonth() + 1).toString().padStart(2, '0');
+            document.getElementById('submission-month').value = `${year}-${month}`;
+        });
+    </script>
+</body>
+</html>

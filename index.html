@@ -1,0 +1,678 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smartwings Claims Transparency</title>
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            color: #333;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #e63946, #d63031);
+            color: white;
+            padding: 20px;
+            text-align: center;
+        }
+        
+        .header h1 {
+            margin: 0;
+            font-size: 2rem;
+            font-weight: 700;
+        }
+        
+        .header p {
+            margin: 10px 0 0;
+            opacity: 0.9;
+        }
+        
+        .container {
+            max-width: 900px;
+            margin: 20px auto;
+            padding: 15px;
+        }
+        
+        .quick-start {
+            background: linear-gradient(135deg, #FFD93D, #FFB347);
+            color: #1d3557;
+            padding: 20px;
+            border-radius: 12px;
+            text-align: center;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        
+        .form-section {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .form-item {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        label {
+            color: #1d3557;
+            font-weight: 600;
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+        }
+        
+        input, select {
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            background: white;
+            transition: border-color 0.3s;
+        }
+        
+        input:focus, select:focus {
+            outline: none;
+            border-color: #e63946;
+        }
+        
+        .photo-upload {
+            border: 2px dashed #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            background: #f8f9fa;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .photo-upload:hover {
+            border-color: #e63946;
+            background: #fff5f5;
+        }
+        
+        .photo-upload.has-photo {
+            border-color: #28a745;
+            background: #f0fff4;
+        }
+        
+        .photo-preview {
+            max-width: 200px;
+            max-height: 150px;
+            border-radius: 8px;
+            margin: 10px 0;
+        }
+        
+        .generate-btn {
+            background: linear-gradient(135deg, #e63946, #d63031);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: transform 0.2s;
+        }
+        
+        .generate-btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        .claim-card {
+            background: linear-gradient(135deg, #e63946, #d63031);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            position: relative;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(230,57,70,0.3);
+            overflow: hidden;
+        }
+        
+        .claim-card.with-photo {
+            background: none;
+            position: relative;
+        }
+        
+        .claim-card.with-photo::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: linear-gradient(135deg, rgba(230,57,70,0.9), rgba(214,48,49,0.9));
+            z-index: 1;
+        }
+        
+        .luggage-photo {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            z-index: 0;
+        }
+        
+        .card-content {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .claim-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 5px;
+            background: #FFD93D;
+        }
+        
+        .status-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: rgba(255,255,255,0.2);
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-weight: 600;
+            font-size: 0.9rem;
+            z-index: 2;
+        }
+        
+        .airline-name {
+            font-size: 2.2rem;
+            font-weight: 800;
+            margin-bottom: 10px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .claim-message {
+            font-size: 1.2rem;
+            margin-bottom: 20px;
+            line-height: 1.4;
+        }
+        
+        .claim-stats {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .stat-item {
+            text-align: center;
+            background: rgba(255,255,255,0.2);
+            padding: 15px;
+            border-radius: 10px;
+        }
+        
+        .stat-value {
+            font-size: 1.8rem;
+            font-weight: 800;
+            color: #FFD93D;
+            display: block;
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.9;
+            margin-top: 5px;
+        }
+        
+        .hashtags {
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .hashtag {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: #FFD93D;
+            margin: 0 8px;
+        }
+        
+        .share-zone {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .share-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 12px;
+            margin-bottom: 20px;
+        }
+        
+        .share-btn {
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            color: white;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 0.95rem;
+            transition: all 0.2s;
+            position: relative;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 8px;
+        }
+        
+        .share-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+        
+        .twitter-btn { 
+            background: linear-gradient(135deg, #1da1f2, #0d8bd9);
+        }
+        
+        .facebook-btn { 
+            background: linear-gradient(135deg, #4267b2, #365899);
+        }
+        
+        .instagram-btn { 
+            background: linear-gradient(135deg, #e4405f, #c13584);
+        }
+        
+        .download-btn { 
+            background: linear-gradient(135deg, #28a745, #218838);
+        }
+        
+        .share-message {
+            background: #f8f9fa;
+            border: 2px solid #e63946;
+            border-radius: 8px;
+            padding: 15px;
+            font-family: monospace;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+        }
+        
+        .preview {
+            display: none;
+        }
+        
+        .preview.visible {
+            display: block;
+        }
+        
+        .success-message {
+            background: linear-gradient(135deg, #28a745, #218838);
+            color: white;
+            padding: 15px 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            display: none;
+            text-align: center;
+            font-weight: 600;
+        }
+        
+        .floating-share {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #e63946;
+            color: white;
+            padding: 12px 18px;
+            border-radius: 50px;
+            cursor: pointer;
+            box-shadow: 0 4px 15px rgba(230,57,70,0.3);
+            display: none;
+            font-weight: 600;
+            z-index: 1000;
+        }
+        
+        @media (max-width: 768px) {
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            .claim-stats {
+                grid-template-columns: repeat(2, 1fr);
+            }
+            .share-buttons {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>📢 Smartwings Claims Alert</h1>
+        <p>Make your unresolved claim visible and heard</p>
+    </div>
+    
+    <div class="container">
+        <div class="quick-start">
+            <h2 style="margin: 0; font-size: 1.3rem;">🚀 Quick Start: 3 Simple Steps</h2>
+            <p style="margin: 10px 0 0;">1. Fill in basic info → 2. Add photo (optional) → 3. Share everywhere!</p>
+        </div>
+        
+        <div class="form-section">
+            <h2 style="color: #1d3557; margin-top: 0;">Create Your Claim Card</h2>
+            
+            <form id="claim-form">
+                <div class="form-grid">
+                    <div class="form-item">
+                        <label for="submission-month">When did you submit?</label>
+                        <select id="submission-month" required>
+                            <option value="">Select Month</option>
+                            <option value="1">January</option>
+                            <option value="2">February</option>
+                            <option value="3">March</option>
+                            <option value="4">April</option>
+                            <option value="5">May</option>
+                            <option value="6">June</option>
+                            <option value="7">July</option>
+                            <option value="8">August</option>
+                            <option value="9">September</option>
+                            <option value="10">October</option>
+                            <option value="11">November</option>
+                            <option value="12">December</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-item">
+                        <label for="submission-year">Year</label>
+                        <select id="submission-year" required>
+                            <option value="">Select Year</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-item">
+                        <label for="amount">Claim Amount (€)</label>
+                        <input type="number" id="amount" required min="1" placeholder="e.g. 600">
+                    </div>
+                </div>
+                
+                <div class="form-item" style="margin-bottom: 20px;">
+                    <label for="luggage-photo">Add Photo of Damage (Optional)</label>
+                    <div class="photo-upload" onclick="document.getElementById('luggage-photo').click()">
+                        <input type="file" id="luggage-photo" accept="image/*" style="display: none;" onchange="handlePhotoUpload(event)">
+                        <div id="upload-content">
+                            📷 Click to add photo of damaged luggage<br>
+                            <small>This will make your claim more powerful and visible</small>
+                        </div>
+                        <img id="photo-preview" class="photo-preview" style="display: none;">
+                    </div>
+                </div>
+                
+                <button type="submit" class="generate-btn">
+                    🚀 Generate My Claim Card
+                </button>
+            </form>
+        </div>
+        
+        <div id="preview" class="preview">
+            <div class="claim-card" id="claim-card">
+                <img id="card-luggage-photo" class="luggage-photo" style="display: none;">
+                <div class="card-content">
+                    <div class="status-badge">⏰ UNRESOLVED</div>
+                    
+                    <div class="airline-name">SMARTWINGS</div>
+                    <div class="claim-message">
+                        Still waiting for resolution on my destroyed luggage claim
+                    </div>
+                    
+                    <div class="claim-stats">
+                        <div class="stat-item">
+                            <span class="stat-value" id="preview-days">0</span>
+                            <span class="stat-label">Days Waiting</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value">€<span id="preview-amount">0</span></span>
+                            <span class="stat-label">Claim Amount</span>
+                        </div>
+                        <div class="stat-item">
+                            <span class="stat-value" id="preview-date">Jan 2024</span>
+                            <span class="stat-label">Submitted</span>
+                        </div>
+                    </div>
+                    
+                    <div class="hashtags">
+                        <span class="hashtag">#SmartwingsAware</span>
+                        <span class="hashtag">#ClaimTransparency</span>
+                        <span class="hashtag">#PassengerRights</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="share-zone">
+                <h3 style="color: #1d3557; margin-top: 0;">📱 Share Your Card</h3>
+                
+                <div class="share-buttons">
+                    <button class="share-btn twitter-btn" onclick="shareToTwitter()">
+                        🐦 Share on X
+                    </button>
+                    <button class="share-btn facebook-btn" onclick="shareToFacebook()">
+                        📘 Share on Facebook
+                    </button>
+                    <button class="share-btn instagram-btn" onclick="shareToInstagram()">
+                        📸 Share on Instagram
+                    </button>
+                    <button class="share-btn download-btn" onclick="downloadCard()">
+                        💾 Download Card
+                    </button>
+                </div>
+                
+                <div class="success-message" id="success-message"></div>
+                
+                <div class="share-message" id="share-message">🚨 @SmartwingsAir: Still waiting for my luggage claim resolution!
+
+€600 claim submitted 456 days ago - when will you respond?
+
+Submitted: January 2024
+
+#SmartwingsAware #ClaimTransparency #PassengerRights
+
+Others can share their claims at: [website-url]</div>
+            </div>
+        </div>
+    </div>
+    
+    <div class="floating-share" onclick="scrollToShare()">
+        📤 Share Now
+    </div>
+    
+    <script>
+        let uploadedPhoto = null;
+        
+        // Initialize year dropdown
+        function initializeYears() {
+            const yearSelect = document.getElementById('submission-year');
+            const currentYear = new Date().getFullYear();
+            
+            for (let year = currentYear; year >= currentYear - 4; year--) {
+                const option = document.createElement('option');
+                option.value = year;
+                option.textContent = year;
+                yearSelect.appendChild(option);
+            }
+        }
+        
+        // Handle photo upload
+        function handlePhotoUpload(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    uploadedPhoto = e.target.result;
+                    document.getElementById('photo-preview').src = uploadedPhoto;
+                    document.getElementById('photo-preview').style.display = 'block';
+                    document.querySelector('.photo-upload').classList.add('has-photo');
+                    document.getElementById('upload-content').innerHTML = `
+                        ✅ Photo Added<br>
+                        <small>Click to change photo</small>
+                    `;
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+        
+        // Calculate days between submission and today
+        function calculateDaysSince(month, year) {
+            const submissionDate = new Date(year, month - 1, 1);
+            const today = new Date();
+            const diffTime = Math.abs(today - submissionDate);
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            return diffDays;
+        }
+        
+        // Generate share message with simplified format
+        function generateShareMessage(days, amount, month, year) {
+            const currentUrl = window.location.href;
+            const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
+                'July', 'August', 'September', 'October', 'November', 'December'];
+            
+            return `🚨 @SmartwingsAir: Still waiting for my luggage claim resolution!
+
+${uploadedPhoto ? '📸 See attached photo of damage!\n\n' : ''}€${amount} claim submitted ${days} days ago - when will you respond?
+
+Submitted: ${monthNames[month - 1]} ${year}
+
+#SmartwingsAware #ClaimTransparency #PassengerRights
+
+Others can share their claims at: ${currentUrl}`;
+        }
+        
+        // Handle form submission
+        document.getElementById('claim-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const month = document.getElementById('submission-month').value;
+            const year = document.getElementById('submission-year').value;
+            const amount = document.getElementById('amount').value;
+            
+            if (!month || !year || !amount) {
+                alert('Please fill in all fields');
+                return;
+            }
+            
+            const days = calculateDaysSince(month, year);
+            const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+                'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+            
+            // Update preview
+            document.getElementById('preview-days').textContent = days;
+            document.getElementById('preview-amount').textContent = amount;
+            document.getElementById('preview-date').textContent = `${monthNames[month - 1]} ${year}`;
+            
+            // Add photo to card if uploaded
+            const cardPhoto = document.getElementById('card-luggage-photo');
+            if (uploadedPhoto) {
+                cardPhoto.src = uploadedPhoto;
+                cardPhoto.style.display = 'block';
+                document.getElementById('claim-card').classList.add('with-photo');
+            }
+            
+            // Generate and display share message
+            const message = generateShareMessage(days, amount, month, year);
+            document.getElementById('share-message').textContent = message;
+            
+            // Show preview
+            document.getElementById('preview').classList.add('visible');
+            document.querySelector('.floating-share').style.display = 'block';
+            
+            // Scroll to preview
+            document.getElementById('preview').scrollIntoView({ behavior: 'smooth' });
+        });
+        
+        // SIMPLIFIED Twitter share - direct link only
+        function shareToTwitter() {
+            const message = document.getElementById('share-message').textContent;
+            const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(message)}`;
+            window.open(twitterUrl, '_blank');
+            showSuccess('🐦 Twitter/X opened! Add your image using the camera/photo button if needed.');
+        }
+        
+        // SIMPLIFIED Facebook share
+        function shareToFacebook() {
+            const message = document.getElementById('share-message').textContent;
+            const facebookUrl = `https://www.facebook.com/share.php?u=${encodeURIComponent(window.location.href)}&quote=${encodeURIComponent(message)}`;
+            window.open(facebookUrl, '_blank');
+            showSuccess('📘 Facebook opened! Add your image when creating the post.');
+        }
+        
+        // SIMPLIFIED Instagram share
+        function shareToInstagram() {
+            downloadCard();
+            showSuccess('📸 Image downloaded! Open Instagram and create a post with the downloaded image and copy the message below.');
+        }
+        
+        // Download card as image
+        async function downloadCard() {
+            try {
+                showSuccess('Generating image...');
+                const canvas = await html2canvas(document.getElementById('claim-card'), {
+                    scale: 2,
+                    backgroundColor: '#ffffff'
+                });
+                
+                const link = document.createElement('a');
+                const timestamp = new Date().toISOString().slice(0, 10);
+                link.download = `smartwings-claim-${timestamp}.png`;
+                link.href = canvas.toDataURL();
+                link.click();
+                
+                showSuccess('✅ Image downloaded successfully!');
+            } catch (err) {
+                console.error('Download error:', err);
+                alert('Error downloading image. Please try again.');
+            }
+        }
+        
+        // Show success message
+        function showSuccess(message) {
+            const successEl = document.getElementById('success-message');
+            successEl.textContent = message;
+            successEl.style.display = 'block';
+            
+            // Auto-hide after 5 seconds
+            setTimeout(() => {
+                successEl.style.display = 'none';
+            }, 5000);
+        }
+        
+        // Scroll to share section
+        function scrollToShare() {
+            document.getElementById('preview').scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        // Initialize on page load
+        window.addEventListener('DOMContentLoaded', function() {
+            initializeYears();
+        });
+    </script>
+    
+    <!-- Include html2canvas -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</body>
+</html>

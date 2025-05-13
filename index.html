@@ -1,0 +1,547 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Airline Claims Tracker</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #f8f9fa;
+            min-height: 100vh;
+        }
+        .header {
+            background-color: #1d3557;
+            color: white;
+            padding: 15px;
+            text-align: center;
+        }
+        .header h1 {
+            margin: 0;
+            font-size: 1.8rem;
+        }
+        .header p {
+            margin: 5px 0 0 0;
+            font-size: 0.9rem;
+            opacity: 0.9;
+        }
+        .nav {
+            background-color: #457b9d;
+            padding: 8px;
+            text-align: center;
+        }
+        .nav a {
+            color: white;
+            margin: 0 15px;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+        .container {
+            max-width: 1000px;
+            margin: 10px auto;
+            padding: 15px;
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            height: calc(100vh - 200px);
+            overflow-y: auto;
+        }
+        .form-row {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 15px;
+            margin-bottom: 15px;
+        }
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+        .form-group.full-width {
+            grid-column: 1 / -1;
+        }
+        label {
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #1d3557;
+            font-size: 0.9rem;
+        }
+        input, select {
+            padding: 10px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 0.95rem;
+            background-color: white;
+        }
+        select {
+            cursor: pointer;
+        }
+        .btn {
+            background-color: #e63946;
+            color: white;
+            border: none;
+            padding: 12px 24px;
+            border-radius: 6px;
+            cursor: pointer;
+            font-weight: 600;
+            margin-top: 10px;
+            width: 100%;
+        }
+        .btn:hover {
+            background-color: #d32f2f;
+        }
+        .btn:disabled {
+            background-color: #ccc;
+            cursor: not-allowed;
+        }
+        .alert {
+            padding: 12px;
+            margin: 15px 0;
+            border-radius: 6px;
+            display: none;
+        }
+        .alert-error {
+            background-color: #ffebee;
+            color: #c62828;
+            border: 1px solid #ffcdd2;
+        }
+        .alert-success {
+            background-color: #e8f5e9;
+            color: #2e7d32;
+            border: 1px solid #c8e6c9;
+        }
+        .privacy-notice {
+            background-color: #e8f5e9;
+            border: 1px solid #c8e6c9;
+            padding: 12px;
+            margin: 15px 0;
+            border-radius: 6px;
+            font-size: 0.85rem;
+        }
+        .important-note {
+            background-color: #fff3cd;
+            border: 1px solid #ffeeba;
+            padding: 12px;
+            margin: 15px 0;
+            border-radius: 6px;
+            font-size: 0.85rem;
+        }
+        .preview {
+            margin-top: 20px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            background-color: #f9f9f9;
+            border-radius: 8px;
+            display: none;
+        }
+        .claim-card {
+            background-color: white;
+            padding: 20px;
+            border-radius: 8px;
+            position: relative;
+            margin-bottom: 15px;
+        }
+        .airline-logo {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            width: 60px;
+            height: 60px;
+            background-color: #f1f1f1;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-weight: bold;
+            color: #1d3557;
+            font-size: 18px;
+        }
+        .claim-details h3 {
+            margin: 0 0 15px 0;
+            color: #1d3557;
+        }
+        .claim-amount {
+            font-size: 2rem;
+            color: #e63946;
+            font-weight: bold;
+            margin: 10px 0;
+        }
+        .claim-days {
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #1d3557;
+            margin: 10px 0;
+        }
+        .hashtag {
+            font-weight: bold;
+            color: #e63946;
+        }
+        .share-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(120px, 1fr));
+            gap: 10px;
+            margin-top: 15px;
+        }
+        .share-btn {
+            padding: 8px 12px;
+            border: none;
+            border-radius: 6px;
+            color: white;
+            cursor: pointer;
+            font-size: 0.85rem;
+        }
+        .download-btn {
+            background-color: #6c757d;
+        }
+        .facebook-btn {
+            background-color: #1877F2;
+        }
+        .twitter-btn {
+            background-color: #1DA1F2;
+        }
+        .footer {
+            background-color: #1d3557;
+            color: white;
+            text-align: center;
+            padding: 15px;
+            margin-top: 20px;
+            font-size: 0.9rem;
+        }
+        .footer a {
+            color: white;
+            margin: 0 10px;
+            text-decoration: none;
+        }
+        /* Date picker styles */
+        .date-picker {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        .date-picker select {
+            flex: 1;
+        }
+        .days-display {
+            background-color: #e8f5e9;
+            padding: 8px 12px;
+            border-radius: 6px;
+            font-weight: bold;
+            color: #2e7d32;
+            margin-top: 5px;
+        }
+        
+        @media (max-width: 768px) {
+            .form-row {
+                grid-template-columns: 1fr;
+            }
+            .share-buttons {
+                grid-template-columns: 1fr;
+            }
+            .date-picker {
+                flex-direction: column;
+                align-items: stretch;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>Airline Claims Tracker</h1>
+        <p>Create awareness for unresolved airline claims</p>
+    </div>
+    
+    <div class="nav">
+        <a href="index.html">Home</a>
+        <a href="about.html">About</a>
+        <a href="privacy.html">Privacy Policy</a>
+    </div>
+    
+    <div class="container">
+        <div class="important-note">
+            <strong>⚠️ Important Privacy Note:</strong> Do NOT enter your actual claim ID. This tool will generate a random reference number instead to protect your privacy and security.
+        </div>
+        
+        <div class="privacy-notice">
+            <strong>Privacy Protection:</strong> This form is for generating a shareable image only. The data you enter is <strong>never stored or transmitted</strong> to our servers. We do not collect your actual claim ID to protect your privacy. Everything happens in your browser only.
+        </div>
+        
+        <h2 style="color: #1d3557; margin-top: 10px;">Create Your Claim Card</h2>
+        
+        <div id="error-alert" class="alert alert-error"></div>
+        <div id="success-alert" class="alert alert-success"></div>
+        
+        <form id="claim-form">
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="airline">Airline*</label>
+                    <select id="airline" required>
+                        <option value="Smartwings" selected>Smartwings</option>
+                        <option value="Lufthansa">Lufthansa</option>
+                        <option value="British Airways">British Airways</option>
+                        <option value="Delta">Delta</option>
+                        <option value="United">United</option>
+                        <option value="American Airlines">American Airlines</option>
+                        <option value="Ryanair">Ryanair</option>
+                        <option value="EasyJet">EasyJet</option>
+                        <option value="LOT Polish Airlines">LOT Polish Airlines</option>
+                        <option value="Wizz Air">Wizz Air</option>
+                        <option value="Other">Other</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label for="currency">Currency*</label>
+                    <select id="currency" required>
+                        <option value="PLN" selected>Polish Złoty (PLN)</option>
+                        <option value="EUR">Euro (EUR)</option>
+                        <option value="USD">US Dollar (USD)</option>
+                        <option value="GBP">British Pound (GBP)</option>
+                        <option value="CZK">Czech Koruna (CZK)</option>
+                        <option value="CAD">Canadian Dollar (CAD)</option>
+                        <option value="AUD">Australian Dollar (AUD)</option>
+                        <option value="JPY">Japanese Yen (JPY)</option>
+                        <option value="CHF">Swiss Franc (CHF)</option>
+                    </select>
+                </div>
+            </div>
+            
+            <div class="form-row">
+                <div class="form-group">
+                    <label for="submission-date">Claim Submission Date*</label>
+                    <div class="date-picker">
+                        <select id="submission-month" required>
+                            <option value="">Month</option>
+                            <option value="1">January</option>
+                            <option value="2">February</option>
+                            <option value="3">March</option>
+                            <option value="4">April</option>
+                            <option value="5">May</option>
+                            <option value="6">June</option>
+                            <option value="7">July</option>
+                            <option value="8">August</option>
+                            <option value="9">September</option>
+                            <option value="10">October</option>
+                            <option value="11">November</option>
+                            <option value="12">December</option>
+                        </select>
+                        <select id="submission-year" required>
+                            <option value="">Year</option>
+                        </select>
+                    </div>
+                    <div id="days-display" class="days-display" style="display: none;">
+                        <span id="calculated-days">0</span> days since submission
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="amount">Claim Amount*</label>
+                    <input type="number" id="amount" required min="1" placeholder="e.g. 620">
+                </div>
+            </div>
+            
+            <button type="submit" class="btn" id="generate-btn">Generate Claim Card</button>
+        </form>
+        
+        <div id="preview" class="preview">
+            <h2 style="color: #1d3557;">Your Claim Card</h2>
+            
+            <div class="claim-card" id="claim-card">
+                <div class="airline-logo" id="airline-logo">SW</div>
+                <div class="claim-details">
+                    <h3>Unresolved Airline Claim</h3>
+                    <p><strong>Airline:</strong> <span id="preview-airline">Smartwings</span></p>
+                    <p><strong>Reference:</strong> #<span id="preview-reference">1234</span></p>
+                    <div class="claim-amount"><span id="preview-currency">zł</span><span id="preview-amount">620</span></div>
+                    <p><strong>Submitted:</strong> <span id="preview-month">January 2025</span></p>
+                    <div class="claim-days"><span id="preview-days">45</span> days without resolution</div>
+                    <p class="hashtag">#AirlineClaimsTracker</p>
+                </div>
+            </div>
+            
+            <h3 style="color: #1d3557;">Share Your Claim Card</h3>
+            <div class="share-buttons">
+                <button class="share-btn download-btn" id="download-btn">📱 Download</button>
+                <button class="share-btn facebook-btn" id="facebook-btn">📘 Facebook</button>
+                <button class="share-btn twitter-btn" id="twitter-btn">🐦 Twitter</button>
+            </div>
+        </div>
+    </div>
+    
+    <div class="footer">
+        <p>This is a consumer advocacy tool. We do not collect, store, or process any personal data.</p>
+        <p><a href="about.html">About</a> | 
+        <a href="privacy.html">Privacy Policy</a> | 
+        <a href="mailto:contact@example.com">Contact</a></p>
+        <p>&copy; 2025 Airline Claims Tracker</p>
+    </div>
+    
+    <script>
+        // Initialize year options
+        function initializeYearOptions() {
+            const yearSelect = document.getElementById('submission-year');
+            const currentYear = new Date().getFullYear();
+            
+            for (let year = currentYear; year >= currentYear - 5; year--) {
+                const option = document.createElement('option');
+                option.value = year;
+                option.textContent = year;
+                yearSelect.appendChild(option);
+            }
+        }
+        
+        // Calculate days since submission
+        function calculateDays() {
+            const month = document.getElementById('submission-month').value;
+            const year = document.getElementById('submission-year').value;
+            
+            if (month && year) {
+                const submissionDate = new Date(year, month - 1, 1);
+                const today = new Date();
+                const timeDiff = today.getTime() - submissionDate.getTime();
+                const daysDiff = Math.floor(timeDiff / (1000 * 3600 * 24));
+                
+                if (daysDiff >= 0) {
+                    document.getElementById('calculated-days').textContent = daysDiff;
+                    document.getElementById('days-display').style.display = 'block';
+                    return daysDiff;
+                }
+            }
+            
+            document.getElementById('days-display').style.display = 'none';
+            return 0;
+        }
+        
+        // Get airline initials
+        function getAirlineInitials(airline) {
+            const airlineInitials = {
+                'Smartwings': 'SW',
+                'Lufthansa': 'LH',
+                'British Airways': 'BA',
+                'Delta': 'DL',
+                'United': 'UA',
+                'American Airlines': 'AA',
+                'Ryanair': 'FR',
+                'EasyJet': 'EJ',
+                'LOT Polish Airlines': 'LO',
+                'Wizz Air': 'WZ'
+            };
+            
+            return airlineInitials[airline] || airline.substring(0, 2).toUpperCase();
+        }
+        
+        // Handle form submission
+        document.getElementById('claim-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            // Hide previous alerts
+            document.getElementById('error-alert').style.display = 'none';
+            document.getElementById('success-alert').style.display = 'none';
+            
+            try {
+                // Get form values
+                const airline = document.getElementById('airline').value;
+                const month = document.getElementById('submission-month').value;
+                const year = document.getElementById('submission-year').value;
+                const amount = document.getElementById('amount').value;
+                const currency = document.getElementById('currency').value;
+                
+                // Validate form
+                if (!airline || !month || !year || !amount || !currency) {
+                    throw new Error('Please fill in all required fields.');
+                }
+                
+                // Calculate days
+                const days = calculateDays();
+                
+                if (days <= 0) {
+                    throw new Error('The submission date cannot be in the future.');
+                }
+                
+                // Set currency symbol
+                const currencySymbols = {
+                    'USD': '$',
+                    'EUR': '€',
+                    'GBP': '£',
+                    'PLN': 'zł',
+                    'CZK': 'Kč',
+                    'CAD': 'C$',
+                    'AUD': 'A$',
+                    'JPY': '¥',
+                    'CHF': 'Fr'
+                };
+                
+                // Generate random reference
+                const reference = Math.floor(1000 + Math.random() * 9000);
+                
+                // Format month for display
+                const monthNames = ['January', 'February', 'March', 'April', 'May', 'June',
+                    'July', 'August', 'September', 'October', 'November', 'December'];
+                const formattedMonth = monthNames[month - 1] + ' ' + year;
+                
+                // Update preview
+                document.getElementById('preview-airline').textContent = airline;
+                document.getElementById('preview-reference').textContent = reference;
+                document.getElementById('preview-currency').textContent = currencySymbols[currency] || currency;
+                document.getElementById('preview-amount').textContent = amount;
+                document.getElementById('preview-month').textContent = formattedMonth;
+                document.getElementById('preview-days').textContent = days;
+                document.getElementById('airline-logo').textContent = getAirlineInitials(airline);
+                
+                // Show preview
+                document.getElementById('preview').style.display = 'block';
+                
+                // Show success message
+                const successAlert = document.getElementById('success-alert');
+                successAlert.textContent = 'Your claim card has been generated successfully!';
+                successAlert.style.display = 'block';
+                
+                // Scroll to preview
+                document.getElementById('preview').scrollIntoView({ behavior: 'smooth' });
+                
+            } catch (error) {
+                // Show error message
+                const errorAlert = document.getElementById('error-alert');
+                errorAlert.textContent = error.message;
+                errorAlert.style.display = 'block';
+            }
+        });
+        
+        // Add event listeners for date change
+        document.getElementById('submission-month').addEventListener('change', calculateDays);
+        document.getElementById('submission-year').addEventListener('change', calculateDays);
+        
+        // Share buttons
+        document.getElementById('download-btn').addEventListener('click', function() {
+            html2canvas(document.getElementById('claim-card')).then(canvas => {
+                const link = document.createElement('a');
+                link.download = 'airline-claim-card.png';
+                link.href = canvas.toDataURL();
+                link.click();
+            }).catch(err => {
+                alert('Please try the download again. Make sure your browser supports this feature.');
+            });
+        });
+        
+        document.getElementById('facebook-btn').addEventListener('click', function() {
+            const airline = document.getElementById('preview-airline').textContent;
+            const days = document.getElementById('preview-days').textContent;
+            const text = `I have an unresolved claim with ${airline} for ${days} days. #AirlineClaimsTracker`;
+            window.open(`https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}&quote=${encodeURIComponent(text)}`, '_blank');
+        });
+        
+        document.getElementById('twitter-btn').addEventListener('click', function() {
+            const airline = document.getElementById('preview-airline').textContent;
+            const days = document.getElementById('preview-days').textContent;
+            const text = `I have an unresolved claim with ${airline} for ${days} days. #AirlineClaimsTracker`;
+            window.open(`https://twitter.com/intent/tweet?text=${encodeURIComponent(text)}&url=${encodeURIComponent(window.location.href)}`, '_blank');
+        });
+        
+        // Initialize on page load
+        window.addEventListener('DOMContentLoaded', function() {
+            initializeYearOptions();
+        });
+    </script>
+    
+    <!-- Add html2canvas for image generation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</body>
+</html>

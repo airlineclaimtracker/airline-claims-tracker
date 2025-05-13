@@ -1,0 +1,1029 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smartwings: We're Still Waiting</title>
+    
+    <!-- Meta tags for social sharing -->
+    <meta property="og:title" content="Still Waiting: Share Your Airline Claim Story">
+    <meta property="og:description" content="Create a shareable card about your unresolved airline claim">
+    <meta property="og:image" content="https://airlineclaimtracker.github.io/airline-claims-tracker/share-image.jpg">
+    <meta property="og:url" content="https://airlineclaimtracker.github.io/airline-claims-tracker/">
+    <meta name="twitter:card" content="summary_large_image">
+    
+    <style>
+        * {
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #fff;
+            color: #333;
+            line-height: 1.6;
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #e63946, #d63031);
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+            position: relative;
+        }
+        
+        .header h1 {
+            margin: 0;
+            font-size: 2.5rem;
+            font-weight: 700;
+        }
+        
+        .header p {
+            margin: 10px 0 0;
+            opacity: 0.9;
+            font-size: 1.1rem;
+        }
+        
+        .nav {
+            background: rgba(29, 53, 87, 0.95);
+            padding: 15px;
+            text-align: center;
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 10;
+        }
+        
+        .nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 20px;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-weight: 500;
+            transition: all 0.3s;
+            font-size: 0.95rem;
+        }
+        
+        .nav a:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-1px);
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 20px;
+        }
+        
+        .story-section {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            margin-bottom: 30px;
+            border-left: 5px solid #e63946;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        }
+        
+        .personal-story {
+            background: linear-gradient(135deg, #fff5f5, #ffe1e1);
+            border-left: 5px solid #e63946;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+        }
+        
+        .personal-story h3 {
+            color: #e63946;
+            margin-top: 0;
+            font-size: 1.2rem;
+        }
+        
+        .form-section {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            margin-bottom: 30px;
+        }
+        
+        .form-section h2 {
+            color: #1d3557;
+            font-size: 1.8rem;
+            margin-top: 0;
+            margin-bottom: 20px;
+        }
+        
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+            margin-bottom: 25px;
+        }
+        
+        .form-item {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        label {
+            color: #333;
+            font-weight: 600;
+            margin-bottom: 8px;
+            font-size: 0.95rem;
+        }
+        
+        input, select {
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            background: white;
+            transition: border-color 0.3s;
+        }
+        
+        input:focus, select:focus {
+            outline: none;
+            border-color: #e63946;
+        }
+        
+        .photo-upload {
+            border: 2px dashed #ddd;
+            border-radius: 8px;
+            padding: 25px;
+            text-align: center;
+            background: #f8f9fa;
+            cursor: pointer;
+            transition: all 0.3s;
+            margin-bottom: 25px;
+        }
+        
+        .photo-upload:hover {
+            border-color: #e63946;
+            background: #fff5f5;
+        }
+        
+        .photo-upload.has-photo {
+            border-color: #28a745;
+            background: #f0fff4;
+        }
+        
+        .create-btn {
+            background: linear-gradient(135deg, #e63946, #d63031);
+            color: white;
+            border: none;
+            padding: 18px 40px;
+            border-radius: 10px;
+            font-size: 1.2rem;
+            font-weight: 700;
+            cursor: pointer;
+            width: 100%;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(230, 57, 70, 0.3);
+        }
+        
+        .create-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(230, 57, 70, 0.4);
+        }
+        
+        .card-variants {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 15px;
+            margin: 25px 0;
+        }
+        
+        .card-variant {
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .card-variant:hover {
+            border-color: #e63946;
+            transform: translateY(-2px);
+        }
+        
+        .card-variant.selected {
+            border-color: #28a745;
+            background: #f0fff4;
+        }
+        
+        .claim-card {
+            background: white;
+            color: #333;
+            border-radius: 15px;
+            position: relative;
+            margin-bottom: 25px;
+            box-shadow: 0 10px 30px rgba(230,57,70,0.3);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .card-photo-section {
+            height: 200px;
+            background: linear-gradient(135deg, #e63946, #d63031);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        
+        .luggage-photo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .default-luggage-icon {
+            font-size: 4rem;
+            color: rgba(255,255,255,0.8);
+            text-align: center;
+        }
+        
+        .card-content {
+            padding: 25px;
+            flex: 1;
+            background: linear-gradient(135deg, #e63946, #d63031);
+            color: white;
+            text-align: center;
+        }
+        
+        .viral-header {
+            font-size: 1.6rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+        }
+        
+        .days-counter {
+            font-size: 4rem;
+            font-weight: 900;
+            color: #FFD93D;
+            margin: 15px 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            display: block;
+        }
+        
+        .days-label {
+            font-size: 1.3rem;
+            color: #FFD93D;
+            font-weight: 600;
+            margin-bottom: 20px;
+        }
+        
+        .claim-details {
+            margin: 20px 0;
+        }
+        
+        .detail-line {
+            font-size: 1.15rem;
+            margin: 10px 0;
+            line-height: 1.4;
+        }
+        
+        .hashtags {
+            margin-top: 20px;
+        }
+        
+        .hashtag {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #FFD93D;
+            margin: 0 5px;
+        }
+        
+        .platform-templates {
+            background: white;
+            padding: 30px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            margin-bottom: 25px;
+        }
+        
+        .platform-tabs {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+        
+        .platform-tab {
+            background: #f8f9fa;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            padding: 12px 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-weight: 600;
+        }
+        
+        .platform-tab:hover, .platform-tab.active {
+            background: #e63946;
+            color: white;
+            border-color: #e63946;
+        }
+        
+        .platform-content {
+            border: 2px solid #e63946;
+            border-radius: 8px;
+            padding: 20px;
+            margin: 15px 0;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            font-family: monospace;
+            background: #f8f9fa;
+            min-height: 120px;
+        }
+        
+        .super-share-btn {
+            background: linear-gradient(135deg, #FFD93D, #FFA400);
+            color: #000;
+            border: none;
+            padding: 20px 40px;
+            border-radius: 12px;
+            font-size: 1.3rem;
+            font-weight: 800;
+            cursor: pointer;
+            width: 100%;
+            margin: 25px 0;
+            transition: all 0.3s;
+            box-shadow: 0 6px 20px rgba(255, 217, 61, 0.3);
+        }
+        
+        .super-share-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 217, 61, 0.4);
+        }
+        
+        .share-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 15px;
+            margin: 25px 0;
+        }
+        
+        .share-btn {
+            padding: 15px;
+            border: none;
+            border-radius: 8px;
+            color: white;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.2s;
+            position: relative;
+        }
+        
+        .share-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+        
+        .twitter-btn { background: linear-gradient(135deg, #1da1f2, #0d8bd9); }
+        .facebook-btn { background: linear-gradient(135deg, #4267b2, #365899); }
+        .instagram-btn { background: linear-gradient(135deg, #e4405f, #c13584); }
+        .linkedin-btn { background: linear-gradient(135deg, #0077b5, #005885); }
+        .download-btn { background: linear-gradient(135deg, #28a745, #218838); }
+        
+        .preview {
+            display: none;
+        }
+        
+        .preview.visible {
+            display: block;
+        }
+        
+        .copy-feedback {
+            background: #28a745;
+            color: white;
+            padding: 12px 20px;
+            border-radius: 8px;
+            margin: 15px 0;
+            display: none;
+            text-align: center;
+            font-weight: 600;
+        }
+        
+        .simple-fact {
+            background: #f0f8ff;
+            border: 2px solid #4a90e2;
+            padding: 20px;
+            margin: 25px 0;
+            border-radius: 8px;
+        }
+        
+        .highlight-box {
+            background: #e8f5e9;
+            border: 2px solid #c8e6c9;
+            padding: 20px;
+            margin: 25px 0;
+            border-radius: 8px;
+        }
+        
+        @media (max-width: 768px) {
+            .header {
+                padding: 20px 15px;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .nav {
+                padding: 12px;
+            }
+            
+            .nav a {
+                margin: 0 10px;
+                font-size: 0.9rem;
+            }
+            
+            .container {
+                padding: 15px;
+            }
+            
+            .days-counter {
+                font-size: 3rem;
+            }
+            
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .share-buttons {
+                grid-template-columns: 1fr;
+            }
+            
+            .platform-tabs {
+                justify-content: center;
+            }
+            
+            .super-share-btn {
+                padding: 15px 30px;
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Fixed navigation positioning -->
+    <div class="nav">
+        <a href="about.html">Why I'm Still Waiting</a>
+        <a href="privacy.html">Privacy</a>
+    </div>
+    
+    <div class="header">
+        <h1>Still Waiting</h1>
+        <p>Your story. Your voice. Your right to be heard.</p>
+    </div>
+    
+    <div class="container">
+        <!-- Removed "Campaign Impact" box entirely -->
+        
+        <!-- Updated messaging to focus on individual action -->
+        <div class="story-section">
+            <div class="personal-story">
+                <h3>Day 620: Still waiting for a simple response.</h3>
+                <p>After my luggage was destroyed on a Smartwings flight, I filed a €1,200 claim. Over 620 days later, they still haven't responded to even acknowledge the damage.</p>
+                
+                <h3>Your story matters too.</h3>
+                <p>If an airline has ignored your legitimate claim, you're not alone. Create a shareable card that makes your situation visible. Sometimes the only way to get their attention is through public pressure.</p>
+            </div>
+        </div>
+        
+        <div class="form-section">
+            <h2>Create Your Story Card</h2>
+            <p style="color: #666; margin-bottom: 25px;">Share the facts. Make your claim visible. Let others know how long you've been waiting.</p>
+            
+            <form id="claim-form">
+                <div class="form-grid">
+                    <div class="form-item">
+                        <label for="submission-month">When did you file your claim?</label>
+                        <select id="submission-month" required>
+                            <option value="">Select Month</option>
+                            <option value="1">January</option>
+                            <option value="2">February</option>
+                            <option value="3">March</option>
+                            <option value="4">April</option>
+                            <option value="5">May</option>
+                            <option value="6">June</option>
+                            <option value="7">July</option>
+                            <option value="8">August</option>
+                            <option value="9">September</option>
+                            <option value="10">October</option>
+                            <option value="11">November</option>
+                            <option value="12">December</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-item">
+                        <label for="submission-year">Year</label>
+                        <select id="submission-year" required>
+                            <option value="">Select Year</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-item">
+                        <label for="amount">Claim Amount (€)</label>
+                        <input type="number" id="amount" required min="1" placeholder="e.g. 600">
+                    </div>
+                </div>
+                
+                <div class="form-item">
+                    <label for="luggage-photo">Show the damage (optional but powerful)</label>
+                    <div class="photo-upload" onclick="document.getElementById('luggage-photo').click()">
+                        <input type="file" id="luggage-photo" accept="image/*" style="display: none;" onchange="handlePhotoUpload(event)">
+                        <div id="upload-content">
+                            📷 Add photo of your damaged luggage<br>
+                            <small>Visual evidence strengthens your story</small>
+                        </div>
+                    </div>
+                </div>
+                
+                <button type="submit" class="create-btn">
+                    Create My Story Card
+                </button>
+            </form>
+        </div>
+        
+        <div id="preview" class="preview">
+            <div class="form-section">
+                <h3>Choose Your Card Style</h3>
+                <div class="card-variants">
+                    <div class="card-variant selected" data-style="classic" onclick="selectCardStyle('classic')">
+                        <div style="background: #e63946; color: white; padding: 15px; text-align: center;">
+                            <strong>Classic</strong><br>
+                            <small>Bold and clear</small>
+                        </div>
+                    </div>
+                    <div class="card-variant" data-style="minimal" onclick="selectCardStyle('minimal')">
+                        <div style="background: #f8f9fa; color: #333; padding: 15px; text-align: center;">
+                            <strong>Minimal</strong><br>
+                            <small>Clean and professional</small>
+                        </div>
+                    </div>
+                    <div class="card-variant" data-style="bold" onclick="selectCardStyle('bold')">
+                        <div style="background: #000; color: #FFD93D; padding: 15px; text-align: center;">
+                            <strong>Bold</strong><br>
+                            <small>High contrast</small>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="claim-card" id="claim-card">
+                <div class="card-photo-section" id="card-photo-section">
+                    <img id="card-luggage-photo" class="luggage-photo" style="display: none;">
+                    <div class="default-luggage-icon" id="default-luggage">
+                        🧳
+                    </div>
+                </div>
+                <div class="card-content">
+                    <div class="viral-header">STILL WAITING</div>
+                    
+                    <div class="days-counter" id="preview-days">0</div>
+                    <div class="days-label">DAYS</div>
+                    
+                    <div class="claim-details">
+                        <div class="detail-line">€<span id="preview-amount">0</span> - Luggage Claim</div>
+                        <div class="detail-line">Filed: <span id="preview-date">Jan 2024</span></div>
+                        <div class="detail-line">@SmartwingsGroup response: SILENCE</div>
+                    </div>
+                    
+                    <div class="hashtags">
+                        <span class="hashtag">#StillWaiting</span>
+                        <span class="hashtag">#Smartwings</span>
+                        <span class="hashtag">#AirlineAccountability</span>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="platform-templates">
+                <h3>Share Your Story</h3>
+                <p style="color: #666; margin-bottom: 20px;">Choose a platform and copy the message:</p>
+                
+                <div class="platform-tabs">
+                    <div class="platform-tab active" onclick="showPlatform('twitter')">Twitter/X</div>
+                    <div class="platform-tab" onclick="showPlatform('linkedin')">LinkedIn</div>
+                    <div class="platform-tab" onclick="showPlatform('facebook')">Facebook</div>
+                    <div class="platform-tab" onclick="showPlatform('instagram')">Instagram</div>
+                </div>
+                
+                <div class="platform-content" id="platform-content"></div>
+                
+                <button class="copy-btn" onclick="copyMessage()" style="background: #28a745; color: white; border: none; padding: 12px 24px; border-radius: 6px; cursor: pointer; font-weight: 600; margin-right: 10px;">
+                    📋 Copy Message
+                </button>
+                
+                <div class="copy-feedback" id="copy-feedback">✅ Message copied! Now paste and share.</div>
+            </div>
+            
+            <button class="super-share-btn" onclick="superShare()">
+                🚀 SHARE EVERYWHERE AT ONCE
+            </button>
+            
+            <div class="share-buttons">
+                <button class="share-btn twitter-btn" onclick="shareToTwitter()">
+                    🐦 Share on X
+                </button>
+                <button class="share-btn facebook-btn" onclick="shareToFacebook()">
+                    📘 Share on Facebook
+                </button>
+                <button class="share-btn instagram-btn" onclick="shareToInstagram()">
+                    📸 Share on Instagram
+                </button>
+                <button class="share-btn linkedin-btn" onclick="shareToLinkedIn()">
+                    💼 Share on LinkedIn
+                </button>
+                <button class="share-btn download-btn" onclick="downloadCard()">
+                    💾 Download Image
+                </button>
+            </div>
+            
+            <div class="simple-fact">
+                <h4>💡 Tips for Maximum Impact</h4>
+                <p><strong>Tag them:</strong> Always mention @SmartwingsGroup in your posts</p>
+                <p><strong>Use hashtags:</strong> #StillWaiting helps others find similar stories</p>
+                <p><strong>Include your photo:</strong> Visual proof gets more engagement</p>
+                <p><strong>Share multiple times:</strong> Different times reach different people</p>
+            </div>
+            
+            <div class="highlight-box">
+                <h4>🔒 Your Privacy</h4>
+                <p><strong>No data collection.</strong> Everything happens in your browser. No personal information is stored or transmitted. Share only what you want to share.</p>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        let uploadedPhoto = null;
+        let claimData = {};
+        let selectedStyle = 'classic';
+        let currentPlatform = 'twitter';
+        
+        // Platform-specific message templates
+        const messageTemplates = {
+            twitter: `Day {days}. Still waiting for @SmartwingsGroup to respond.
+
+€{amount} luggage claim filed {date}.
+No acknowledgment. No response. No accountability.
+
+#StillWaiting #Smartwings #AirlineAccountability
+
+How long should passengers wait?`,
+
+            linkedin: `I'm sharing this on LinkedIn to highlight an issue with airline customer service.
+
+After {days} days of waiting, Smartwings still hasn't responded to my €{amount} luggage damage claim filed on {date}.
+
+This isn't about one passenger - it's about basic service standards and accountability in the airline industry.
+
+#CustomerService #AirlineAccountability #Travel`,
+
+            facebook: `{days} days waiting and counting...
+
+Filed a €{amount} claim with Smartwings on {date} for damaged luggage.
+Response so far: Complete silence.
+
+Is this acceptable customer service?
+
+#StillWaiting #Smartwings #CustomerRights`,
+
+            instagram: `📖 Story Time: Day {days}
+
+💶 €{amount} luggage claim
+📅 Filed: {date}
+📞 Response: SILENCE
+
+@smartwings_official - The waiting continues...
+
+#StillWaiting #Smartwings #TravelFails #CustomerRights #AirlineAccountability`
+        };
+        
+        // Initialize year dropdown
+        function initializeYears() {
+            const yearSelect = document.getElementById('submission-year');
+            const currentYear = new Date().getFullYear();
+            
+            for (let year = currentYear; year >= currentYear - 4; year--) {
+                const option = document.createElement('option');
+                option.value = year;
+                option.textContent = year;
+                yearSelect.appendChild(option);
+            }
+        }
+        
+        // Handle photo upload
+        function handlePhotoUpload(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    uploadedPhoto = e.target.result;
+                    
+                    const previewImg = document.createElement('img');
+                    previewImg.src = uploadedPhoto;
+                    previewImg.style.maxWidth = '200px';
+                    previewImg.style.maxHeight = '150px';
+                    previewImg.style.borderRadius = '8px';
+                    previewImg.style.marginTop = '10px';
+                    
+                    const uploadContent = document.getElementById('upload-content');
+                    uploadContent.innerHTML = `
+                        ✅ Photo uploaded<br>
+                        <small>This will strengthen your story</small>
+                    `;
+                    uploadContent.appendChild(previewImg);
+                    
+                    document.querySelector('.photo-upload').classList.add('has-photo');
+                    
+                    if (claimData.days) {
+                        updateCardPhoto();
+                    }
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+        
+        // Calculate days since submission
+        function calculateDaysSince(month, year) {
+            const submissionDate = new Date(year, month - 1, 1);
+            const today = new Date();
+            const diffTime = Math.abs(today - submissionDate);
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            return diffDays;
+        }
+        
+        // Format date
+        function formatDate(month, year) {
+            const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+                'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+            return `${monthNames[month - 1]} ${year}`;
+        }
+        
+        // Select card style
+        function selectCardStyle(style) {
+            selectedStyle = style;
+            document.querySelectorAll('.card-variant').forEach(v => v.classList.remove('selected'));
+            document.querySelector(`[data-style="${style}"]`).classList.add('selected');
+            
+            if (claimData.days) {
+                applyCardStyle();
+            }
+        }
+        
+        // Apply card style
+        function applyCardStyle() {
+            const cardContent = document.querySelector('.card-content');
+            const cardPhoto = document.querySelector('.card-photo-section');
+            
+            switch(selectedStyle) {
+                case 'bold':
+                    cardContent.style.background = 'linear-gradient(135deg, #000, #333)';
+                    cardPhoto.style.background = 'linear-gradient(135deg, #000, #333)';
+                    document.querySelector('.viral-header').textContent = 'IGNORED FOR';
+                    break;
+                case 'minimal':
+                    cardContent.style.background = 'linear-gradient(135deg, #f8f9fa, #e9ecef)';
+                    cardContent.style.color = '#333';
+                    cardPhoto.style.background = 'linear-gradient(135deg, #e9ecef, #dee2e6)';
+                    document.querySelector('.viral-header').textContent = 'Still Waiting';
+                    document.querySelectorAll('.hashtag').forEach(h => h.style.color = '#e63946');
+                    break;
+                default:
+                    cardContent.style.background = 'linear-gradient(135deg, #e63946, #d63031)';
+                    cardContent.style.color = 'white';
+                    cardPhoto.style.background = 'linear-gradient(135deg, #e63946, #d63031)';
+                    document.querySelector('.viral-header').textContent = 'STILL WAITING';
+                    document.querySelectorAll('.hashtag').forEach(h => h.style.color = '#FFD93D');
+            }
+        }
+        
+        // Show platform content
+        function showPlatform(platform) {
+            currentPlatform = platform;
+            document.querySelectorAll('.platform-tab').forEach(tab => tab.classList.remove('active'));
+            document.querySelector(`[onclick="showPlatform('${platform}')"]`).classList.add('active');
+            
+            updatePlatformMessage();
+        }
+        
+        // Update platform message
+        function updatePlatformMessage() {
+            if (!claimData.days) return;
+            
+            let message = messageTemplates[currentPlatform];
+            message = message.replace(/{days}/g, claimData.days);
+            message = message.replace(/{amount}/g, claimData.amount);
+            message = message.replace(/{date}/g, claimData.date);
+            
+            document.getElementById('platform-content').textContent = message;
+        }
+        
+        // Copy message to clipboard
+        function copyMessage() {
+            const message = document.getElementById('platform-content').textContent;
+            navigator.clipboard.writeText(message).then(() => {
+                const feedback = document.getElementById('copy-feedback');
+                feedback.style.display = 'block';
+                setTimeout(() => {
+                    feedback.style.display = 'none';
+                }, 3000);
+            });
+        }
+        
+        // Super share - opens multiple platforms
+        function superShare() {
+            if (!claimData.days) return;
+            
+            // Download image first
+            downloadCard();
+            
+            // Open Twitter
+            setTimeout(() => shareToTwitter(), 500);
+            
+            // Open LinkedIn
+            setTimeout(() => shareToLinkedIn(), 1000);
+            
+            // Open Facebook
+            setTimeout(() => shareToFacebook(), 1500);
+            
+            // Show Instagram instructions
+            setTimeout(() => {
+                alert('🚀 Shared to Twitter, LinkedIn, and Facebook!\n\nFor Instagram:\n1. The image has been downloaded\n2. Share the downloaded image on Instagram\n3. Copy the Instagram caption from the tabs above');
+            }, 2000);
+        }
+        
+        // Update card photo
+        function updateCardPhoto() {
+            const cardPhoto = document.getElementById('card-luggage-photo');
+            const defaultIcon = document.getElementById('default-luggage');
+            
+            if (uploadedPhoto) {
+                cardPhoto.src = uploadedPhoto;
+                cardPhoto.style.display = 'block';
+                defaultIcon.style.display = 'none';
+            }
+        }
+        
+        // Handle form submission
+        document.getElementById('claim-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const month = parseInt(document.getElementById('submission-month').value);
+            const year = parseInt(document.getElementById('submission-year').value);
+            const amount = document.getElementById('amount').value;
+            
+            if (!month || !year || !amount) {
+                alert('Please fill in all required fields');
+                return;
+            }
+            
+            const days = calculateDaysSince(month, year);
+            claimData = {
+                days: days,
+                amount: amount,
+                date: formatDate(month, year)
+            };
+            
+            // Update preview
+            document.getElementById('preview-days').textContent = days;
+            document.getElementById('preview-amount').textContent = amount;
+            document.getElementById('preview-date').textContent = claimData.date;
+            
+            // Add photo if uploaded
+            if (uploadedPhoto) {
+                updateCardPhoto();
+            }
+            
+            // Apply selected style
+            applyCardStyle();
+            
+            // Show preview
+            document.getElementById('preview').classList.add('visible');
+            
+            // Generate message for default platform
+            showPlatform('twitter');
+            
+            // Scroll to preview
+            document.getElementById('preview').scrollIntoView({ behavior: 'smooth' });
+        });
+        
+        // Share functions
+        function shareToTwitter() {
+            currentPlatform = 'twitter';
+            updatePlatformMessage();
+            const message = document.getElementById('platform-content').textContent;
+            const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(message)}`;
+            window.open(url, '_blank');
+        }
+        
+        function shareToFacebook() {
+            currentPlatform = 'facebook';
+            updatePlatformMessage();
+            const message = document.getElementById('platform-content').textContent;
+            const url = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}&quote=${encodeURIComponent(message)}`;
+            window.open(url, '_blank');
+        }
+        
+        function shareToInstagram() {
+            downloadCard();
+            currentPlatform = 'instagram';
+            updatePlatformMessage();
+            const message = document.getElementById('platform-content').textContent;
+            setTimeout(() => {
+                alert(`Image downloaded! 📸\n\nTo share on Instagram:\n1. Upload the downloaded image\n2. Copy this caption:\n\n${message}`);
+            }, 1000);
+        }
+        
+        function shareToLinkedIn() {
+            currentPlatform = 'linkedin';
+            updatePlatformMessage();
+            const message = document.getElementById('platform-content').textContent;
+            
+            // First download the image
+            downloadCard();
+            
+            // Then open LinkedIn
+            const timestamp = new Date().getTime();
+            const url = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.href + '?t=' + timestamp)}`;
+            
+            setTimeout(() => {
+                window.open(url, '_blank');
+                alert('Image downloaded! 💼\n\nOn LinkedIn:\n1. Create a new post\n2. Upload the downloaded image\n3. Copy the text from the LinkedIn tab above');
+            }, 500);
+        }
+        
+        // Download card as image
+        async function downloadCard() {
+            if (typeof html2canvas === 'undefined') {
+                alert('Error: Image download feature is loading. Please wait a moment and try again.');
+                return;
+            }
+            
+            try {
+                const canvas = await html2canvas(document.getElementById('claim-card'), {
+                    scale: 2,
+                    backgroundColor: '#ffffff',
+                    useCORS: true,
+                    allowTaint: true
+                });
+                
+                const link = document.createElement('a');
+                link.download = `smartwings-claim-day-${claimData.days}.png`;
+                link.href = canvas.toDataURL('image/png');
+                
+                // For mobile compatibility
+                if (navigator.userAgent.match(/iphone|android/i)) {
+                    link.target = '_blank';
+                }
+                
+                link.click();
+            } catch (err) {
+                console.error('Download error:', err);
+                alert('Error downloading image. Please try again or take a screenshot of the card.');
+            }
+        }
+        
+        // Initialize on page load
+        window.addEventListener('DOMContentLoaded', function() {
+            initializeYears();
+            
+            // Scroll past the fixed navigation
+            setTimeout(() => {
+                window.scrollTo(0, 0);
+            }, 100);
+        });
+        
+        // Handle back button for mobile
+        window.addEventListener('popstate', function() {
+            if (document.getElementById('preview').classList.contains('visible')) {
+                document.getElementById('preview').classList.remove('visible');
+            }
+        });
+    </script>
+    
+    <!-- Include html2canvas with fallback -->
+    <script>
+        // Load html2canvas with fallback
+        const script = document.createElement('script');
+        script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js';
+        script.onload = function() {
+            console.log('html2canvas loaded successfully');
+        };
+        script.onerror = function() {
+            console.error('Failed to load html2canvas');
+            // You could add a fallback here
+        };
+        document.head.appendChild(script);
+    </script>
+</body>
+</html>

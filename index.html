@@ -1,0 +1,1221 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Smartwings: We're Still Waiting</title>
+    
+    <!-- Meta tags for social sharing -->
+    <meta property="og:title" content="Smartwings: We're Still Waiting">
+    <meta property="og:description" content="620+ days. Still no response. Make your voice heard.">
+    <meta property="og:image" content="https://your-domain.com/share-image.jpg">
+    <meta property="og:url" content="https://your-domain.com">
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Still Waiting for Smartwings">
+    <meta name="twitter:description" content="Days waiting. No response. Share your story.">
+    
+    <style>
+        /* Existing CSS preserved... */
+        * {
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Arial, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: #fff;
+            color: #333;
+        }
+        
+        .nav {
+            background: rgba(29, 53, 87, 0.9);
+            padding: 10px 0;
+            text-align: center;
+            border-radius: 8px;
+            margin: -10px 20px 20px 20px;
+            backdrop-filter: blur(5px);
+        }
+        
+        .nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 15px;
+            padding: 8px 16px;
+            border-radius: 6px;
+            font-weight: 500;
+            transition: all 0.3s;
+            font-size: 0.95rem;
+        }
+        
+        .nav a:hover {
+            background: rgba(255, 255, 255, 0.1);
+            transform: translateY(-1px);
+        }
+        
+        .header {
+            background: linear-gradient(135deg, #e63946, #d63031);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            border-radius: 0 0 15px 15px;
+            margin-bottom: 5px;
+        }
+        
+        .header h1 {
+            margin: 0;
+            font-size: 2rem;
+            font-weight: 700;
+        }
+        
+        .header p {
+            margin: 10px 0 0;
+            opacity: 0.9;
+        }
+        
+        /* NEW: Viral countdown */
+        .viral-counter {
+            background: linear-gradient(135deg, #FFD93D, #FFA400);
+            color: #000;
+            padding: 15px;
+            text-align: center;
+            font-weight: 700;
+            font-size: 1.2rem;
+            margin: 20px auto;
+            border-radius: 10px;
+            max-width: 600px;
+            box-shadow: 0 4px 15px rgba(255, 217, 61, 0.3);
+        }
+        
+        .container {
+            max-width: 800px;
+            margin: 20px auto;
+            padding: 15px;
+        }
+        
+        .human-story {
+            background: #ffffff;
+            padding: 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
+            border-left: 4px solid #e63946;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        
+        .human-story h3 {
+            color: #1d3557;
+            margin-top: 0;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+        
+        .human-story p {
+            color: #000;
+            line-height: 1.6;
+            margin: 0;
+            font-size: 1rem;
+        }
+        
+        .form-section {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin-bottom: 20px;
+        }
+        
+        .form-item {
+            display: flex;
+            flex-direction: column;
+        }
+        
+        label {
+            color: #333;
+            font-weight: 600;
+            margin-bottom: 5px;
+            font-size: 0.9rem;
+        }
+        
+        input, select {
+            padding: 10px;
+            border: 2px solid #ddd;
+            border-radius: 8px;
+            font-size: 1rem;
+            background: white;
+            transition: border-color 0.3s;
+        }
+        
+        input:focus, select:focus {
+            outline: none;
+            border-color: #e63946;
+        }
+        
+        .photo-upload {
+            border: 2px dashed #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            text-align: center;
+            background: #f8f9fa;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .photo-upload:hover {
+            border-color: #e63946;
+            background: #fff5f5;
+        }
+        
+        .photo-upload.has-photo {
+            border-color: #28a745;
+            background: #f0fff4;
+        }
+        
+        .generate-btn {
+            background: linear-gradient(135deg, #e63946, #d63031);
+            color: white;
+            border: none;
+            padding: 15px 30px;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            transition: transform 0.2s;
+        }
+        
+        .generate-btn:hover {
+            transform: translateY(-2px);
+        }
+        
+        /* NEW: Multiple card styles */
+        .card-variants {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 20px 0;
+        }
+        
+        .card-variant {
+            border: 2px solid #ddd;
+            border-radius: 10px;
+            overflow: hidden;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+        
+        .card-variant:hover {
+            border-color: #e63946;
+            transform: translateY(-2px);
+        }
+        
+        .card-variant.selected {
+            border-color: #28a745;
+            background: #f0fff4;
+        }
+        
+        .claim-card {
+            background: white;
+            color: #333;
+            border-radius: 15px;
+            position: relative;
+            margin-bottom: 20px;
+            box-shadow: 0 10px 30px rgba(230,57,70,0.3);
+            overflow: hidden;
+            display: flex;
+            flex-direction: column;
+        }
+        
+        .card-photo-section {
+            height: 200px;
+            background: linear-gradient(135deg, #e63946, #d63031);
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            overflow: hidden;
+        }
+        
+        .luggage-photo {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .default-luggage-icon {
+            font-size: 4rem;
+            color: rgba(255,255,255,0.8);
+            text-align: center;
+        }
+        
+        .card-content {
+            padding: 20px;
+            flex: 1;
+            background: linear-gradient(135deg, #e63946, #d63031);
+            color: white;
+            text-align: center;
+        }
+        
+        .viral-header {
+            font-size: 1.5rem;
+            font-weight: 800;
+            margin-bottom: 15px;
+        }
+        
+        .days-counter {
+            font-size: 3.5rem;
+            font-weight: 900;
+            color: #FFD93D;
+            margin: 10px 0;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+            display: block;
+        }
+        
+        .days-label {
+            font-size: 1.2rem;
+            color: #FFD93D;
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+        
+        .claim-details {
+            margin: 15px 0;
+        }
+        
+        .detail-line {
+            font-size: 1.1rem;
+            margin: 8px 0;
+            line-height: 1.4;
+        }
+        
+        .hashtags {
+            margin-top: 15px;
+        }
+        
+        .hashtag {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #FFD93D;
+            margin: 0 5px;
+        }
+        
+        /* NEW: Trending hashtags */
+        .hashtag-suggestions {
+            background: #f8f9fa;
+            border: 2px solid #28a745;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 15px 0;
+        }
+        
+        .hashtag-suggestions h4 {
+            margin: 0 0 10px;
+            color: #28a745;
+        }
+        
+        .trending-hashtag {
+            background: #28a745;
+            color: white;
+            padding: 5px 10px;
+            border-radius: 15px;
+            margin: 0 5px 5px 0;
+            display: inline-block;
+            font-size: 0.9rem;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .trending-hashtag:hover {
+            background: #218838;
+            transform: scale(1.05);
+        }
+        
+        /* NEW: Multi-platform templates */
+        .platform-templates {
+            background: white;
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+        }
+        
+        .platform-tab {
+            background: #f8f9fa;
+            border: 2px solid #ddd;
+            border-radius: 8px 8px 0 0;
+            padding: 12px 20px;
+            margin: 0 5px 0 0;
+            cursor: pointer;
+            display: inline-block;
+            transition: all 0.3s;
+        }
+        
+        .platform-tab:hover, .platform-tab.active {
+            background: #e63946;
+            color: white;
+            border-color: #e63946;
+        }
+        
+        .platform-content {
+            border: 2px solid #e63946;
+            border-radius: 0 8px 8px 8px;
+            padding: 15px;
+            margin: 0;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            font-family: monospace;
+            background: #f8f9fa;
+        }
+        
+        /* NEW: Super Share button */
+        .super-share-btn {
+            background: linear-gradient(135deg, #FFD93D, #FFA400);
+            color: #000;
+            border: none;
+            padding: 20px 40px;
+            border-radius: 12px;
+            font-size: 1.3rem;
+            font-weight: 800;
+            cursor: pointer;
+            width: 100%;
+            margin: 20px 0;
+            transition: all 0.3s;
+            box-shadow: 0 6px 20px rgba(255, 217, 61, 0.3);
+        }
+        
+        .super-share-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 25px rgba(255, 217, 61, 0.4);
+        }
+        
+        .share-buttons {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 12px;
+            margin: 20px 0;
+        }
+        
+        .share-btn {
+            padding: 12px;
+            border: none;
+            border-radius: 8px;
+            color: white;
+            cursor: pointer;
+            font-weight: 600;
+            font-size: 1rem;
+            transition: all 0.2s;
+            position: relative;
+        }
+        
+        .share-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.2);
+        }
+        
+        .twitter-btn { background: linear-gradient(135deg, #1da1f2, #0d8bd9); }
+        .facebook-btn { background: linear-gradient(135deg, #4267b2, #365899); }
+        .instagram-btn { background: linear-gradient(135deg, #e4405f, #c13584); }
+        .linkedin-btn { background: linear-gradient(135deg, #0077b5, #005885); }
+        .download-btn { background: linear-gradient(135deg, #28a745, #218838); }
+        .press-btn { background: linear-gradient(135deg, #6f42c1, #5a3ba8); }
+        
+        .preview {
+            display: none;
+        }
+        
+        .preview.visible {
+            display: block;
+        }
+        
+        .copy-feedback {
+            background: #28a745;
+            color: white;
+            padding: 10px 15px;
+            border-radius: 6px;
+            margin: 10px 0;
+            display: none;
+            text-align: center;
+        }
+        
+        /* NEW: Press kit section */
+        .press-kit {
+            background: #f8f9fa;
+            border: 2px solid #6f42c1;
+            border-radius: 12px;
+            padding: 20px;
+            margin: 20px 0;
+        }
+        
+        .press-kit h4 {
+            color: #6f42c1;
+            margin-top: 0;
+        }
+        
+        .press-item {
+            background: white;
+            padding: 10px;
+            margin: 5px 0;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        
+        .press-item:hover {
+            background: #e7e3ff;
+        }
+        
+        /* NEW: Auto-bump reminder */
+        .bump-reminder {
+            background: linear-gradient(135deg, #17a2b8, #138496);
+            color: white;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+            text-align: center;
+            display: none;
+        }
+        
+        .bump-reminder.show {
+            display: block;
+        }
+        
+        @media (max-width: 768px) {
+            .days-counter {
+                font-size: 3rem;
+            }
+            .form-grid {
+                grid-template-columns: 1fr;
+            }
+            .share-buttons {
+                grid-template-columns: 1fr;
+            }
+            .super-share-btn {
+                padding: 15px 30px;
+                font-size: 1.1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>We're Still Waiting</h1>
+        <p>Your story. Your voice. Maximum impact.</p>
+        <div class="nav">
+            <a href="about.html">About</a>
+            <a href="privacy.html">Privacy</a>
+        </div>
+    </div>
+    
+    <div class="container">
+        <!-- NEW: Viral counter -->
+        <div class="viral-counter" id="viral-counter">
+            🚨 Campaign Impact: <span id="total-claims">1</span> claims shared • <span id="total-days">620</span> days of collective waiting
+        </div>
+        
+        <div class="human-story">
+            <h3>Your frustration becomes our collective voice.</h3>
+            <p>Every ignored claim. Every day waiting. Every destroyed suitcase without accountability. When we share individually, they silence us. When we share together, they can't ignore us.</p>
+        </div>
+        
+        <div class="form-section">
+            <h2>Create Your Impact</h2>
+            
+            <form id="claim-form">
+                <div class="form-grid">
+                    <div class="form-item">
+                        <label for="submission-month">When did you file your claim?</label>
+                        <select id="submission-month" required>
+                            <option value="">Select Month</option>
+                            <option value="1">January</option>
+                            <option value="2">February</option>
+                            <option value="3">March</option>
+                            <option value="4">April</option>
+                            <option value="5">May</option>
+                            <option value="6">June</option>
+                            <option value="7">July</option>
+                            <option value="8">August</option>
+                            <option value="9">September</option>
+                            <option value="10">October</option>
+                            <option value="11">November</option>
+                            <option value="12">December</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-item">
+                        <label for="submission-year">Year</label>
+                        <select id="submission-year" required>
+                            <option value="">Select Year</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-item">
+                        <label for="amount">Amount (€)</label>
+                        <input type="number" id="amount" required min="1" placeholder="e.g. 600">
+                    </div>
+                </div>
+                
+                <div class="form-item" style="margin-bottom: 20px;">
+                    <label for="luggage-photo">Show the damage (optional)</label>
+                    <div class="photo-upload" onclick="document.getElementById('luggage-photo').click()">
+                        <input type="file" id="luggage-photo" accept="image/*" style="display: none;" onchange="handlePhotoUpload(event)">
+                        <div id="upload-content">
+                            📷 Add photo of your damaged luggage<br>
+                            <small>Real evidence. Real impact.</small>
+                        </div>
+                    </div>
+                </div>
+                
+                <button type="submit" class="generate-btn">
+                    🚀 Create My Viral Card
+                </button>
+            </form>
+        </div>
+        
+        <div id="preview" class="preview">
+            <!-- NEW: Card style selector -->
+            <div class="form-section">
+                <h3>Choose Your Card Style</h3>
+                <div class="card-variants">
+                    <div class="card-variant selected" data-style="classic" onclick="selectCardStyle('classic')">
+                        <div style="background: #e63946; color: white; padding: 10px; text-align: center;">
+                            <div>📅 Classic</div>
+                        </div>
+                    </div>
+                    <div class="card-variant" data-style="bold" onclick="selectCardStyle('bold')">
+                        <div style="background: #000; color: #FFD93D; padding: 10px; text-align: center;">
+                            <div>💥 Bold</div>
+                        </div>
+                    </div>
+                    <div class="card-variant" data-style="minimal" onclick="selectCardStyle('minimal')">
+                        <div style="background: #f8f9fa; color: #333; padding: 10px; text-align: center;">
+                            <div>✨ Minimal</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div class="claim-card" id="claim-card">
+                <div class="card-photo-section" id="card-photo-section">
+                    <img id="card-luggage-photo" class="luggage-photo" style="display: none;">
+                    <div class="default-luggage-icon" id="default-luggage">
+                        🧳
+                    </div>
+                </div>
+                <div class="card-content">
+                    <div class="viral-header">STILL WAITING</div>
+                    
+                    <div class="days-counter" id="preview-days">0</div>
+                    <div class="days-label">DAYS</div>
+                    
+                    <div class="claim-details">
+                        <div class="detail-line">€<span id="preview-amount">0</span> - Destroyed luggage</div>
+                        <div class="detail-line">Filed: <span id="preview-date">Jan 2024</span></div>
+                        <div class="detail-line">@SmartwingsGroup response: SILENCE</div>
+                    </div>
+                    
+                    <div class="hashtags">
+                        <span class="hashtag">#StillWaiting</span>
+                        <span class="hashtag">#Smartwings</span>
+                        <span class="hashtag">#WhereIsMyMoney</span>
+                    </div>
+                </div>
+            </div>
+            
+            <!-- NEW: Super Share button -->
+            <button class="super-share-btn" onclick="superShare()">
+                🚀 SHARE EVERYWHERE AT ONCE
+            </button>
+            
+            <!-- NEW: Hashtag suggestions -->
+            <div class="hashtag-suggestions">
+                <h4>💡 Boost Your Reach - Add These Trending:</h4>
+                <div id="trending-hashtags">
+                    <span class="trending-hashtag" onclick="addHashtag(this)">#AirlineAccountability</span>
+                    <span class="trending-hashtag" onclick="addHashtag(this)">#TravelRights</span>
+                    <span class="trending-hashtag" onclick="addHashtag(this)">#CustomerRightsMatter</span>
+                    <span class="trending-hashtag" onclick="addHashtag(this)">#CompensationNow</span>
+                </div>
+            </div>
+            
+            <!-- NEW: Platform-specific templates -->
+            <div class="platform-templates">
+                <h3>📱 Platform-Specific Messages</h3>
+                <div class="platform-tabs">
+                    <div class="platform-tab active" onclick="showPlatform('twitter')">Twitter/X</div>
+                    <div class="platform-tab" onclick="showPlatform('linkedin')">LinkedIn</div>
+                    <div class="platform-tab" onclick="showPlatform('facebook')">Facebook</div>
+                    <div class="platform-tab" onclick="showPlatform('instagram')">Instagram</div>
+                    <div class="platform-tab" onclick="showPlatform('threads')">Threads</div>
+                </div>
+                <div class="platform-content" id="platform-content"></div>
+                <button class="copy-btn" onclick="copyPlatformMessage()">📋 Copy Message</button>
+                <div class="copy-feedback" id="copy-feedback">✅ Copied! Now paste and share.</div>
+            </div>
+            
+            <!-- NEW: Press kit -->
+            <div class="press-kit">
+                <h4>📰 Press Kit (Auto-Generated)</h4>
+                <div class="press-item" onclick="copyPressItem('headline')">
+                    📰 Headline: "Day <span id="press-days"></span>: Why <span id="press-claims"></span> Passengers Are Still Waiting"
+                </div>
+                <div class="press-item" onclick="copyPressItem('facts')">
+                    📊 Key Facts: <span id="press-days2"></span> days waiting • €<span id="press-amount"></span> in unresolved claims • Systematic non-response
+                </div>
+                <div class="press-item" onclick="copyPressItem('quote')">
+                    💬 Quote: "After <span id="press-days3"></span> days, the message is clear: Customer rights don't matter to Smartwings"
+                </div>
+                <div class="press-item" onclick="copyPressItem('contact')">
+                    📧 Contact: Generated via stillwaiting.local - Evidence available
+                </div>
+            </div>
+            
+            <div class="share-buttons">
+                <button class="share-btn twitter-btn" onclick="shareToTwitter()">
+                    🐦 Share on X
+                </button>
+                <button class="share-btn facebook-btn" onclick="shareToFacebook()">
+                    📘 Share on Facebook
+                </button>
+                <button class="share-btn instagram-btn" onclick="shareToInstagram()">
+                    📸 Share on Instagram
+                </button>
+                <button class="share-btn linkedin-btn" onclick="shareToLinkedIn()">
+                    💼 Share on LinkedIn
+                </button>
+                <button class="share-btn download-btn" onclick="downloadCard()">
+                    💾 Download Card
+                </button>
+                <button class="share-btn press-btn" onclick="contactPress()">
+                    📰 Contact Press
+                </button>
+            </div>
+        </div>
+        
+        <!-- NEW: Auto-bump reminder -->
+        <div class="bump-reminder" id="bump-reminder">
+            💡 Daily Reminder: Keep the pressure on! Share your story again to stay visible.
+            <button style="background: white; color: #17a2b8; border: none; padding: 8px 16px; border-radius: 6px; margin-left: 10px; cursor: pointer;" onclick="bumpClaim()">
+                Share Again Now
+            </button>
+        </div>
+    </div>
+    
+    <script>
+        let uploadedPhoto = null;
+        let claimData = {};
+        let selectedStyle = 'classic';
+        let currentPlatform = 'twitter';
+        let additionalHashtags = [];
+        
+        // Platform-specific message templates
+        const messageTemplates = {
+            twitter: `🚨 @SmartwingsGroup Day {days}. Still NOTHING.
+
+€{amount} for destroyed luggage.
+Filed: {date}
+Response: SILENCE
+
+This is unacceptable.
+
+{hashtags}
+{trendingHashtags}
+
+Story: {website}`,
+
+            linkedin: `After {days} days of waiting, I'm sharing this on LinkedIn to highlight a serious issue with airline accountability.
+
+On {date}, I filed a €{amount} claim with Smartwings for destroyed luggage. Today, {days} days later, I'm still waiting for basic acknowledgment.
+
+This isn't about one passenger. This is about systematic failure to honor customer rights.
+
+If you've experienced similar treatment, please share your story. Collective visibility creates accountability.
+
+{hashtags}`,
+
+            facebook: `Day {days} of waiting for Smartwings to respond to my claim.
+
+€{amount}. Destroyed luggage. No response.
+
+Filed on {date}. Today? Still silence.
+
+Share this if you believe companies should be held accountable for customer rights.
+
+{hashtags}`,
+
+            instagram: `📱 STORY TIME: Day {days} waiting...
+
+💸 €{amount} claim
+📅 Filed: {date}  
+📧 Response: SILENCE
+
+@smartwingsgroup - The silence is loud.
+
+{hashtags}
+{trendingHashtags}`,
+
+            threads: `Thread 🧵
+
+1/ Day {days}. Still waiting for @smartwings to acknowledge my claim.
+
+2/ €{amount} for destroyed luggage. Filed {date}. No response.
+
+3/ If you're experiencing similar airline accountability issues, please share. Together, we create change.
+
+{hashtags}`
+        };
+        
+        // Initialize year dropdown
+        function initializeYears() {
+            const yearSelect = document.getElementById('submission-year');
+            const currentYear = new Date().getFullYear();
+            
+            for (let year = currentYear; year >= currentYear - 4; year--) {
+                const option = document.createElement('option');
+                option.value = year;
+                option.textContent = year;
+                yearSelect.appendChild(option);
+            }
+        }
+        
+        // Handle photo upload
+        function handlePhotoUpload(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    uploadedPhoto = e.target.result;
+                    
+                    const previewImg = document.createElement('img');
+                    previewImg.src = uploadedPhoto;
+                    previewImg.style.maxWidth = '200px';
+                    previewImg.style.maxHeight = '150px';
+                    previewImg.style.borderRadius = '8px';
+                    previewImg.style.marginTop = '10px';
+                    
+                    const uploadContent = document.getElementById('upload-content');
+                    uploadContent.innerHTML = `
+                        ✅ Photo added - This will boost engagement<br>
+                        <small>Visual proof is powerful</small>
+                    `;
+                    uploadContent.appendChild(previewImg);
+                    
+                    document.querySelector('.photo-upload').classList.add('has-photo');
+                    
+                    if (claimData.days) {
+                        updateCardPhoto();
+                    }
+                };
+                reader.readAsDataURL(file);
+            }
+        }
+        
+        // Calculate days since submission
+        function calculateDaysSince(month, year) {
+            const submissionDate = new Date(year, month - 1, 1);
+            const today = new Date();
+            const diffTime = Math.abs(today - submissionDate);
+            const diffDays = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+            return diffDays;
+        }
+        
+        // Format date
+        function formatDate(month, year) {
+            const monthNames = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun',
+                'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+            return `${monthNames[month - 1]} ${year}`;
+        }
+        
+        // NEW: Update viral counter
+        function updateViralCounter() {
+            let totalClaims = localStorage.getItem('totalClaims') || 1;
+            let totalDays = localStorage.getItem('totalDays') || 620;
+            
+            document.getElementById('total-claims').textContent = totalClaims;
+            document.getElementById('total-days').textContent = totalDays;
+        }
+        
+        // NEW: Select card style
+        function selectCardStyle(style) {
+            selectedStyle = style;
+            document.querySelectorAll('.card-variant').forEach(v => v.classList.remove('selected'));
+            document.querySelector(`[data-style="${style}"]`).classList.add('selected');
+            
+            if (claimData.days) {
+                applyCardStyle();
+            }
+        }
+        
+        // NEW: Apply card style
+        function applyCardStyle() {
+            const card = document.getElementById('claim-card');
+            const cardContent = document.querySelector('.card-content');
+            const cardPhoto = document.querySelector('.card-photo-section');
+            
+            switch(selectedStyle) {
+                case 'bold':
+                    cardContent.style.background = 'linear-gradient(135deg, #000, #333)';
+                    cardPhoto.style.background = 'linear-gradient(135deg, #000, #333)';
+                    document.querySelector('.viral-header').textContent = 'IGNORED FOR';
+                    break;
+                case 'minimal':
+                    cardContent.style.background = 'linear-gradient(135deg, #f8f9fa, #e9ecef)';
+                    cardContent.style.color = '#333';
+                    cardPhoto.style.background = 'linear-gradient(135deg, #e9ecef, #dee2e6)';
+                    document.querySelector('.viral-header').textContent = 'Waiting';
+                    break;
+                default:
+                    cardContent.style.background = 'linear-gradient(135deg, #e63946, #d63031)';
+                    cardContent.style.color = 'white';
+                    cardPhoto.style.background = 'linear-gradient(135deg, #e63946, #d63031)';
+                    document.querySelector('.viral-header').textContent = 'STILL WAITING';
+            }
+        }
+        
+        // NEW: Show platform content
+        function showPlatform(platform) {
+            currentPlatform = platform;
+            document.querySelectorAll('.platform-tab').forEach(tab => tab.classList.remove('active'));
+            document.querySelector(`[onclick="showPlatform('${platform}')"]`).classList.add('active');
+            
+            updatePlatformMessage();
+        }
+        
+        // NEW: Update platform message
+        function updatePlatformMessage() {
+            if (!claimData.days) return;
+            
+            let message = messageTemplates[currentPlatform];
+            message = message.replace(/{days}/g, claimData.days);
+            message = message.replace(/{amount}/g, claimData.amount);
+            message = message.replace(/{date}/g, claimData.date);
+            message = message.replace(/{website}/g, window.location.href);
+            
+            // Add hashtags
+            const baseHashtags = '#StillWaiting #Smartwings #WhereIsMyMoney';
+            const allHashtags = additionalHashtags.length > 0 
+                ? baseHashtags + ' ' + additionalHashtags.join(' ')
+                : baseHashtags;
+            
+            message = message.replace('{hashtags}', allHashtags);
+            message = message.replace('{trendingHashtags}', additionalHashtags.join(' '));
+            
+            document.getElementById('platform-content').textContent = message;
+        }
+        
+        // NEW: Add trending hashtag
+        function addHashtag(element) {
+            const hashtag = element.textContent;
+            if (!additionalHashtags.includes(hashtag)) {
+                additionalHashtags.push(hashtag);
+                element.style.background = '#218838';
+                element.textContent = hashtag + ' ✓';
+                updatePlatformMessage();
+            }
+        }
+        
+        // NEW: Copy platform message
+        function copyPlatformMessage() {
+            const message = document.getElementById('platform-content').textContent;
+            navigator.clipboard.writeText(message).then(() => {
+                showCopyFeedback();
+            });
+        }
+        
+        // NEW: Show copy feedback
+        function showCopyFeedback() {
+            const feedback = document.getElementById('copy-feedback');
+            feedback.style.display = 'block';
+            setTimeout(() => {
+                feedback.style.display = 'none';
+            }, 3000);
+        }
+        
+        // NEW: Super share - opens all platforms at once
+        function superShare() {
+            if (!claimData.days) return;
+            
+            // Update messages for all platforms
+            Object.keys(messageTemplates).forEach(platform => {
+                currentPlatform = platform;
+                updatePlatformMessage();
+                
+                const message = document.getElementById('platform-content').textContent;
+                
+                switch(platform) {
+                    case 'twitter':
+                        setTimeout(() => shareToTwitter(), 100);
+                        break;
+                    case 'linkedin':
+                        setTimeout(() => shareToLinkedIn(), 200);
+                        break;
+                    case 'facebook':
+                        setTimeout(() => shareToFacebook(), 300);
+                        break;
+                    case 'instagram':
+                        setTimeout(() => downloadCard(), 400);
+                        break;
+                }
+            });
+            
+            // Store share count
+            let shareCount = localStorage.getItem('shareCount') || 0;
+            shareCount++;
+            localStorage.setItem('shareCount', shareCount);
+            
+            // Update total claims (viral counter)
+            let totalClaims = localStorage.getItem('totalClaims') || 1;
+            totalClaims++;
+            localStorage.setItem('totalClaims', totalClaims);
+            
+            // Show success message
+            alert('🚀 Launching across all platforms! Check your browser tabs and share the downloaded image on Instagram.');
+        }
+        
+        // NEW: Copy press items
+        function copyPressItem(type) {
+            let text = '';
+            switch(type) {
+                case 'headline':
+                    text = `Day ${claimData.days}: Why ${document.getElementById('total-claims').textContent} Passengers Are Still Waiting for Smartwings Response`;
+                    break;
+                case 'facts':
+                    text = `${claimData.days} days waiting • €${claimData.amount} in unresolved claims • Systematic non-response pattern`;
+                    break;
+                case 'quote':
+                    text = `"After ${claimData.days} days, the message is clear: Customer rights don't matter to Smartwings. This affects real people waiting for basic accountability."`;
+                    break;
+                case 'contact':
+                    text = `Contact: Story generated via ${window.location.href} - Visual evidence available - Pattern of non-response documented`;
+                    break;
+            }
+            
+            navigator.clipboard.writeText(text).then(() => {
+                showCopyFeedback();
+            });
+        }
+        
+        // NEW: Check for bump reminder
+        function checkBumpReminder() {
+            const lastBump = localStorage.getItem('lastBump');
+            if (!lastBump) return;
+            
+            const hoursSinceLastBump = (Date.now() - parseInt(lastBump)) / (1000 * 60 * 60);
+            if (hoursSinceLastBump >= 24) {
+                document.getElementById('bump-reminder').classList.add('show');
+            }
+        }
+        
+        // NEW: Bump claim (re-share)
+        function bumpClaim() {
+            if (!claimData.days) return;
+            
+            // Update days since original submission
+            const newDays = calculateDaysSince(claimData.month, claimData.year);
+            claimData.days = newDays;
+            document.getElementById('preview-days').textContent = newDays;
+            
+            // Update all press day references
+            document.getElementById('press-days').textContent = newDays;
+            document.getElementById('press-days2').textContent = newDays;
+            document.getElementById('press-days3').textContent = newDays;
+            
+            // Trigger super share
+            superShare();
+            
+            // Update last bump time
+            localStorage.setItem('lastBump', Date.now());
+            document.getElementById('bump-reminder').classList.remove('show');
+        }
+        
+        // Handle form submission
+        document.getElementById('claim-form').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const month = parseInt(document.getElementById('submission-month').value);
+            const year = parseInt(document.getElementById('submission-year').value);
+            const amount = document.getElementById('amount').value;
+            
+            if (!month || !year || !amount) {
+                alert('Please fill in all fields');
+                return;
+            }
+            
+            const days = calculateDaysSince(month, year);
+            claimData = {
+                days: days,
+                amount: amount,
+                date: formatDate(month, year),
+                month: month,
+                year: year
+            };
+            
+            // Update preview
+            document.getElementById('preview-days').textContent = days;
+            document.getElementById('preview-amount').textContent = amount;
+            document.getElementById('preview-date').textContent = claimData.date;
+            
+            // Update press kit days
+            document.getElementById('press-days').textContent = days;
+            document.getElementById('press-days2').textContent = days;
+            document.getElementById('press-days3').textContent = days;
+            document.getElementById('press-amount').textContent = amount;
+            
+            // Add photo if uploaded
+            if (uploadedPhoto) {
+                const cardPhoto = document.getElementById('card-luggage-photo');
+                cardPhoto.src = uploadedPhoto;
+                cardPhoto.style.display = 'block';
+                document.getElementById('default-luggage').style.display = 'none';
+            }
+            
+            // Apply selected style
+            applyCardStyle();
+            
+            // Show preview
+            document.getElementById('preview').classList.add('visible');
+            
+            // Generate initial Twitter message
+            showPlatform('twitter');
+            
+            // Scroll to preview
+            document.getElementById('preview').scrollIntoView({ behavior: 'smooth' });
+            
+            // Store claim data for bumping
+            localStorage.setItem('claimData', JSON.stringify(claimData));
+            localStorage.setItem('lastCreated', Date.now());
+            
+            // Update viral counter
+            updateViralCounter();
+        });
+        
+        // Share functions
+        function shareToTwitter() {
+            currentPlatform = 'twitter';
+            updatePlatformMessage();
+            const message = document.getElementById('platform-content').textContent;
+            const url = `https://twitter.com/intent/tweet?text=${encodeURIComponent(message)}`;
+            window.open(url, '_blank');
+        }
+        
+        function shareToFacebook() {
+            currentPlatform = 'facebook';
+            updatePlatformMessage();
+            const message = document.getElementById('platform-content').textContent;
+            const url = `https://www.facebook.com/share.php?u=${encodeURIComponent(window.location.href)}&quote=${encodeURIComponent(message)}`;
+            window.open(url, '_blank');
+        }
+        
+        function shareToInstagram() {
+            downloadCard();
+            currentPlatform = 'instagram';
+            updatePlatformMessage();
+            const message = document.getElementById('platform-content').textContent;
+            setTimeout(() => {
+                alert(`Image downloaded! Now:\n\n1. Share the image on Instagram\n2. Copy this caption:\n\n${message}`);
+            }, 1000);
+        }
+        
+        function shareToLinkedIn() {
+            currentPlatform = 'linkedin';
+            updatePlatformMessage();
+            const message = document.getElementById('platform-content').textContent;
+            const timestamp = new Date().getTime();
+            const url = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(window.location.href + '?t=' + timestamp)}&comment=${encodeURIComponent(message)}`;
+            
+            // Also download image for LinkedIn post
+            downloadCard();
+            
+            setTimeout(() => {
+                window.open(url, '_blank');
+            }, 500);
+        }
+        
+        // NEW: Contact press function
+        function contactPress() {
+            const pressEmail = `Subject: Breaking: ${claimData.days} Days of Airline Silence - Passenger Rights Story
+
+Dear Editor,
+
+I have a developing story about systematic airline non-response to passenger claims.
+
+Key Facts:
+• ${claimData.days} days waiting for response to €${claimData.amount} luggage claim
+• Filed: ${claimData.date}
+• Zero communication from Smartwings
+• Part of growing pattern of claim abandonment
+
+Evidence: Visual documentation available
+Impact: Growing social media campaign (#StillWaiting)
+Angle: Consumer rights, travel industry accountability
+
+Story generated at: ${window.location.href}
+
+I'm available for interview and can provide additional documentation.
+
+Best regards`;
+
+            navigator.clipboard.writeText(pressEmail).then(() => {
+                alert('Press email template copied to clipboard!\n\nNow:\n1. Find travel/consumer journalists on Twitter\n2. Paste this as a DM\n3. Include your downloaded card image');
+            });
+        }
+        
+        // Download card as image
+        async function downloadCard() {
+            try {
+                const canvas = await html2canvas(document.getElementById('claim-card'), {
+                    scale: 2,
+                    backgroundColor: '#ffffff',
+                    useCORS: true
+                });
+                
+                const link = document.createElement('a');
+                link.download = `smartwings-day-${claimData.days}-still-waiting.png`;
+                link.href = canvas.toDataURL();
+                link.click();
+            } catch (err) {
+                console.error('Download error:', err);
+                alert('Error downloading image. Please try again.');
+            }
+        }
+        
+        // Initialize on page load
+        window.addEventListener('DOMContentLoaded', function() {
+            initializeYears();
+            updateViralCounter();
+            checkBumpReminder();
+        });
+        
+        // Auto-save and restore claim data
+        window.addEventListener('load', function() {
+            const savedClaim = localStorage.getItem('claimData');
+            if (savedClaim) {
+                const saved = JSON.parse(savedClaim);
+                const daysSinceSaved = (Date.now() - parseInt(localStorage.getItem('lastCreated'))) / (1000 * 60 * 60 * 24);
+                
+                if (daysSinceSaved < 30) { // Show reminder if less than 30 days old
+                    setTimeout(() => {
+                        if (confirm(`You shared a claim ${Math.floor(daysSinceSaved)} days ago. Want to bump it with updated days?`)) {
+                            // Pre-fill form with saved data
+                            document.getElementById('submission-month').value = saved.month;
+                            document.getElementById('submission-year').value = saved.year;
+                            document.getElementById('amount').value = saved.amount;
+                            
+                            // Trigger form submission
+                            document.getElementById('claim-form').dispatchEvent(new Event('submit'));
+                        }
+                    }, 2000);
+                }
+            }
+        });
+    </script>
+    
+    <!-- Include html2canvas -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+</body>
+</html>

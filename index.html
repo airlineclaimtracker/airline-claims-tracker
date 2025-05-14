@@ -386,104 +386,125 @@
             background: #f0fff4;
         }
         
-        .claim-card {
-            background: white;
-            color: #333;
-            border-radius: 15px;
-            position: relative;
-            margin-bottom: 25px;
-            box-shadow: 0 10px 30px rgba(230,57,70,0.3);
-            overflow: hidden;
-            display: -webkit-box;
-            display: -ms-flexbox;
-            display: flex;
-            -webkit-box-orient: vertical;
-            -webkit-box-direction: normal;
-            -ms-flex-direction: column;
-            flex-direction: column;
-        }
-        
-        .card-photo-section {
-            height: 200px;
-            background: linear-gradient(135deg, #e63946, #d63031);
-            position: relative;
-            display: -webkit-box;
-            display: -ms-flexbox;
-            display: flex;
-            -webkit-box-align: center;
-            -ms-flex-align: center;
-            align-items: center;
-            -webkit-box-pack: center;
-            -ms-flex-pack: center;
-            justify-content: center;
-            overflow: hidden;
-        }
-        
-        .card-luggage-photo {
-            width: 100%;
-            height: 100%;
-            -o-object-fit: cover;
-            object-fit: cover;
-            -o-object-position: center;
-            object-position: center;
-        }
-        
-        .default-luggage-icon {
-            font-size: 4rem;
-            color: rgba(255,255,255,0.8);
-        }
-        
-        .card-content {
-            padding: 25px;
-            -webkit-box-flex: 1;
-            -ms-flex: 1;
-            flex: 1;
-            background: linear-gradient(135deg, #e63946, #d63031);
-            color: white;
-            text-align: center;
-        }
-        
-        .viral-header {
-            font-size: 1.6rem;
-            font-weight: 800;
-            margin-bottom: 15px;
-        }
-        
-        .days-counter {
-            font-size: 4rem;
-            font-weight: 900;
-            color: #FFD93D;
-            margin: 15px 0;
-            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
-        }
-        
-        .days-label {
-            font-size: 1.3rem;
-            color: #FFD93D;
-            font-weight: 600;
-            margin-bottom: 20px;
-        }
-        
-        .claim-details {
-            margin: 20px 0;
-        }
-        
-        .detail-line {
-            font-size: 1.15rem;
-            margin: 10px 0;
-            line-height: 1.4;
-        }
-        
-        .hashtags {
-            margin-top: 20px;
-        }
-        
-        .hashtag {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: #FFD93D;
-            margin: 0 5px;
-        }
+       /* Updated Card Styles - Add these CSS updates to your existing style section */
+
+/* Updated claim card with prominent Smartwings messaging */
+.claim-card {
+    background: white;
+    color: #333;
+    border-radius: 15px;
+    position: relative;
+    margin-bottom: 25px;
+    box-shadow: 0 10px 30px rgba(230,57,70,0.3);
+    overflow: hidden;
+    display: flex;
+    flex-direction: column;
+}
+
+.card-photo-section {
+    height: 200px;
+    background: linear-gradient(135deg, #e63946, #d63031);
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    overflow: hidden;
+}
+
+.card-luggage-photo {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.default-luggage-icon {
+    font-size: 4rem;
+    color: rgba(255,255,255,0.8);
+}
+
+.card-content {
+    padding: 25px;
+    flex: 1;
+    background: linear-gradient(135deg, #e63946, #d63031);
+    color: white;
+    text-align: center;
+}
+
+/* NEW: Prominent brand accountability section */
+.brand-accountability {
+    background: rgba(0,0,0,0.95);
+    color: white;
+    padding: 15px;
+    margin: -25px -25px 25px -25px;
+    text-align: center;
+    border-bottom: 3px solid #FFD93D;
+}
+
+.brand-name {
+    font-size: 2rem;
+    font-weight: 900;
+    letter-spacing: 2px;
+    margin-bottom: 5px;
+    text-shadow: 1px 1px 3px rgba(0,0,0,0.5);
+}
+
+.accountability-question {
+    font-size: 1rem;
+    opacity: 0.95;
+    font-weight: 600;
+    font-style: italic;
+}
+
+.viral-header {
+    font-size: 1.8rem;
+    font-weight: 800;
+    margin-bottom: 15px;
+}
+
+.days-counter {
+    font-size: 4.5rem;
+    font-weight: 900;
+    color: #FFD93D;
+    margin: 15px 0;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+}
+
+.days-label {
+    font-size: 1.4rem;
+    color: #FFD93D;
+    font-weight: 600;
+    margin-bottom: 20px;
+}
+
+.claim-details {
+    margin: 20px 0;
+}
+
+.detail-line {
+    font-size: 1.2rem;
+    margin: 10px 0;
+    line-height: 1.4;
+}
+
+.response-line {
+    font-size: 1.2rem;
+    margin: 10px 0;
+    line-height: 1.4;
+    font-weight: 700;
+    color: #FFD93D;
+}
+
+.hashtags {
+    margin-top: 20px;
+}
+
+.hashtag {
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: #FFD93D;
+    margin: 0 5px;
+}
         
         .platform-templates {
             background: white;
@@ -850,32 +871,36 @@
                 </div>
             </div>
             
-            <div class="claim-card" id="claim-card">
-                <div class="card-photo-section" id="card-photo-section">
-                    <img id="card-luggage-photo" class="card-luggage-photo" style="display: none;">
-                    <div class="default-luggage-icon" id="default-luggage">
-                        🧳
-                    </div>
-                </div>
-                <div class="card-content">
-                    <div class="viral-header">STILL WAITING</div>
-                    
-                    <div class="days-counter" id="preview-days">0</div>
-                    <div class="days-label">DAYS</div>
-                    
-                    <div class="claim-details">
-                        <div class="detail-line">€<span id="preview-amount">0</span> - Luggage Claim</div>
-                        <div class="detail-line">Filed: <span id="preview-date">Jan 2024</span></div>
-                        <div class="detail-line">@SmartwingsGroup response: SILENCE</div>
-                    </div>
-                    
-                    <div class="hashtags">
-                        <span class="hashtag">#StillWaiting</span>
-                        <span class="hashtag">#Smartwings</span>
-                        <span class="hashtag">#AirlineAccountability</span>
-                    </div>
-                </div>
-            </div>
+          <div class="claim-card" id="claim-card">
+    <div class="card-photo-section" id="card-photo-section">
+        <img id="card-luggage-photo" class="card-luggage-photo" style="display: none;">
+        <div class="default-luggage-icon" id="default-luggage">
+            🧳
+        </div>
+    </div>
+    <div class="card-content">
+        <div class="brand-accountability">
+            <div class="brand-name">SMARTWINGS</div>
+            <div class="accountability-question">IS THIS CUSTOMER SERVICE?</div>
+        </div>
+        <div class="viral-header">STILL WAITING</div>
+        
+        <div class="days-counter" id="preview-days">0</div>
+        <div class="days-label">DAYS</div>
+        
+        <div class="claim-details">
+            <div class="detail-line">€<span id="preview-amount">0</span> - Luggage Claim</div>
+            <div class="detail-line">Filed: <span id="preview-date">Jan 2024</span></div>
+            <div class="response-line">Response: SILENCE</div>
+        </div>
+        
+        <div class="hashtags">
+            <span class="hashtag">#StillWaiting</span>
+            <span class="hashtag">#Smartwings</span>
+            <span class="hashtag">#AirlineAccountability</span>
+        </div>
+    </div>
+</div>
             
             <div class="platform-templates">
                 <h3>Share Your Story</h3>
@@ -1249,31 +1274,48 @@ Is this acceptable customer service?
         }
         
         // Apply card style
-        function applyCardStyle() {
-            const cardContent = document.querySelector('.card-content');
-            const cardPhoto = document.querySelector('.card-photo-section');
+function applyCardStyle() {
+    const cardContent = document.querySelector('.card-content');
+    const cardPhoto = document.querySelector('.card-photo-section');
+    const brandAccountability = document.querySelector('.brand-accountability');
+    const viralHeader = document.querySelector('.viral-header');
+    const responseLine = document.querySelector('.response-line');
+    
+    switch(selectedStyle) {
+        case 'bold':
+            cardContent.style.background = 'linear-gradient(135deg, #000, #333)';
+            cardPhoto.style.background = 'linear-gradient(135deg, #000, #333)';
+            viralHeader.textContent = 'IGNORED FOR';
+            responseLine.textContent = 'Status: IGNORED';
+            // Keep the brand accountability section as is for maximum contrast
+            break;
             
-            switch(selectedStyle) {
-                case 'bold':
-                    cardContent.style.background = 'linear-gradient(135deg, #000, #333)';
-                    cardPhoto.style.background = 'linear-gradient(135deg, #000, #333)';
-                    document.querySelector('.viral-header').textContent = 'IGNORED FOR';
-                    break;
-                case 'minimal':
-                    cardContent.style.background = 'linear-gradient(135deg, #f8f9fa, #e9ecef)';
-                    cardContent.style.color = '#333';
-                    cardPhoto.style.background = 'linear-gradient(135deg, #e9ecef, #dee2e6)';
-                    document.querySelector('.viral-header').textContent = 'Still Waiting';
-                    document.querySelectorAll('.hashtag').forEach(h => h.style.color = '#e63946');
-                    break;
-                default:
-                    cardContent.style.background = 'linear-gradient(135deg, #e63946, #d63031)';
-                    cardContent.style.color = 'white';
-                    cardPhoto.style.background = 'linear-gradient(135deg, #e63946, #d63031)';
-                    document.querySelector('.viral-header').textContent = 'STILL WAITING';
-                    document.querySelectorAll('.hashtag').forEach(h => h.style.color = '#FFD93D');
-            }
-        }
+        case 'minimal':
+            cardContent.style.background = 'linear-gradient(135deg, #f8f9fa, #e9ecef)';
+            cardContent.style.color = '#333';
+            cardPhoto.style.background = 'linear-gradient(135deg, #e9ecef, #dee2e6)';
+            brandAccountability.style.background = 'rgba(230, 57, 70, 0.95)';
+            viralHeader.textContent = 'Still Waiting';
+            responseLine.textContent = 'Response: None';
+            document.querySelectorAll('.hashtag').forEach(h => h.style.color = '#e63946');
+            document.querySelector('.days-counter').style.color = '#e63946';
+            document.querySelector('.days-label').style.color = '#e63946';
+            break;
+            
+        default: // classic
+            cardContent.style.background = 'linear-gradient(135deg, #e63946, #d63031)';
+            cardContent.style.color = 'white';
+            cardPhoto.style.background = 'linear-gradient(135deg, #e63946, #d63031)';
+            brandAccountability.style.background = 'rgba(0,0,0,0.95)';
+            brandAccountability.style.color = 'white';
+            viralHeader.textContent = 'STILL WAITING';
+            responseLine.textContent = 'Response: SILENCE';
+            document.querySelectorAll('.hashtag').forEach(h => h.style.color = '#FFD93D');
+            document.querySelector('.days-counter').style.color = '#FFD93D';
+            document.querySelector('.days-label').style.color = '#FFD93D';
+    }
+}
+
         
         // Show platform content
         function showPlatform(platform) {

@@ -1,0 +1,1215 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Still Waiting - Smartwings Claims Tracker</title>
+    
+    <!-- SEO Meta Tags -->
+    <meta name="description" content="Create viral social media cards showing how long Smartwings has ignored your baggage claim. Join the movement for airline accountability.">
+    <meta name="keywords" content="smartwings, airline claims, passenger rights, baggage compensation">
+    
+    <!-- Social Media Meta Tags -->
+    <meta property="og:title" content="Still Waiting - Smartwings Claims Tracker">
+    <meta property="og:description" content="Create viral cards to pressure Smartwings into responding to your unresolved claim.">
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://your-github-pages-url.github.io">
+    <meta property="og:image" content="https://your-github-pages-url.github.io/share-image.jpg">
+    
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="Still Waiting - Smartwings Claims Tracker">
+    <meta name="twitter:description" content="Create viral cards to pressure Smartwings into responding to your unresolved claim.">
+    <meta name="twitter:image" content="https://your-github-pages-url.github.io/share-image.jpg">
+    
+    <link rel="canonical" href="https://your-github-pages-url.github.io">
+    
+    <style>
+        /* Modern CSS Variables for consistent theming */
+        :root {
+            --primary: #e63946;
+            --primary-dark: #d63031;
+            --accent: #FFD93D;
+            --text-dark: #1d3557;
+            --text-light: #ffffff;
+            --bg-light: #f8f9fa;
+            --border: #e9ecef;
+            --shadow: rgba(0,0,0,0.1);
+            --success: #28a745;
+            --warning: #ffc107;
+        }
+        
+        * {
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+            margin: 0;
+            padding: 0;
+            background-color: var(--bg-light);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+        
+        /* Header with gradient */
+        .header {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: var(--text-light);
+            padding: 2rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="10" cy="10" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="30" cy="30" r="1" fill="rgba(255,255,255,0.05)"/><circle cx="70" cy="20" r="1" fill="rgba(255,255,255,0.1)"/><circle cx="20" cy="80" r="1" fill="rgba(255,255,255,0.05)"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>')
+            opacity: 0.1;
+        }
+        
+        .header h1 {
+            margin: 0;
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 800;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            position: relative;
+            z-index: 1;
+        }
+        
+        .header p {
+            margin: 1rem 0 0;
+            font-size: clamp(1rem, 3vw, 1.25rem);
+            opacity: 0.95;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Container with proper spacing */
+        .container {
+            max-width: 900px;
+            margin: 0 auto;
+            padding: 1rem;
+        }
+        
+        /* Improved form section */
+        .form-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 8px 32px var(--shadow);
+            margin: 2rem 0;
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .form-section::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--accent));
+        }
+        
+        .form-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 1.5rem;
+            margin-bottom: 2rem;
+        }
+        
+        .form-item {
+            position: relative;
+        }
+        
+        label {
+            display: block;
+            color: var(--text-dark);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-size: 0.95rem;
+        }
+        
+        input, select {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid var(--border);
+            border-radius: 12px;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background: white;
+        }
+        
+        input:focus, select:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(230, 57, 70, 0.1);
+        }
+        
+        /* Photo upload section */
+        .photo-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 8px 32px var(--shadow);
+            margin: 2rem 0;
+            text-align: center;
+        }
+        
+        .upload-area {
+            border: 3px dashed var(--border);
+            border-radius: 16px;
+            padding: 3rem 2rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            background: var(--bg-light);
+        }
+        
+        .upload-area:hover {
+            border-color: var(--primary);
+            background: rgba(230, 57, 70, 0.05);
+        }
+        
+        .upload-area.dragover {
+            border-color: var(--primary);
+            background: rgba(230, 57, 70, 0.1);
+            transform: scale(1.02);
+        }
+        
+        .upload-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+            display: block;
+        }
+        
+        .photo-preview {
+            max-width: 100%;
+            max-height: 300px;
+            border-radius: 12px;
+            box-shadow: 0 4px 16px var(--shadow);
+            margin-top: 1rem;
+        }
+        
+        /* Image editor controls */
+        .editor-controls {
+            display: flex;
+            gap: 1rem;
+            justify-content: center;
+            margin-top: 1rem;
+            flex-wrap: wrap;
+        }
+        
+        .editor-btn {
+            padding: 0.75rem 1.5rem;
+            border: none;
+            border-radius: 8px;
+            background: var(--text-dark);
+            color: white;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s ease;
+        }
+        
+        .editor-btn:hover {
+            background: var(--primary);
+            transform: translateY(-2px);
+        }
+        
+        /* Enhanced claim card */
+        .claim-card {
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: var(--text-light);
+            padding: 2.5rem;
+            border-radius: 20px;
+            position: relative;
+            margin: 2rem 0;
+            box-shadow: 0 20px 40px rgba(230, 57, 70, 0.3);
+            overflow: hidden;
+            min-height: 400px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+        
+        .claim-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 8px;
+            background: var(--accent);
+        }
+        
+        .claim-card::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            right: -20px;
+            width: 100px;
+            height: 100px;
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 50%;
+        }
+        
+        .brand-section {
+            position: relative;
+            z-index: 2;
+        }
+        
+        .brand-name {
+            font-size: clamp(2rem, 6vw, 3rem);
+            font-weight: 900;
+            margin: 0;
+            text-shadow: 3px 3px 6px rgba(0,0,0,0.4);
+        }
+        
+        .claim-message {
+            font-size: clamp(1.1rem, 3vw, 1.3rem);
+            margin: 1rem 0;
+            line-height: 1.5;
+            font-weight: 500;
+        }
+        
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+        
+        .stat-card {
+            background: rgba(255, 255, 255, 0.15);
+            padding: 1.5rem;
+            border-radius: 16px;
+            text-align: center;
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+        
+        .stat-value {
+            font-size: clamp(1.75rem, 4vw, 2.5rem);
+            font-weight: 900;
+            color: var(--accent);
+            display: block;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        
+        .stat-label {
+            font-size: 0.9rem;
+            opacity: 0.95;
+            margin-top: 0.5rem;
+            font-weight: 500;
+        }
+        
+        /* Photo integration in card */
+        .photo-container {
+            position: absolute;
+            right: 2rem;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 150px;
+            height: 150px;
+            border-radius: 20px;
+            overflow: hidden;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            display: none;
+        }
+        
+        .photo-container.visible {
+            display: block;
+        }
+        
+        .photo-container img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        /* Enhanced share section */
+        .share-section {
+            background: white;
+            padding: 2rem;
+            border-radius: 16px;
+            box-shadow: 0 8px 32px var(--shadow);
+            margin: 2rem 0;
+        }
+        
+        .share-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        
+        .share-btn {
+            padding: 1rem;
+            border: none;
+            border-radius: 12px;
+            color: white;
+            cursor: pointer;
+            font-weight: 700;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 0.5rem;
+            text-decoration: none;
+        }
+        
+        .share-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(0,0,0,0.2);
+        }
+        
+        .share-btn::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            border-radius: 12px;
+            padding: 2px;
+            background: linear-gradient(45deg, transparent 30%, rgba(255,255,255,0.3) 50%, transparent 70%);
+            -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+            -webkit-mask-composite: exclude;
+            pointer-events: none;
+        }
+        
+        .twitter-btn { background: linear-gradient(135deg, #1da1f2, #0d8bd9); }
+        .facebook-btn { background: linear-gradient(135deg, #4267b2, #365899); }
+        .whatsapp-btn { background: linear-gradient(135deg, #25d366, #128c7e); }
+        .download-btn { background: linear-gradient(135deg, var(--success), #1e7e34); }
+        
+        /* Success/Error messages */
+        .message {
+            padding: 1rem 1.5rem;
+            border-radius: 12px;
+            margin: 1rem 0;
+            font-weight: 600;
+            text-align: center;
+            display: none;
+        }
+        
+        .message.show {
+            display: block;
+            animation: slideIn 0.3s ease;
+        }
+        
+        .message.success {
+            background: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .message.error {
+            background: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(-10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+        
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .container {
+                padding: 0.75rem;
+            }
+            
+            .form-section,
+            .photo-section,
+            .share-section {
+                padding: 1.5rem;
+            }
+            
+            .claim-card {
+                padding: 2rem;
+                min-height: 350px;
+            }
+            
+            .photo-container {
+                right: 1rem;
+                width: 120px;
+                height: 120px;
+            }
+            
+            .stats-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+        
+        /* Loading states */
+        .loading {
+            position: relative;
+            color: transparent;
+        }
+        
+        .loading::after {
+            content: '⏳';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            transform: translate(-50%, -50%);
+            color: white;
+            animation: rotate 1s linear infinite;
+        }
+        
+        @keyframes rotate {
+            from { transform: translate(-50%, -50%) rotate(0deg); }
+            to { transform: translate(-50%, -50%) rotate(360deg); }
+        }
+        
+        /* Accessibility improvements */
+        .sr-only {
+            position: absolute;
+            width: 1px;
+            height: 1px;
+            padding: 0;
+            margin: -1px;
+            overflow: hidden;
+            clip: rect(0, 0, 0, 0);
+            white-space: nowrap;
+            border: 0;
+        }
+        
+        /* Focus styles for keyboard navigation */
+        button:focus-visible,
+        input:focus-visible,
+        select:focus-visible {
+            outline: 3px solid var(--accent);
+            outline-offset: 2px;
+        }
+    </style>
+</head>
+<body>
+    <header class="header">
+        <h1>📢 Still Waiting</h1>
+        <p>Make your Smartwings claim visible and heard</p>
+    </header>
+    
+    <div class="container">
+        <!-- Form Section -->
+        <section class="form-section">
+            <h2>Create Your Claim Card</h2>
+            <form id="claim-form">
+                <div class="form-grid">
+                    <div class="form-item">
+                        <label for="submission-month">When did you submit your claim?</label>
+                        <select id="submission-month" required>
+                            <option value="">Select Month</option>
+                            <option value="1">January</option>
+                            <option value="2">February</option>
+                            <option value="3">March</option>
+                            <option value="4">April</option>
+                            <option value="5">May</option>
+                            <option value="6">June</option>
+                            <option value="7">July</option>
+                            <option value="8">August</option>
+                            <option value="9">September</option>
+                            <option value="10">October</option>
+                            <option value="11">November</option>
+                            <option value="12">December</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-item">
+                        <label for="submission-year">Year</label>
+                        <select id="submission-year" required>
+                            <option value="">Select Year</option>
+                        </select>
+                    </div>
+                    
+                    <div class="form-item">
+                        <label for="amount">Claim Amount (€)</label>
+                        <input type="number" id="amount" required min="1" placeholder="e.g. 1200">
+                    </div>
+                </div>
+                
+                <button type="submit" class="generate-btn share-btn success-btn">
+                    🚀 Generate My Claim Card
+                </button>
+            </form>
+        </section>
+        
+        <!-- Photo Upload Section -->
+        <section class="photo-section">
+            <h2>📸 Add Photo Evidence (Optional)</h2>
+            <div class="upload-area" id="upload-area">
+                <span class="upload-icon">📷</span>
+                <p><strong>Drop your photo here</strong><br>or click to select from device</p>
+                <p style="font-size: 0.9em; color: #666;">Supports JPG, PNG. Max 5MB</p>
+                <input type="file" id="photo-input" accept="image/*" hidden>
+            </div>
+            
+            <div id="photo-preview-container" style="display: none;">
+                <img id="photo-preview" class="photo-preview" alt="Uploaded photo">
+                <div class="editor-controls">
+                    <button class="editor-btn" onclick="rotatePhoto()">🔄 Rotate</button>
+                    <button class="editor-btn" onclick="adjustBrightness()">☀️ Brightness</button>
+                    <button class="editor-btn" onclick="removePhoto()">❌ Remove</button>
+                </div>
+            </div>
+        </section>
+        
+        <!-- Preview Section -->
+        <section id="preview-section" style="display: none;">
+            <div class="claim-card" id="claim-card">
+                <div class="brand-section">
+                    <h1 class="brand-name">SMARTWINGS</h1>
+                    <p class="claim-message">
+                        IS THIS CUSTOMER SERVICE?<br>
+                        Still waiting for resolution on my luggage claim
+                    </p>
+                </div>
+                
+                <div class="stats-grid">
+                    <div class="stat-card">
+                        <span class="stat-value" id="preview-days">0</span>
+                        <span class="stat-label">Days Waiting</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-value">€<span id="preview-amount">0</span></span>
+                        <span class="stat-label">Claim Value</span>
+                    </div>
+                    <div class="stat-card">
+                        <span class="stat-value">#<span id="preview-reference">SW000</span></span>
+                        <span class="stat-label">Reference</span>
+                    </div>
+                </div>
+                
+                <div class="photo-container" id="card-photo">
+                    <img id="card-photo-img" alt="Claim evidence">
+                </div>
+            </div>
+        </section>
+        
+        <!-- Share Section -->
+        <section class="share-section" id="share-section" style="display: none;">
+            <h2>📱 Share Your Story</h2>
+            
+            <div class="share-grid">
+                <button class="share-btn twitter-btn" onclick="shareToTwitter()">
+                    🐦 Share on Twitter/X
+                </button>
+                <button class="share-btn facebook-btn" onclick="shareToFacebook()">
+                    📘 Share on Facebook
+                </button>
+                <button class="share-btn whatsapp-btn" onclick="shareToWhatsApp()">
+                    💬 Share on WhatsApp
+                </button>
+                <button class="share-btn download-btn" onclick="downloadCard()">
+                    💾 Download Image
+                </button>
+            </div>
+            
+            <div id="message-container"></div>
+            
+            <div style="background: var(--bg-light); padding: 1rem; border-radius: 8px; font-family: monospace; font-size: 0.9rem; line-height: 1.5; white-space: pre-wrap;" id="share-message"></div>
+        </section>
+    </div>
+    
+    <!-- Load html2canvas for card generation -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js"></script>
+    
+    <script>
+        // Global variables
+        let claimData = {};
+        let currentPhoto = null;
+        let currentRotation = 0;
+        let currentBrightness = 100;
+        
+        // Initialize the app
+        window.addEventListener('DOMContentLoaded', function() {
+            initializeYears();
+            setupEventListeners();
+            
+            // Load Google Analytics if enabled
+            if (window.location.hostname !== 'localhost') {
+                loadAnalytics();
+            }
+        });
+        
+        function initializeYears() {
+            const yearSelect = document.getElementById('submission-year');
+            const currentYear = new Date().getFullYear();
+            
+            for (let year = currentYear; year >= currentYear - 5; year--) {
+                const option = document.createElement('option');
+                option.value = year;
+                option.textContent = year;
+                yearSelect.appendChild(option);
+            }
+        }
+        
+        function setupEventListeners() {
+            // Form submission
+            document.getElementById('claim-form').addEventListener('submit', handleFormSubmit);
+            
+            // Photo upload
+            const uploadArea = document.getElementById('upload-area');
+            const photoInput = document.getElementById('photo-input');
+            
+            uploadArea.addEventListener('click', () => photoInput.click());
+            uploadArea.addEventListener('dragover', handleDragOver);
+            uploadArea.addEventListener('drop', handleDrop);
+            photoInput.addEventListener('change', handleFileSelect);
+        }
+        
+        function handleFormSubmit(e) {
+            e.preventDefault();
+            
+            const month = document.getElementById('submission-month').value;
+            const year = document.getElementById('submission-year').value;
+            const amount = document.getElementById('amount').value;
+            
+            if (!month || !year || !amount) {
+                showMessage('Please fill in all fields', 'error');
+                return;
+            }
+            
+            const days = calculateDaysSince(month, year);
+            const reference = generateReference();
+            const submissionDate = new Date(year, month - 1, 1).toLocaleDateString('en-US', {
+                month: 'long',
+                year: 'numeric'
+            });
+            
+            claimData = { days, amount, reference, submissionDate };
+            
+            updatePreview();
+            showPreview();
+            
+            // Track event
+            if (typeof gtag !== 'undefined') {
+                gtag('event', 'generate_card', {
+                    days_waiting: days,
+                    claim_amount: amount
+                });
+            }
+        }
+        
+        function calculateDaysSince(month, year) {
+            const submissionDate = new Date(year, month - 1, 1);
+            const today = new Date();
+            const diffTime = Math.abs(today - submissionDate);
+            return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+        }
+        
+        function generateReference() {
+            return 'SW' + Math.floor(1000 + Math.random() * 9000);
+        }
+        
+        function updatePreview() {
+            document.getElementById('preview-days').textContent = claimData.days;
+            document.getElementById('preview-amount').textContent = claimData.amount;
+            document.getElementById('preview-reference').textContent = claimData.reference;
+            
+            // Generate share message
+            const message = generateShareMessage();
+            document.getElementById('share-message').textContent = message;
+        }
+        
+        function generateShareMessage() {
+            const url = window.location.href;
+            return `🚨 Day ${claimData.days} and @SmartwingsGroup STILL hasn't responded to my luggage claim!
+
+💰 €${claimData.amount} claim filed ${claimData.submissionDate}
+📞 Response from customer service: SILENCE
+
+Is this acceptable customer service?
+
+#StillWaiting #Smartwings #AirlineAccountability #PassengerRights
+
+Share your story too: ${url}`;
+        }
+        
+        function showPreview() {
+            document.getElementById('preview-section').style.display = 'block';
+            document.getElementById('share-section').style.display = 'block';
+            document.getElementById('preview-section').scrollIntoView({ behavior: 'smooth' });
+        }
+        
+        // Photo handling functions
+        function handleDragOver(e) {
+            e.preventDefault();
+            e.currentTarget.classList.add('dragover');
+        }
+        
+        function handleDrop(e) {
+            e.preventDefault();
+            e.currentTarget.classList.remove('dragover');
+            
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                processFile(files[0]);
+            }
+        }
+        
+        function handleFileSelect(e) {
+            const file = e.target.files[0];
+            if (file) {
+                processFile(file);
+            }
+        }
+        
+        function processFile(file) {
+            if (!file.type.match('image.*')) {
+                showMessage('Please select an image file', 'error');
+                return;
+            }
+            
+            if (file.size > 5 * 1024 * 1024) {
+                showMessage('File size must be less than 5MB', 'error');
+                return;
+            }
+            
+            const reader = new FileReader();
+            reader.onload = function(e) {
+                currentPhoto = e.target.result;
+                showPhotoPreview();
+            };
+            reader.readAsDataURL(file);
+        }
+        
+        function showPhotoPreview() {
+            const previewContainer = document.getElementById('photo-preview-container');
+            const preview = document.getElementById('photo-preview');
+            const cardPhoto = document.getElementById('card-photo');
+            const cardPhotoImg = document.getElementById('card-photo-img');
+            
+            preview.src = currentPhoto;
+            cardPhotoImg.src = currentPhoto;
+            previewContainer.style.display = 'block';
+            cardPhoto.classList.add('visible');
+            
+            // Reset transformations
+            currentRotation = 0;
+            currentBrightness = 100;
+            applyImageTransforms();
+        }
+        
+        function rotatePhoto() {
+            currentRotation = (currentRotation + 90) % 360;
+            applyImageTransforms();
+        }
+        
+        function adjustBrightness() {
+            // Simple brightness toggle between normal and enhanced
+            currentBrightness = currentBrightness === 100 ? 150 : 100;
+            applyImageTransforms();
+            showMessage(`Brightness ${currentBrightness === 100 ? 'normal' : 'enhanced'}`, 'success');
+        }
+        
+        function applyImageTransforms() {
+            const preview = document.getElementById('photo-preview');
+            const cardPhoto = document.getElementById('card-photo-img');
+            const transform = `rotate(${currentRotation}deg)`;
+            const filter = `brightness(${currentBrightness}%)`;
+            
+            [preview, cardPhoto].forEach(img => {
+                img.style.transform = transform;
+                img.style.filter = filter;
+            });
+        }
+        
+        function removePhoto() {
+            currentPhoto = null;
+            document.getElementById('photo-preview-container').style.display = 'none';
+            document.getElementById('card-photo').classList.remove('visible');
+            document.getElementById('photo-input').value = '';
+        }
+        
+        // Enhanced social sharing functions
+        async function shareToTwitter() {
+            showMessage('Preparing Twitter share...', 'success');
+            
+            try {
+                const cardElement = document.getElementById('claim-card');
+                const canvas = await html2canvas(cardElement, {
+                    scale: 2,
+                    backgroundColor: '#ffffff'
+                });
+                
+                // Convert to blob
+                canvas.toBlob(async (blob) => {
+                    const message = document.getElementById('share-message').textContent;
+                    
+                    // Try native share API first (mobile)
+                    if (navigator.share && /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent)) {
+                        try {
+                            const file = new File([blob], 'smartwings-claim.png', { type: 'image/png' });
+                            await navigator.share({
+                                text: message,
+                                files: [file]
+                            });
+                            showMessage('✅ Successfully shared!', 'success');
+                            track('share', 'twitter_native');
+                            return;
+                        } catch (err) {
+                            console.log('Native share failed, falling back...');
+                        }
+                    }
+                    
+                    // Fallback: copy image and open Twitter
+                    try {
+                        // Try to copy image to clipboard
+                        if (navigator.clipboard && window.ClipboardItem) {
+                            await navigator.clipboard.write([
+                                new ClipboardItem({ 'image/png': blob })
+                            ]);
+                            showMessage('📋 Image copied to clipboard!', 'success');
+                        }
+                    } catch (err) {
+                        console.log('Clipboard copy failed');
+                    }
+                    
+                    // Open Twitter with pre-filled text
+                    const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(message)}`;
+                    window.open(twitterUrl, '_blank');
+                    showMessage('🐦 Twitter opened! Paste your image (Ctrl+V) to the tweet.', 'success');
+                    track('share', 'twitter_manual');
+                }, 'image/png', 0.9);
+                
+            } catch (error) {
+                console.error('Twitter share error:', error);
+                showMessage('Error generating image. Please try again.', 'error');
+            }
+        }
+        
+        async function shareToFacebook() {
+            showMessage('Preparing Facebook share...', 'success');
+            
+            try {
+                const cardElement = document.getElementById('claim-card');
+                const canvas = await html2canvas(cardElement, {
+                    scale: 2,
+                    backgroundColor: '#ffffff'
+                });
+                
+                canvas.toBlob(async (blob) => {
+                    const message = document.getElementById('share-message').textContent;
+                    
+                    // Try native share API (mobile)
+                    if (navigator.share && /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent)) {
+                        try {
+                            const file = new File([blob], 'smartwings-claim.png', { type: 'image/png' });
+                            await navigator.share({
+                                text: message,
+                                files: [file]
+                            });
+                            showMessage('✅ Successfully shared!', 'success');
+                            track('share', 'facebook_native');
+                            return;
+                        } catch (err) {
+                            console.log('Native share failed');
+                        }
+                    }
+                    
+                    // Fallback: copy and redirect
+                    try {
+                        if (navigator.clipboard && window.ClipboardItem) {
+                            await navigator.clipboard.write([
+                                new ClipboardItem({ 'image/png': blob })
+                            ]);
+                            showMessage('📋 Image copied to clipboard!', 'success');
+                        }
+                    } catch (err) {
+                        console.log('Clipboard copy failed');
+                    }
+                    
+                    // Copy message to clipboard
+                    try {
+                        await navigator.clipboard.writeText(message);
+                        showMessage('📝 Message also copied to clipboard!', 'success');
+                    } catch (err) {
+                        console.log('Text copy failed');
+                    }
+                    
+                    window.open('https://www.facebook.com/', '_blank');
+                    showMessage('📘 Facebook opened! Create a post and paste your image and message.', 'success');
+                    track('share', 'facebook_manual');
+                }, 'image/png', 0.9);
+                
+            } catch (error) {
+                console.error('Facebook share error:', error);
+                showMessage('Error generating image. Please try again.', 'error');
+            }
+        }
+        
+        async function shareToWhatsApp() {
+            showMessage('Preparing WhatsApp share...', 'success');
+            
+            const message = document.getElementById('share-message').textContent;
+            
+            // On mobile, try to share image directly
+            if (navigator.share && /Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent)) {
+                try {
+                    const cardElement = document.getElementById('claim-card');
+                    const canvas = await html2canvas(cardElement, {
+                        scale: 2,
+                        backgroundColor: '#ffffff'
+                    });
+                    
+                    canvas.toBlob(async (blob) => {
+                        const file = new File([blob], 'smartwings-claim.png', { type: 'image/png' });
+                        try {
+                            await navigator.share({
+                                text: message,
+                                files: [file]
+                            });
+                            showMessage('✅ Successfully shared!', 'success');
+                            track('share', 'whatsapp_native');
+                            return;
+                        } catch (err) {
+                            // Continue to fallback
+                        }
+                    });
+                } catch (err) {
+                    console.log('WhatsApp native share failed');
+                }
+            }
+            
+            // Fallback: download image and open WhatsApp
+            await downloadCard();
+            
+            // Open WhatsApp with message
+            if (/Android|iPhone|iPad|iPod|Mobile/i.test(navigator.userAgent)) {
+                window.open(`whatsapp://send?text=${encodeURIComponent(message)}`, '_blank');
+            } else {
+                window.open(`https://web.whatsapp.com/send?text=${encodeURIComponent(message)}`, '_blank');
+            }
+            
+            showMessage('💬 WhatsApp opened with your message! Don\'t forget to attach the downloaded image.', 'success');
+            track('share', 'whatsapp_manual');
+        }
+        
+        async function downloadCard() {
+            showMessage('Generating image...', 'success');
+            
+            try {
+                const cardElement = document.getElementById('claim-card');
+                const canvas = await html2canvas(cardElement, {
+                    scale: 2,
+                    backgroundColor: '#ffffff',
+                    useCORS: true,
+                    allowTaint: true
+                });
+                
+                // Create download link
+                const link = document.createElement('a');
+                link.download = `smartwings-claim-day-${claimData.days}.png`;
+                link.href = canvas.toDataURL('image/png');
+                
+                // Handle Safari quirks
+                if (/^((?!chrome|android).)*safari/i.test(navigator.userAgent)) {
+                    // Safari - open in new tab instead of direct download
+                    link.target = '_blank';
+                }
+                
+                document.body.appendChild(link);
+                link.click();
+                document.body.removeChild(link);
+                
+                showMessage('✅ Image downloaded successfully!', 'success');
+                track('download', 'card_image');
+                
+            } catch (error) {
+                console.error('Download error:', error);
+                showMessage('Error downloading image. Please try again.', 'error');
+            }
+        }
+        
+        // Utility functions
+        function showMessage(text, type) {
+            const container = document.getElementById('message-container');
+            
+            // Remove existing messages
+            container.innerHTML = '';
+            
+            // Create new message
+            const message = document.createElement('div');
+            message.className = `message ${type} show`;
+            message.textContent = text;
+            
+            container.appendChild(message);
+            
+            // Auto-hide after 5 seconds
+            setTimeout(() => {
+                message.classList.remove('show');
+                setTimeout(() => {
+                    if (message.parentNode) {
+                        message.parentNode.removeChild(message);
+                    }
+                }, 300);
+            }, 5000);
+        }
+        
+        function track(action, method) {
+            if (typeof gtag !== 'undefined') {
+                gtag('event', action, {
+                    method: method,
+                    days_waiting: claimData.days || 0,
+                    claim_amount: claimData.amount || 0
+                });
+            }
+        }
+        
+        function loadAnalytics() {
+            // Load Google Analytics 4 (replace GA_MEASUREMENT_ID with actual ID)
+            const gaScript = document.createElement('script');
+            gaScript.async = true;
+            gaScript.src = 'https://www.googletagmanager.com/gtag/js?id=GA_MEASUREMENT_ID';
+            document.head.appendChild(gaScript);
+            
+            gaScript.onload = function() {
+                window.dataLayer = window.dataLayer || [];
+                function gtag(){dataLayer.push(arguments);}
+                window.gtag = gtag;
+                gtag('js', new Date());
+                gtag('config', 'GA_MEASUREMENT_ID', {
+                    // Privacy-friendly settings
+                    anonymize_ip: true,
+                    cookie_flags: 'SameSite=None;Secure'
+                });
+            };
+        }
+        
+        // Enhanced mobile detection and optimizations
+        function isMobile() {
+            return /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        }
+        
+        // Auto-resize textarea on mobile
+        if (isMobile()) {
+            // Prevent zoom on input focus
+            const inputs = document.querySelectorAll('input, select, textarea');
+            inputs.forEach(input => {
+                input.style.fontSize = '16px'; // iOS won't zoom if font-size >= 16px
+            });
+        }
+        
+        // Handle keyboard visibility on mobile
+        if (isMobile()) {
+            let initialViewportHeight = window.visualViewport ? window.visualViewport.height : window.innerHeight;
+            
+            function handleViewportChange() {
+                const currentHeight = window.visualViewport ? window.visualViewport.height : window.innerHeight;
+                const heightDifference = initialViewportHeight - currentHeight;
+                
+                if (heightDifference > 150) {
+                    // Keyboard is likely open
+                    document.body.style.marginBottom = `${heightDifference}px`;
+                } else {
+                    // Keyboard is closed
+                    document.body.style.marginBottom = '0px';
+                }
+            }
+            
+            if (window.visualViewport) {
+                window.visualViewport.addEventListener('resize', handleViewportChange);
+            } else {
+                window.addEventListener('resize', handleViewportChange);
+            }
+        }
+        
+        // Enhanced error handling
+        window.addEventListener('error', function(e) {
+            console.error('JavaScript error:', e.error);
+            showMessage('An error occurred. Please refresh the page and try again.', 'error');
+        });
+        
+        window.addEventListener('unhandledrejection', function(e) {
+            console.error('Unhandled promise rejection:', e.reason);
+            showMessage('An error occurred during image processing. Please try again.', 'error');
+        });
+        
+        // Performance optimization: lazy load html2canvas
+        function loadHtml2Canvas() {
+            return new Promise((resolve, reject) => {
+                if (window.html2canvas) {
+                    resolve(window.html2canvas);
+                    return;
+                }
+                
+                const script = document.createElement('script');
+                script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2canvas/1.4.1/html2canvas.min.js';
+                script.onload = () => resolve(window.html2canvas);
+                script.onerror = reject;
+                document.head.appendChild(script);
+            });
+        }
+        
+        // PWA-like behavior: install prompt
+        let deferredPrompt;
+        window.addEventListener('beforeinstallprompt', (e) => {
+            e.preventDefault();
+            deferredPrompt = e;
+            
+            // Show install button after user has used the app
+            setTimeout(() => {
+                if (claimData.days) {
+                    showInstallPrompt();
+                }
+            }, 10000);
+        });
+        
+        function showInstallPrompt() {
+            if (deferredPrompt) {
+                const installButton = document.createElement('button');
+                installButton.textContent = '📱 Install App';
+                installButton.className = 'share-btn download-btn';
+                installButton.style.position = 'fixed';
+                installButton.style.bottom = '20px';
+                installButton.style.left = '20px';
+                installButton.style.zIndex = '1000';
+                
+                installButton.onclick = async () => {
+                    deferredPrompt.prompt();
+                    const { outcome } = await deferredPrompt.userChoice;
+                    console.log(`User ${outcome} the install prompt`);
+                    deferredPrompt = null;
+                    installButton.remove();
+                };
+                
+                document.body.appendChild(installButton);
+                
+                // Auto-remove after 30 seconds
+                setTimeout(() => {
+                    if (installButton.parentNode) {
+                        installButton.remove();
+                    }
+                }, 30000);
+            }
+        }
+        
+        // Service Worker for offline functionality (optional)
+        if ('serviceWorker' in navigator && window.location.protocol === 'https:') {
+            window.addEventListener('load', function() {
+                navigator.serviceWorker.register('/sw.js')
+                    .then(function(registration) {
+                        console.log('SW registered: ', registration);
+                    })
+                    .catch(function(registrationError) {
+                        console.log('SW registration failed: ', registrationError);
+                    });
+            });
+        }
+    </script>
+</body>
+</html>

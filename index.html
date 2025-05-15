@@ -877,3 +877,142 @@ IS THIS A SCAM? @SmartwingsGroup
                 const message = `⚠️ SMARTWINGS LUGGAGE FRAUD ALERT ⚠️
 
 They DESTROYED my luggage
+// MISSING FUNCTIONS TO APPEND TO EXISTING CODE
+
+// Complete the shareToFacebook function that was cut off
+                const cardImage = await generateCardImage();
+                
+                if (navigator.share && cardImage) {
+                    try {
+                        const file = new File([cardImage], 'smartwings-fraud-evidence.png', { type: 'image/png' });
+                        await navigator.share({
+                            text: message,
+                            files: [file]
+                        });
+                        showSuccess('✅ Scandal successfully shared! Others warned!');
+                        return;
+                    } catch (e) {
+                        console.log('Native share failed');
+                    }
+                }
+                
+                if (navigator.clipboard) {
+                    try {
+                        await navigator.clipboard.writeText(message);
+                        showSuccess('📘 Facebook opened! Fraud warning copied to clipboard - paste to warn others!');
+                    } catch (e) {
+                        showSuccess('📘 Facebook opened! Copy the scandal message below and warn everyone!');
+                    }
+                }
+                
+                window.open('https://www.facebook.com/', '_blank');
+            } catch (error) {
+                console.error('Facebook share error:', error);
+                showError('Error preparing Facebook fraud warning. Please try again.');
+            } finally {
+                btn.style.opacity = '1';
+                btn.style.pointerEvents = 'auto';
+            }
+        }
+        
+        async function shareToWhatsApp() {
+            const btn = document.querySelector('.share-btn.whatsapp');
+            btn.style.opacity = '0.7';
+            btn.style.pointerEvents = 'none';
+            
+            try {
+                const message = `🚨 SMARTWINGS FRAUD ALERT 🚨
+
+They DESTROYED my luggage!
+€${claimData.amount} claim - ${claimData.days} days of SILENCE
+
+Multiple victims report same pattern
+IS THIS A SCAM?
+
+Spread the word - warn everyone!
+#SmartwingsScam`;
+               
+               const cardImage = await generateCardImage();
+               
+               if (navigator.share && cardImage) {
+                   try {
+                       const file = new File([cardImage], 'smartwings-fraud.png', { type: 'image/png' });
+                       await navigator.share({
+                           text: message,
+                           files: [file]
+                       });
+                       showSuccess('✅ WhatsApp fraud alert sent! Contacts warned!');
+                       return;
+                   } catch (e) {
+                       console.log('Native share failed');
+                   }
+               }
+               
+               downloadCard();
+               
+               const whatsappUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(message)}`;
+               window.open(whatsappUrl, '_blank');
+               
+               showSuccess('💬 WhatsApp opened! Evidence downloaded - attach the fraud proof to your message!');
+           } catch (error) {
+               console.error('WhatsApp share error:', error);
+               showError('Error preparing WhatsApp fraud alert. Please try again.');
+           } finally {
+               btn.style.opacity = '1';
+               btn.style.pointerEvents = 'auto';
+           }
+       }
+       
+       async function downloadCard() {
+           const btn = document.querySelector('.share-btn.download');
+           btn.style.opacity = '0.7';
+           btn.style.pointerEvents = 'none';
+           
+           try {
+               const cardImage = await generateCardImage();
+               
+               const link = document.createElement('a');
+               link.download = `smartwings-fraud-evidence-day-${claimData.days}.png`;
+               link.href = URL.createObjectURL(cardImage);
+               
+               document.body.appendChild(link);
+               link.click();
+               document.body.removeChild(link);
+               
+               showSuccess('💾 Fraud evidence downloaded! Share everywhere to expose them!');
+           } catch (error) {
+               console.error('Download error:', error);
+               showError('Error downloading evidence. Please try again.');
+           } finally {
+               btn.style.opacity = '1';
+               btn.style.pointerEvents = 'auto';
+           }
+       }
+       
+       async function generateCardImage() {
+           const cardElement = document.getElementById('claim-card');
+           
+           return new Promise((resolve, reject) => {
+               html2canvas(cardElement, {
+                   scale: 2,
+                   backgroundColor: '#000000',
+                   useCORS: true,
+                   allowTaint: true
+               }).then(canvas => {
+                   canvas.toBlob(resolve, 'image/png', 0.9);
+               }).catch(reject);
+           });
+       }
+       
+       function showSuccess(message) {
+           const successEl = document.getElementById('success-message');
+           successEl.textContent = message;
+           successEl.classList.add('show');
+           
+           setTimeout(() => {
+               successEl.classList.remove('show');
+           }, 8000);
+       }
+   </script>
+</body>
+</html>

@@ -739,11 +739,11 @@
             return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
         }
         
-        function updateCard() {
+ function updateCard() {
     document.getElementById('days-count').textContent = claimData.days;
     document.getElementById('amount-value').textContent = `€${claimData.amount}`;
     
-    const message =();
+    const message = generateCampaignMessage(); // Fixed: calling the function
     document.getElementById('share-message').textContent = message;
 }
         

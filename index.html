@@ -29,6 +29,13 @@
     --spacing-lg: 40px;
     --border-radius: 12px;
     --max-content-width: 1000px;
+    --font-xs: 0.75rem;    /* 12px */
+    --font-sm: 0.875rem;   /* 14px */
+    --font-base: 1rem;     /* 16px */
+    --font-lg: 1.125rem;   /* 18px */
+    --font-xl: 1.5rem;     /* 24px */
+    --font-2xl: 2rem;      /* 32px */
+    --font-3xl: 2.5rem;    /* 40px */
 }
         
         * {
@@ -65,13 +72,13 @@
         
         .header h1 {
             margin: 0;
-            font-size: 2.5rem;
+            font-size: var(--font-2xl);
             font-weight: 800;
         }
         
         .header p {
             margin: 15px 0 0;
-            font-size: 1.1rem;
+            font-size: var(--font-base);
             opacity: 0.9;
         }
         
@@ -80,7 +87,7 @@
     padding: var(--spacing-lg);
     border-radius: 15px;
     box-shadow: 0 5px 20px rgba(0,0,0,0.1);
-    margin-bottom: var(--spacing-lg);
+    margin-bottom: var(--spacing-md);
     width: 100%;
     max-width: 100%;
     box-sizing: border-box;
@@ -134,9 +141,9 @@
     background: linear-gradient(135deg, var(--primary-red), var(--dark-red));
     color: white;
     border: none;
-    padding: 15px 30px;
+    padding: 12px 24px;
     border-radius: var(--border-radius);
-    font-size: 1.1rem;
+    font-size: var(--font-base);
     font-weight: 600;
     cursor: pointer;
     transition: all 0.3s ease;
@@ -166,7 +173,7 @@
         
         .claim-card {
             width: 600px;
-            height: 650px;
+            height: 600px;
             background: linear-gradient(135deg, #000000, #1a0000);
             color: white;
             position: relative;
@@ -177,7 +184,7 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            padding: 40px 40px 60px 40px;
+            padding: 35px 35px 50px 35px;
             box-shadow: 0 20px 40px rgba(0,0,0,0.5);
             margin: 0 auto;
         }
@@ -188,7 +195,7 @@
             top: 0;
             left: 0;
             right: 0;
-            height: 15px;
+            height: 10px;
             background: linear-gradient(90deg, #e63946, #dc3545, #e63946);
             animation: pulse-red 2s infinite;
         }
@@ -200,7 +207,7 @@
         }
         
         .days-count {
-            font-size: 4.8rem;
+            font-size: 3rem;
             font-weight: 900;
             color: #e63946;
             text-shadow: 4px 4px 0px #000;
@@ -216,7 +223,7 @@
         }
         
        .airline-brand {
-    font-size: 3.8rem;
+    font-size: 2.5rem;
     font-weight: 900;
     color: #fff;
     margin-bottom: 15px;
@@ -410,7 +417,7 @@
 
     @media (max-width: 768px) {
     .content-section {
-        padding: 20px 15px;
+        padding: 15px 10px;
     }
         
     .form-grid {
@@ -434,8 +441,8 @@
     .claim-card {
         width: 100%;
         max-width: 500px;
-        height: 500px;
-        padding: 30px;
+        height: 450px;
+        padding: 25px;
     }
     
     .airline-brand {
@@ -443,7 +450,7 @@
     }
     
     .days-count {
-        font-size: 3.5rem;
+        font-size: 2.5rem;
     }
     
     
@@ -636,13 +643,13 @@
 
         /* Story Section Styles */
 .story-section {
-    margin: 0;margin-bottom: var(--spacing-lg);
+    margin-bottom: var(--spacing-md);
 }
 
 .story-card {
     background: #fff;
     border-left: 5px solid #e74c3c;
-    padding: 40px;
+    padding: 30px;
     box-shadow: 0 5px 15px rgba(0,0,0,0.1);
     border-radius: 10px;
 }
@@ -744,9 +751,18 @@
 }
 
 /* Fix upload area styling */
+
+    .upload-integrated {
+    margin-top: 30px;
+    padding-top: 30px;
+    border-top: 1px solid #eee;
+}
+        
 .upload-area {
     max-width: 100%;
     box-sizing: border-box;
+    padding: 30px 20px;  /* Reduced from 40px */
+    margin: 0 auto;
 }
         
     </style>
@@ -830,10 +846,12 @@
         
         <div class="form-section">
             <h2>📸 Upload Damage Evidence</h2>
+            <div class="upload-integrated">
             <p style="color: #666; font-size: 0.95rem; margin-bottom: 20px;">
                 <strong>Show the world what Smartwings did to your luggage</strong><br>
                 Photos of destruction increase shares by 400%
             </p>
+             </div>
             <div class="upload-area" id="upload-area">
                 <div class="upload-icon" style="font-size: 3rem; margin-bottom: 10px;">📷</div>
                 <p><strong>Drop your damage photos here</strong> or click to select</p>

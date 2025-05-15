@@ -669,7 +669,7 @@
                 <button class="share-btn facebook" onclick="shareToFacebook()">
                     <span>📘</span> Post on Facebook
                 </button>
-                <button class="share-btn linkedin" onclick="shareToLinkedIn()">
+                <button class="share-btn linkedin" onclick="()">
                     <span>💼</span> Post on LinkedIn
                 </button>
                 <button class="share-btn whatsapp" onclick="shareToWhatsApp()">
@@ -1117,22 +1117,41 @@ async function shareToLinkedIn() {
         `;
         
         modal.innerHTML = `
-            <div style="background: white; padding: 30px; border-radius: 15px; max-width: 600px; max-height: 90vh; overflow-y: auto; box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
+            <div style="background: white; padding: 30px; border-radius: 15px; max-width: 650px; max-height: 90vh; overflow-y: auto; box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
                 <h2 style="color: #0077b5; margin-top: 0;">Share on LinkedIn</h2>
-                <p style="color: #666; margin-bottom: 20px;">LinkedIn posting in 3 easy steps:</p>
-                <ol style="color: #333; line-height: 1.6;">
-                    <li style="margin-bottom: 15px;"><strong>Copy this message</strong> (click button below):
-                        <textarea readonly style="width: 100%; height: 200px; margin: 10px 0; padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-family: inherit; resize: vertical;">${message.replace(/'/g, "&#39;")}</textarea>
-                        <button onclick="navigator.clipboard.writeText(\`${message}\`).then(() => { this.textContent = '✅ Copied!'; this.style.background = '#28a745'; setTimeout(() => { this.textContent = 'Copy Message'; this.style.background = '#0077b5'; }, 2000); })" style="background: #0077b5; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-weight: 600;">Copy Message</button>
-                    </li>
-                    <li style="margin-bottom: 15px;"><strong>Download your card</strong> (happening automatically...)</li>
-                    <li style="margin-bottom: 15px;"><strong>Go to LinkedIn</strong> and create a new post</li>
-                </ol>
+                <p style="color: #666; margin-bottom: 20px;">Follow these steps to share your experience:</p>
+                
+                <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+                    <h3 style="color: #0077b5; margin-top: 0; font-size: 1.1rem;">Step 1: Copy Your Message</h3>
+                    <textarea readonly style="width: 100%; height: 120px; margin: 10px 0; padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-family: inherit; resize: vertical;">${message.replace(/'/g, "&#39;")}</textarea>
+                    <button onclick="navigator.clipboard.writeText(\`${message}\`).then(() => { this.textContent = '✅ Copied!'; this.style.background = '#28a745'; setTimeout(() => { this.textContent = 'Copy Message'; this.style.background = '#0077b5'; }, 2000); })" style="background: #0077b5; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-weight: 600;">Copy Message</button>
+                </div>
+                
+                <div style="background: #fff3cd; padding: 15px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #ffc107;">
+                    <h3 style="color: #856404; margin-top: 0; font-size: 1.1rem;">Step 2: Add Your Image on LinkedIn</h3>
+                    <p style="color: #856404; margin-bottom: 10px; font-weight: 600;">Your evidence card is already downloaded! Look for:</p>
+                    <ul style="color: #856404; margin: 0; padding-left: 20px;">
+                        <li>📷 <strong>Image icon</strong> in the toolbar (appears when you click in the text area)</li>
+                        <li>If toolbar is hidden, click the <strong>❌ X</strong> button on the right side</li>
+                        <li>Upload the downloaded file: <em>"SmartwingsWatch-LinkedIn-${new Date().getDate()}${new Date().toLocaleString('default', {month: 'short'})}${new Date().getFullYear()}.png"</em></li>
+                    </ul>
+                </div>
+                
+                <div style="background: #e7f3ff; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
+                    <h3 style="color: #004589; margin-top: 0; font-size: 1.1rem;">Step 3: Post Your Experience</h3>
+                    <ol style="color: #004589; margin: 0; padding-left: 20px;">
+                        <li>Click the LinkedIn button below</li>
+                        <li>Paste your message in the text area</li>
+                        <li>Click the image icon (📷) in the toolbar</li>
+                        <li>Upload your downloaded card</li>
+                        <li>Click "Post" to share!</li>
+                    </ol>
+                </div>
+                
                 <div style="margin-top: 30px; text-align: center;">
                     <button onclick="window.open('https://www.linkedin.com/feed/', '_blank')" style="background: #0077b5; color: white; border: none; padding: 15px 30px; border-radius: 10px; cursor: pointer; margin-right: 10px; font-weight: 600; font-size: 1rem;">🚀 Open LinkedIn</button>
                     <button onclick="document.body.removeChild(document.querySelector('.linkedin-modal')); document.querySelector('.share-btn.linkedin').style.opacity = '1'; document.querySelector('.share-btn.linkedin').style.pointerEvents = 'auto';" style="background: #666; color: white; border: none; padding: 15px 30px; border-radius: 10px; cursor: pointer; font-weight: 600; font-size: 1rem;">Close</button>
                 </div>
-                <p style="color: #999; font-size: 0.9rem; margin-top: 20px; text-align: center;"><strong>Tip:</strong> After pasting your message on LinkedIn, click the image icon and upload your downloaded card for maximum impact!</p>
             </div>
         `;
         
@@ -1157,7 +1176,7 @@ async function shareToLinkedIn() {
         link.click();
         document.body.removeChild(link);
         
-        showSuccess('💼 LinkedIn sharing ready! Check the popup for easy instructions.');
+        showSuccess('💼 LinkedIn sharing ready! Follow the detailed steps in the popup.');
         
     } catch (error) {
         console.error('LinkedIn share error:', error);

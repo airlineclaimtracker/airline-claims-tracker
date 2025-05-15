@@ -171,12 +171,12 @@
         }
         
         .days-count {
-            font-size: 5.5rem;
+            font-size: 4.8rem;
             font-weight: 900;
             color: #e63946;
             text-shadow: 4px 4px 0px #000;
             line-height: 0.8;
-            margin-bottom: 15px;
+            margin-bottom: 8px;
             animation: shock-pulse 3s infinite;
         }
         
@@ -186,14 +186,15 @@
             100% { transform: scale(1); }
         }
         
-        .airline-brand {
-            font-size: 3.2rem;
-            font-weight: 800;
-            color: #fff;
-            margin-bottom: 10px;
-            text-transform: uppercase;
-            letter-spacing: 0.15em;
-        }
+       .airline-brand {
+    font-size: 3.8rem;
+    font-weight: 900;
+    color: #fff;
+    margin-bottom: 15px;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.8);
+}
         
         .damage-type {
             font-size: 1.4rem;
@@ -363,39 +364,41 @@
         .error-message.show {
             display: block;
         }
-        
         @media (max-width: 768px) {
-            .claim-card {
-                width: 100%;
-                max-width: 500px;
-                height: 500px;
-                padding: 30px;
-            }
-            
-            .container {
-                padding: 15px;
-            }
-            
-            .days-count {
-                font-size: 4rem;
-            }
-            
-            .airline-brand {
-                font-size: 2.3rem;
-            }
-            
-            .scandal-message {
-                font-size: 1.5rem;
-            }
-            
-          .days-photo-container {
-    flex-direction: column;
-    gap: 20px;
-}
-
-.damage-photo {
-    width: 140px;
-    height: 105px;
+    .claim-card {
+        width: 100%;
+        max-width: 500px;
+        height: 500px;
+        padding: 30px;
+    }
+    
+    .airline-brand {
+        font-size: 2.5rem;
+    }
+    
+    .days-count {
+        font-size: 3.5rem;
+    }
+    
+    .silence-label {
+        font-size: 1.2rem;
+    }
+    
+    .days-photo-container {
+        flex-direction: column;
+        gap: 20px;
+        align-items: center;
+    }
+    
+    .time-container {
+        max-width: 100%;
+        padding: 12px 20px;
+    }
+    
+    .damage-photo {
+        width: 160px;
+        height: 120px;
+    }
 }
             
             .amount-tragic {
@@ -411,23 +414,24 @@
             text-transform: uppercase;
         }
 
-        .time-container {
-            background: linear-gradient(45deg, rgba(230, 57, 70, 0.8), rgba(220, 53, 69, 0.8));
-            padding: 20px 30px;
-            border-radius: 20px;
-            border: 3px solid #e63946;
-            margin-bottom: 25px;
-            box-shadow: 0 5px 15px rgba(230, 57, 70, 0.3);
-        }
+       .time-container {
+    background: linear-gradient(45deg, rgba(230, 57, 70, 0.8), rgba(220, 53, 69, 0.8));
+    padding: 15px 25px;
+    border-radius: 20px;
+    border: 3px solid #e63946;
+    box-shadow: 0 5px 15px rgba(230, 57, 70, 0.3);
+    flex: 1;
+    max-width: 340px;
+}
 
 .damage-photo {
-    width: 160px;
-    height: 120px;
-    border-radius: 12px;
+    width: 180px;
+    height: 135px;
+    border-radius: 15px;
     overflow: hidden;
-    border: 4px solid #FFD93D;
+    border: 3px solid #FFD93D;
     opacity: 0.95;
-    transform: rotate(-4deg);
+    transform: rotate(0deg);
     box-shadow: 0 5px 15px rgba(0,0,0,0.3);
     flex-shrink: 0;
 }
@@ -441,15 +445,17 @@
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 40px;
+    gap: 30px;
     margin-bottom: 25px;
+            max-width: 100%;
 }
         .silence-label {
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             color: white;
             font-weight: 800;
             text-transform: uppercase;
             letter-spacing: 0.05em;
+            line-height: 1.1;
         }
 
         .claim-details {

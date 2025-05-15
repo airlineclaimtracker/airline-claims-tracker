@@ -413,6 +413,24 @@
         width: 160px;
         height: 120px;
     }
+            .linkedin-modal {
+        padding: 15px !important;
+    }
+    
+    .linkedin-modal > div {
+        max-width: 95vw !important;
+        padding: 20px !important;
+    }
+    
+    .linkedin-modal textarea {
+        height: 150px !important;
+        font-size: 0.9rem !important;
+    }
+    
+    .linkedin-modal button {
+        width: 100% !important;
+        margin-bottom: 10px;
+    }
 }
             
         /* NEW CSS CLASSES FOR UPDATED DESIGN */
@@ -652,7 +670,7 @@
                     <span>📘</span> Post on Facebook
                 </button>
                 <button class="share-btn linkedin" onclick="shareToLinkedIn()">
-                    <span>💼</span> Share on LinkedIn
+                    <span>💼</span> Post on LinkedIn
                 </button>
                 <button class="share-btn whatsapp" onclick="shareToWhatsApp()">
                     <span>💬</span> Share & Invite Others
@@ -1080,21 +1098,53 @@ async function shareToLinkedIn() {
     
     try {
         const message = generateLinkedInMessage();
-        const cardImage = await generateCardImage(true); // Create smaller image for LinkedIn
+        const cardImage = await generateCardImage(true);
         
-        // Copy message to clipboard
-        if (navigator.clipboard) {
-            await navigator.clipboard.writeText(message);
-        }
+        // Create a modal with copy-paste instructions
+        const modal = document.createElement('div');
+        modal.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 10000;
+        `;
         
-        // LinkedIn doesn't support pre-filled posts, so we need to open the share dialog
-        const linkedInUrl = 'https://www.linkedin.com/sharing/share-offsite/?url=' + 
-                           encodeURIComponent(window.location.href);
+        modal.innerHTML = `
+            <div style="background: white; padding: 30px; border-radius: 15px; max-width: 600px; max-height: 90vh; overflow-y: auto; box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
+                <h2 style="color: #0077b5; margin-top: 0;">Share on LinkedIn</h2>
+                <p style="color: #666; margin-bottom: 20px;">LinkedIn posting in 3 easy steps:</p>
+                <ol style="color: #333; line-height: 1.6;">
+                    <li style="margin-bottom: 15px;"><strong>Copy this message</strong> (click button below):
+                        <textarea readonly style="width: 100%; height: 200px; margin: 10px 0; padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-family: inherit; resize: vertical;">${message.replace(/'/g, "&#39;")}</textarea>
+                        <button onclick="navigator.clipboard.writeText(\`${message}\`).then(() => { this.textContent = '✅ Copied!'; this.style.background = '#0077b5'; setTimeout(() => { this.textContent = 'Copy Message'; this.style.background = '#0077b5'; }, 2000); })" style="background: #0077b5; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-weight: 600;">Copy Message</button>
+                    </li>
+                    <li style="margin-bottom: 15px;"><strong>Download your card</strong> (happening automatically...)</li>
+                    <li style="margin-bottom: 15px;"><strong>Go to LinkedIn</strong> and create a new post</li>
+                </ol>
+                <div style="margin-top: 30px; text-align: center;">
+                    <button onclick="window.open('https://www.linkedin.com/feed/', '_blank')" style="background: #0077b5; color: white; border: none; padding: 15px 30px; border-radius: 10px; cursor: pointer; margin-right: 10px; font-weight: 600; font-size: 1rem;">🚀 Open LinkedIn</button>
+                    <button onclick="document.body.removeChild(this.closest('div')); document.querySelector('.share-btn.linkedin').style.opacity = '1'; document.querySelector('.share-btn.linkedin').style.pointerEvents = 'auto';" style="background: #666; color: white; border: none; padding: 15px 30px; border-radius: 10px; cursor: pointer; font-weight: 600; font-size: 1rem;">Close</button>
+                </div>
+                <p style="color: #999; font-size: 0.9rem; margin-top: 20px; text-align: center;"><strong>Tip:</strong> After pasting your message on LinkedIn, click the image icon and upload your downloaded card for maximum impact!</p>
+            </div>
+        `;
         
-        // Open LinkedIn and show instructions
-        window.open(linkedInUrl, '_blank');
+        document.body.appendChild(modal);
+modal.onclick = function(e) {
+    if (e.target === modal) {
+        document.body.removeChild(modal);
+        btn.style.opacity = '1';
+        btn.style.pointerEvents = 'auto';
+    }
+};
         
-        // Download the image so user can manually attach
+        // Auto-download the image
         const link = document.createElement('a');
         const today = new Date();
         const dateString = `${today.getDate()}${today.toLocaleString('default', { month: 'short' })}${today.getFullYear()}`;
@@ -1104,22 +1154,13 @@ async function shareToLinkedIn() {
         link.click();
         document.body.removeChild(link);
         
-        // Show detailed instructions
-        showSuccess(`💼 LinkedIn opened & image downloaded!
-        
-NEXT STEPS:
-1. Your message is already copied to clipboard
-2. Click "Write a post" on LinkedIn
-3. Paste your message (Ctrl+V)
-4. Click the image icon and upload your downloaded card
-5. Post to share your experience!`);
+        showSuccess('💼 LinkedIn sharing ready! Check the popup for easy instructions.');
         
     } catch (error) {
         console.error('LinkedIn share error:', error);
         showError('Error preparing LinkedIn share. Please try again.');
     } finally {
-        btn.style.opacity = '1';
-        btn.style.pointerEvents = 'auto';
+        // Don't reset button here - it gets reset when modal closes
     }
 }
         

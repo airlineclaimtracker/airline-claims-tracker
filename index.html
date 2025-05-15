@@ -16,6 +16,21 @@
     <meta name="theme-color" content="#e63946">
     
     <style>
+        
+:root {
+    --primary-red: #e63946;
+    --dark-red: #d63031;
+    --accent-yellow: #FFD93D;
+    --text-dark: #1d3557;
+    --bg-light: #f8f9fa;
+    --spacing-xs: 8px;
+    --spacing-sm: 16px;
+    --spacing-md: 24px;
+    --spacing-lg: 40px;
+    --border-radius: 12px;
+    --max-content-width: 1000px;
+}
+        
         * {
             box-sizing: border-box;
         }
@@ -27,6 +42,11 @@
             background-color: #f8f9fa;
             color: #333;
         }
+.content-section {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 40px 20px;
+}
         
         .container {
             max-width: 900px;
@@ -55,20 +75,22 @@
             opacity: 0.9;
         }
         
-        .form-section {
-            background: white;
-            padding: 30px;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            margin-bottom: 30px;
-        }
-        
-        .form-section h2 {
-            color: #1d3557;
-            margin-top: 0;
-            font-size: 1.3rem;
-            font-weight: 700;
-        }
+.form-section {
+    background: white;
+    padding: var(--spacing-lg);
+    border-radius: 15px;
+    box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+    margin-bottom: var(--spacing-lg);
+}
+
+.form-section h2 {
+    color: var(--text-dark);
+    margin-top: 0;
+    font-size: 1.4rem;
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: var(--spacing-md);
+}
         
         .form-grid {
             display: grid;
@@ -105,22 +127,24 @@
             border-color: #e63946;
         }
         
-        .btn {
-            background: linear-gradient(135deg, #e63946, #d63031);
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            border-radius: 10px;
-            font-size: 1.1rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s;
-        }
-        
-        .btn:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(230, 57, 70, 0.3);
-        }
+.btn {
+    background: linear-gradient(135deg, var(--primary-red), var(--dark-red));
+    color: white;
+    border: none;
+    padding: 15px 30px;
+    border-radius: var(--border-radius);
+    font-size: 1.1rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    display: inline-block;
+    text-decoration: none;
+}
+
+.btn:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(230, 57, 70, 0.4);
+}
         
         .upload-area {
             border: 3px dashed #ddd;
@@ -387,7 +411,29 @@
         height: 500px;
         padding: 30px;
     }
+    @media (max-width: 768px) {
+    .content-section {
+        padding: 20px 15px;
+    }
     
+    .form-grid {
+        grid-template-columns: 1fr;
+    }
+    
+    .btn {
+        width: 100%;
+        padding: 18px;
+        font-size: 1rem;
+    }
+    
+    .header h1 {
+        font-size: 2rem;
+    }
+    
+    .header p {
+        font-size: 1rem;
+    }
+}
     .airline-brand {
         font-size: 2.5rem;
     }
@@ -703,18 +749,18 @@
     </div>
 </nav>
     
-    <div class="container">
+    <div class="container content-section">
 <!-- Hero Section -->
 <div class="header" id="story">
     <h1>Still Waiting</h1>
-    <p>Your story. Your voice. Your right to be heard.</p>
+    <p>Document your experience. Share your story. Get heard.</p>
 </div>
 <!-- Personal Story Section -->
-<div class="story-section">
+<div class="story-section content-section">
     <div class="story-card">
         <h2>Day <span id="days-counter">620</span>: Still waiting for compensation. Still waiting for explanation.</h2>
-        <p>Following Smartwings' official process, I submitted my luggage damage claim through their designated portal at <a href="https://claim.smartwingsgroup.com/pl/baggage_claims/create_new/" target="_blank" style="color: #c0392b;">claim.smartwingsgroup.com</a>. I provided all required documentation, photographs, and received a system-generated claim ID confirming registration.</p>
-        <p><strong>Result:</strong> <span id="amount-counter">€1,200</span> claim submitted. <span id="days-counter-2">620</span> days of complete silence.</p>
+        <p>I filed my luggage damage claim through Smartwings' official portal at <a href="https://claim.smartwingsgroup.com/pl/baggage_claims/create_new/" target="_blank" style="color: #c0392b;">claim.smartwingsgroup.com</a>. I provided all required documentation, photographs, and received a system-generated claim ID.</p>
+        <p><strong>Result:</strong> <span id="amount-counter">€200</span> claim submitted. <span id="days-counter-2">620</span> days of complete silence.</p>
         
         <div class="your-story">
             <h3>Your experience deserves acknowledgment too.</h3>
@@ -726,7 +772,7 @@
 </div>
         
         <div class="form-section" id="create">
-            <h2>📝 Document Your Luggage Damage</h2>
+            <h2>📝 Document Your Experience</h2>
             <form id="claim-form">
                 <div class="form-grid">
                     <div class="form-item">
@@ -763,7 +809,7 @@
                 
                 <div id="error-message" class="error-message"></div>
                 
-                <button type="submit" class="btn">🚀 Generate Fraud Exposure Card</button>
+                <button type="submit" class="btn">🚀 Create Your Experience Card</button>
             </form>
         </div>
         
@@ -793,7 +839,7 @@
         <div id="card-section" style="display: none;">
             
     <div class="claim-card" id="claim-card">
-    <div class="communication-pattern">WEB FORM FILED • EMAIL IGNORED • PHONE UNAVAILABLE</div>
+    <div class="communication-pattern">CLAIM FILED • NO RESPONSE • NO CONTACT</div>
     <div class="airline-brand">SMARTWINGS</div>
     <div class="damage-type">DESTROYED MY LUGGAGE</div>
     
@@ -817,14 +863,14 @@
         <div class="share-action">SHARE YOUR STORY</div>
     </div>
     
-    <div class="corporate-question">PROFIT OVER PASSENGER RIGHTS?</div>
+    <div class="corporate-question">WAITING FOR A RESPONSE?</div>
     <div class="hashtags">#SMARTWINGSSILENCE #ACCOUNTABILITY</div>
 </div>  
         </div>
         
         <div class="share-section" id="share-section" style="display: none;">
-            <h2>📢 Help Others Avoid This</h2>
-            <p style="color: #666;">Share your story and warn other travelers about Smarwings practice</p>
+            <h2>📢 Share Your Experience This</h2>
+            <p style="color: #666;">Help others understand Smartwings' response times by sharing your experience</p>
             
             <div class="share-grid">
                 <button class="share-btn twitter" onclick="shareToTwitter()">
@@ -837,7 +883,7 @@
                     <span>💼</span> Post on LinkedIn
                 </button>
                 <button class="share-btn whatsapp" onclick="shareToWhatsApp()">
-                    <span>💬</span> Share & Invite Others
+                    <span>💬</span> Share Your Story
                 </button>
                 <button class="share-btn download" onclick="downloadCard()">
                     <span>📸</span> Get Your Card

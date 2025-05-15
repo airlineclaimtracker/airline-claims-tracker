@@ -1016,7 +1016,7 @@ Spread the word - warn everyone!
            }
        }
        
-       function getDateString() {
+    function getDateString() {
     const today = new Date();
     const day = today.getDate();
     const month = today.toLocaleString('default', { month: 'short' });
@@ -1024,31 +1024,32 @@ Spread the word - warn everyone!
     return `${day}${month}${year}`;
 }
         
-        async function downloadCard() {
-           const btn = document.querySelector('.share-btn.download');
-           btn.style.opacity = '0.7';
-           btn.style.pointerEvents = 'none';
-           
-           try {
-               const cardImage = await generateCardImage();
-               
-               const link = document.createElement('a');
-               link.download = `My-Smartwings-Card-${getDateString()}-${claimData.days}days.png`;
-               link.href = URL.createObjectURL(cardImage);
-               
-               document.body.appendChild(link);
-               link.click();
-               document.body.removeChild(link);
-               
-               showSuccess('💾 Fraud evidence downloaded! Share everywhere to expose them!');
-           } catch (error) {
-               console.error('Download error:', error);
-               showError('Error downloading evidence. Please try again.');
-           } finally {
-               btn.style.opacity = '1';
-               btn.style.pointerEvents = 'auto';
-           }
-       }
+async function downloadCard() {
+    const btn = document.querySelector('.share-btn.download');
+    btn.style.opacity = '0.7';
+    btn.style.pointerEvents = 'none';
+    
+    try {
+        const cardImage = await generateCardImage();
+        
+        const link = document.createElement('a');
+        // Simple filename with just days count
+        link.download = `My-Smartwings-Card-${claimData.days}days.png`;
+        link.href = URL.createObjectURL(cardImage);
+        
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        
+        showSuccess('💾 Card downloaded successfully!');
+    } catch (error) {
+        console.error('Download error:', error);
+        showError('Error downloading card. Please try again.');
+    } finally {
+        btn.style.opacity = '1';
+        btn.style.pointerEvents = 'auto';
+    }
+}
        
        async function generateCardImage() {
            const cardElement = document.getElementById('claim-card');

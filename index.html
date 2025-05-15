@@ -1000,8 +1000,6 @@ Spread the word - warn everyone!
                    }
                }
                 
-              
-                downloadCard();
                
                const whatsappUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(message)}`;
                window.open(whatsappUrl, '_blank');
@@ -1023,24 +1021,38 @@ Spread the word - warn everyone!
     const year = today.getFullYear();
     return `${day}${month}${year}`;
 }
-        
-async function downloadCard() {
+    async function downloadCard() {
     const btn = document.querySelector('.share-btn.download');
+    if (!btn) {
+        showError('Download button not found');
+        return;
+    }
+    
     btn.style.opacity = '0.7';
     btn.style.pointerEvents = 'none';
     
     try {
+        console.log('Starting download...'); // Debug line
+        console.log('claimData:', claimData); // Debug line
+        
         const cardImage = await generateCardImage();
+        console.log('Image generated successfully'); // Debug line
+        
+        const today = new Date();
+        const day = today.getDate();
+        const month = today.toLocaleString('default', { month: 'short' });
+        const year = today.getFullYear();
+        const dateString = `${day}${month}${year}`;
         
         const link = document.createElement('a');
-        // Simple filename with just days count
-        link.download = `My-Smartwings-Card-${claimData.days}days.png`;
+        link.download = `My-Smartwings-Card-${dateString}-${claimData.days}days.png`;
         link.href = URL.createObjectURL(cardImage);
         
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
         
+        console.log('Download completed'); // Debug line
         showSuccess('💾 Card downloaded successfully!');
     } catch (error) {
         console.error('Download error:', error);

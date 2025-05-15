@@ -64,28 +64,27 @@
             padding: 20px;
         }
         
-        .header {
-            background: linear-gradient(135deg, var(--primary-red), var(--dark-red));
-            color: white;
-            padding: 40px 20px;
-            text-align: center;
-            border-radius: 15px;
-            margin-bottom: 30px;
-        }
-        
-.header h1 {
-    font-size: 3rem;
-    font-weight: 800;
-    color: var(--text-primary);
+.header {
+    background: linear-gradient(135deg, var(--primary-red), var(--dark-red));
+    color: white;
+    padding: 30px 20px;  /* Reduced from 40px to 30px */
     text-align: center;
-    margin-bottom: 1rem;
+    border-radius: 15px;
+    margin-bottom: 30px;
+}
+
+.header h1 {
+    margin: 0;
+    font-size: 2.5rem;  /* Reduced from 3rem to 2.5rem */
+    font-weight: 800;
+    color: white;  /* Explicit white color */
 }
 
 .header p {
-    font-size: 1.2rem;
-    color: var(--text-secondary);
-    text-align: center;
-    margin-bottom: 2rem;
+    margin: 15px 0 0;
+    font-size: 1rem;  /* Reduced from 1.2rem to 1rem */
+    color: white;  /* Explicit white color */
+    opacity: 0.95;
 }
         
 .form-section {
@@ -878,6 +877,7 @@
         </div>
     </div>
     <p class="action-text">If you've filed a claim with an airline and received no response, you're not alone.</p>
+    <p class="action-text">I filed a claim with Smartwings on their official website <strong>claim.smartwingsgroup.com/pl/</strong> for €200 in luggage damage. <strong>620 days later</strong>, I still haven't received any response. This tool helps passengers document and share their experiences to create accountability.</p>
     <a href="#create" class="cta-button">Document Your Experience</a>
 </div>
         

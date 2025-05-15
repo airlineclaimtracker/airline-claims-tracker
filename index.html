@@ -303,6 +303,15 @@
             background: #4267b2;
             color: white;
         }
+        .share-btn.linkedin {
+            border-color: #0077b5;
+            color: #0077b5;
+        }
+
+        .share-btn.linkedin:hover {
+            background: #0077b5;
+            color: white;
+        }
         
         .share-btn.whatsapp {
             border-color: #25d366;
@@ -624,6 +633,9 @@
                 <button class="share-btn facebook" onclick="shareToFacebook()">
                     <span>📘</span> Post on Facebook
                 </button>
+                <button class="share-btn linkedin" onclick="shareToLinkedIn()">
+                    <span>💼</span> Share on LinkedIn
+                </button>
                 <button class="share-btn whatsapp" onclick="shareToWhatsApp()">
                     <span>💬</span> Share & Invite Others
                 </button>
@@ -743,7 +755,7 @@ function updateCard() {
     document.getElementById('days-count').textContent = claimData.days;
     document.getElementById('amount-value').textContent = `€${claimData.amount}`;
     
-    const message = generateCampaignMessage(); // This now uses the improved message
+    const message = generateCampaignMessage(); // This now uses the new message
     document.getElementById('share-message').textContent = message;
 }
         
@@ -878,55 +890,100 @@ Document your experience: ${url}`;
 }
 function generateCampaignMessage() {
     const currentUrl = window.location.href;
-    return `I'm sharing my experience with Smartwings customer service regarding a luggage damage claim.
-
-Timeline:
-- Claim filed: ${claimData.submissionDate}
-- Damage value: €${claimData.amount}
-- Days waiting for response: ${claimData.days}
-- Communication attempts: Multiple (web form, email, phone)
-- Current status: No response received
-
-I've developed a tool to help passengers document and track airline claim responses more effectively. It creates a clear timeline of communication attempts and helps build accountability.
-
-If you've had similar experiences with Smartwings, this may help: ${currentUrl}
-
-#PassengerRights #SmartwingsAccountability`;
+    const pricePerDay = (claimData.amount / claimData.days).toFixed(3);
+    
+    return `Day ${claimData.days}: Smartwings owes me €${claimData.amount} for luggage damage.
+That's €${pricePerDay} per day 'saved' through systematic delays.
+Instead of giving up, I built an awareness tool to help passengers get properly heard and compensated.
+📊 Protect your rights: ${currentUrl}
+Who else faces endless Smartwings delays?
+#SmartwingsWatch #PassengerProtection`;
 }
 
 function generateTwitterMessage() {
     const currentUrl = window.location.href;
-    return `Smartwings customer service update:
-${claimData.days} days since filing €${claimData.amount} luggage damage claim.
-Still waiting for ANY response.
-
-Created a tool to help document these experiences: ${currentUrl}
-#SmartwingsAccountability #PassengerRights`;
+    const pricePerDay = (claimData.amount / claimData.days).toFixed(3);
+    
+    return `Day ${claimData.days}: Smartwings owes me €${claimData.amount} for luggage damage.
+€${pricePerDay}/day 'saved' through systematic delays.
+Built an awareness tool to help passengers get heard & compensated.
+📊 Protect yourself: ${currentUrl}
+Who else faces endless Smartwings delays?
+#SmartwingsWatch #PassengerProtection`;
 }
 
 function generateLinkedInMessage() {
     const currentUrl = window.location.href;
-    return `Subject: Airline Customer Service Experience - Smartwings
+    const pricePerDay = (claimData.amount / claimData.days).toFixed(3);
+    
+    return `Professional Update: Airline Customer Service Accountability
 
-I'm documenting my experience with Smartwings customer service regarding a luggage damage claim to highlight industry-wide accountability issues.
+I'm sharing my experience to highlight systematic issues in airline customer service, specifically with Smartwings.
 
-Situation Summary:
-- Incident: Luggage damage during Smartwings flight
-- Claim Amount: €${claimData.amount}
-- Filed: ${claimData.submissionDate}
-- Current Status: ${claimData.days} days without response
-- Communication Methods Attempted: Web form, email, phone support
+Situation:
+- Claim filed: ${claimData.submissionDate}
+- Amount: €${claimData.amount} (luggage damage)
+- Status: ${claimData.days} days without resolution
+- Daily cost delay: €${pricePerDay}
 
-I've created a digital tool to help passengers document such experiences systematically. It generates clear timelines and facilitates sharing of accountability issues.
+Rather than simply complaining, I developed an awareness tool to help passengers:
+✓ Document experiences systematically
+✓ Navigate claim processes effectively  
+✓ Get properly heard and compensated
+✓ Protect their rights as consumers
 
-Access the tool here: ${currentUrl}
+This tool transforms individual frustrations into collective awareness and accountability.
 
-This aims to create transparency and encourage better industry practices.
+Access the platform: ${currentUrl}
 
-#PassengerRights #SmartwingsAccountability #CustomerService`;
+Have others experienced similar systematic delays with airlines?
+
+#PassengerRights #CustomerService #InnovativeSolutions #SmartwingsWatch #ConsumerProtection`;
+}
+
+        function generateWhatsAppMessage() {
+    const currentUrl = window.location.href;
+    const pricePerDay = (claimData.amount / claimData.days).toFixed(3);
+    
+    return `🚨 Day ${claimData.days}: Smartwings still owes me €${claimData.amount}!
+
+They've 'saved' €${pricePerDay} per day through delays.
+
+Instead of giving up, I built an awareness tool to help passengers get heard and get compensated properly.
+
+📱 Check it out: ${currentUrl}
+
+Share if you've faced similar issues with airlines!
+#SmartwingsWatch #PassengerProtection`;
+}
+
+function generateFacebookMessage() {
+    const currentUrl = window.location.href;
+    const pricePerDay = (claimData.amount / claimData.days).toFixed(3);
+    
+    return `✈️ PASSENGER RIGHTS UPDATE ✈️
+
+Day ${claimData.days}: Still waiting for Smartwings to pay my €${claimData.amount} luggage damage claim.
+
+The math? They've 'saved' €${pricePerDay} per day through systematic delays.
+
+Instead of just complaining, I did something about it - I built an awareness tool that helps passengers:
+🔹 Get properly heard
+🔹 Document their experiences  
+🔹 Navigate claim processes
+🔹 Secure fair compensation
+
+💡 Try the tool: ${currentUrl}
+
+TAG someone who's had airline issues!
+How long have they kept you waiting?
+
+#SmartwingsWatch #PassengerProtection #TravelRights #GetCompensated
+
+Share this post to help fellow travelers! 👇`;
 }
         
-        async function shareToTwitter() {
+ async function shareToTwitter() {
     const btn = document.querySelector('.share-btn.twitter');
     btn.style.opacity = '0.7';
     btn.style.pointerEvents = 'none';
@@ -940,9 +997,9 @@ This aims to create transparency and encourage better industry practices.
                 await navigator.clipboard.write([
                     new ClipboardItem({ 'image/png': cardImage })
                 ]);
-                showSuccess('🐦 Twitter opened! Card copied to clipboard - paste it with your post!');
+                showSuccess('🐦 Twitter opened! Your story and evidence copied to clipboard - paste it with your post!');
             } catch (e) {
-                showSuccess('🐦 Twitter opened! Download the card and attach it to expose the issue!');
+                showSuccess('🐦 Twitter opened! Download the card and attach it to expose the delays!');
             }
         }
         
@@ -962,17 +1019,17 @@ async function shareToFacebook() {
     btn.style.pointerEvents = 'none';
     
     try {
-        const message = generateLinkedInMessage(); // Using professional message for Facebook
+        const message = generateFacebookMessage();
         const cardImage = await generateCardImage();
         
         if (navigator.share && cardImage) {
             try {
-                const file = new File([cardImage], 'smartwings-claim-experience.png', { type: 'image/png' });
+                const file = new File([cardImage], 'smartwings-delay-evidence.png', { type: 'image/png' });
                 await navigator.share({
                     text: message,
                     files: [file]
                 });
-                showSuccess('✅ Successfully shared to Facebook!');
+                showSuccess('✅ Successfully shared to Facebook with your story!');
                 return;
             } catch (e) {
                 console.log('Native share failed');
@@ -982,9 +1039,9 @@ async function shareToFacebook() {
         if (navigator.clipboard) {
             try {
                 await navigator.clipboard.writeText(message);
-                showSuccess('📘 Facebook opened! Message copied to clipboard - paste it with your card!');
+                showSuccess('📘 Facebook opened! Your story copied to clipboard - paste it with your card!');
             } catch (e) {
-                showSuccess('📘 Facebook opened! Copy the message below your post');
+                showSuccess('📘 Facebook opened! Copy the message below and share your experience');
             }
         }
         
@@ -997,6 +1054,34 @@ async function shareToFacebook() {
         btn.style.pointerEvents = 'auto';
     }
 }
+
+async function shareToLinkedIn() {
+    const btn = document.querySelector('.share-btn.linkedin');
+    btn.style.opacity = '0.7';
+    btn.style.pointerEvents = 'none';
+    
+    try {
+        const message = generateLinkedInMessage();
+        const cardImage = await generateCardImage();
+        
+        if (navigator.clipboard) {
+            try {
+                await navigator.clipboard.writeText(message);
+                showSuccess('💼 LinkedIn opened! Your professional update copied to clipboard!');
+            } catch (e) {
+                showSuccess('💼 LinkedIn opened! Copy the message below for your post');
+            }
+        }
+        
+        window.open('https://www.linkedin.com/', '_blank');
+    } catch (error) {
+        console.error('LinkedIn share error:', error);
+        showError('Error preparing LinkedIn post. Please try again.');
+    } finally {
+        btn.style.opacity = '1';
+        btn.style.pointerEvents = 'auto';
+    }
+}
         
 async function shareToWhatsApp() {
     const btn = document.querySelector('.share-btn.whatsapp');
@@ -1004,34 +1089,35 @@ async function shareToWhatsApp() {
     btn.style.pointerEvents = 'none';
     
     try {
-        const message = generateTwitterMessage(); // Changed to use shorter social message
+        const message = generateWhatsAppMessage();
         const cardImage = await generateCardImage();
         
-        // Rest of the function stays the same
+        // Try native sharing first (works on mobile)
         if (navigator.share && cardImage) {
             try {
-                const file = new File([cardImage], 'smartwings-claim-experience.png', { type: 'image/png' });
+                const file = new File([cardImage], 'smartwings-delay-evidence.png', { type: 'image/png' });
                 await navigator.share({
                     text: message,
                     files: [file]
                 });
-                showSuccess('✅ Successfully shared via WhatsApp!');
+                showSuccess('✅ Successfully shared via WhatsApp with your story!');
                 return;
             } catch (e) {
                 console.log('Native share failed');
             }
         }
         
+        // Fallback: Copy message and download image
         if (navigator.clipboard) {
             await navigator.clipboard.writeText(message);
         }
         
-        downloadCard();
+        downloadCard(); // Auto-download the image
         
         const whatsappUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(message)}`;
         window.open(whatsappUrl, '_blank');
         
-        showSuccess('💬 WhatsApp opened! Message copied and card downloaded - attach the image!');
+        showSuccess('💬 WhatsApp opened! Your story copied and evidence downloaded - attach the image!');
     } catch (error) {
         console.error('WhatsApp share error:', error);
         showError('Error preparing WhatsApp share. Please try again.');

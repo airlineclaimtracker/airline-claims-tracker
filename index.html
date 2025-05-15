@@ -1102,6 +1102,7 @@ async function shareToLinkedIn() {
         
         // Create a modal with copy-paste instructions
         const modal = document.createElement('div');
+        modal.className = 'linkedin-modal';
         modal.style.cssText = `
             position: fixed;
             top: 0;
@@ -1122,27 +1123,29 @@ async function shareToLinkedIn() {
                 <ol style="color: #333; line-height: 1.6;">
                     <li style="margin-bottom: 15px;"><strong>Copy this message</strong> (click button below):
                         <textarea readonly style="width: 100%; height: 200px; margin: 10px 0; padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-family: inherit; resize: vertical;">${message.replace(/'/g, "&#39;")}</textarea>
-                        <button onclick="navigator.clipboard.writeText(\`${message}\`).then(() => { this.textContent = '✅ Copied!'; this.style.background = '#0077b5'; setTimeout(() => { this.textContent = 'Copy Message'; this.style.background = '#0077b5'; }, 2000); })" style="background: #0077b5; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-weight: 600;">Copy Message</button>
+                        <button onclick="navigator.clipboard.writeText(\`${message}\`).then(() => { this.textContent = '✅ Copied!'; this.style.background = '#28a745'; setTimeout(() => { this.textContent = 'Copy Message'; this.style.background = '#0077b5'; }, 2000); })" style="background: #0077b5; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-weight: 600;">Copy Message</button>
                     </li>
                     <li style="margin-bottom: 15px;"><strong>Download your card</strong> (happening automatically...)</li>
                     <li style="margin-bottom: 15px;"><strong>Go to LinkedIn</strong> and create a new post</li>
                 </ol>
                 <div style="margin-top: 30px; text-align: center;">
                     <button onclick="window.open('https://www.linkedin.com/feed/', '_blank')" style="background: #0077b5; color: white; border: none; padding: 15px 30px; border-radius: 10px; cursor: pointer; margin-right: 10px; font-weight: 600; font-size: 1rem;">🚀 Open LinkedIn</button>
-                    <button onclick="document.body.removeChild(this.closest('div')); document.querySelector('.share-btn.linkedin').style.opacity = '1'; document.querySelector('.share-btn.linkedin').style.pointerEvents = 'auto';" style="background: #666; color: white; border: none; padding: 15px 30px; border-radius: 10px; cursor: pointer; font-weight: 600; font-size: 1rem;">Close</button>
+                    <button onclick="document.body.removeChild(document.querySelector('.linkedin-modal')); document.querySelector('.share-btn.linkedin').style.opacity = '1'; document.querySelector('.share-btn.linkedin').style.pointerEvents = 'auto';" style="background: #666; color: white; border: none; padding: 15px 30px; border-radius: 10px; cursor: pointer; font-weight: 600; font-size: 1rem;">Close</button>
                 </div>
                 <p style="color: #999; font-size: 0.9rem; margin-top: 20px; text-align: center;"><strong>Tip:</strong> After pasting your message on LinkedIn, click the image icon and upload your downloaded card for maximum impact!</p>
             </div>
         `;
         
+        // Click outside to close
+        modal.onclick = function(e) {
+            if (e.target === modal) {
+                document.body.removeChild(modal);
+                btn.style.opacity = '1';
+                btn.style.pointerEvents = 'auto';
+            }
+        };
+        
         document.body.appendChild(modal);
-modal.onclick = function(e) {
-    if (e.target === modal) {
-        document.body.removeChild(modal);
-        btn.style.opacity = '1';
-        btn.style.pointerEvents = 'auto';
-    }
-};
         
         // Auto-download the image
         const link = document.createElement('a');

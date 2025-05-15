@@ -625,7 +625,7 @@
                     <span>📘</span> Post on Facebook
                 </button>
                 <button class="share-btn whatsapp" onclick="shareToWhatsApp()">
-                    <span>💬</span> Send to contacts
+                    <span>💬</span> Share & Invite Others
                 </button>
                 <button class="share-btn download" onclick="downloadCard()">
                     <span>📸</span> Get Your Card
@@ -743,7 +743,7 @@
     document.getElementById('days-count').textContent = claimData.days;
     document.getElementById('amount-value').textContent = `€${claimData.amount}`;
     
-    const message = generateScandalMessage();
+    const message =();
     document.getElementById('share-message').textContent = message;
 }
         
@@ -876,143 +876,156 @@ SYSTEM DESIGNED TO AVOID ACCOUNTABILITY
 
 Document your experience: ${url}`;
 }
-        
+function generateCampaignMessage() {
+    const currentUrl = window.location.href;
+    return `I filed a claim with Smartwings for luggage damage (€${claimData.amount}).
+
+${claimData.days} days later: complete silence.
+
+If you've had similar issues with airline claims, I found a tool to document and share these experiences. It may help create accountability:
+
+${currentUrl}
+
+Have others experienced systematic non-response from airlines?`;
+}
+
+function generateTwitterMessage() {
+    const currentUrl = window.location.href;
+    return `Smartwings damaged my luggage (€${claimData.amount}). Filed claim ${claimData.days} days ago - still waiting for response.
+
+Document your airline claim experience: ${currentUrl}
+
+#PassengerRights #AirlineAccountability`;
+}
+
+function generateLinkedInMessage() {
+    const currentUrl = window.location.href;
+    return `Sharing a passenger rights experience for professional discussion:
+
+I filed a claim with Smartwings for damaged luggage (€${claimData.amount}) in ${claimData.submissionDate}. 
+
+${claimData.days} days later, I have received no response despite multiple contact attempts through their web form and email system.
+
+This experience highlights systemic issues in airline customer service. I've found a tool that helps document these patterns: ${currentUrl}
+
+Has anyone else experienced similar challenges with airline claim processes? What has been your experience with passenger rights enforcement?
+
+#PassengerRights #CustomerService #AirlineIndustry`;
+}
         async function shareToTwitter() {
-            const btn = document.querySelector('.share-btn.twitter');
-            btn.style.opacity = '0.7';
-            btn.style.pointerEvents = 'none';
-            
+    const btn = document.querySelector('.share-btn.twitter');
+    btn.style.opacity = '0.7';
+    btn.style.pointerEvents = 'none';
+    
+    try {
+        const message = generateTwitterMessage();
+        const cardImage = await generateCardImage();
+        
+        if (navigator.clipboard && cardImage) {
             try {
-                const message = generateScandalMessage();
-                const cardImage = await generateCardImage();
-                
-                const twitterMessage = `🚨 SMARTWINGS DESTROYED MY LUGGAGE
-€${claimData.amount} claim - ${claimData.days} DAYS OF SILENCE
-Multiple victims report same pattern
-IS THIS A SCAM? @SmartwingsGroup
-#SmartwingsScam #LuggageFraud`;
-                
-                if (navigator.clipboard && cardImage) {
-                    try {
-                        await navigator.clipboard.write([
-                            new ClipboardItem({ 'image/png': cardImage })
-                        ]);
-                        showSuccess('🐦 Twitter opened! Fraud evidence copied to clipboard - paste it to expose them!');
-                    } catch (e) {
-                        showSuccess('🐦 Twitter opened! Download the evidence and attach it to expose the fraud!');
-                    }
-                }
-                
-                const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(twitterMessage)}`;
-                window.open(twitterUrl, '_blank');
-            } catch (error) {
-                showError('Error preparing fraud exposure. Please try again.');
-            } finally {
-                btn.style.opacity = '1';
-                btn.style.pointerEvents = 'auto';
+                await navigator.clipboard.write([
+                    new ClipboardItem({ 'image/png': cardImage })
+                ]);
+                showSuccess('🐦 Twitter opened! Card copied to clipboard - paste it with your post!');
+            } catch (e) {
+                showSuccess('🐦 Twitter opened! Download the card and attach it to expose the issue!');
             }
         }
+        
+        const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(message)}`;
+        window.open(twitterUrl, '_blank');
+    } catch (error) {
+        showError('Error preparing Twitter post. Please try again.');
+    } finally {
+        btn.style.opacity = '1';
+        btn.style.pointerEvents = 'auto';
+    }
+}
         
         async function shareToFacebook() {
-            const btn = document.querySelector('.share-btn.facebook');
-            btn.style.opacity = '0.7';
-            btn.style.pointerEvents = 'none';
-            
+    const btn = document.querySelector('.share-btn.facebook');
+    btn.style.opacity = '0.7';
+    btn.style.pointerEvents = 'none';
+    
+    try {
+        const message = generateCampaignMessage();
+        const cardImage = await generateCardImage();
+        
+        if (navigator.share && cardImage) {
             try {
-                const message = `⚠️ SMARTWINGS LUGGAGE FRAUD ALERT ⚠️
-
-They DESTROYED my luggage
-worth €${claimData.amount}
-Filed claim ${claimData.days} days ago
-Response: COMPLETE SILENCE
-
-Multiple passengers report IDENTICAL experiences
-This isn't poor service - it's SYSTEMATIC FRAUD!
-
-Share to warn others!
-#SmartwingsScam #LuggageFraud`;
-                
-                const cardImage = await generateCardImage();
-                
-                if (navigator.share && cardImage) {
-                    try {
-                        const file = new File([cardImage], 'smartwings-fraud-evidence.png', { type: 'image/png' });
-                        await navigator.share({
-                            text: message,
-                            files: [file]
-                        });
-                        showSuccess('✅ Scandal successfully shared! Others warned!');
-                        return;
-                    } catch (e) {
-                        console.log('Native share failed');
-                    }
-                }
-                
-                if (navigator.clipboard) {
-                    try {
-                        await navigator.clipboard.writeText(message);
-                        showSuccess('📘 Facebook opened! Fraud warning copied to clipboard - paste to warn others!');
-                    } catch (e) {
-                        showSuccess('📘 Facebook opened! Copy the scandal message below and warn everyone!');
-                    }
-                }
-                
-                window.open('https://www.facebook.com/', '_blank');
-            } catch (error) {
-                console.error('Facebook share error:', error);
-                showError('Error preparing Facebook fraud warning. Please try again.');
-            } finally {
-                btn.style.opacity = '1';
-                btn.style.pointerEvents = 'auto';
+                const file = new File([cardImage], 'smartwings-experience.png', { type: 'image/png' });
+                await navigator.share({
+                    text: message,
+                    files: [file]
+                });
+                showSuccess('✅ Successfully shared to Facebook!');
+                return;
+            } catch (e) {
+                console.log('Native share failed');
             }
         }
         
-               async function shareToWhatsApp() {
-            const btn = document.querySelector('.share-btn.whatsapp');
-            btn.style.opacity = '0.7';
-            btn.style.pointerEvents = 'none';
-            
+        if (navigator.clipboard) {
             try {
-                const message = `🚨 SMARTWINGS FRAUD ALERT 🚨
-
-They DESTROYED my luggage!
-€${claimData.amount} claim - ${claimData.days} days of SILENCE
-
-Multiple victims report same pattern
-IS THIS A SCAM?
-
-Spread the word - warn everyone!
-#SmartwingsScam`;
-               
-               const cardImage = await generateCardImage();
-               
-               if (navigator.share && cardImage) {
-                   try {
-                       const file = new File([cardImage], 'smartwings-fraud.png', { type: 'image/png' });
-                       await navigator.share({
-                           text: message,
-                           files: [file]
-                       });
-                       showSuccess('✅ WhatsApp fraud alert sent! Contacts warned!');
-                       return;
-                   } catch (e) {
-                       console.log('Native share failed');
-                   }
-               }
-                
-               
-               const whatsappUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(message)}`;
-               window.open(whatsappUrl, '_blank');
-               
-               showSuccess('💬 WhatsApp opened! Evidence downloaded - attach the fraud proof to your message!');
-           } catch (error) {
-               console.error('WhatsApp share error:', error);
-               showError('Error preparing WhatsApp fraud alert. Please try again.');
-           } finally {
-               btn.style.opacity = '1';
-               btn.style.pointerEvents = 'auto';
-           }
-       }
+                await navigator.clipboard.writeText(message);
+                showSuccess('📘 Facebook opened! Message copied to clipboard - paste it with your card!');
+            } catch (e) {
+                showSuccess('📘 Facebook opened! Copy the message below your post');
+            }
+        }
+        
+        window.open('https://www.facebook.com/', '_blank');
+    } catch (error) {
+        console.error('Facebook share error:', error);
+        showError('Error preparing Facebook post. Please try again.');
+    } finally {
+        btn.style.opacity = '1';
+        btn.style.pointerEvents = 'auto';
+    }
+}        
+async function shareToWhatsApp() {
+    const btn = document.querySelector('.share-btn.whatsapp');
+    btn.style.opacity = '0.7';
+    btn.style.pointerEvents = 'none';
+    
+    try {
+        const message = generateCampaignMessage();
+        const cardImage = await generateCardImage();
+        
+        // Try native sharing first (works on mobile)
+        if (navigator.share && cardImage) {
+            try {
+                const file = new File([cardImage], 'smartwings-experience.png', { type: 'image/png' });
+                await navigator.share({
+                    text: message,
+                    files: [file]
+                });
+                showSuccess('✅ Successfully shared via WhatsApp!');
+                return;
+            } catch (e) {
+                console.log('Native share failed');
+            }
+        }
+        
+        // Fallback: Copy message and download image
+        if (navigator.clipboard) {
+            await navigator.clipboard.writeText(message);
+        }
+        
+        downloadCard(); // Auto-download the image
+        
+        const whatsappUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(message)}`;
+        window.open(whatsappUrl, '_blank');
+        
+        showSuccess('💬 WhatsApp opened! Message copied and card downloaded - attach the image!');
+    } catch (error) {
+        console.error('WhatsApp share error:', error);
+        showError('Error preparing WhatsApp share. Please try again.');
+    } finally {
+        btn.style.opacity = '1';
+        btn.style.pointerEvents = 'auto';
+    }
+}
        
     function getDateString() {
     const today = new Date();

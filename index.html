@@ -767,7 +767,15 @@
             cardPhoto.style.transform = transform;
             cardPhoto.style.filter = filter;
         }
-        
+        function handleFormSubmit(e) {
+    e.preventDefault();
+    try {
+        // Existing code
+    } catch (error) {
+        console.error('Form error:', error);
+        showSuccess('Error: Please check all fields and try again.');
+    }
+}
         function generateScandalMessage() {
             const url = window.location.href;
             return `🚨 SMARTWINGS LUGGAGE SCANDAL EXPOSED 🚨
@@ -878,7 +886,7 @@ Share to warn others!
             btn.style.pointerEvents = 'none';
             
             try {
-                const const message = `🚨 SMARTWINGS FRAUD ALERT 🚨
+                const message = `🚨 SMARTWINGS FRAUD ALERT 🚨
 
 They DESTROYED my luggage!
 €${claimData.amount} claim - ${claimData.days} days of SILENCE

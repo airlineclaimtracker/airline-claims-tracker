@@ -404,18 +404,7 @@
         .error-message.show {
             display: block;
         }
-        @media (max-width: 768px) {
-    .claim-card {
-        width: 100%;
-        max-width: 500px;
-        height: 500px;
-        padding: 30px;
-    }
 
-    @media (max-width: 768px) {
-    .content-section {
-        padding: 20px 15px;
-    }
     
     .form-grid {
         grid-template-columns: 1fr;
@@ -450,9 +439,6 @@
         font-size: 3.5rem;
     }
     
-    .silence-label {
-        font-size: 1.2rem;
-    }
     
     .days-photo-container {
         flex-direction: column;
@@ -835,7 +821,6 @@
 </div>
         
         <div class="form-section" id="create">
-            <div class="content-section">
             <h2>📝 Document Your Experience</h2>
             <form id="claim-form">
                 <div class="form-grid">
@@ -856,7 +841,6 @@
                             <option value="11">November</option>
                             <option value="12">December</option>
                         </select>
-                    </div>
                    </div> 
                     <div class="form-item">
                         <label for="submission-year">Year of Damage</label>
@@ -1078,8 +1062,8 @@ function updateCard() {
         // Photo handling functions
         function handleDragOver(e) {
             e.preventDefault();
-            e.currentTarget.style.borderColor = '#e63946';
-            e.currentTarget.style.background = 'rgba(230, 57, 70, 0.1)';
+            e.currentTarget.style.borderColor = '#dc3545';
+            e.currentTarget.style.background = 'rgba(220, 53, 69, 0.1)';
         }
         
         function handleDragLeave(e) {

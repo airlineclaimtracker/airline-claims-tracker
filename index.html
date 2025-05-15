@@ -627,7 +627,7 @@
                 <button class="share-btn whatsapp" onclick="shareToWhatsApp()">
                     <span>💬</span> Send to contacts
                 </button>
-                <button class="share-btn download" onclick="downloadCard()">
+                <button class="share-btn download" onclick="()">
                     <span>💾</span> Get Your Card
                 </button>
             </div>
@@ -1000,13 +1000,6 @@ Spread the word - warn everyone!
                    }
                }
                 
-               function getDateString() {
-    const today = new Date();
-    const day = today.getDate();
-    const month = today.toLocaleString('default', { month: 'short' });
-    const year = today.getFullYear();
-    return `${day}${month}${year}`;
-}
               
                 downloadCard();
                
@@ -1023,7 +1016,15 @@ Spread the word - warn everyone!
            }
        }
        
-       async function downloadCard() {
+       function getDateString() {
+    const today = new Date();
+    const day = today.getDate();
+    const month = today.toLocaleString('default', { month: 'short' });
+    const year = today.getFullYear();
+    return `${day}${month}${year}`;
+}
+        
+        async function downloadCard() {
            const btn = document.querySelector('.share-btn.download');
            btn.style.opacity = '0.7';
            btn.style.pointerEvents = 'none';

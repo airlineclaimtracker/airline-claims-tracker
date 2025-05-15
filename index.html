@@ -999,8 +999,16 @@ Spread the word - warn everyone!
                        console.log('Native share failed');
                    }
                }
-               
-               downloadCard();
+                
+               function getDateString() {
+    const today = new Date();
+    const day = today.getDate();
+    const month = today.toLocaleString('default', { month: 'short' });
+    const year = today.getFullYear();
+    return `${day}${month}${year}`;
+}
+              
+                downloadCard();
                
                const whatsappUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(message)}`;
                window.open(whatsappUrl, '_blank');
@@ -1024,7 +1032,7 @@ Spread the word - warn everyone!
                const cardImage = await generateCardImage();
                
                const link = document.createElement('a');
-               link.download = `smartwings-fraud-evidence-day-${claimData.days}.png`;
+               link.download = `My-Smartwings-Card-${getDateString()}-${claimData.days}days.png`;
                link.href = URL.createObjectURL(cardImage);
                
                document.body.appendChild(link);

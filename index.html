@@ -921,40 +921,6 @@ Share to warn others!
                 btn.style.pointerEvents = 'auto';
             }
         }
-                const cardImage = await generateCardImage();
-                
-                if (navigator.share && cardImage) {
-                    try {
-                        const file = new File([cardImage], 'smartwings-fraud-evidence.png', { type: 'image/png' });
-                        await navigator.share({
-                            text: message,
-                            files: [file]
-                        });
-                        showSuccess('✅ Scandal successfully shared! Others warned!');
-                        return;
-                    } catch (e) {
-                        console.log('Native share failed');
-                    }
-                }
-                
-                if (navigator.clipboard) {
-                    try {
-                        await navigator.clipboard.writeText(message);
-                        showSuccess('📘 Facebook opened! Fraud warning copied to clipboard - paste to warn others!');
-                    } catch (e) {
-                        showSuccess('📘 Facebook opened! Copy the scandal message below and warn everyone!');
-                    }
-                }
-                
-                window.open('https://www.facebook.com/', '_blank');
-            } catch (error) {
-                console.error('Facebook share error:', error);
-                showError('Error preparing Facebook fraud warning. Please try again.');
-            } finally {
-                btn.style.opacity = '1';
-                btn.style.pointerEvents = 'auto';
-            }
-        }
         
                async function shareToWhatsApp() {
             const btn = document.querySelector('.share-btn.whatsapp');

@@ -81,6 +81,8 @@
             display: flex;
             flex-direction: column;
         }
+
+        
         
         label {
             color: #1d3557;
@@ -552,16 +554,178 @@
             margin-bottom: 5px;
             line-height: 1.2;
         }
+/* Navigation Styles */
+.nav-bar {
+    background: #2c3e50;
+    color: white;
+    padding: 10px 0;
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+}
+
+.nav-links {
+    display: flex;
+    gap: 30px;
+}
+
+.nav-links a {
+    color: white;
+    text-decoration: none;
+    transition: opacity 0.3s;
+}
+
+.nav-links a:hover {
+    opacity: 0.7;
+}
+
+        /* Story Section Styles */
+.story-section {
+    max-width: 1000px;
+    margin: 60px auto;
+    padding: 0 20px;
+}
+
+.story-card {
+    background: #fff;
+    border-left: 5px solid #e74c3c;
+    padding: 40px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    border-radius: 10px;
+}
+
+.story-card h2 {
+    color: #c0392b;
+    font-size: 2rem;
+    margin-bottom: 20px;
+}
+
+.story-card p {
+    font-size: 1.1rem;
+    color: #555;
+    margin-bottom: 25px;
+    line-height: 1.8;
+}
+
+.your-story {
+    background: #f8f9fa;
+    padding: 25px;
+    border-radius: 8px;
+    margin-top: 30px;
+}
+
+.your-story h3 {
+    color: #c0392b;
+    font-size: 1.5rem;
+    margin-bottom: 15px;
+}
+
+.cta-button {
+    display: inline-block;
+    background: #e74c3c;
+    color: white;
+    padding: 15px 30px;
+    text-decoration: none;
+    border-radius: 8px;
+    font-weight: 600;
+    font-size: 1.1rem;
+    margin-top: 20px;
+    transition: background 0.3s;
+}
+
+.cta-button:hover {
+    background: #c0392b;
+}
+      /* Privacy Section Styles */
+.privacy-section {
+    background: #ecf0f1;
+    padding: 60px 20px;
+}
+
+.privacy-container {
+    max-width: 1000px;  
+    margin: 0 auto;
+}
+
+.privacy-section h2 {
+    text-align: center;
+    color: #2c3e50;
+    font-size: 2.5rem;
+    margin-bottom: 30px;
+}
+
+.privacy-card {
+    background: white;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+}
+
+.privacy-card h3 {
+    color: #27ae60;
+    font-size: 1.5rem;
+    margin-bottom: 20px;
+}
+
+.privacy-card ul {
+    list-style: none;
+    margin-bottom: 20px;
+}
+
+.privacy-card li {
+    padding: 8px 0;
+    font-size: 1.1rem;
+}
+
+.privacy-card li:before {
+    content: "✅ ";
+    margin-right: 10px;
+}  
     </style>
 </head>
 <body>
-    <div class="container">
-        <div class="header">
-            <h1>🛡️ SmartwingsWatch - Passenger Rights Tool</h1>
-            <p>Document your airline claim experience and help build accountability</p>
+
+    <!-- Navigation -->
+<nav class="nav-bar">
+    <div class="nav-container">
+        <div class="logo">Still Waiting</div>
+        <div class="nav-links">
+            <a href="#story">My Story</a>
+            <a href="#create">Create Your Card</a>
+            <a href="#privacy">Privacy</a>
         </div>
+    </div>
+</nav>
+    
+    <div class="container">
+<!-- Hero Section -->
+<div class="header" id="story">
+    <h1>Still Waiting</h1>
+    <p>Your story. Your voice. Your right to be heard.</p>
+</div>
+<!-- Personal Story Section -->
+<div class="story-section">
+    <div class="story-card">
+        <h2>Day <span id="days-counter">620</span>: Still waiting for compensation. Still waiting for explanation.</h2>
+        <p>Following Smartwings' official process, I submitted my luggage damage claim through their designated portal at <a href="https://claim.smartwingsgroup.com/pl/baggage_claims/create_new/" target="_blank" style="color: #c0392b;">claim.smartwingsgroup.com</a>. I provided all required documentation, photographs, and received a system-generated claim ID confirming registration.</p>
+        <p><strong>Result:</strong> <span id="amount-counter">€1,200</span> claim submitted. <span id="days-counter-2">620</span> days of complete silence.</p>
         
-        <div class="form-section">
+        <div class="your-story">
+            <h3>Your experience deserves acknowledgment too.</h3>
+            <p>If you've followed proper channels with an airline — submitted claims through their official system, provided documentation, received confirmation — yet face systematic non-response, you're not alone. Create a professional card that documents your experience.</p>
+            <p style="color: #666; font-size: 0.95rem; margin-top: 15px;">This tool is for passengers who have already filed legitimate claims through official channels and received no response within reasonable timeframes.</p>
+            <a href="#create" class="cta-button">Document Your Experience</a>
+        </div>
+    </div>
+</div>
+        
+        <div class="form-section" id="create">
             <h2>📝 Document Your Luggage Damage</h2>
             <form id="claim-form">
                 <div class="form-grid">
@@ -1315,5 +1479,22 @@ async function shareToWhatsApp() {
     }, 15000); // Longer timeout for detailed instructions
 }
    </script>
+    <!-- Privacy Section -->
+<section id="privacy" class="privacy-section">
+    <div class="privacy-container">
+        <h2>Your Privacy</h2>
+        <div class="privacy-card">
+            <h3>No Data Collection</h3>
+            <ul>
+                <li>All processing happens in your browser</li>
+                <li>No personal data stored on servers</li>
+                <li>No tracking or analytics</li>
+                <li>No account creation required</li>
+                <li>GDPR compliant by design</li>
+            </ul>
+            <p>You control your data completely. Generate cards locally, share what you choose.</p>
+        </div>
+    </div>
+</section>
 </body>
 </html>

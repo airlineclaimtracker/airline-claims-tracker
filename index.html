@@ -773,11 +773,12 @@
             }
             
             const reader = new FileReader();
-            reader.onload = function(e) {
-                currentPhoto = e.target.result;
-                showPhotoPreview();
-                updateCardPhoto();
-            };
+          reader.onload = function(e) {
+    currentPhoto = e.target.result;
+    console.log('Photo loaded successfully');
+    showPhotoPreview();
+    updateCardPhoto();
+};
             reader.readAsDataURL(file);
         }
         
@@ -790,14 +791,19 @@
         }
         
         function updateCardPhoto() {
-            const cardPhoto = document.getElementById('card-photo');
-            const cardPhotoContainer = document.getElementById('card-photo-container');
-            
-            cardPhoto.src = currentPhoto;
+    if (!currentPhoto) return;
+    
+    const cardPhoto = document.getElementById('card-photo');
+    const cardPhotoContainer = document.getElementById('card-photo-container');
+    
+    if (cardPhoto && cardPhotoContainer) {
+        cardPhoto.src = currentPhoto;
+        cardPhoto.onload = function() {
             cardPhotoContainer.style.display = 'block';
-            
-            applyImageTransforms();
-        }
+        };
+        applyImageTransforms();
+    }
+}
         
         function rotatePhoto() {
             currentRotation = (currentRotation + 90) % 360;

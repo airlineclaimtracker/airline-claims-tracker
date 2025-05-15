@@ -303,15 +303,33 @@
             background: #4267b2;
             color: white;
         }
-        .share-btn.linkedin {
-            border-color: #0077b5;
-            color: #0077b5;
-        }
+        
+    .share-btn.linkedin {
+    border-color: #0077b5;
+    color: #0077b5;
+    position: relative;
+}
 
-        .share-btn.linkedin:hover {
-            background: #0077b5;
-            color: white;
-        }
+.share-btn.linkedin:hover {
+    background: #0077b5;
+    color: white;
+}
+
+.share-btn.linkedin::after {
+    content: 'Manual post';
+    position: absolute;
+    bottom: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    font-size: 0.7rem;
+    color: #666;
+    opacity: 0;
+    transition: opacity 0.3s;
+}
+
+.share-btn.linkedin:hover::after {
+    opacity: 1;
+}
         
         .share-btn.whatsapp {
             border-color: #25d366;
@@ -1062,21 +1080,43 @@ async function shareToLinkedIn() {
     
     try {
         const message = generateLinkedInMessage();
-        const cardImage = await generateCardImage();
+        const cardImage = await generateCardImage(true); // Create smaller image for LinkedIn
         
+        // Copy message to clipboard
         if (navigator.clipboard) {
-            try {
-                await navigator.clipboard.writeText(message);
-                showSuccess('💼 LinkedIn opened! Your professional update copied to clipboard!');
-            } catch (e) {
-                showSuccess('💼 LinkedIn opened! Copy the message below for your post');
-            }
+            await navigator.clipboard.writeText(message);
         }
         
-        window.open('https://www.linkedin.com/', '_blank');
+        // LinkedIn doesn't support pre-filled posts, so we need to open the share dialog
+        const linkedInUrl = 'https://www.linkedin.com/sharing/share-offsite/?url=' + 
+                           encodeURIComponent(window.location.href);
+        
+        // Open LinkedIn and show instructions
+        window.open(linkedInUrl, '_blank');
+        
+        // Download the image so user can manually attach
+        const link = document.createElement('a');
+        const today = new Date();
+        const dateString = `${today.getDate()}${today.toLocaleString('default', { month: 'short' })}${today.getFullYear()}`;
+        link.download = `SmartwingsWatch-LinkedIn-${dateString}.png`;
+        link.href = URL.createObjectURL(cardImage);
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        
+        // Show detailed instructions
+        showSuccess(`💼 LinkedIn opened & image downloaded!
+        
+NEXT STEPS:
+1. Your message is already copied to clipboard
+2. Click "Write a post" on LinkedIn
+3. Paste your message (Ctrl+V)
+4. Click the image icon and upload your downloaded card
+5. Post to share your experience!`);
+        
     } catch (error) {
         console.error('LinkedIn share error:', error);
-        showError('Error preparing LinkedIn post. Please try again.');
+        showError('Error preparing LinkedIn share. Please try again.');
     } finally {
         btn.style.opacity = '1';
         btn.style.pointerEvents = 'auto';
@@ -1201,15 +1241,16 @@ async function shareToWhatsApp() {
     });
 }
        
-       function showSuccess(message) {
-           const successEl = document.getElementById('success-message');
-           successEl.textContent = message;
-           successEl.classList.add('show');
-           
-           setTimeout(() => {
-               successEl.classList.remove('show');
-           }, 8000);
-       }
+ function showSuccess(message) {
+    const successEl = document.getElementById('success-message');
+    // Preserve line breaks by converting \n to <br>
+    successEl.innerHTML = message.replace(/\n/g, '<br>');
+    successEl.classList.add('show');
+    
+    setTimeout(() => {
+        successEl.classList.remove('show');
+    }, 15000); // Longer timeout for detailed instructions
+}
    </script>
 </body>
 </html>

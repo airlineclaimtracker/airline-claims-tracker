@@ -55,7 +55,7 @@
         }
         
         .header {
-            background: linear-gradient(135deg, #e63946, #d63031);
+            background: linear-gradient(135deg, var(--primary-red), var(--dark-red));
             color: white;
             padding: 40px 20px;
             text-align: center;
@@ -124,7 +124,7 @@
         
         input:focus, select:focus {
             outline: none;
-            border-color: #e63946;
+            border-color: var(--primary-red);
         }
         
 .btn {
@@ -156,10 +156,10 @@
             background: #f8f9fa;
         }
         
-        .upload-area:hover {
-            border-color: #e63946;
-            background: rgba(230, 57, 70, 0.05);
-        }
+      .upload-area:hover {
+    border-color: var(--primary-red);
+    background: rgba(220, 53, 69, 0.05);
+}
         
         .claim-card {
             width: 600px;
@@ -411,6 +411,7 @@
         height: 500px;
         padding: 30px;
     }
+
     @media (max-width: 768px) {
     .content-section {
         padding: 20px 15px;
@@ -433,7 +434,14 @@
     .header p {
         font-size: 1rem;
     }
-}
+    
+    .claim-card {
+        width: 100%;
+        max-width: 500px;
+        height: 500px;
+        padding: 30px;
+    }
+    
     .airline-brand {
         font-size: 2.5rem;
     }
@@ -441,6 +449,46 @@
     .days-count {
         font-size: 3.5rem;
     }
+    
+    .silence-label {
+        font-size: 1.2rem;
+    }
+    
+    .days-photo-container {
+        flex-direction: column;
+        gap: 20px;
+        align-items: center;
+    }
+    
+    .time-container {
+        max-width: 100%;
+        padding: 12px 20px;
+    }
+    
+    .damage-photo {
+        width: 160px;
+        height: 120px;
+    }
+    
+    .linkedin-modal {
+        padding: 15px !important;
+    }
+    
+    .linkedin-modal > div {
+        max-width: 95vw !important;
+        padding: 20px !important;
+    }
+    
+    .linkedin-modal textarea {
+        height: 150px !important;
+        font-size: 0.9rem !important;
+    }
+    
+    .linkedin-modal button {
+        width: 100% !important;
+        margin-bottom: 10px;
+    }
+}        
     
     .silence-label {
         font-size: 1.2rem;
@@ -764,14 +812,14 @@
     </div>
 </nav>
     
-    <div class="container content-section">
+    <div class="content-section">
 <!-- Hero Section -->
 <div class="header" id="story">
     <h1>Still Waiting</h1>
     <p>Document your experience. Share your story. Get heard.</p>
 </div>
 <!-- Personal Story Section -->
-<div class="story-section content-section">
+<div class="story-section">
     <div class="story-card">
         <h2>Day <span id="days-counter">620</span>: Still waiting for compensation. Still waiting for explanation.</h2>
         <p>I filed my luggage damage claim through Smartwings' official portal at <a href="https://claim.smartwingsgroup.com/pl/baggage_claims/create_new/" target="_blank" style="color: #c0392b;">claim.smartwingsgroup.com</a>. I provided all required documentation, photographs, and received a system-generated claim ID.</p>
@@ -787,6 +835,7 @@
 </div>
         
         <div class="form-section" id="create">
+            <div class="content-section">
             <h2>📝 Document Your Experience</h2>
             <form id="claim-form">
                 <div class="form-grid">
@@ -808,7 +857,7 @@
                             <option value="12">December</option>
                         </select>
                     </div>
-                    
+                   </div> 
                     <div class="form-item">
                         <label for="submission-year">Year of Damage</label>
                         <select id="submission-year" required>
@@ -884,7 +933,7 @@
         </div>
         
         <div class="share-section" id="share-section" style="display: none;">
-            <h2>📢 Share Your Experience This</h2>
+            <h2>📢 Share Your Experience</h2>
             <p style="color: #666;">Help others understand Smartwings' response times by sharing your experience</p>
             
             <div class="share-grid">

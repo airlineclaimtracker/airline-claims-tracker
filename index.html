@@ -18,8 +18,8 @@
     <style>
         
 :root {
-    --primary-red: #e63946;
-    --dark-red: #d63031;
+    --primary-red: #dc3545;
+    --dark-red: #c82333;
     --accent-yellow: #FFD93D;
     --text-dark: #1d3557;
     --bg-light: #f8f9fa;
@@ -92,12 +92,12 @@
     margin-bottom: var(--spacing-md);
 }
         
-        .form-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 20px;
-            margin-bottom: 25px;
-        }
+     .form-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-bottom: 25px;
+}
         
         .form-item {
             display: flex;
@@ -695,8 +695,9 @@
 }
 
 .privacy-container {
-    max-width: 1000px;  
+    max-width: 1000px;
     margin: 0 auto;
+    padding: 0 20px;
 }
 
 .privacy-section h2 {
@@ -733,6 +734,20 @@
     content: "✅ ";
     margin-right: 10px;
 }  
+
+        /* Ensure consistent styling for all sections */
+.form-section,
+.share-section {
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* Fix upload area styling */
+.upload-area {
+    max-width: 100%;
+    box-sizing: border-box;
+}
+        
     </style>
 </head>
 <body>

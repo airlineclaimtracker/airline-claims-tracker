@@ -204,19 +204,6 @@
             letter-spacing: 0.1em;
         }
         
-         {
-            position: absolute;
-            top: 30px;
-            right: 30px;
-            width: 140px;
-            height: 105px;
-            border-radius: 12px;
-            overflow: hidden;
-            border: 4px solid #FFD93D;
-            opacity: 0.95;
-            transform: rotate(-5deg);
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-        }
         
         .damage-photo img {
             width: 100%;
@@ -430,26 +417,6 @@
             box-shadow: 0 5px 15px rgba(230, 57, 70, 0.3);
         }
 
-        .damage-photo {
-    position: absolute;
-    top: 30px;
-    right: 30px;
-    width: 140px;
-    height: 105px;
-    border-radius: 12px;
-    overflow: hidden;
-    border: 4px solid #FFD93D;
-    opacity: 0.95;
-    transform: rotate(-5deg);
-    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
-}
-
-.damage-photo img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover;
-}
-
 .damage-photo {
     width: 160px;
     height: 120px;
@@ -460,6 +427,12 @@
     transform: rotate(-4deg);
     box-shadow: 0 5px 15px rgba(0,0,0,0.3);
     flex-shrink: 0;
+}
+
+.damage-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
         .days-photo-container {
     display: flex;
@@ -612,18 +585,19 @@
         
         <div id="card-section" style="display: none;">
             
-          <div class="claim-card" id="claim-card">
-    <div class="damage-photo" id="card-photo-container" style="display: none;">
-        <img id="card-photo" alt="Luggage damage evidence">
-    </div>
-    
+    <div class="claim-card" id="claim-card">
     <div class="communication-pattern">WEB FORM FILED • EMAIL IGNORED • PHONE UNAVAILABLE</div>
     <div class="airline-brand">SMARTWINGS</div>
     <div class="damage-type">DESTROYED MY LUGGAGE</div>
     
-    <div class="time-container">
-        <div class="days-count" id="days-count">0</div>
-        <div class="silence-label">DAYS OF SILENCE</div>
+    <div class="days-photo-container">
+        <div class="time-container">
+            <div class="days-count" id="days-count">0</div>
+            <div class="silence-label">DAYS OF SILENCE</div>
+        </div>
+        <div class="damage-photo" id="card-photo-container" style="display: none;">
+            <img id="card-photo" alt="Luggage damage evidence">
+        </div>
     </div>
     
     <div class="claim-details">

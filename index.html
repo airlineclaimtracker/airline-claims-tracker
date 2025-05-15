@@ -143,7 +143,7 @@
 
 .btn:hover {
     transform: translateY(-3px);
-    box-shadow: 0 8px 20px rgba(230, 57, 70, 0.4);
+    box-shadow: 0 8px 20px rgba(220, 53, 69, 0.4);
 }
         
         .upload-area {
@@ -405,7 +405,11 @@
             display: block;
         }
 
-    
+    @media (max-width: 768px) {
+    .content-section {
+        padding: 20px 15px;
+    }
+        
     .form-grid {
         grid-template-columns: 1fr;
     }
@@ -476,44 +480,6 @@
     }
 }        
     
-    .silence-label {
-        font-size: 1.2rem;
-    }
-    
-    .days-photo-container {
-        flex-direction: column;
-        gap: 20px;
-        align-items: center;
-    }
-    
-    .time-container {
-        max-width: 100%;
-        padding: 12px 20px;
-    }
-    
-    .damage-photo {
-        width: 160px;
-        height: 120px;
-    }
-            .linkedin-modal {
-        padding: 15px !important;
-    }
-    
-    .linkedin-modal > div {
-        max-width: 95vw !important;
-        padding: 20px !important;
-    }
-    
-    .linkedin-modal textarea {
-        height: 150px !important;
-        font-size: 0.9rem !important;
-    }
-    
-    .linkedin-modal button {
-        width: 100% !important;
-        margin-bottom: 10px;
-    }
-}
             
         /* NEW CSS CLASSES FOR UPDATED DESIGN */
         .communication-pattern {
@@ -841,7 +807,6 @@
                             <option value="11">November</option>
                             <option value="12">December</option>
                         </select>
-                   </div> 
                     <div class="form-item">
                         <label for="submission-year">Year of Damage</label>
                         <select id="submission-year" required>

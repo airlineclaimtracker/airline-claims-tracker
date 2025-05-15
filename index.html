@@ -204,7 +204,7 @@
             letter-spacing: 0.1em;
         }
         
-        .damage-photo {
+         {
             position: absolute;
             top: 30px;
             right: 30px;
@@ -430,6 +430,44 @@
             box-shadow: 0 5px 15px rgba(230, 57, 70, 0.3);
         }
 
+        .damage-photo {
+    position: absolute;
+    top: 30px;
+    right: 30px;
+    width: 140px;
+    height: 105px;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 4px solid #FFD93D;
+    opacity: 0.95;
+    transform: rotate(-5deg);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+}
+
+.damage-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.damage-photo {
+    width: 160px;
+    height: 120px;
+    border-radius: 12px;
+    overflow: hidden;
+    border: 4px solid #FFD93D;
+    opacity: 0.95;
+    transform: rotate(-4deg);
+    box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+    flex-shrink: 0;
+}
+        .days-photo-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 40px;
+    margin-bottom: 25px;
+}
         .silence-label {
             font-size: 1.8rem;
             color: white;

@@ -204,76 +204,6 @@
             letter-spacing: 0.1em;
         }
         
-        .scandal-message {
-            font-size: 2rem;
-            color: #FFD93D;
-            font-weight: 800;
-            margin-bottom: 25px;
-            text-transform: uppercase;
-            line-height: 1.2;
-        }
-        
-        .claim-evidence {
-            background: rgba(230, 57, 70, 0.25);
-            border: 3px solid #e63946;
-            padding: 25px 35px;
-            border-radius: 15px;
-            margin-bottom: 25px;
-            backdrop-filter: blur(10px);
-            position: relative;
-        }
-        
-        .claim-evidence::before {
-            content: '💀';
-            position: absolute;
-            top: -15px;
-            left: 50%;
-            transform: translateX(-50%);
-            font-size: 2rem;
-            background: #000;
-            padding: 5px 10px;
-            border-radius: 50%;
-        }
-        
-        .amount-tragic {
-            font-size: 2.5rem;
-            font-weight: 900;
-            color: #FFD93D;
-            display: block;
-            margin-bottom: 8px;
-        }
-        
-        .status-dead {
-            font-size: 1.1rem;
-            color: #fff;
-            text-transform: uppercase;
-            font-weight: 700;
-            letter-spacing: 0.1em;
-        }
-        
-        .pattern-indicator {
-            font-size: 1rem;
-            color: #ff6b6b;
-            font-weight: 600;
-            margin-bottom: 20px;
-            text-transform: uppercase;
-        }
-        
-        .expose-question {
-            font-size: 1.8rem;
-            color: #fff;
-            font-weight: 700;
-            margin-bottom: 15px;
-            text-transform: uppercase;
-        }
-        
-        .viral-hashtags {
-            font-size: 1.2rem;
-            color: #FFD93D;
-            font-weight: 700;
-            margin-bottom: 30px;
-        }
-        
         .damage-photo {
             position: absolute;
             top: 30px;
@@ -482,13 +412,99 @@
                 font-size: 2rem;
             }
         }
+        /* NEW CSS CLASSES FOR UPDATED DESIGN */
+        .communication-pattern {
+            font-size: 0.9rem;
+            color: #FFD93D;
+            font-weight: 600;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+
+        .time-container {
+            background: linear-gradient(45deg, rgba(230, 57, 70, 0.8), rgba(220, 53, 69, 0.8));
+            padding: 20px 30px;
+            border-radius: 20px;
+            border: 3px solid #e63946;
+            margin-bottom: 25px;
+            box-shadow: 0 5px 15px rgba(230, 57, 70, 0.3);
+        }
+
+        .silence-label {
+            font-size: 1.8rem;
+            color: white;
+            font-weight: 800;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .claim-details {
+            background: rgba(220, 53, 69, 0.2);
+            border: 2px solid #dc3545;
+            padding: 18px 25px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+        }
+
+        .amount-display {
+            font-size: 2.2rem;
+            font-weight: 900;
+            color: #FFD93D;
+            margin-bottom: 8px;
+        }
+
+        .claim-status {
+            font-size: 1rem;
+            color: #ff6b6b;
+            text-transform: uppercase;
+            font-weight: 600;
+            line-height: 1.3;
+        }
+
+        .community-call {
+            background: rgba(255, 215, 61, 0.15);
+            border: 2px solid #FFD93D;
+            padding: 20px;
+            border-radius: 15px;
+            margin-bottom: 25px;
+        }
+
+        .community-text {
+            font-size: 1.1rem;
+            color: #FFD93D;
+            font-weight: 700;
+            text-transform: uppercase;
+            line-height: 1.4;
+            margin-bottom: 8px;
+        }
+
+        .share-action {
+            font-size: 1rem;
+            color: #fff;
+            font-weight: 600;
+            text-transform: uppercase;
+        }
+
+        .corporate-question {
+            font-size: 1.5rem;
+            color: #fff;
+            font-weight: 700;
+            margin-bottom: 15px;
+            text-transform: uppercase;
+        }
+
+        .hashtags {
+            font-size: 1.1rem;
+            color: #FFD93D;
+            font-weight: 700;
+        }
     </style>
 </head>
 <body>
     <div class="container">
         <div class="header">
-            <h1>🚨 Smartwings Luggage Fraud Exposed</h1>
-            <p>Create viral cards to expose systematic luggage damage scam</p>
+            <h1>🚨 Smartwings Accountability Campaign</h1>
+            <p>Document systematic communication failures and demand passenger rights</p>
         </div>
         
         <div class="form-section">
@@ -557,28 +573,34 @@
         </div>
         
         <div id="card-section" style="display: none;">
-            <div class="claim-card" id="claim-card">
-                <div class="damage-photo" id="card-photo-container" style="display: none;">
-                    <img id="card-photo" alt="Luggage damage evidence">
-                </div>
-                
-                <div class="days-count" id="days-count">0</div>
-                <div class="airline-brand">SMARTWINGS</div>
-                <div class="damage-type">DESTROYED MY LUGGAGE</div>
-                <div class="scandal-message">DAYS OF SILENCE</div>
-                
-                <div class="claim-evidence">
-                    <span class="amount-tragic" id="amount-value">€0</span>
-                    <div class="status-dead">CLAIM IGNORED</div>
-                </div>
-                
-                <div class="pattern-indicator">
-                    🚨 MULTIPLE VICTIMS REPORT SAME PATTERN
-                </div>
-                
-                <div class="expose-question">IS THIS A SCAM?</div>
-                <div class="viral-hashtags">#SMARTWINGSSCAM #LUGGAGEFRAUD</div>
-            </div>
+            
+          <div class="claim-card" id="claim-card">
+    <div class="damage-photo" id="card-photo-container" style="display: none;">
+        <img id="card-photo" alt="Luggage damage evidence">
+    </div>
+    
+    <div class="communication-pattern">WEB FORM FILED • EMAIL IGNORED • PHONE UNAVAILABLE</div>
+    <div class="airline-brand">SMARTWINGS</div>
+    <div class="damage-type">DESTROYED MY LUGGAGE</div>
+    
+    <div class="time-container">
+        <div class="days-count" id="days-count">0</div>
+        <div class="silence-label">DAYS OF SILENCE</div>
+    </div>
+    
+    <div class="claim-details">
+        <div class="amount-display" id="amount-value">€0</div>
+        <div class="claim-status">SYSTEM DESIGNED TO AVOID ACCOUNTABILITY</div>
+    </div>
+    
+    <div class="community-call">
+        <div class="community-text">FACING THE SAME SILENCE?</div>
+        <div class="share-action">SHARE YOUR STORY</div>
+    </div>
+    
+    <div class="corporate-question">PROFIT OVER PASSENGER RIGHTS?</div>
+    <div class="hashtags">#SMARTWINGSSILENCE #ACCOUNTABILITY</div>
+</div>  
         </div>
         
         <div class="share-section" id="share-section" style="display: none;">

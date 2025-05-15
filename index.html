@@ -724,12 +724,12 @@
         }
         
         function updateCard() {
-            document.getElementById('days-count').textContent = claimData.days;
-            document.getElementById('amount-value').textContent = `€${claimData.amount}`;
-            
-            const message = generateScandalMessage();
-            document.getElementById('share-message').textContent = message;
-        }
+    document.getElementById('days-count').textContent = claimData.days;
+    document.getElementById('amount-value').textContent = `€${claimData.amount}`;
+    
+    const message = generateScandalMessage();
+    document.getElementById('share-message').textContent = message;
+}
         
         function showCard() {
             document.getElementById('card-section').style.display = 'block';
@@ -837,22 +837,23 @@
             cardPhoto.style.filter = filter;
         }
         
-        function generateScandalMessage() {
-            const url = window.location.href;
-            return `🚨 SMARTWINGS LUGGAGE SCANDAL EXPOSED 🚨
+   function generateScandalMessage() {
+    const url = window.location.href;
+    return `🚨 SMARTWINGS ACCOUNTABILITY DEMANDED 🚨
 
-✈️ They DESTROYED my luggage
-💰 €${claimData.amount} damage claim 
+✈️ Luggage destroyed by Smartwings
+💰 €${claimData.amount} claim filed
 📅 ${claimData.days} DAYS OF COMPLETE SILENCE
-🤐 ZERO response, ZERO compensation
-👥 Multiple victims report IDENTICAL pattern
+📞 NO phone support available
+📧 Email ignored completely
+💻 Web form with no response
 
-IS THIS SYSTEMATIC FRAUD?
+SYSTEM DESIGNED TO AVOID ACCOUNTABILITY
 
-#SmartwingsScam #LuggageFraud #AirlineAccountability #PassengerRights
+#SmartwingsAccountability #PassengerRights #SystemicFailure
 
-Expose this scandal: ${url}`;
-        }
+Document your experience: ${url}`;
+}
         
         async function shareToTwitter() {
             const btn = document.querySelector('.share-btn.twitter');

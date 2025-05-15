@@ -764,7 +764,50 @@
     padding: 30px 20px;  /* Reduced from 40px */
     margin: 0 auto;
 }
-        
+    /* Compact story section */
+.story-section-compact {
+    background: white;
+    padding: 25px;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    margin-bottom: var(--spacing-md);
+    text-align: center;
+}
+
+.claim-facts {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+    gap: 15px;
+    margin-bottom: 20px;
+}
+
+.fact-item {
+    padding: 15px;
+    background: #f8f9fa;
+    border-radius: 8px;
+    border-left: 4px solid var(--primary-red);
+}
+
+.fact-label {
+    display: block;
+    font-size: 0.85rem;
+    color: #666;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.fact-value {
+    display: block;
+    font-size: 1.1rem;
+    font-weight: 700;
+    color: var(--text-dark);
+}
+
+.action-text {
+    color: #555;
+    margin-bottom: 20px;
+    font-size: 1rem;
+}    
     </style>
 </head>
 <body>
@@ -788,19 +831,23 @@
     <p>Your claim deserves an answer. Create accountability.</p>
 </div>
 <!-- Personal Story Section -->
-<div class="story-section">
-    <div class="story-card">
-        <h2>Day <span id="days-counter">620</span>: Still waiting for compensation. Still waiting for explanation.</h2>
-        <p>I filed my luggage damage claim through Smartwings' official portal at <a href="https://claim.smartwingsgroup.com/pl/baggage_claims/create_new/" target="_blank" style="color: #c0392b;">claim.smartwingsgroup.com</a>. I provided all required documentation, photographs, and received a system-generated claim ID.</p>
-        <p><strong>Result:</strong> <span id="amount-counter">€200</span> claim submitted. <span id="days-counter-2">620</span> days of complete silence.</p>
-        
-        <div class="your-story">
-            <h3>Your experience deserves acknowledgment too.</h3>
-            <p>If you've followed proper channels with an airline — submitted claims through their official system, provided documentation, received confirmation — yet face systematic non-response, you're not alone. Create a professional card that documents your experience.</p>
-            <p style="color: #666; font-size: 0.95rem; margin-top: 15px;">This tool is for passengers who have already filed legitimate claims through official channels and received no response within reasonable timeframes.</p>
-            <a href="#create" class="cta-button">Document Your Experience</a>
+<div class="story-section-compact">
+    <div class="claim-facts">
+        <div class="fact-item">
+            <span class="fact-label">Claim Filed:</span>
+            <span class="fact-value">April 2023</span>
+        </div>
+        <div class="fact-item">
+            <span class="fact-label">Amount:</span>
+            <span class="fact-value">€200</span>
+        </div>
+        <div class="fact-item">
+            <span class="fact-label">Response:</span>
+            <span class="fact-value">None</span>
         </div>
     </div>
+    <p class="action-text">If you've filed a claim with an airline and received no response, you're not alone.</p>
+    <a href="#create" class="cta-button">Document Your Experience</a>
 </div>
         
         <div class="form-section" id="create">

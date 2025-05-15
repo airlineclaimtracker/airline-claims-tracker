@@ -600,7 +600,7 @@
     
     <div class="claim-details">
         <div class="amount-display" id="amount-value">€0</div>
-        <div class="claim-status">MY MONEY - THEIR EXTRA PROFIT</div>
+        <div class="claim-status">STILL NO RESPONSE</div>
     </div>
     
     <div class="community-call">
@@ -739,11 +739,11 @@
             return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
         }
         
- function updateCard() {
+function updateCard() {
     document.getElementById('days-count').textContent = claimData.days;
     document.getElementById('amount-value').textContent = `€${claimData.amount}`;
     
-    const message = generateCampaignMessage(); // Fixed: calling the function
+    const message = generateCampaignMessage(); // This now uses the improved message
     document.getElementById('share-message').textContent = message;
 }
         
@@ -878,40 +878,54 @@ Document your experience: ${url}`;
 }
 function generateCampaignMessage() {
     const currentUrl = window.location.href;
-    return `I filed a claim with Smartwings for luggage damage (€${claimData.amount}).
+    return `I'm sharing my experience with Smartwings customer service regarding a luggage damage claim.
 
-${claimData.days} days later: complete silence.
+Timeline:
+- Claim filed: ${claimData.submissionDate}
+- Damage value: €${claimData.amount}
+- Days waiting for response: ${claimData.days}
+- Communication attempts: Multiple (web form, email, phone)
+- Current status: No response received
 
-If you've had similar issues with airline claims, I found a tool to document and share these experiences. It may help create accountability:
+I've developed a tool to help passengers document and track airline claim responses more effectively. It creates a clear timeline of communication attempts and helps build accountability.
 
-${currentUrl}
+If you've had similar experiences with Smartwings, this may help: ${currentUrl}
 
-Have others experienced systematic non-response from airlines?`;
+#PassengerRights #SmartwingsAccountability`;
 }
 
 function generateTwitterMessage() {
     const currentUrl = window.location.href;
-    return `Smartwings damaged my luggage (€${claimData.amount}). Filed claim ${claimData.days} days ago - still waiting for response.
+    return `Smartwings customer service update:
+${claimData.days} days since filing €${claimData.amount} luggage damage claim.
+Still waiting for ANY response.
 
-Document your airline claim experience: ${currentUrl}
-
-#PassengerRights #AirlineAccountability`;
+Created a tool to help document these experiences: ${currentUrl}
+#SmartwingsAccountability #PassengerRights`;
 }
 
 function generateLinkedInMessage() {
     const currentUrl = window.location.href;
-    return `Sharing a passenger rights experience for professional discussion:
+    return `Subject: Airline Customer Service Experience - Smartwings
 
-I filed a claim with Smartwings for damaged luggage (€${claimData.amount}) in ${claimData.submissionDate}. 
+I'm documenting my experience with Smartwings customer service regarding a luggage damage claim to highlight industry-wide accountability issues.
 
-${claimData.days} days later, I have received no response despite multiple contact attempts through their web form and email system.
+Situation Summary:
+- Incident: Luggage damage during Smartwings flight
+- Claim Amount: €${claimData.amount}
+- Filed: ${claimData.submissionDate}
+- Current Status: ${claimData.days} days without response
+- Communication Methods Attempted: Web form, email, phone support
 
-This experience highlights systemic issues in airline customer service. I've found a tool that helps document these patterns: ${currentUrl}
+I've created a digital tool to help passengers document such experiences systematically. It generates clear timelines and facilitates sharing of accountability issues.
 
-Has anyone else experienced similar challenges with airline claim processes? What has been your experience with passenger rights enforcement?
+Access the tool here: ${currentUrl}
 
-#PassengerRights #CustomerService #AirlineIndustry`;
+This aims to create transparency and encourage better industry practices.
+
+#PassengerRights #SmartwingsAccountability #CustomerService`;
 }
+        
         async function shareToTwitter() {
     const btn = document.querySelector('.share-btn.twitter');
     btn.style.opacity = '0.7';
@@ -942,18 +956,18 @@ Has anyone else experienced similar challenges with airline claim processes? Wha
     }
 }
         
-        async function shareToFacebook() {
+async function shareToFacebook() {
     const btn = document.querySelector('.share-btn.facebook');
     btn.style.opacity = '0.7';
     btn.style.pointerEvents = 'none';
     
     try {
-        const message = generateCampaignMessage();
+        const message = generateLinkedInMessage(); // Using professional message for Facebook
         const cardImage = await generateCardImage();
         
         if (navigator.share && cardImage) {
             try {
-                const file = new File([cardImage], 'smartwings-experience.png', { type: 'image/png' });
+                const file = new File([cardImage], 'smartwings-claim-experience.png', { type: 'image/png' });
                 await navigator.share({
                     text: message,
                     files: [file]
@@ -982,20 +996,21 @@ Has anyone else experienced similar challenges with airline claim processes? Wha
         btn.style.opacity = '1';
         btn.style.pointerEvents = 'auto';
     }
-}        
+}
+        
 async function shareToWhatsApp() {
     const btn = document.querySelector('.share-btn.whatsapp');
     btn.style.opacity = '0.7';
     btn.style.pointerEvents = 'none';
     
     try {
-        const message = generateCampaignMessage();
+        const message = generateTwitterMessage(); // Changed to use shorter social message
         const cardImage = await generateCardImage();
         
-        // Try native sharing first (works on mobile)
+        // Rest of the function stays the same
         if (navigator.share && cardImage) {
             try {
-                const file = new File([cardImage], 'smartwings-experience.png', { type: 'image/png' });
+                const file = new File([cardImage], 'smartwings-claim-experience.png', { type: 'image/png' });
                 await navigator.share({
                     text: message,
                     files: [file]
@@ -1007,12 +1022,11 @@ async function shareToWhatsApp() {
             }
         }
         
-        // Fallback: Copy message and download image
         if (navigator.clipboard) {
             await navigator.clipboard.writeText(message);
         }
         
-        downloadCard(); // Auto-download the image
+        downloadCard();
         
         const whatsappUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(message)}`;
         window.open(whatsappUrl, '_blank');
@@ -1048,7 +1062,7 @@ async function shareToWhatsApp() {
         console.log('Starting download...'); // Debug line
         console.log('claimData:', claimData); // Debug line
         
-        const cardImage = await generateCardImage();
+        const cardImage = await generateCardImage(true);
         console.log('Image generated successfully'); // Debug line
         
         const today = new Date();
@@ -1076,20 +1090,30 @@ async function shareToWhatsApp() {
     }
 }
        
-       async function generateCardImage() {
-           const cardElement = document.getElementById('claim-card');
-           
-           return new Promise((resolve, reject) => {
-               html2canvas(cardElement, {
-                   scale: 2,
-                   backgroundColor: '#000000',
-                   useCORS: true,
-                   allowTaint: true
-               }).then(canvas => {
-                   canvas.toBlob(resolve, 'image/png', 0.9);
-               }).catch(reject);
-           });
-       }
+     async function generateCardImage(smaller = false) {
+    const cardElement = document.getElementById('claim-card');
+    
+    return new Promise((resolve, reject) => {
+        html2canvas(cardElement, {
+            scale: smaller ? 1 : 2,  // Use scale 1 for smaller images
+            backgroundColor: '#000000',
+            useCORS: true,
+            allowTaint: true
+        }).then(canvas => {
+            if (smaller) {
+                // Create a smaller canvas for email sharing
+                const smallCanvas = document.createElement('canvas');
+                const ctx = smallCanvas.getContext('2d');
+                smallCanvas.width = 400;  // Fixed width for email
+                smallCanvas.height = (400 * canvas.height) / canvas.width;  // Maintain aspect ratio
+                ctx.drawImage(canvas, 0, 0, smallCanvas.width, smallCanvas.height);
+                smallCanvas.toBlob(resolve, 'image/png', 0.9);
+            } else {
+                canvas.toBlob(resolve, 'image/png', 0.9);
+            }
+        }).catch(reject);
+    });
+}
        
        function showSuccess(message) {
            const successEl = document.getElementById('success-message');

@@ -1769,34 +1769,31 @@ Who else faces endless Smartwings delays?
     /**
      * Generate LinkedIn-optimized message
      */
-    function generateLinkedInMessage() {
-        const currentUrl = window.location.href;
-        const pricePerDay = (claimData.amount / claimData.days).toFixed(3);
-        
-        return `Professional Update: Airline Customer Service Accountability
+/**
+ * Generate LinkedIn-optimized message
+ */
+function generateLinkedInMessage() {
+    const currentUrl = window.location.href;
+    const pricePerDay = (claimData.amount / claimData.days).toFixed(3);
+    
+    return `Professional Update: When Customer Service Fails
 
-I'm sharing my experience to highlight systematic issues in airline customer service, specifically with Smartwings.
+${claimData.days} days ago, Smartwings damaged my luggage. I filed a straightforward claim for €${claimData.amount} with all required documentation.
 
-Situation:
-- Claim filed: ${claimData.submissionDate}
-- Amount: €${claimData.amount} (luggage damage)
-- Status: ${claimData.days} days without resolution
-- Daily cost delay: €${pricePerDay}
+The response? Complete silence.
 
-Rather than simply complaining, I developed an awareness tool to help passengers:
-✓ Document experiences systematically
-✓ Navigate claim processes effectively  
-✓ Get properly heard and compensated
-✓ Protect their rights as consumers
+What frustrates me most isn't the money—it's that I had to replace my luggage with my own funds while they simply ignore the claim. This feels like a systematic approach to avoid accountability.
 
-This tool transforms individual frustrations into collective awareness and accountability.
+Instead of just complaining, I built a tool to help document these experiences: ${currentUrl}
 
-Access the platform: ${currentUrl}
+The goal is simple: if enough passengers document their experiences, perhaps airlines will reconsider their responsiveness to legitimate claims.
 
-Have others experienced similar systematic delays with airlines?
+My approach may not work, but doing nothing definitely won't.
 
-#PassengerRights #CustomerService #InnovativeSolutions #SmartwingsWatch #ConsumerProtection`;
-    }
+Have you experienced similar situations where companies simply...ignore you?
+
+#PassengerRights #CustomerService #Accountability #SmartwingsWatch`;
+}
     
 /**
  * Generate WhatsApp-optimized message - Professional Version

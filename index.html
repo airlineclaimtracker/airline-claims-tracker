@@ -746,51 +746,150 @@
     background: #c0392b;
 }
       /* Privacy Section Styles */
-.privacy-section {
-    background: #ecf0f1;
-    padding: 60px 20px;
+    
+    .privacy-section-compact {
+    background: white;
+    padding: 25px 20px;
+    margin-top: 40px;
+    border-top: 1px solid #e5e5e5;
 }
 
 .privacy-container {
-    max-width: 1000px;
+    max-width: 800px;
     margin: 0 auto;
-    padding: 0 20px;
 }
 
-.privacy-section h2 {
-    text-align: center;
-    color: #2c3e50;
-    font-size: 2.5rem;
-    margin-bottom: 30px;
-}
-
-.privacy-card {
+.privacy-toggle {
     background: white;
-    padding: 30px;
-    border-radius: 10px;
-    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    border: 1px solid #e0e0e0;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.05);
 }
 
-.privacy-card h3 {
-    color: #27ae60;
-    font-size: 1.5rem;
-    margin-bottom: 20px;
-}
-
-.privacy-card ul {
+.privacy-toggle summary {
+    padding: 20px;
+    cursor: pointer;
+    font-size: 1.3rem;
+    font-weight: 700;
+    color: #2c3e50;
+    background: #f8f9fa;
+    transition: all 0.2s ease;
+    outline: none;
     list-style: none;
+    position: relative;
+}
+
+/* Hide default triangle */
+.privacy-toggle summary::-webkit-details-marker {
+    display: none;
+}
+
+/* Custom arrow */
+.privacy-toggle summary::after {
+    content: "▼";
+    position: absolute;
+    right: 20px;
+    top: 50%;
+    transform: translateY(-50%);
+    transition: transform 0.2s ease;
+    color: #666;
+}
+
+.privacy-toggle[open] summary::after {
+    transform: translateY(-50%) rotate(180deg);
+}
+
+.privacy-toggle summary:hover {
+    background: #f0f0f0;
+    color: #27ae60;
+}
+
+.privacy-toggle[open] summary {
+    background: #e8f5e9;
+    color: #27ae60;
+    border-bottom: 1px solid #e0e0e0;
+}
+
+.privacy-content {
+    padding: 25px;
+    background: white;
+    animation: slideDown 0.3s ease-out;
+}
+
+@keyframes slideDown {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.privacy-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
     margin-bottom: 20px;
 }
 
-.privacy-card li {
-    padding: 8px 0;
+.privacy-column h3 {
+    color: #2c3e50;
     font-size: 1.1rem;
+    margin-bottom: 15px;
+    font-weight: 600;
 }
 
-.privacy-card li:before {
-    content: "✅ ";
-    margin-right: 10px;
-}  
+.privacy-column ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+}
+
+.privacy-column li {
+    padding: 8px 0;
+    font-size: 0.95rem;
+    color: #555;
+    position: relative;
+    padding-left: 20px;
+}
+
+.privacy-column li::before {
+    content: "•";
+    color: #27ae60;
+    position: absolute;
+    left: 0;
+    font-weight: bold;
+}
+
+.privacy-footer {
+    text-align: center;
+    font-size: 0.95rem;
+    color: #27ae60;
+    font-weight: 600;
+    margin: 0;
+    padding-top: 15px;
+    border-top: 1px solid #f0f0f0;
+}
+
+/* Mobile Responsive */
+@media (max-width: 768px) {
+    .privacy-toggle summary {
+        font-size: 1.1rem;
+        padding: 15px;
+    }
+    
+    .privacy-content {
+        padding: 20px;
+    }
+    
+    .privacy-grid {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+}
 
         /* Ensure consistent styling for all sections */
 .form-section,
@@ -1760,20 +1859,36 @@ async function shareToWhatsApp() {
 }
    </script>
     <!-- Privacy Section -->
-<section id="privacy" class="privacy-section">
+<section id="privacy" class="privacy-section-compact">
     <div class="privacy-container">
-        <h2>Your Privacy</h2>
-        <div class="privacy-card">
-            <h3>No Data Collection</h3>
-            <ul>
-                <li>All processing happens in your browser</li>
-                <li>No personal data stored on servers</li>
-                <li>No tracking or analytics</li>
-                <li>No account creation required</li>
-                <li>GDPR compliant by design</li>
-            </ul>
-            <p>You control your data completely. Generate cards locally, share what you choose.</p>
-        </div>
+        <details class="privacy-toggle">
+            <summary style="font-size: 1.5rem; font-weight: bold; cursor: pointer; margin-bottom: 0; color: #2c3e50; text-align: center; outline: none;">
+                🔒 Privacy Info (Click to expand)
+            </summary>
+            <div class="privacy-card" style="margin-top: 20px;">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                    <div>
+                        <h3>✅ What We DON'T Do</h3>
+                        <ul>
+                            <li>Store any personal data</li>
+                            <li>Track your activity</li>
+                            <li>Require registration</li>
+                        </ul>
+                    </div>
+                    <div>
+                        <h3>🛡️ How It Works</h3>
+                        <ul>
+                            <li>Everything happens in your browser</li>
+                            <li>You control what to share</li>
+                            <li>GDPR compliant by design</li>
+                        </ul>
+                    </div>
+                </div>
+                <p style="text-align: center; margin-top: 15px; font-weight: 600; color: #27ae60;">
+                    Your claim data never leaves your device
+                </p>
+            </div>
+        </details>
     </div>
 </section>
 </body>

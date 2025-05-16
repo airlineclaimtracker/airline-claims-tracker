@@ -25,22 +25,21 @@
             padding: 0;
             background-color: var(--surface);
             color: var(--text-dark);
-            line-height: 1.4;
+            line-height: 1.5;
             -webkit-font-smoothing: antialiased;
-            font-size: 14px;
         }
         
         .container {
             max-width: 1000px;
             margin: 0 auto;
-            padding: 1.5rem;
+            padding: 2rem;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
         }
         
         .back-nav {
-            margin-bottom: 1rem;
+            margin-bottom: 1.5rem;
         }
         
         .back-link {
@@ -50,7 +49,7 @@
             color: var(--primary-red);
             text-decoration: none;
             font-weight: 600;
-            font-size: 0.9rem;
+            font-size: 0.95rem;
             padding: 0.5rem 1rem;
             background: var(--card-bg);
             border-radius: 25px;
@@ -60,21 +59,16 @@
         
         .back-link:hover {
             transform: translateY(-1px);
-            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+            box-shadow: 0 2px 12px rgba(0,0,0,0.1);
         }
         
         .hero {
             text-align: center;
-            margin-bottom: 1.5rem;
-            background: var(--card-bg);
-            padding: 1.5rem;
-            border-radius: 0.75rem;
-            border: 1px solid var(--border);
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            margin-bottom: 2rem;
         }
         
         .hero h1 {
-            font-size: 2rem;
+            font-size: 2.5rem;
             font-weight: 800;
             color: var(--text-dark);
             margin-bottom: 0.5rem;
@@ -82,7 +76,7 @@
         }
         
         .hero-subtitle {
-            font-size: 1rem;
+            font-size: 1.1rem;
             color: var(--text-light);
             font-weight: 500;
             margin: 0;
@@ -91,137 +85,142 @@
         .tldr-card {
             background: linear-gradient(135deg, var(--success), #00d4aa);
             color: white;
-            padding: 1rem;
-            border-radius: 0.5rem;
+            padding: 1.5rem;
+            border-radius: 0.75rem;
             text-align: center;
-            margin-bottom: 1.5rem;
-            box-shadow: 0 2px 8px rgba(48, 209, 88, 0.2);
+            margin-bottom: 2rem;
+            box-shadow: 0 4px 20px rgba(48, 209, 88, 0.2);
         }
         
         .tldr-card h2 {
-            font-size: 1.1rem;
+            font-size: 1.25rem;
             font-weight: 700;
             margin-bottom: 0.5rem;
         }
         
         .tldr-card p {
-            font-size: 0.95rem;
+            font-size: 1rem;
             font-weight: 500;
             margin: 0;
             opacity: 0.95;
         }
         
-        .top-row {
+        .main-content {
             display: grid;
-            grid-template-columns: repeat(3, 1fr);
-            gap: 1rem;
-            margin-bottom: 1.5rem;
+            gap: 1.5rem;
+            margin-bottom: 2rem;
         }
         
-        .bottom-row {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
-        }
-        
-        .section {
+        .card {
             background: var(--card-bg);
-            border-radius: 0.5rem;
-            padding: 1rem;
+            border-radius: 0.75rem;
+            padding: 1.5rem;
             border: 1px solid var(--border);
-            box-shadow: 0 1px 3px rgba(0,0,0,0.05);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
             transition: all 0.2s ease;
         }
         
-        .section:hover {
-            transform: translateY(-1px);
-            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        .card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 16px rgba(0,0,0,0.1);
         }
         
-        .section h2 {
-            font-size: 1.1rem;
+        .card h2 {
+            font-size: 1.5rem;
             font-weight: 700;
             color: var(--text-dark);
-            margin-bottom: 0.75rem;
+            margin-bottom: 1rem;
             display: flex;
             align-items: center;
-            gap: 0.5rem;
+            gap: 0.75rem;
         }
         
-        .section p, .section li {
-            font-size: 0.9rem;
+        .card-icon {
+            font-size: 1.5rem;
+        }
+        
+        .card p {
+            font-size: 1rem;
             color: var(--text-dark);
-            margin-bottom: 0.4rem;
+            margin-bottom: 1rem;
+            line-height: 1.6;
         }
         
-        .section ol, .section ul {
-            margin: 0.5rem 0 0 1rem;
-            padding-left: 0;
+        .card ol, .card ul {
+            margin: 0 0 1rem 0;
+            padding-left: 1.5rem;
         }
         
-        .section ol li {
-            margin-bottom: 0.3rem;
+        .card ol li, .card ul li {
+            font-size: 1rem;
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+            line-height: 1.5;
         }
         
-        .feature-grid {
+        .simple-list {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+        }
+        
+        .simple-list li {
+            padding: 0.5rem 0;
+            border-bottom: 1px solid #f0f0f0;
+            display: flex;
+            align-items: flex-start;
+            gap: 0.75rem;
+        }
+        
+        .simple-list li:last-child {
+            border-bottom: none;
+        }
+        
+        .simple-list li::before {
+            content: "✓";
+            color: var(--success);
+            font-weight: bold;
+            font-size: 1.1em;
+            margin-top: 0.1rem;
+        }
+        
+        .two-column {
             display: grid;
             grid-template-columns: 1fr 1fr;
-            gap: 0.75rem;
-            margin-top: 0.5rem;
+            gap: 1rem;
+            margin-top: 1rem;
         }
         
         .feature-item {
+            padding: 1rem;
             background: var(--surface);
             border-radius: 0.5rem;
-            padding: 0.75rem;
             border: 1px solid var(--border);
         }
         
         .feature-item h4 {
-            font-size: 0.95rem;
+            font-size: 1rem;
             font-weight: 600;
-            margin-bottom: 0.25rem;
+            margin-bottom: 0.5rem;
             color: var(--text-dark);
         }
         
         .feature-item p {
-            font-size: 0.85rem;
+            font-size: 0.9rem;
             color: var(--text-light);
             margin: 0;
-            line-height: 1.3;
-        }
-        
-        .compact-list {
-            list-style: none;
-            padding: 0;
-            margin: 0.5rem 0 0 0;
-        }
-        
-        .compact-list li {
-            display: flex;
-            align-items: center;
-            gap: 0.5rem;
-            padding: 0.2rem 0;
-            font-size: 0.9rem;
-        }
-        
-        .compact-list li::before {
-            content: "✓";
-            color: var(--success);
-            font-weight: bold;
-            font-size: 0.9em;
+            line-height: 1.4;
         }
         
         .author-badge {
             display: inline-flex;
             align-items: center;
-            gap: 0.4rem;
+            gap: 0.5rem;
             background: var(--surface);
-            padding: 0.4rem 0.8rem;
-            border-radius: 20px;
+            padding: 0.5rem 1rem;
+            border-radius: 25px;
             border: 1px solid var(--border);
-            font-size: 0.8rem;
+            font-size: 0.9rem;
             color: var(--text-dark);
             margin-top: 0.5rem;
         }
@@ -230,48 +229,43 @@
             background: #fff8e1;
             border: 1px solid #ffcc02;
             border-radius: 0.5rem;
-            padding: 0.75rem;
-            margin-top: 0.75rem;
-            font-size: 0.8rem;
-            color: #b8860b;
-            line-height: 1.3;
-        }
-        
-        .footer-section {
-            background: var(--surface);
-            border-radius: 0.5rem;
             padding: 1rem;
+            margin-top: 1rem;
+            font-size: 0.9rem;
+            color: #b8860b;
+            line-height: 1.5;
+        }
+        
+        .footer {
             text-align: center;
-            border: 1px solid var(--border);
-            margin-top: auto;
-        }
-        
-        .footer-section p {
             color: var(--text-light);
-            font-size: 0.85rem;
-            margin: 0.25rem 0;
+            font-size: 0.9rem;
+            margin-top: auto;
+            padding-top: 2rem;
         }
         
-        @media (max-width: 1024px) {
-            .top-row {
-                grid-template-columns: 1fr;
-            }
-            
-            .bottom-row {
-                grid-template-columns: 1fr;
-            }
+        .footer p {
+            margin: 0.25rem 0;
         }
         
         @media (max-width: 768px) {
             .hero h1 {
-                font-size: 1.75rem;
+                font-size: 2rem;
             }
             
             .container {
                 padding: 1rem;
             }
             
-            .feature-grid {
+            .tldr-card {
+                padding: 1rem;
+            }
+            
+            .card {
+                padding: 1rem;
+            }
+            
+            .two-column {
                 grid-template-columns: 1fr;
             }
         }
@@ -293,83 +287,84 @@
         
         <div class="tldr-card">
             <h2><span>🛡️</span> The Short Version</h2>
-            <p>Everything runs in your browser. No data leaves your device. Period.</p>
+            <p>This tool runs entirely in your browser. No data leaves your device. Period.</p>
         </div>
         
-        <div class="top-row">
-            <div class="section">
-                <h2><span>👤</span> Who Made This</h2>
-                <p>Individual tired of waiting 620+ days for Smartwings response. Created this tool to help others document their experiences.</p>
+        <div class="main-content">
+            <div class="card">
+                <h2><span class="card-icon">👤</span>Who Made This</h2>
+                <p>I'm an individual who got tired of waiting 620+ days for a response from Smartwings. So I created this tool to help people like us document our experiences and raise awareness.</p>
                 <div class="author-badge">
                     <span>🤖</span>
-                    <span>Built with Claude AI</span>
+                    <span>Built with help from Claude AI</span>
                 </div>
             </div>
             
-            <div class="section">
-                <h2><span>🔧</span> How It Works</h2>
+            <div class="card">
+                <h2><span class="card-icon">🔧</span>How This Tool Works</h2>
+                <p>When you use SmartwingsWatch, here's exactly what happens:</p>
                 <ol>
-                    <li>You enter details</li>
-                    <li>Browser calculates days</li>
-                    <li>Image created locally</li>
-                    <li>You choose to share</li>
-                    <li>Zero data transmission</li>
+                    <li><strong>You enter your claim details</strong> — This happens in your browser only</li>
+                    <li><strong>Your browser calculates the days</strong> — No server involvement</li>
+                    <li><strong>An image is created</strong> — Using your device's processing power</li>
+                    <li><strong>You decide what to share</strong> — Complete control remains with you</li>
+                    <li><strong>Nothing is sent to any server</strong> — Your data stays on your device</li>
                 </ol>
             </div>
             
-            <div class="section">
-                <h2><span>🚫</span> What Doesn't Happen</h2>
-                <div class="feature-grid">
+            <div class="card">
+                <h2><span class="card-icon">🚫</span>What Doesn't Happen</h2>
+                <p>To be crystal clear, here's what this tool does NOT do:</p>
+                <div class="two-column">
                     <div class="feature-item">
                         <h4>No Data Collection</h4>
-                        <p>Nothing saved anywhere</p>
+                        <p>Zero. Nothing gets saved anywhere except your browser's memory.</p>
                     </div>
                     <div class="feature-item">
                         <h4>No Tracking</h4>
-                        <p>No analytics or cookies</p>
+                        <p>No analytics, no cookies, no creepy following-you-around stuff.</p>
                     </div>
                     <div class="feature-item">
                         <h4>No Storage</h4>
-                        <p>No servers exist</p>
+                        <p>There literally aren't any servers to store data on.</p>
                     </div>
                     <div class="feature-item">
                         <h4>No Sharing</h4>
-                        <p>Only when you click</p>
+                        <p>Unless you click a share button, nothing leaves your device.</p>
                     </div>
                 </div>
             </div>
-        </div>
-        
-        <div class="bottom-row">
-            <div class="section">
-                <h2><span>✨</span> What You Get</h2>
-                <ul class="compact-list">
-                    <li>Complete control over your data</li>
-                    <li>Use with your existing claim ID</li>
-                    <li>Local processing - private by design</li>
-                    <li>Zero sign-ups needed</li>
-                    <li>Instant deletion when closed</li>
+            
+            <div class="card">
+                <h2><span class="card-icon">✨</span>What You Get</h2>
+                <p>Using this tool gives you complete control over your information:</p>
+                <ul class="simple-list">
+                    <li><strong>Complete control over your data</strong> — Everything stays on your device</li>
+                    <li><strong>Use with your existing claim ID</strong> — Document your Smartwings experience</li>
+                    <li><strong>Local processing - private by design</strong> — No servers, no data transmission</li>
+                    <li><strong>Zero sign-ups needed</strong> — No accounts, no passwords, no hassle</li>
+                    <li><strong>Instant deletion when closed</strong> — Close your browser, data's gone</li>
                 </ul>
             </div>
             
-            <div class="section">
-                <h2><span>🌍</span> GDPR & Legal</h2>
-                <p><strong>GDPR compliant by design:</strong></p>
-                <ul class="compact-list">
-                    <li>No server-side processing</li>
-                    <li>Everything in your browser</li>
-                    <li>You control sharing</li>
-                    <li>No consent needed</li>
+            <div class="card">
+                <h2><span class="card-icon">⚖️</span>GDPR & Legal Compliance</h2>
+                <p><strong>This tool is GDPR compliant by design because:</strong></p>
+                <ul class="simple-list">
+                    <li><strong>No personal data is processed by any server</strong> — Everything happens locally</li>
+                    <li><strong>All processing happens in your browser</strong> — No data controller/processor relationship</li>
+                    <li><strong>You control all data sharing decisions</strong> — Choose what to share, when</li>
+                    <li><strong>No consent is needed</strong> — There's nothing to consent to!</li>
                 </ul>
                 <div class="disclaimer">
-                    <strong>Legal Note:</strong> Personal awareness project, not legal advice. Consult a lawyer for legal help.
+                    <strong>Legal Disclaimer:</strong> This tool is provided as-is for awareness purposes. I'm not a lawyer, and this doesn't constitute legal advice. The tool was created to help document experiences and raise awareness about airline claim response times.
                 </div>
             </div>
         </div>
         
-        <div class="footer-section">
+        <div class="footer">
             <p><strong>Last updated:</strong> May 2025</p>
-            <p>Made with frustration by someone still waiting for their airline claim</p>
+            <p>Made with frustration and determination by someone still waiting for their airline claim</p>
         </div>
     </div>
 </body>

@@ -37,6 +37,15 @@
             --text-secondary: #86868b;
             --surface: #fafafa;
             
+            /* New design colors */
+            
+            --clean-white: #ffffff;
+            --navy-text: #1e293b;
+            --professional-red: #dc2626;
+            --card-gray: #64748b;
+            --border-gray: #e2e8f0;
+            --evidence-overlay: rgba(0,0,0,0.7);
+            
             /* Spacing */
             --spacing-xs: 8px;
             --spacing-sm: 16px;
@@ -250,39 +259,145 @@
         .upload-btn:hover {
             background: #f5f5f5;
             border-color: var(--primary-red);
-        }
-        /* ========================================= */
-        /* CLAIM CARD STYLES */
-        /* ========================================= */
-        
-        .claim-card {
-            width: 600px;
-            height: 600px;
-            background: linear-gradient(135deg, #000000, #1a0000);
-            color: white;
-            position: relative;
-            overflow: hidden;
-            border-radius: 15px;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 35px 35px 50px 35px;
-            box-shadow: 0 20px 40px rgba(0,0,0,0.5);
-            margin: 0 auto;
-        }
-        
-        .claim-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            right: 0;
-            height: 10px;
-            background: linear-gradient(90deg, #e63946, #dc3545, #e63946);
-            animation: pulse-red 2s infinite;
-        }
+            
+}
+/* ========================================= */
+/* CLAIM CARD STYLES - CONCEPT 1 */
+/* ========================================= */
+
+.claim-card {
+    width: 600px;
+    height: 500px;
+    background: var(--clean-white);
+    color: var(--navy-text);
+    position: relative;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    padding: 30px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    margin: 0 auto;
+    border: 1px solid var(--border-gray);
+}
+
+.card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 25px;
+    border-bottom: 2px solid #f1f5f9;
+    padding-bottom: 15px;
+}
+
+.airline-brand {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--navy-text);
+    text-transform: uppercase;
+    letter-spacing: 0.02em;
+}
+
+.days-count {
+    font-size: 2rem;
+    font-weight: 800;
+    color: var(--professional-red);
+    text-align: right;
+}
+
+.main-content {
+    display: grid;
+    grid-template-columns: 1fr 280px;
+    gap: 20px;
+    flex-grow: 1;
+}
+
+.text-section {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.claim-details {
+    background: #f8fafc;
+    border: 1px solid var(--border-gray);
+    padding: 20px;
+    border-radius: 8px;
+    margin-bottom: 20px;
+}
+
+.claim-label {
+    font-size: 0.9rem;
+    color: var(--card-gray);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    margin-bottom: 8px;
+}
+
+.claim-value {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--navy-text);
+    margin-bottom: 15px;
+}
+
+.status-line {
+    font-size: 1.1rem;
+    color: var(--professional-red);
+    font-weight: 600;
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.photo-section {
+    position: relative;
+    border-radius: 8px;
+    overflow: hidden;
+    border: 2px solid var(--border-gray);
+    background: #f8fafc;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--card-gray);
+}
+
+.damage-photo {
+    width: 100%;
+    height: 100%;
+    position: relative;
+}
+
+.damage-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.evidence-overlay {
+    position: absolute;
+    bottom: 8px;
+    right: 8px;
+    background: var(--evidence-overlay);
+    color: white;
+    padding: 4px 8px;
+    border-radius: 4px;
+    font-size: 10px;
+    font-weight: 600;
+    text-transform: uppercase;
+}
+
+.footer-section {
+    margin-top: auto;
+    border-top: 1px solid #e2e8f0;
+    padding-top: 15px;
+}
+
+.hashtags {
+    font-size: 0.85rem;
+    color: var(--card-gray);
+    font-weight: 500;
+    text-align: center;
+}
         
         /* ========================================= */
         /* ANIMATIONS */
@@ -370,6 +485,15 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
+        }
+        .photo-placeholder {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100%;
+        font-size: 24px;
+        opacity: 0.5;
         }
         
         .photo-preview {
@@ -667,36 +791,43 @@
                 font-size: 1rem;
             }
             
-            .claim-card {
-                width: 100%;
-                max-width: 500px;
-                height: 450px;
-                padding: 25px;
-            }
-            
-            .airline-brand {
-                font-size: 2.5rem;
-            }
-            
-            .days-count {
-                font-size: 2.5rem;
-            }
-            
-            .days-photo-container {
-                flex-direction: column;
-                gap: 20px;
-                align-items: center;
-            }
-            
-            .time-container {
-                max-width: 100%;
-                padding: 12px 20px;
-            }
-            
-            .damage-photo {
-                width: 160px;
-                height: 120px;
-            }
+/* New mobile styles for Concept 1 */
+.claim-card {
+    width: 100%;
+    max-width: 500px;
+    height: auto;
+    padding: 20px;
+}
+
+.main-content {
+    grid-template-columns: 1fr;
+    gap: 15px;
+}
+
+.photo-section {
+    height: 200px;
+    margin-top: 10px;
+}
+
+.card-header {
+    flex-direction: column;
+    text-align: center;
+    gap: 10px;
+    margin-bottom: 20px;
+}
+
+.days-count {
+    text-align: center;
+    font-size: 1.8rem;
+}
+
+.airline-brand {
+    font-size: 1.3rem;
+}
+
+.claim-value {
+    font-size: 1.3rem;
+}
             
             .linkedin-modal {
                 padding: 15px !important;
@@ -1335,36 +1466,41 @@
         <!-- GENERATED CLAIM CARD SECTION -->
         <!-- ========================================= -->
         
-        <div id="card-section" style="display: none;">
-            <div class="claim-card" id="claim-card">
-                <div class="communication-pattern">CLAIM FILED • NO RESPONSE • NO CONTACT</div>
-                <div class="airline-brand">SMARTWINGS</div>
-                <div class="damage-type">DESTROYED MY LUGGAGE</div>
-                
-                <div class="days-photo-container">
-                    <div class="time-container">
-                        <div class="days-count" id="days-count">0</div>
-                        <div class="silence-label">DAYS OF SILENCE</div>
-                    </div>
-                    <div class="damage-photo" id="card-photo-container" style="display: none;">
-                        <img id="card-photo" alt="Luggage damage evidence">
-                    </div>
-                </div>
-                
-                <div class="claim-details">
-                    <div class="amount-display" id="amount-value">€0</div>
-                    <div class="claim-status">STILL NO RESPONSE</div>
-                </div>
-                
-                <div class="community-call">
-                    <div class="community-text">FACING THE SAME SILENCE?</div>
-                    <div class="share-action">SHARE YOUR STORY</div>
-                </div>
-                
-                <div class="corporate-question">WAITING FOR A RESPONSE?</div>
-                <div class="hashtags">#SMARTWINGSSILENCE #ACCOUNTABILITY</div>
+    <div class="claim-card" id="claim-card">
+    <div class="card-header">
+        <div class="airline-brand">SMARTWINGS</div>
+        <div class="days-count" id="days-count">0</div>
+    </div>
+    
+    <div class="main-content">
+        <div class="text-section">
+            <div class="claim-details">
+                <div class="claim-label">Claim Amount</div>
+                <div class="claim-value" id="amount-value">€0</div>
+                <div class="claim-label">Filed</div>
+                <div class="claim-value" id="submission-date">January 2023</div>
+            </div>
+            
+            <div class="status-line" id="status-message">Still No Response</div>
+        </div>
+        
+        <div class="photo-section" id="photo-section">
+            <div class="damage-photo" id="card-photo-container" style="display: none;">
+                <img id="card-photo" alt="Luggage damage evidence">
+                <div class="evidence-overlay">EVIDENCE</div>
+            </div>
+            <div class="photo-placeholder" id="photo-placeholder">
+                <span>📸</span>
+                <br>
+                <small>Photo Available</small>
             </div>
         </div>
+    </div>
+    
+    <div class="footer-section">
+        <div class="hashtags">#SmartwingsWatch #PassengerRights</div>
+    </div>
+</div>
         
        
     
@@ -1552,16 +1688,27 @@
     // CARD UPDATE & DISPLAY FUNCTIONS
     // ========================================
     
-    /**
-     * Update card with claim data
-     */
-    function updateCard() {
-        document.getElementById('days-count').textContent = claimData.days;
-        document.getElementById('amount-value').textContent = `€${claimData.amount}`;
-        
-        const message = generateCampaignMessage();
-        document.getElementById('share-message').textContent = message;
+/**
+ * Update card with claim data
+ */
+function updateCard() {
+    document.getElementById('days-count').textContent = claimData.days;
+    document.getElementById('amount-value').textContent = `€${claimData.amount}`;
+    document.getElementById('submission-date').textContent = claimData.submissionDate;
+    
+    // Update status message based on days
+    const statusElement = document.getElementById('status-message');
+    if (claimData.days > 365) {
+        statusElement.textContent = "Over a Year of Silence";
+    } else if (claimData.days > 180) {
+        statusElement.textContent = "Still No Response";
+    } else {
+        statusElement.textContent = "Awaiting Response";
     }
+    
+    const message = generateCampaignMessage();
+    document.getElementById('share-message').textContent = message;
+}
     
     /**
      * Show the generated card and share section
@@ -1569,6 +1716,10 @@
     function showCard() {
         document.getElementById('card-section').style.display = 'block';
         document.getElementById('share-section').style.display = 'block';
+        
+        if (!currentPhoto) {
+        resetCardPhoto();
+    }
         document.getElementById('card-section').scrollIntoView({ behavior: 'smooth' });
     }
     
@@ -1643,23 +1794,40 @@
         previewSection.style.display = 'block';
     }
     
-    /**
-     * Update photo on the claim card
-     */
-    function updateCardPhoto() {
-        if (!currentPhoto) return;
-        
-        const cardPhoto = document.getElementById('card-photo');
-        const cardPhotoContainer = document.getElementById('card-photo-container');
-        
-        if (cardPhoto && cardPhotoContainer) {
-            cardPhoto.src = currentPhoto;
-            cardPhoto.onload = function() {
-                cardPhotoContainer.style.display = 'block';
-            };
+/**
+ * Update photo on the claim card
+ */
+function updateCardPhoto() {
+    if (!currentPhoto) return;
+    
+    const cardPhoto = document.getElementById('card-photo');
+    const cardPhotoContainer = document.getElementById('card-photo-container');
+    const placeholder = document.getElementById('photo-placeholder');
+    
+    if (cardPhoto && cardPhotoContainer) {
+        cardPhoto.src = currentPhoto;
+        cardPhoto.onload = function() {
+            cardPhotoContainer.style.display = 'block';
+            if (placeholder) placeholder.style.display = 'none';
             applyImageTransforms();
-        }
+        };
     }
+}
+
+/**
+ * Handle photo removal from card
+ */
+function resetCardPhoto() {
+    const cardPhotoContainer = document.getElementById('card-photo-container');
+    const placeholder = document.getElementById('photo-placeholder');
+    
+    if (cardPhotoContainer) {
+        cardPhotoContainer.style.display = 'none';
+    }
+    if (placeholder) {
+        placeholder.style.display = 'flex';
+    }
+}
     
     /**
      * Rotate photo 90 degrees
@@ -1693,6 +1861,8 @@
         
         cardPhotoContainer.style.display = 'none';
         cardPhoto.src = '';
+        
+        resetCardPhoto();
     }
     
     /**

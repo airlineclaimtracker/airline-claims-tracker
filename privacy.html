@@ -46,9 +46,9 @@
             display: inline-flex;
             align-items: center;
             gap: 0.5rem;
-            color: var(--primary-red);
+            color: var(--text-dark);
             text-decoration: none;
-            font-weight: 600;
+            font-weight: 500;
             font-size: 0.95rem;
             padding: 0.5rem 1rem;
             background: var(--card-bg);
@@ -60,6 +60,7 @@
         .back-link:hover {
             transform: translateY(-1px);
             box-shadow: 0 2px 12px rgba(0,0,0,0.1);
+            color: var(--text-light);
         }
         
         .hero {
@@ -315,21 +316,25 @@
                 <h2><span class="card-icon">🚫</span>What Doesn't Happen</h2>
                 <p>To be crystal clear, here's what this tool does NOT do:</p>
                 <ul class="simple-list">
-                    <li><strong>No Data Collection</strong> — Zero. Nothing gets saved anywhere except your browser's memory.</li>
-                    <li><strong>No Tracking</strong> — No analytics, no cookies, no creepy following-you-around stuff.</li>
-                    <li><strong>No Storage</strong> — There literally aren't any servers to store data on.</li>
-                    <li><strong>No Sharing</strong> — Unless you click a share button, nothing leaves your device.</li>
+                    <li><strong>No Data Collection</strong> — Zero. Nothing gets saved to any external servers.</li>
+                    <li><strong>No Tracking</strong> — No analytics, no tracking scripts, no following your activity.</li>
+                    <li><strong>No Server Storage</strong> — There literally aren't any servers to store data on.</li>
+                    <li><strong>No Data Transmission</strong> — Nothing is sent from your browser to any external service.</li>
                 </ul>
                 
                 <h2 style="margin-top: 2rem;"><span class="card-icon">✨</span>What You Get</h2>
                 <p>Using this tool gives you complete control over your information:</p>
                 <ul class="simple-list">
-                    <li><strong>Complete control over your data</strong> — Everything stays on your device</li>
-                    <li><strong>Use with your existing claim ID</strong> — Document your Smartwings experience</li>
-                    <li><strong>Local processing - private by design</strong> — No servers, no data transmission</li>
-                    <li><strong>Zero sign-ups needed</strong> — No accounts, no passwords, no hassle</li>
-                    <li><strong>Instant deletion when closed</strong> — Close your browser, data's gone</li>
+                    <li><strong>Complete privacy</strong> — Everything stays on your device</li>
+                    <li><strong>No claim ID required</strong> — You don't need to enter your actual Smartwings claim ID (for security reasons)</li>
+                    <li><strong>Local processing only</strong> — All calculations happen in your browser</li>
+                    <li><strong>Zero registration</strong> — No accounts, no passwords, no hassle</li>
+                    <li><strong>No persistent data</strong> — Close your browser, everything's gone</li>
                 </ul>
+                
+                <p style="margin-top: 1rem; font-size: 0.9rem; color: var(--text-light); background: #f0f9ff; padding: 1rem; border-radius: 0.5rem; border-left: 4px solid #3b82f6;">
+                    <strong>Security Note:</strong> This tool is designed to work without your actual Smartwings claim ID. This protects you from potential data exposure - no one can access your claim information through this tool.
+                </p>
             </div>
             
             <div class="card">
@@ -343,6 +348,10 @@
                 </ul>
                 <div class="disclaimer">
                     <strong>Legal Disclaimer:</strong> This tool is provided as-is for awareness purposes. I'm not a lawyer, and this doesn't constitute legal advice. The tool was created to help document experiences and raise awareness about airline claim response times.
+                </div>
+                
+                <div style="background: #f5f5f7; border: 1px solid #e5e5e7; border-radius: 0.5rem; padding: 1rem; margin-top: 1rem; font-size: 0.85rem; color: var(--text-dark); line-height: 1.5;">
+                    <strong>Technical Note:</strong> While this tool doesn't intentionally collect data, your browser may store temporary data (like images you create) until you close the tab. No persistent cookies are set by this application, though your browser may use standard session storage for the tool to function properly.
                 </div>
             </div>
         </div>

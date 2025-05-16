@@ -16,6 +16,7 @@
             padding: 20px;
             background-color: #f8f9fa;
             color: #333;
+            line-height: 1.6;
         }
         
         .container {
@@ -40,8 +41,14 @@
             font-size: 1.3rem;
         }
         
+        h3 {
+            color: var(--text-dark);
+            margin-top: 25px;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+        
         p, li {
-            line-height: 1.6;
             margin-bottom: 10px;
             font-size: 1rem;
         }
@@ -65,62 +72,125 @@
             border-left: 4px solid #ffc107;
             margin: 20px 0;
         }
+        
+        .disclaimer {
+            background: #e7f3ff;
+            padding: 15px;
+            border-radius: 5px;
+            border-left: 4px solid #0077b5;
+            margin: 20px 0;
+            font-size: 0.95rem;
+        }
+        
+        .technical {
+            background: #f0f0f0;
+            padding: 15px;
+            border-radius: 5px;
+            margin: 15px 0;
+            font-size: 0.95rem;
+        }
+        
+        ul {
+            padding-left: 20px;
+        }
+        
+        .footer {
+            color: #666;
+            font-size: 0.9rem;
+            margin-top: 40px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+        }
     </style>
 </head>
 <body>
     <div class="container">
-        <a href="/" class="back-link">← Back to SmartwingsWatch</a>
+        <a href="./" class="back-link">← Back to SmartwingsWatch</a>
         
         <h1>Privacy Policy</h1>
         
         <div class="highlight">
-            <strong>Key Point:</strong> SmartwingsWatch processes everything locally in your browser. 
-            Your data never leaves your device.
+            <strong>Bottom Line:</strong> This tool runs entirely in your browser. I don't collect, store, or see any of your information. Everything happens on your device.
         </div>
         
-        <h2>What We Don't Do</h2>
-        <ul>
-            <li>Store any personal data on our servers</li>
-            <li>Track your activity or collect analytics</li>
-            <li>Require user accounts or authentication</li>
-            <li>Share information with third parties</li>
-            <li>Use cookies (except for essential functionality)</li>
-        </ul>
+        <h2>Who Made This</h2>
+        <p>This tool was created by an individual (me) to document delayed airline claims and raise awareness about passenger rights. I built it with the help of AI (Claude.ai) to help people like me who have been waiting for claim responses.</p>
         
-        <h2>What We Do</h2>
-        <ul>
-            <li>Process your claim information locally in your browser</li>
-            <li>Generate images on your device</li>
-            <li>Respect your privacy by design</li>
-            <li>Provide GDPR-compliant tools</li>
-            <li>Give you complete control over what to share</li>
-        </ul>
-        
-        <h2>How It Works</h2>
+        <h2>How This Tool Works</h2>
         <p>When you use SmartwingsWatch:</p>
         <ol>
-            <li>You enter your claim information in the form</li>
-            <li>Your browser processes this information locally</li>
-            <li>Images are generated using your device's resources</li>
-            <li>You choose what to share and where</li>
-            <li>No data is transmitted to our servers</li>
+            <li><strong>You enter your claim details</strong> - This happens in your browser only</li>
+            <li><strong>Your browser calculates the days</strong> - No server involvement</li>
+            <li><strong>An image is created</strong> - Using your device's processing power</li>
+            <li><strong>You decide what to share</strong> - Complete control remains with you</li>
+            <li><strong>Nothing is sent to me or any server</strong> - Your data stays on your device</li>
         </ol>
         
-        <h2>Your Rights</h2>
-        <p>Since we don't collect your data, you:</p>
+        <div class="technical">
+            <h3>Technical Details</h3>
+            <p>The tool uses client-side JavaScript and HTML5 Canvas to process your information and generate images. No data transmission occurs to external servers during normal operation.</p>
+        </div>
+        
+        <h2>What I Don't Collect</h2>
         <ul>
-            <li>Have complete control over your information</li>
-            <li>Can use the tool without providing personal details</li>
-            <li>Determine what to share publicly</li>
-            <li>Can clear your browser cache to remove all traces</li>
+            <li>Personal information (names, addresses, phone numbers)</li>
+            <li>Claim details or amounts</li>
+            <li>Photos you upload (they're processed locally)</li>
+            <li>Usage analytics or tracking data</li>
+            <li>IP addresses or device identifiers</li>
+            <li>Cookies (except basic browser functionality)</li>
         </ul>
         
-        <h2>Contact</h2>
-        <p>If you have questions about privacy, please contact us through our main site.</p>
+        <h2>What Happens to Your Data</h2>
+        <ul>
+            <li><strong>Storage:</strong> Nothing is stored on my servers - there aren't any!</li>
+            <li><strong>Processing:</strong> Happens entirely in your browser</li>
+            <li><strong>Sharing:</strong> Only if you choose to share your generated content</li>
+            <li><strong>Deletion:</strong> Clear your browser cache to remove all traces</li>
+        </ul>
         
-        <p style="color: #666; font-size: 0.9rem; margin-top: 40px;">
-            Last updated: May 2025
-        </p>
+        <h2>Your Rights</h2>
+        <p>Since no data is collected:</p>
+        <ul>
+            <li>You have complete control over your information</li>
+            <li>You can use the tool anonymously</li>
+            <li>You decide what to share publicly</li>
+            <li>No data requests are needed - there's nothing to request</li>
+            <li>No consent is required for data processing (there isn't any server-side processing)</li>
+        </ul>
+        
+        <h2>Third-Party Services</h2>
+        <p>This tool may link to social media platforms when you choose to share. Each platform has its own privacy policy:</p>
+        <ul>
+            <li>Twitter/X: <a href="https://twitter.com/privacy" target="_blank">Privacy Policy</a></li>
+            <li>Facebook: <a href="https://www.facebook.com/privacy/policy" target="_blank">Privacy Policy</a></li>
+            <li>LinkedIn: <a href="https://www.linkedin.com/legal/privacy-policy" target="_blank">Privacy Policy</a></li>
+            <li>WhatsApp: <a href="https://www.whatsapp.com/legal/privacy-policy" target="_blank">Privacy Policy</a></li>
+        </ul>
+        
+        <div class="disclaimer">
+            <h3>Legal Disclaimer</h3>
+            <p>This tool is provided as-is for awareness purposes. I'm not a lawyer, and this doesn't constitute legal advice. The tool was created to help document experiences and raise awareness about airline claim response times.</p>
+        </div>
+        
+        <h2>Contact & Updates</h2>
+        <p>This is a personal project with no formal support structure. If you find bugs or have suggestions, you might find me through the social media posts this tool helps create.</p>
+        <p>I may update this policy if the tool's functionality changes. Since there's no tracking, I can't notify users directly - please check back occasionally if you're a regular user.</p>
+        
+        <h2>GDPR & Legal Compliance</h2>
+        <p>By design, this tool is GDPR compliant because:</p>
+        <ul>
+            <li>No personal data is processed by any server</li>
+            <li>All processing happens locally in your browser</li>
+            <li>You control all data sharing decisions</li>
+            <li>No consent is needed for non-existent data collection</li>
+        </ul>
+        
+        <div class="footer">
+            <p><strong>Last updated:</strong> December 2024</p>
+            <p><strong>Created by:</strong> An individual with help from AI (Claude.ai)</p>
+            <p><strong>Purpose:</strong> Raising awareness about airline claim response times</p>
+        </div>
     </div>
 </body>
 </html>

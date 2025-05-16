@@ -141,6 +141,23 @@
             outline: none;
             border-color: var(--primary-red);
         }
+<div class="upload-integrated">
+    <div class="separator-light"></div>
+    <p style="margin-bottom: 15px;"><strong>📸 Evidence photo</strong> <span style="color: #888; font-size: 0.9rem;">(optional)</span></p>
+    <input type="file" id="photo-input" accept="image/*" style="display: none;">
+    <button type="button" onclick="document.getElementById('photo-input').click()" class="upload-btn-clean">
+        Choose Photo
+    </button>
+    <div id="photo-preview-section" style="margin-top: 15px; display: none;">
+        <img id="photo-preview" style="max-width: 200px; max-height: 150px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
+        <div class="photo-controls" style="margin-top: 10px;">
+            <button class="photo-btn" onclick="rotatePhoto()">🔄 Rotate</button>
+            <button class="photo-btn" onclick="adjustPhoto()">🎨 Brighten</button>
+            <button class="photo-btn remove" onclick="removePhoto()">❌ Remove</button>
+        </div>
+    </div>
+</div>
+
         
 .btn {
     background: linear-gradient(135deg, var(--primary-red), var(--dark-red));
@@ -800,11 +817,28 @@
 /* Fix upload area styling */
 
     .upload-integrated {
-    margin-top: 30px;
-    padding-top: 30px;
-    border-top: 1px solid #eee;
+    margin-top: 25px;
+    padding-top: 25px;
 }
-        
+ .separator-light {
+    border-top: 1px solid #f0f0f0;
+    margin-bottom: 20px;
+}
+
+.upload-btn-clean {
+    background: #f8f9fa;
+    border: 1px solid #ddd;
+    padding: 10px 20px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: all 0.2s;
+}
+
+.upload-btn-clean:hover {
+    background: #f0f0f0;
+    border-color: var(--primary-red);
+}       
 .upload-area {
     max-width: 100%;
     box-sizing: border-box;
@@ -1024,21 +1058,7 @@
     </div>
 </section>
         
-    <div class="upload-compact" id="upload-compact">
-    <p><strong>📸 Evidence photo</strong> <span style="color: #888; font-size: 0.9rem;">(optional)</span></p>
-    <input type="file" id="photo-input" accept="image/*" style="display: none;">
-    <button type="button" onclick="document.getElementById('photo-input').click()" class="upload-btn">
-        Choose Photo
-    </button>
-    <div id="photo-preview-section" style="margin-top: 15px; display: none;">
-        <img id="photo-preview" style="max-width: 200px; max-height: 150px; border-radius: 8px; box-shadow: 0 2px 8px rgba(0,0,0,0.1);">
-        <div class="photo-controls" style="margin-top: 10px;">
-            <button class="photo-btn" onclick="rotatePhoto()">🔄 Rotate</button>
-            <button class="photo-btn" onclick="adjustPhoto()">🎨 Brighten</button>
-            <button class="photo-btn remove" onclick="removePhoto()">❌ Remove</button>
-        </div>
-    </div>
-</div>
+    
         
         <div id="card-section" style="display: none;">
             
@@ -1137,19 +1157,10 @@
     const form = document.getElementById('claim-form');
     form.addEventListener('submit', handleFormSubmit);
     
-    // Photo upload setup - FIX: Updated to work with upload-compact
-    const uploadCompact = document.getElementById('upload-compact');
+    // Photo upload setup
     const photoInput = document.getElementById('photo-input');
     
     if (photoInput) {
-        // Add drag and drop to upload-compact area
-        if (uploadCompact) {
-            uploadCompact.addEventListener('dragover', handleDragOver);
-            uploadCompact.addEventListener('dragleave', handleDragLeave);
-            uploadCompact.addEventListener('drop', handleDrop);
-        }
-        
-        // File input change handler
         photoInput.addEventListener('change', (e) => {
             if (e.target.files.length > 0) {
                 processFile(e.target.files[0]);

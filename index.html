@@ -1812,35 +1812,36 @@ Finally decided to do something about it - created a simple tool that helps docu
 
 Anyone else dealt with airlines that just... ignore you completely? Starting to think this is intentional.`;
 }
+/**
+ * Generate Facebook-optimized message
+ */
+function generateFacebookMessage() {
+    const currentUrl = window.location.href;
+    const pricePerDay = (claimData.amount / claimData.days).toFixed(3);
     
-    /**
-     * Generate Facebook-optimized message
-     */
-    function generateFacebookMessage() {
-        const currentUrl = window.location.href;
-        const pricePerDay = (claimData.amount / claimData.days).toFixed(3);
-        
-        return `✈️ PASSENGER RIGHTS UPDATE ✈️
+    return `✈️ UPDATE: Still waiting on Smartwings ✈️
 
-Day ${claimData.days}: Still waiting for Smartwings to pay my €${claimData.amount} luggage damage claim.
+${claimData.days} days since they damaged my luggage. Filed claim for €${claimData.amount} with all documentation.
 
-The math? They've 'saved' €${pricePerDay} per day through systematic delays.
+Their response? Radio silence.
 
-Instead of just complaining, I did something about it - I built an awareness tool that helps passengers:
-🔹 Get properly heard
-🔹 Document their experiences  
-🔹 Navigate claim processes
-🔹 Secure fair compensation
+What's frustrating is having to replace the luggage with my own money while they just... ignore the claim entirely.
 
-💡 Try the tool: ${currentUrl}
+Instead of waiting forever, I built a simple tool that creates shareable cards showing how long you've been waiting: ${currentUrl}
 
-TAG someone who's had airline issues!
-How long have they kept you waiting?
+🔸 Enter your claim details
+🔸 Generate a visual card  
+🔸 Share your experience across social media
+🔸 Maybe airlines will be more responsive if enough passengers speak up
 
-#SmartwingsWatch #PassengerProtection #TravelRights #GetCompensated
+Just a thought - might not work, but doing nothing definitely won't.
 
-Share this post to help fellow travelers! 👇`;
-    }
+Anyone else dealt with airlines that just go silent on legitimate claims?
+
+#PassengerRights #CustomerService #TravelTips #SmartwingsWatch
+
+Share if you've been in a similar spot! 👇`;
+}
     
     // ========================================
     // SOCIAL MEDIA SHARING FUNCTIONS

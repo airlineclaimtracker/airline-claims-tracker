@@ -1050,48 +1050,77 @@
     }
 }  
         /* Page Hero Styles */
-.page-hero {
+/* Green Header Bar - matching privacy page */
+.header-bar {
+    background: linear-gradient(135deg, #30d158, #00d4aa);
+    color: white;
+    padding: 1.5rem 0;
     text-align: center;
-    padding: 2rem 20px;
-    background: white;
-    border-bottom: 1px solid #e0e0e0;
-    margin-bottom: 0;
+    box-shadow: 0 4px 20px rgba(48, 209, 88, 0.2);
 }
 
-.hero-title {
-    font-size: 2.5rem;
+.header-content {
+    max-width: 800px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+.header-title {
+    font-size: 2rem;  /* Same size as privacy page hero */
     font-weight: 800;
-    color: #1d3557;
+    color: white;
     margin-bottom: 0.5rem;
     letter-spacing: -0.02em;
 }
 
-.hero-subtitle {
-    font-size: 1.25rem;
-    color: #dc3545;
-    font-weight: 600;
-    margin-bottom: 0.5rem;
+.header-subtitle {
+    font-size: 1rem;
+    color: white;
+    font-weight: 500;
+    margin: 0;
+    opacity: 0.95;
 }
 
-.hero-tagline {
-    font-size: 1rem;
-    color: #86868b;
-    font-weight: 400;
+/* Story Context */
+.story-context {
+    text-align: center;
+    padding: 1rem 20px;
+    background: #f8f9fa;
+    border-bottom: 1px solid #e5e5e7;
+}
+
+.story-context p {
+    font-size: 0.9rem;
+    color: #666;
+    font-weight: 500;
     margin: 0;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+/* Ensure unified container aligns properly */
+.unified-container {
+    max-width: 800px;
+    margin: 20px auto 40px auto;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    padding: 40px;
+    text-align: center;
 }
 
 /* Mobile adjustments */
 @media (max-width: 768px) {
-    .hero-title {
-        font-size: 2rem;
+    .header-title {
+        font-size: 1.75rem;
     }
     
-    .hero-subtitle {
-        font-size: 1.1rem;
+    .header-bar {
+        padding: 1rem 0;
     }
     
-    .page-hero {
-        padding: 1.5rem 10px;
+    .story-context {
+        padding: 0.75rem 10px;
     }
 }
     </style>
@@ -1101,11 +1130,21 @@
     <!-- Navigation -->
     
     <div class="content-section">
-<!-- Hero Section -->
-        <div class="page-hero">
-    <h1 class="hero-title">SmartwingsWatch</h1>
-    <p class="hero-tagline">Making Smartwings claim delays visible</p>
+<!-- Page Header/Hero -->
+        
+<!-- Green Header Bar -->
+<div class="header-bar">
+    <div class="header-content">
+        <h1 class="header-title">SmartwingsWatch</h1>
+        <p class="header-subtitle">Making Smartwings claim delays visible</p>
+    </div>
 </div>
+
+        <!-- Story Context -->
+<div class="story-context">
+    <p>Real passenger experience:</p>
+</div>
+        <!-- Hero Section (your existing content) -->
 <section class="unified-container">
     <div class="story-part">
         <p class="statement-line">Smartwings damaged my luggage.</p>

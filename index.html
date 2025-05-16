@@ -1751,20 +1751,27 @@ Who else faces endless Smartwings delays?
 #SmartwingsWatch #PassengerProtection`;
     }
     
-    /**
-     * Generate Twitter-optimized message
-     */
-    function generateTwitterMessage() {
-        const currentUrl = window.location.href;
-        const pricePerDay = (claimData.amount / claimData.days).toFixed(3);
-        
-        return `Day ${claimData.days}: Smartwings owes me €${claimData.amount} for luggage damage.
-€${pricePerDay}/day 'saved' through systematic delays.
-Built an awareness tool to help passengers get heard & compensated.
-📊 Protect yourself: ${currentUrl}
-Who else faces endless Smartwings delays?
-#SmartwingsWatch #PassengerProtection`;
-    }
+/**
+ * Generate Twitter-optimized message - Trump Style
+ */
+function generateTwitterMessage() {
+    const currentUrl = window.location.href;
+    const pricePerDay = (claimData.amount / claimData.days).toFixed(3);
+    
+    return `Day ${claimData.days}: SMARTWINGS DESTROYED my luggage.
+
+Keep my €${claimData.amount}. Won't even respond. 
+
+PATHETIC!
+
+Built tool to expose SMARTWINGS: ${currentUrl}
+
+SMARTWINGS = FRAUD!
+
+Who else got RIPPED OFF by SMARTWINGS?
+
+#SmartwingsWatch #FRAUD`;
+}
     
     /**
      * Generate LinkedIn-optimized message

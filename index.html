@@ -838,7 +838,7 @@
     margin-bottom: 20px;
     font-size: 1rem;
 }    
-    .hero-simple {
+  .hero-simple {
     padding: 80px 20px;
     background: white;
     text-align: center;
@@ -857,6 +857,35 @@
     line-height: 1.4;
 }
 
+.separator {
+    margin: 3rem 0;
+    text-align: center;
+    position: relative;
+}
+
+.separator::before {
+    content: "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━";
+    color: #e5e5e7;
+    font-size: 0.8rem;
+    letter-spacing: 0.1em;
+}
+
+.context {
+    margin-bottom: 2rem;
+}
+
+.context-text {
+    font-size: 1.1rem;
+    color: #1d1d1f;
+    line-height: 1.6;
+    margin-bottom: 1rem;
+}
+
+.context-text strong {
+    color: var(--primary-red);
+    font-weight: 600;
+}
+
 .statement-cta {
     display: inline-block;
     background: var(--primary-red);
@@ -873,7 +902,7 @@
 .statement-cta:hover {
     background: #c02833;
     transform: translateY(-1px);
-}    
+}
     </style>
 </head>
 <body>
@@ -898,6 +927,21 @@
         <p class="statement-line">I filed a claim for €200.</p>
         <p class="statement-line">That was 620 days ago.</p>
         <p class="statement-line">They haven't responded.</p>
+        
+        <div class="separator"></div>
+        
+        <div class="context">
+            <p class="context-text">
+                I filed with Smartwings on <strong>claim.smartwingsgroup.com/pl/</strong> 
+                for €200 in luggage damage. <strong>620 days later</strong>, I still 
+                haven't received any response.
+            </p>
+            <p class="context-text">
+                If you're facing the same silence, you're not alone. 
+                This tool helps create accountability.
+            </p>
+        </div>
+        
         <a href="#create" class="statement-cta">Document Your Experience</a>
     </div>
 </section>

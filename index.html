@@ -838,6 +838,42 @@
     margin-bottom: 20px;
     font-size: 1rem;
 }    
+    .hero-simple {
+    padding: 80px 20px;
+    background: white;
+    text-align: center;
+}
+
+.statement {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.statement-line {
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: #1d1d1f;
+    margin-bottom: 1.5rem;
+    line-height: 1.4;
+}
+
+.statement-cta {
+    display: inline-block;
+    background: var(--primary-red);
+    color: white;
+    padding: 16px 32px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 1.1rem;
+    margin-top: 2rem;
+    transition: background 0.2s ease;
+}
+
+.statement-cta:hover {
+    background: #c02833;
+    transform: translateY(-1px);
+}    
     </style>
 </head>
 <body>
@@ -856,10 +892,15 @@
     
     <div class="content-section">
 <!-- Hero Section -->
-<div class="header" id="story">
-    <h1>Smartwings: 620 Days, €200, Zero Response</h1>
-    <p>Your claim deserves an answer. Create accountability.</p>
-</div>
+<section class="hero-simple">
+    <div class="statement">
+        <p class="statement-line">Smartwings damaged my luggage.</p>
+        <p class="statement-line">I filed a claim for €200.</p>
+        <p class="statement-line">That was 620 days ago.</p>
+        <p class="statement-line">They haven't responded.</p>
+        <a href="#create" class="statement-cta">Document Your Experience</a>
+    </div>
+</section>
 <!-- Personal Story Section -->
 <div class="story-section-compact">
     <div class="claim-facts">

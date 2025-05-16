@@ -934,6 +934,25 @@
     background: #c02833;
     transform: translateY(-1px);
 }
+.unified-container {
+    max-width: 800px;
+    margin: 40px auto;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    padding: 40px;
+    text-align: center;
+}
+
+.story-part {
+    padding-bottom: 30px;
+}
+
+.form-part {
+    padding-top: 20px;
+    border-top: 1px solid #f0f0f0;
+}
+        
     </style>
 </head>
 <body>
@@ -1005,7 +1024,7 @@
     </div>
 </section>
         
-     <div class="upload-compact">
+    <div class="upload-compact" id="upload-compact">
     <p><strong>📸 Evidence photo</strong> <span style="color: #888; font-size: 0.9rem;">(optional)</span></p>
     <input type="file" id="photo-input" accept="image/*" style="display: none;">
     <button type="button" onclick="document.getElementById('photo-input').click()" class="upload-btn">
@@ -1113,26 +1132,31 @@
             }
         }
         
-        function setupEventListeners() {
-            // Form submission handler
-            const form = document.getElementById('claim-form');
-            form.addEventListener('submit', handleFormSubmit);
-            
-            // Photo upload setup
-            const uploadArea = document.getElementById('upload-area');
-            const photoInput = document.getElementById('photo-input');
-            
-            uploadArea.addEventListener('click', () => photoInput.click());
-            uploadArea.addEventListener('dragover', handleDragOver);
-            uploadArea.addEventListener('dragleave', handleDragLeave);
-            uploadArea.addEventListener('drop', handleDrop);
-            
-            photoInput.addEventListener('change', (e) => {
-                if (e.target.files.length > 0) {
-                    processFile(e.target.files[0]);
-                }
-            });
+      function setupEventListeners() {
+    // Form submission handler
+    const form = document.getElementById('claim-form');
+    form.addEventListener('submit', handleFormSubmit);
+    
+    // Photo upload setup - FIX: Updated to work with upload-compact
+    const uploadCompact = document.getElementById('upload-compact');
+    const photoInput = document.getElementById('photo-input');
+    
+    if (photoInput) {
+        // Add drag and drop to upload-compact area
+        if (uploadCompact) {
+            uploadCompact.addEventListener('dragover', handleDragOver);
+            uploadCompact.addEventListener('dragleave', handleDragLeave);
+            uploadCompact.addEventListener('drop', handleDrop);
         }
+        
+        // File input change handler
+        photoInput.addEventListener('change', (e) => {
+            if (e.target.files.length > 0) {
+                processFile(e.target.files[0]);
+            }
+        });
+    }
+}
         
         function showError(message) {
             const errorEl = document.getElementById('error-message');

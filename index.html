@@ -1798,24 +1798,26 @@ Have others experienced similar systematic delays with airlines?
 #PassengerRights #CustomerService #InnovativeSolutions #SmartwingsWatch #ConsumerProtection`;
     }
     
-    /**
-     * Generate WhatsApp-optimized message
-     */
-    function generateWhatsAppMessage() {
-        const currentUrl = window.location.href;
-        const pricePerDay = (claimData.amount / claimData.days).toFixed(3);
-        
-        return `🚨 Day ${claimData.days}: Smartwings still owes me €${claimData.amount}!
+/**
+ * Generate WhatsApp-optimized message - Professional Version
+ */
+function generateWhatsAppMessage() {
+    const currentUrl = window.location.href;
+    const pricePerDay = (claimData.amount / claimData.days).toFixed(3);
+    
+    return `Day ${claimData.days}: Smartwings Claim Update
 
-They've 'saved' €${pricePerDay} per day through delays.
+Situation: Still waiting for €${claimData.amount} compensation for luggage damage
+Daily delay cost: €${pricePerDay} "saved" by systematic delays
 
-Instead of giving up, I built an awareness tool to help passengers get heard and get compensated properly.
+Action taken: Created awareness tool to help passengers get properly heard and compensated
 
-📱 Check it out: ${currentUrl}
+Tool link: ${currentUrl}
 
-Share if you've faced similar issues with airlines!
-#SmartwingsWatch #PassengerProtection`;
-    }
+If you've experienced similar delays with airlines, please share this message.
+
+#SmartwingsWatch #PassengerRights`;
+}
     
     /**
      * Generate Facebook-optimized message

@@ -1051,22 +1051,24 @@
 }  
         /* Page Hero Styles */
 /* Green Header Bar - matching privacy page */
+/* Green Header Bar - same width as containers */
 .header-bar {
     background: linear-gradient(135deg, #30d158, #00d4aa);
     color: white;
-    padding: 1.5rem 0;
+    padding: 1.5rem;
     text-align: center;
+    border-radius: 16px;
     box-shadow: 0 4px 20px rgba(48, 209, 88, 0.2);
+    margin-bottom: 20px;
+    max-width: 100%;
 }
 
 .header-content {
-    max-width: 800px;
-    margin: 0 auto;
-    padding: 0 20px;
+    /* Remove this class - not needed anymore */
 }
 
 .header-title {
-    font-size: 2rem;  /* Same size as privacy page hero */
+    font-size: 2rem;
     font-weight: 800;
     color: white;
     margin-bottom: 0.5rem;
@@ -1081,12 +1083,13 @@
     opacity: 0.95;
 }
 
-/* Story Context */
+/* Story Context - also within content-section */
 .story-context {
     text-align: center;
-    padding: 1rem 20px;
+    padding: 0.75rem 1rem;
     background: #f8f9fa;
-    border-bottom: 1px solid #e5e5e7;
+    border-radius: 8px;
+    margin-bottom: 20px;
 }
 
 .story-context p {
@@ -1133,16 +1136,17 @@
 <!-- Page Header/Hero -->
         
 <!-- Green Header Bar -->
-<div class="header-bar">
-    <div class="header-content">
+<!-- Green Header Bar (same width as containers) -->
+<div class="content-section">
+    <div class="header-bar">
         <h1 class="header-title">SmartwingsWatch</h1>
         <p class="header-subtitle">Making Smartwings claim delays visible</p>
     </div>
-</div>
-
-        <!-- Story Context -->
-<div class="story-context">
-    <p>Real passenger experience:</p>
+    
+    <!-- Story Context -->
+    <div class="story-context">
+        <p>Real passenger experience:</p>
+    </div>
 </div>
         <!-- Hero Section (your existing content) -->
 <section class="unified-container">

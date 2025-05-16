@@ -261,104 +261,110 @@
             border-color: var(--primary-red);
             
 }
+
 /* ========================================= */
-/* CLAIM CARD STYLES - CONCEPT 1 */
+/* CLAIM CARD STYLES - MATCHING SCREENSHOTS */
 /* ========================================= */
+
+:root {
+    /* Adding new variables */
+    --card-white: #ffffff;
+    --days-red: #e63946;
+    --claim-pink: #fff0f0;
+    --border-pink: #e63946;
+    --text-navy: #1e293b;
+    --hashtag-yellow: #FFD93D;
+}
 
 .claim-card {
     width: 600px;
-    height: 500px;
-    background: var(--clean-white);
-    color: var(--navy-text);
+    height: auto;
+    background: var(--card-white);
+    color: var(--text-navy);
     position: relative;
     border-radius: 12px;
-    display: flex;
-    flex-direction: column;
-    padding: 30px;
-    box-shadow: 0 4px 20px rgba(0,0,0,0.1);
+    padding: 35px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
     margin: 0 auto;
-    border: 1px solid var(--border-gray);
 }
 
+/* Card Header with Airline Name and Days */
 .card-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
-    margin-bottom: 25px;
-    border-bottom: 2px solid #f1f5f9;
-    padding-bottom: 15px;
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #f1f5f9;
 }
 
 .airline-brand {
-    font-size: 1.5rem;
-    font-weight: 700;
-    color: var(--navy-text);
+    font-size: 2.5rem;
+    font-weight: 900;
+    color: var(--text-navy);
     text-transform: uppercase;
-    letter-spacing: 0.02em;
+    letter-spacing: 0.05em;
+    text-shadow: 2px 2px 4px rgba(0,0,0,0.15);
 }
 
 .days-count {
-    font-size: 2rem;
-    font-weight: 800;
-    color: var(--professional-red);
-    text-align: right;
+    font-size: 3.5rem;
+    font-weight: 900;
+    color: var(--days-red);
+    animation: pulse-subtle 2s infinite;
+    text-shadow: 2px 2px 0px rgba(0,0,0,0.1);
 }
 
+@keyframes pulse-subtle {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.03); }
+    100% { transform: scale(1); }
+}
+
+/* Main Content Grid */
 .main-content {
     display: grid;
-    grid-template-columns: 1fr 280px;
-    gap: 20px;
-    flex-grow: 1;
+    grid-template-columns: 1fr 1fr;
+    gap: 25px;
+    margin-bottom: 30px;
 }
 
-.text-section {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-}
-
-.claim-details {
-    background: #f8fafc;
-    border: 1px solid var(--border-gray);
-    padding: 20px;
-    border-radius: 8px;
-    margin-bottom: 20px;
+/* Claim Details Box */
+.claim-box {
+    background: var(--claim-pink);
+    padding: 25px;
+    border-radius: 12px;
+    border: 1px solid var(--border-pink);
 }
 
 .claim-label {
-    font-size: 0.9rem;
-    color: var(--card-gray);
+    font-size: 1rem;
+    color: #94a3b8;
     font-weight: 600;
-    text-transform: uppercase;
-    letter-spacing: 0.05em;
-    margin-bottom: 8px;
+    margin-bottom: 5px;
 }
 
 .claim-value {
-    font-size: 1.5rem;
+    font-size: 2rem;
     font-weight: 700;
-    color: var(--navy-text);
-    margin-bottom: 15px;
+    color: var(--text-navy);
+    margin-bottom: 20px;
 }
 
-.status-line {
-    font-size: 1.1rem;
-    color: var(--professional-red);
-    font-weight: 600;
-    text-align: center;
-    margin-bottom: 15px;
+.claim-value:last-child {
+    margin-bottom: 0;
 }
 
+/* Photo Section */
 .photo-section {
-    position: relative;
-    border-radius: 8px;
-    overflow: hidden;
-    border: 2px solid var(--border-gray);
     background: #f8fafc;
+    border-radius: 12px;
+    overflow: hidden;
+    position: relative;
+    min-height: 220px;
     display: flex;
     align-items: center;
     justify-content: center;
-    color: var(--card-gray);
 }
 
 .damage-photo {
@@ -375,28 +381,87 @@
 
 .evidence-overlay {
     position: absolute;
-    bottom: 8px;
-    right: 8px;
-    background: var(--evidence-overlay);
+    bottom: 10px;
+    right: 10px;
+    background: rgba(0,0,0,0.7);
     color: white;
-    padding: 4px 8px;
+    padding: 5px 10px;
     border-radius: 4px;
-    font-size: 10px;
+    font-size: 12px;
     font-weight: 600;
-    text-transform: uppercase;
 }
 
+.photo-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #94a3b8;
+    font-size: 18px;
+    opacity: 0.6;
+}
+
+.photo-placeholder span {
+    font-size: 32px;
+    margin-bottom: 10px;
+}
+
+/* Status Line */
+.status-line {
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: var(--days-red);
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+/* Footer */
 .footer-section {
-    margin-top: auto;
-    border-top: 1px solid #e2e8f0;
+    text-align: center;
     padding-top: 15px;
+    border-top: 1px solid #f1f5f9;
 }
 
 .hashtags {
-    font-size: 0.85rem;
-    color: var(--card-gray);
-    font-weight: 500;
-    text-align: center;
+    font-size: 1.1rem;
+    color: var(--hashtag-yellow);
+    font-weight: 600;
+}
+
+/* Mobile Styles */
+@media (max-width: 768px) {
+    .claim-card {
+        width: 100%;
+        max-width: 500px;
+        padding: 25px;
+    }
+    
+    .main-content {
+        grid-template-columns: 1fr;
+        gap: 20px;
+    }
+    
+    .card-header {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+    
+    .airline-brand {
+        font-size: 2rem;
+    }
+    
+    .days-count {
+        font-size: 2.5rem;
+    }
+    
+    .claim-value {
+        font-size: 1.5rem;
+    }
+    
+    .photo-section {
+        min-height: 180px;
+    }
 }
         
         /* ========================================= */
@@ -1473,15 +1538,11 @@
     </div>
     
     <div class="main-content">
-        <div class="text-section">
-            <div class="claim-details">
-                <div class="claim-label">Claim Amount</div>
-                <div class="claim-value" id="amount-value">€0</div>
-                <div class="claim-label">Filed</div>
-                <div class="claim-value" id="submission-date">January 2023</div>
-            </div>
-            
-            <div class="status-line" id="status-message">Still No Response</div>
+        <div class="claim-box">
+            <div class="claim-label">CLAIM AMOUNT</div>
+            <div class="claim-value" id="amount-value">€0</div>
+            <div class="claim-label">FILED</div>
+            <div class="claim-value" id="submission-date">January 2023</div>
         </div>
         
         <div class="photo-section" id="photo-section">
@@ -1491,11 +1552,12 @@
             </div>
             <div class="photo-placeholder" id="photo-placeholder">
                 <span>📸</span>
-                <br>
-                <small>Photo Available</small>
+                <div>Photo Available</div>
             </div>
         </div>
     </div>
+    
+    <div class="status-line" id="status-message">Over a Year of Silence</div>
     
     <div class="footer-section">
         <div class="hashtags">#SmartwingsWatch #PassengerRights</div>
@@ -1708,6 +1770,12 @@ function updateCard() {
     
     const message = generateCampaignMessage();
     document.getElementById('share-message').textContent = message;
+
+    // Debug share section display
+    console.log('Card updated, checking share section');
+    const shareSection = document.getElementById('share-section');
+    console.log('Share section found:', shareSection != null);
+    console.log('Share section display:', shareSection.style.display);
 }
     
     /**
@@ -1813,7 +1881,41 @@ function updateCardPhoto() {
         };
     }
 }
-
+    
+/**
+ * Reset photo display
+ */
+function resetCardPhoto() {
+    const cardPhotoContainer = document.getElementById('card-photo-container');
+    const placeholder = document.getElementById('photo-placeholder');
+    
+    if (cardPhotoContainer) {
+        cardPhotoContainer.style.display = 'none';
+    }
+    if (placeholder) {
+        placeholder.style.display = 'flex';
+    }
+}
+    
+/**
+ * Display the generated card and share section
+ */
+function showCard() {
+    document.getElementById('card-section').style.display = 'block';
+    document.getElementById('share-section').style.display = 'block';
+    
+    // Initialize photo display
+    if (!currentPhoto) {
+        resetCardPhoto();
+    }
+    
+    // Scroll to see both card and sharing options
+    document.getElementById('card-section').scrollIntoView({ behavior: 'smooth' });
+    
+    // Debug output for share section
+    console.log('Share section should be visible now');
+    console.log('Share section display:', document.getElementById('share-section').style.display);
+}
 /**
  * Handle photo removal from card
  */

@@ -1805,18 +1805,15 @@ function generateWhatsAppMessage() {
     const currentUrl = window.location.href;
     const pricePerDay = (claimData.amount / claimData.days).toFixed(3);
     
-    return `Day ${claimData.days}: Smartwings Claim Update
+    return `Frustrating update on that Smartwings luggage issue I mentioned:
 
-Situation: Still waiting for €${claimData.amount} compensation for luggage damage
-Daily delay cost: €${pricePerDay} "saved" by systematic delays
+${claimData.days} days ago, they destroyed my suitcase. Filed claim with all documentation. Radio silence ever since.
 
-Action taken: Created awareness tool to help passengers get properly heard and compensated
+Each day of delay means €${pricePerDay} stays in their account instead of mine.
 
-Tool link: ${currentUrl}
+Finally decided to do something about it - created a simple tool that helps document these experiences for other passengers: ${currentUrl}
 
-If you've experienced similar delays with airlines, please share this message.
-
-#SmartwingsWatch #PassengerRights`;
+Anyone else dealt with airlines that just... ignore you completely? Starting to think this is intentional.`;
 }
     
     /**

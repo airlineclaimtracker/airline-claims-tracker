@@ -1388,6 +1388,252 @@
         text-align: center;
     }
 }
+
+        /* ========================================= */
+/* CARD SELECTION TOGGLE STYLES */
+/* ========================================= */
+
+.card-selection-container {
+    background: white;
+    padding: 25px 30px;
+    border-radius: 15px;
+    box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+    margin-bottom: 30px;
+    text-align: center;
+}
+
+.card-selection-container h3 {
+    font-size: 1.4rem;
+    font-weight: 700;
+    color: #1d3557;
+    margin-bottom: 10px;
+}
+
+.card-selection-container p {
+    color: #666;
+    margin-bottom: 20px;
+}
+
+.card-toggle {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+}
+
+.card-toggle-btn {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 10px 20px;
+    border-radius: 30px;
+    border: none;
+    cursor: pointer;
+    font-weight: 600;
+    font-size: 1rem;
+    transition: all 0.3s ease;
+    background: #f8f9fa;
+    color: #666;
+}
+
+.card-toggle-btn.active {
+    background: #dc3545;
+    color: white;
+    box-shadow: 0 5px 15px rgba(220, 53, 69, 0.2);
+}
+
+.card-toggle-btn svg {
+    stroke: currentColor;
+}
+
+@media (max-width: 768px) {
+    .card-toggle {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .card-toggle-btn {
+        width: 100%;
+        justify-content: center;
+    }
+}
+
+        /* ========================================= */
+/* MAXIMUM IMPACT CARD STYLES */
+/* ========================================= */
+
+.claim-card-impact {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    background-image: linear-gradient(135deg, #dc2626, #991b1b);
+    border-radius: 16px;
+    box-shadow: 0 10px 40px rgba(220, 38, 38, 0.3);
+    overflow: hidden;
+    padding: 30px;
+    font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    color: white;
+    position: relative;
+}
+
+.claim-card-impact .watermark {
+    position: absolute;
+    top: -40px;
+    right: -20px;
+    font-size: 180px;
+    font-weight: 900;
+    color: white;
+    opacity: 0.1;
+    z-index: 1;
+}
+
+.claim-card-impact .card-content {
+    position: relative;
+    z-index: 2;
+}
+
+.claim-card-impact .card-header {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.claim-card-impact .report-label {
+    font-size: 14px;
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    color: #fde047;
+    margin-bottom: 5px;
+}
+
+.claim-card-impact .airline-name {
+    font-size: 32px;
+    font-weight: 900;
+    letter-spacing: -0.02em;
+}
+
+.claim-card-impact .evidence-photo {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 25px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    border: 2px solid #fde047;
+    min-height: 180px;
+}
+
+.claim-card-impact .evidence-photo img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.claim-card-impact .photo-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.claim-card-impact .damage-label {
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    font-size: 18px;
+    font-weight: 700;
+    padding: 8px 16px;
+    border-radius: 8px;
+}
+
+.claim-card-impact .days-container {
+    background: white;
+    border-radius: 16px;
+    padding: 20px;
+    text-align: center;
+    margin-bottom: 25px;
+    box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+}
+
+.claim-card-impact .days-count {
+    font-size: 80px;
+    font-weight: 900;
+    color: #dc2626;
+    line-height: 1;
+}
+
+.claim-card-impact .days-label {
+    font-size: 14px;
+    font-weight: 700;
+    color: #dc2626;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+}
+
+.claim-card-impact .details-band {
+    background: rgba(0, 0, 0, 0.2);
+    margin: 0 -30px 25px;
+    padding: 20px 30px;
+    display: flex;
+    justify-content: space-around;
+}
+
+.claim-card-impact .detail-item {
+    text-align: center;
+}
+
+.claim-card-impact .detail-label {
+    font-size: 12px;
+    color: rgba(255, 255, 255, 0.7);
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.claim-card-impact .detail-value {
+    font-size: 20px;
+    font-weight: 700;
+    color: white;
+}
+
+.claim-card-impact .cta {
+    background: white;
+    color: #dc2626;
+    text-align: center;
+    padding: 15px;
+    font-weight: 700;
+    font-size: 16px;
+    border-radius: 12px;
+    margin-bottom: 25px;
+}
+
+.claim-card-impact .hashtags {
+    text-align: center;
+    font-size: 18px;
+    font-weight: 700;
+    color: #fde047;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .claim-card-impact {
+        padding: 20px;
+    }
+    
+    .claim-card-impact .watermark {
+        font-size: 120px;
+    }
+    
+    .claim-card-impact .days-count {
+        font-size: 60px;
+    }
+    
+    .claim-card-impact .details-band {
+        margin: 0 -20px 20px;
+        padding: 15px 20px;
+    }
+}
         
     </style>
 </head>
@@ -1520,13 +1766,135 @@
                 </form>
             </div>
         </section>
+
+<!-- ========================================= -->
+<!-- CARD DESIGN SELECTOR -->
+<!-- ========================================= -->
+
+<div class="card-selection-container" id="card-selection-container" style="display: none;">
+    <h3>Choose Which Design to Share</h3>
+    <p>We've created two designs for you - select the one that works best for your audience</p>
+    
+    <div class="card-toggle">
+        <button class="card-toggle-btn active" data-design="minimalist">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2"/><path d="M8 12h8"/><path d="M12 8v8"/></svg>
+            Professional
+        </button>
+        <button class="card-toggle-btn" data-design="impact">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path><path d="M4 22h16"></path><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"></path><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"></path><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"></path></svg>
+            Maximum Impact
+        </button>
+    </div>
+</div>
         
         <!-- ========================================= -->
         <!-- GENERATED CLAIM CARD SECTION -->
         <!-- ========================================= -->
         
 <div id="card-section" style="display: none;">
-    <div class="claim-card-minimalist" id="claim-card">
+    <!-- Professional Design -->
+    <div class="claim-card-minimalist" id="minimalist-card">
+        <!-- Keep your existing clean professional card HTML here -->
+        <!-- Card Header -->
+        <div class="card-header">
+            <div class="airline-name">SMARTWINGS</div>
+            <div class="time-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" width="24" height="24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                </svg>
+            </div>
+        </div>
+        
+        <!-- Days Count -->
+        <div class="days-count-container">
+            <div class="days-count" id="days-count">0</div>
+            <div class="days-label">DAYS WITHOUT RESPONSE</div>
+        </div>
+        
+        <!-- Damage Evidence Photo -->
+        <div class="evidence-photo">
+            <div id="card-photo-container" style="display: none;">
+                <img id="card-photo" alt="Damaged luggage evidence">
+                <div class="evidence-label">EVIDENCE OF DAMAGE</div>
+            </div>
+            <div class="photo-placeholder" id="photo-placeholder">
+                <div class="photo-placeholder-icon">📷</div>
+                <div>Evidence Photo</div>
+            </div>
+        </div>
+        
+        <!-- Claim Details Grid -->
+        <div class="claim-details-grid">
+            <div class="detail-item">
+                <div class="detail-label">CLAIM AMOUNT</div>
+                <div class="detail-value" id="amount-value">€0</div>
+            </div>
+            <div class="detail-item">
+                <div class="detail-label">FILED</div>
+                <div class="detail-value" id="submission-date">-</div>
+            </div>
+        </div>
+        
+        <!-- Status Message -->
+        <div class="status-message">
+            <span>Complete Silence From Airline</span>
+        </div>
+        
+        <!-- Card Footer -->
+        <div class="card-footer">
+            <div class="hashtags">#SmartwingsWatch #PassengerRights</div>
+        </div>
+    </div>
+    
+    <!-- Maximum Impact Design -->
+    <div class="claim-card-impact" id="impact-card" style="display: none;">
+        <!-- Watermark -->
+        <div class="watermark">SW</div>
+        
+        <!-- Card Content -->
+        <div class="card-content">
+            <!-- Header -->
+            <div class="card-header">
+                <div class="report-label">Customer Claim Report</div>
+                <div class="airline-name">SMARTWINGS</div>
+            </div>
+            
+            <!-- Damage Evidence Photo -->
+            <div class="evidence-photo">
+                <div id="impact-photo-container" style="display: none;">
+                    <img id="impact-photo" alt="Damaged luggage evidence">
+                </div>
+                <div class="photo-overlay">
+                    <div class="damage-label">DESTROYED LUGGAGE</div>
+                </div>
+            </div>
+            
+            <!-- Days Count -->
+            <div class="days-container">
+                <div class="days-count" id="impact-days-count">0</div>
+                <div class="days-label">Days Without Response</div>
+            </div>
+            
+            <!-- Claim Details Band -->
+            <div class="details-band">
+                <div class="detail-item">
+                    <div class="detail-label">CLAIM FILED</div>
+                    <div class="detail-value" id="impact-submission-date">-</div>
+                </div>
+                <div class="detail-item">
+                    <div class="detail-label">AMOUNT</div>
+                    <div class="detail-value" id="impact-amount-value">€0</div>
+                </div>
+            </div>
+            
+            <!-- Call to Action -->
+            <div class="cta">HAVE THEY IGNORED YOUR CLAIM TOO?</div>
+            
+            <!-- Hashtags -->
+            <div class="hashtags">#SmartwingsWatch #PassengerRights</div>
+        </div>
+    </div>
+</div>
         <!-- Card Header -->
         <div class="card-header">
             <div class="airline-name">SMARTWINGS</div>
@@ -1769,10 +2137,10 @@
  * Update card with claim data
  */
 function updateCard() {
-    document.getElementById('days-count').textContent = claimData.days;
-    document.getElementById('amount-value').textContent = `€${claimData.amount}`;
-    document.getElementById('submission-date').textContent = claimData.submissionDate;
+    // Update both card designs
+    updateBothCards();
     
+    // Generate message for sharing
     const message = generateCampaignMessage();
     document.getElementById('share-message').textContent = message;
 }
@@ -1781,15 +2149,23 @@ function updateCard() {
  * Show the generated card and share section
  */
 function showCard() {
+    // Show card selection toggle
+    document.getElementById('card-selection-container').style.display = 'block';
+    
+    // Show card section and share options
     document.getElementById('card-section').style.display = 'block';
     document.getElementById('share-section').style.display = 'block';
     
     // Initialize photo display
     if (!currentPhoto) {
-        resetCardPhoto();
+        resetBothPhotos();
     }
     
-    document.getElementById('card-section').scrollIntoView({ behavior: 'smooth' });
+    // Set up card toggle functionality
+    setupCardToggle();
+    
+    // Scroll to section
+    document.getElementById('card-selection-container').scrollIntoView({ behavior: 'smooth' });
 }
     
     // ========================================
@@ -1914,7 +2290,7 @@ function resetCardPhoto() {
         applyImageTransforms();
     }
     
- /**
+/**
  * Remove photo from form and card
  */
 function removePhoto() {
@@ -1922,34 +2298,46 @@ function removePhoto() {
     currentRotation = 0;
     currentBrightness = 100;
     
+    // Update preview section
     document.getElementById('photo-preview-section').style.display = 'none';
     document.getElementById('photo-input').value = '';
     
-    const cardPhoto = document.getElementById('card-photo');
-    const cardPhotoContainer = document.getElementById('card-photo-container');
-    
-    cardPhotoContainer.style.display = 'none';
-    cardPhoto.src = '';
-    
-    // Call new function to reset photo display
-    resetCardPhoto();
+    // Reset photos on both cards
+    resetBothPhotos();
 }
     
-    /**
-     * Apply rotation and brightness transforms to photo
-     */
-    function applyImageTransforms() {
-        const preview = document.getElementById('photo-preview');
-        const cardPhoto = document.getElementById('card-photo');
-        
-        const transform = `rotate(${currentRotation}deg)`;
-        const filter = `brightness(${currentBrightness}%)`;
-        
+  /**
+ * Apply rotation and brightness transforms to photos
+ */
+function applyImageTransforms() {
+    // Preview photo
+    const preview = document.getElementById('photo-preview');
+    
+    // Minimalist card photo
+    const minimalistPhoto = document.getElementById('card-photo');
+    
+    // Impact card photo
+    const impactPhoto = document.getElementById('impact-photo');
+    
+    const transform = `rotate(${currentRotation}deg)`;
+    const filter = `brightness(${currentBrightness}%)`;
+    
+    // Apply transforms to all photos
+    if (preview) {
         preview.style.transform = transform;
         preview.style.filter = filter;
-        cardPhoto.style.transform = transform;
-        cardPhoto.style.filter = filter;
     }
+    
+    if (minimalistPhoto) {
+        minimalistPhoto.style.transform = transform;
+        minimalistPhoto.style.filter = filter;
+    }
+    
+    if (impactPhoto) {
+        impactPhoto.style.transform = transform;
+        impactPhoto.style.filter = filter;
+    }
+}
     
     // ========================================
     // MESSAGE GENERATION FUNCTIONS
@@ -2415,6 +2803,122 @@ Share this post to help fellow travelers! 👇`;
             successEl.classList.remove('show');
         }, 15000); // Longer timeout for detailed instructions
     }
+
+    // Global variable to track current card design
+let currentCardDesign = 'minimalist';
+
+/**
+ * Set up card design toggle functionality
+ */
+function setupCardToggle() {
+    // Get toggle button elements
+    const toggleButtons = document.querySelectorAll('.card-toggle-btn');
+    const minimalistCard = document.getElementById('minimalist-card');
+    const impactCard = document.getElementById('impact-card');
+    
+    // Set initial state
+    minimalistCard.style.display = 'block';
+    impactCard.style.display = 'none';
+    
+    // Add click handlers to toggle buttons
+    toggleButtons.forEach(button => {
+        button.addEventListener('click', function() {
+            // Remove active class from all buttons
+            toggleButtons.forEach(btn => btn.classList.remove('active'));
+            
+            // Add active class to clicked button
+            this.classList.add('active');
+            
+            // Get the selected design
+            const selectedDesign = this.getAttribute('data-design');
+            
+            // Update global variable for sharing functions
+            currentCardDesign = selectedDesign;
+            
+            // Toggle visibility based on selection
+            if (selectedDesign === 'minimalist') {
+                minimalistCard.style.display = 'block';
+                impactCard.style.display = 'none';
+            } else {
+                minimalistCard.style.display = 'none';
+                impactCard.style.display = 'block';
+            }
+        });
+    });
+}
+
+/**
+ * Update both cards with claim data
+ */
+function updateBothCards() {
+    // Update minimalist card
+    document.getElementById('days-count').textContent = claimData.days;
+    document.getElementById('amount-value').textContent = `€${claimData.amount}`;
+    document.getElementById('submission-date').textContent = claimData.submissionDate;
+    
+    // Update impact card
+    document.getElementById('impact-days-count').textContent = claimData.days;
+    document.getElementById('impact-amount-value').textContent = `€${claimData.amount}`;
+    document.getElementById('impact-submission-date').textContent = claimData.submissionDate;
+    
+    // Update photo if available
+    if (currentPhoto) {
+        updateBothPhotos();
+    }
+}
+
+/**
+ * Update photos on both cards
+ */
+function updateBothPhotos() {
+    if (!currentPhoto) return;
+    
+    // Update minimalist card photo
+    const minimalistPhoto = document.getElementById('card-photo');
+    const minimalistContainer = document.getElementById('card-photo-container');
+    const minimalistPlaceholder = document.getElementById('photo-placeholder');
+    
+    if (minimalistPhoto && minimalistContainer) {
+        minimalistPhoto.src = currentPhoto;
+        minimalistPhoto.onload = function() {
+            minimalistContainer.style.display = 'block';
+            if (minimalistPlaceholder) minimalistPlaceholder.style.display = 'none';
+            minimalistPhoto.style.transform = `rotate(${currentRotation}deg)`;
+            minimalistPhoto.style.filter = `brightness(${currentBrightness}%)`;
+        };
+    }
+    
+    // Update impact card photo
+    const impactPhoto = document.getElementById('impact-photo');
+    const impactContainer = document.getElementById('impact-photo-container');
+    
+    if (impactPhoto && impactContainer) {
+        impactPhoto.src = currentPhoto;
+        impactPhoto.onload = function() {
+            impactContainer.style.display = 'block';
+            impactPhoto.style.transform = `rotate(${currentRotation}deg)`;
+            impactPhoto.style.filter = `brightness(${currentBrightness}%)`;
+        };
+    }
+}
+
+/**
+ * Reset photos on both cards
+ */
+function resetBothPhotos() {
+    // Reset minimalist card photo
+    const minimalistContainer = document.getElementById('card-photo-container');
+    const minimalistPlaceholder = document.getElementById('photo-placeholder');
+    
+    if (minimalistContainer) minimalistContainer.style.display = 'none';
+    if (minimalistPlaceholder) minimalistPlaceholder.style.display = 'flex';
+    
+    // Reset impact card photo
+    const impactContainer = document.getElementById('impact-photo-container');
+    
+    if (impactContainer) impactContainer.style.display = 'none';
+}
+    
 </script>
 
 <!-- ========================================= -->

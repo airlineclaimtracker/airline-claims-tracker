@@ -1199,6 +1199,196 @@
                 padding: 0.75rem 10px;
             }
         }
+/* ========================================= */
+/* CLEAN PROFESSIONAL CARD STYLES */
+/* ========================================= */
+
+.claim-card-minimalist {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    background: white;
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    overflow: hidden;
+    padding: 30px;
+    font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    color: #1e293b;
+}
+
+.claim-card-minimalist .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 30px;
+}
+
+.claim-card-minimalist .airline-name {
+    font-size: 30px;
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    color: #1e293b;
+}
+
+.claim-card-minimalist .time-icon {
+    width: 48px;
+    height: 48px;
+    background: #dc2626;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: white;
+    box-shadow: 0 4px 12px rgba(220, 38, 38, 0.3);
+}
+
+.claim-card-minimalist .days-count-container {
+    text-align: center;
+    margin-bottom: 30px;
+}
+
+.claim-card-minimalist .days-count {
+    font-size: 76px;
+    font-weight: 900;
+    color: #dc2626;
+    line-height: 1;
+    margin-bottom: 5px;
+    animation: pulse 2s infinite;
+}
+
+@keyframes pulse {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.03); }
+    100% { transform: scale(1); }
+}
+
+.claim-card-minimalist .days-label {
+    font-size: 18px;
+    font-weight: 700;
+    color: #475569;
+    letter-spacing: 0.05em;
+}
+
+.claim-card-minimalist .evidence-photo {
+    position: relative;
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 30px;
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    min-height: 180px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.claim-card-minimalist .evidence-photo img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+.claim-card-minimalist .evidence-label {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background: rgba(0,0,0,0.7);
+    color: white;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 5px 10px;
+    border-radius: 4px;
+}
+
+.claim-card-minimalist .photo-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #94a3b8;
+}
+
+.claim-card-minimalist .photo-placeholder-icon {
+    font-size: 36px;
+    margin-bottom: 8px;
+}
+
+.claim-card-minimalist .claim-details-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 15px;
+    margin-bottom: 30px;
+}
+
+.claim-card-minimalist .detail-item {
+    background: #fff1f1;
+    padding: 15px;
+    border-radius: 12px;
+    text-align: center;
+    border: 1px solid #ffe0e0;
+}
+
+.claim-card-minimalist .detail-label {
+    font-size: 12px;
+    color: #64748b;
+    font-weight: 600;
+    margin-bottom: 5px;
+}
+
+.claim-card-minimalist .detail-value {
+    font-size: 20px;
+    font-weight: 700;
+    color: #1e293b;
+}
+
+.claim-card-minimalist .status-message {
+    text-align: center;
+    padding: 12px;
+    background: #f8fafc;
+    border-radius: 12px;
+    border: 1px solid #e2e8f0;
+    margin-bottom: 30px;
+}
+
+.claim-card-minimalist .status-message span {
+    font-size: 16px;
+    font-weight: 700;
+    color: #dc2626;
+}
+
+.claim-card-minimalist .card-footer {
+    text-align: center;
+    padding-top: 20px;
+    border-top: 1px solid #f1f5f9;
+}
+
+.claim-card-minimalist .hashtags {
+    font-size: 16px;
+    font-weight: 600;
+    color: #2563eb;
+}
+
+/* Mobile Responsiveness */
+@media (max-width: 768px) {
+    .claim-card-minimalist {
+        padding: 20px;
+    }
+    
+    .claim-card-minimalist .airline-name {
+        font-size: 24px;
+    }
+    
+    .claim-card-minimalist .days-count {
+        font-size: 60px;
+    }
+    
+    .claim-card-minimalist .card-header {
+        flex-direction: column;
+        gap: 15px;
+        text-align: center;
+    }
+}
+        
     </style>
 </head>
 
@@ -1335,36 +1525,59 @@
         <!-- GENERATED CLAIM CARD SECTION -->
         <!-- ========================================= -->
         
-        <div id="card-section" style="display: none;">
-            <div class="claim-card" id="claim-card">
-                <div class="communication-pattern">CLAIM FILED • NO RESPONSE • NO CONTACT</div>
-                <div class="airline-brand">SMARTWINGS</div>
-                <div class="damage-type">DESTROYED MY LUGGAGE</div>
-                
-                <div class="days-photo-container">
-                    <div class="time-container">
-                        <div class="days-count" id="days-count">0</div>
-                        <div class="silence-label">DAYS OF SILENCE</div>
-                    </div>
-                    <div class="damage-photo" id="card-photo-container" style="display: none;">
-                        <img id="card-photo" alt="Luggage damage evidence">
-                    </div>
-                </div>
-                
-                <div class="claim-details">
-                    <div class="amount-display" id="amount-value">€0</div>
-                    <div class="claim-status">STILL NO RESPONSE</div>
-                </div>
-                
-                <div class="community-call">
-                    <div class="community-text">FACING THE SAME SILENCE?</div>
-                    <div class="share-action">SHARE YOUR STORY</div>
-                </div>
-                
-                <div class="corporate-question">WAITING FOR A RESPONSE?</div>
-                <div class="hashtags">#SMARTWINGSSILENCE #ACCOUNTABILITY</div>
+<div id="card-section" style="display: none;">
+    <div class="claim-card-minimalist" id="claim-card">
+        <!-- Card Header -->
+        <div class="card-header">
+            <div class="airline-name">SMARTWINGS</div>
+            <div class="time-icon">
+                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" width="24" height="24">
+                    <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
+                </svg>
             </div>
         </div>
+        
+        <!-- Days Count -->
+        <div class="days-count-container">
+            <div class="days-count" id="days-count">0</div>
+            <div class="days-label">DAYS WITHOUT RESPONSE</div>
+        </div>
+        
+        <!-- Damage Evidence Photo -->
+        <div class="evidence-photo">
+            <div id="card-photo-container" style="display: none;">
+                <img id="card-photo" alt="Damaged luggage evidence">
+                <div class="evidence-label">EVIDENCE OF DAMAGE</div>
+            </div>
+            <div class="photo-placeholder" id="photo-placeholder">
+                <div class="photo-placeholder-icon">📷</div>
+                <div>Evidence Photo</div>
+            </div>
+        </div>
+        
+        <!-- Claim Details Grid -->
+        <div class="claim-details-grid">
+            <div class="detail-item">
+                <div class="detail-label">CLAIM AMOUNT</div>
+                <div class="detail-value" id="amount-value">€0</div>
+            </div>
+            <div class="detail-item">
+                <div class="detail-label">FILED</div>
+                <div class="detail-value" id="submission-date">-</div>
+            </div>
+        </div>
+        
+        <!-- Status Message -->
+        <div class="status-message">
+            <span>Complete Silence From Airline</span>
+        </div>
+        
+        <!-- Card Footer -->
+        <div class="card-footer">
+            <div class="hashtags">#SmartwingsWatch #PassengerRights</div>
+        </div>
+    </div>
+</div>
         
        
     
@@ -1552,25 +1765,32 @@
     // CARD UPDATE & DISPLAY FUNCTIONS
     // ========================================
     
-    /**
-     * Update card with claim data
-     */
-    function updateCard() {
-        document.getElementById('days-count').textContent = claimData.days;
-        document.getElementById('amount-value').textContent = `€${claimData.amount}`;
-        
-        const message = generateCampaignMessage();
-        document.getElementById('share-message').textContent = message;
+/**
+ * Update card with claim data
+ */
+function updateCard() {
+    document.getElementById('days-count').textContent = claimData.days;
+    document.getElementById('amount-value').textContent = `€${claimData.amount}`;
+    document.getElementById('submission-date').textContent = claimData.submissionDate;
+    
+    const message = generateCampaignMessage();
+    document.getElementById('share-message').textContent = message;
+}
+    
+/**
+ * Show the generated card and share section
+ */
+function showCard() {
+    document.getElementById('card-section').style.display = 'block';
+    document.getElementById('share-section').style.display = 'block';
+    
+    // Initialize photo display
+    if (!currentPhoto) {
+        resetCardPhoto();
     }
     
-    /**
-     * Show the generated card and share section
-     */
-    function showCard() {
-        document.getElementById('card-section').style.display = 'block';
-        document.getElementById('share-section').style.display = 'block';
-        document.getElementById('card-section').scrollIntoView({ behavior: 'smooth' });
-    }
+    document.getElementById('card-section').scrollIntoView({ behavior: 'smooth' });
+}
     
     // ========================================
     // PHOTO HANDLING FUNCTIONS
@@ -1643,23 +1863,40 @@
         previewSection.style.display = 'block';
     }
     
-    /**
-     * Update photo on the claim card
-     */
-    function updateCardPhoto() {
-        if (!currentPhoto) return;
-        
-        const cardPhoto = document.getElementById('card-photo');
-        const cardPhotoContainer = document.getElementById('card-photo-container');
-        
-        if (cardPhoto && cardPhotoContainer) {
-            cardPhoto.src = currentPhoto;
-            cardPhoto.onload = function() {
-                cardPhotoContainer.style.display = 'block';
-            };
+/**
+ * Update photo on the claim card
+ */
+function updateCardPhoto() {
+    if (!currentPhoto) return;
+    
+    const cardPhoto = document.getElementById('card-photo');
+    const cardPhotoContainer = document.getElementById('card-photo-container');
+    const photoPlaceholder = document.getElementById('photo-placeholder');
+    
+    if (cardPhoto && cardPhotoContainer) {
+        cardPhoto.src = currentPhoto;
+        cardPhoto.onload = function() {
+            cardPhotoContainer.style.display = 'block';
+            if (photoPlaceholder) photoPlaceholder.style.display = 'none';
             applyImageTransforms();
-        }
+        };
     }
+}
+    
+/**
+ * Reset photo display when no photo is selected
+ */
+function resetCardPhoto() {
+    const cardPhotoContainer = document.getElementById('card-photo-container');
+    const photoPlaceholder = document.getElementById('photo-placeholder');
+    
+    if (cardPhotoContainer) {
+        cardPhotoContainer.style.display = 'none';
+    }
+    if (photoPlaceholder) {
+        photoPlaceholder.style.display = 'flex';
+    }
+}
     
     /**
      * Rotate photo 90 degrees
@@ -1677,23 +1914,26 @@
         applyImageTransforms();
     }
     
-    /**
-     * Remove photo from form and card
-     */
-    function removePhoto() {
-        currentPhoto = null;
-        currentRotation = 0;
-        currentBrightness = 100;
-        
-        document.getElementById('photo-preview-section').style.display = 'none';
-        document.getElementById('photo-input').value = '';
-        
-        const cardPhoto = document.getElementById('card-photo');
-        const cardPhotoContainer = document.getElementById('card-photo-container');
-        
-        cardPhotoContainer.style.display = 'none';
-        cardPhoto.src = '';
-    }
+ /**
+ * Remove photo from form and card
+ */
+function removePhoto() {
+    currentPhoto = null;
+    currentRotation = 0;
+    currentBrightness = 100;
+    
+    document.getElementById('photo-preview-section').style.display = 'none';
+    document.getElementById('photo-input').value = '';
+    
+    const cardPhoto = document.getElementById('card-photo');
+    const cardPhotoContainer = document.getElementById('card-photo-container');
+    
+    cardPhotoContainer.style.display = 'none';
+    cardPhoto.src = '';
+    
+    // Call new function to reset photo display
+    resetCardPhoto();
+}
     
     /**
      * Apply rotation and brightness transforms to photo

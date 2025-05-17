@@ -2245,18 +2245,8 @@ function showCard() {
 function updateCardPhoto() {
     if (!currentPhoto) return;
     
-    const cardPhoto = document.getElementById('card-photo');
-    const cardPhotoContainer = document.getElementById('card-photo-container');
-    const photoPlaceholder = document.getElementById('photo-placeholder');
-    
-    if (cardPhoto && cardPhotoContainer) {
-        cardPhoto.src = currentPhoto;
-        cardPhoto.onload = function() {
-            cardPhotoContainer.style.display = 'block';
-            if (photoPlaceholder) photoPlaceholder.style.display = 'none';
-            applyImageTransforms();
-        };
-    }
+    // Update photos on both cards
+    updateBothPhotos();
 }
     
 /**
@@ -2760,34 +2750,37 @@ Share this post to help fellow travelers! 👇`;
         }
     }
     
-    /**
-     * Generate card image using html2canvas
-     * @param {boolean} smaller - Whether to generate a smaller image for email/mobile
-     */
-    async function generateCardImage(smaller = false) {
-        const cardElement = document.getElementById('claim-card');
-        
-        return new Promise((resolve, reject) => {
-            html2canvas(cardElement, {
-                scale: smaller ? 1 : 2,  // Use scale 1 for smaller images
-                backgroundColor: '#000000',
-                useCORS: true,
-                allowTaint: true
-            }).then(canvas => {
-                if (smaller) {
-                    // Create a smaller canvas for email sharing
-                    const smallCanvas = document.createElement('canvas');
-                    const ctx = smallCanvas.getContext('2d');
-                    smallCanvas.width = 400;  // Fixed width for email
-                    smallCanvas.height = (400 * canvas.height) / canvas.width;  // Maintain aspect ratio
-                    ctx.drawImage(canvas, 0, 0, smallCanvas.width, smallCanvas.height);
-                    smallCanvas.toBlob(resolve, 'image/png', 0.9);
-                } else {
-                    canvas.toBlob(resolve, 'image/png', 0.9);
-                }
-            }).catch(reject);
-        });
-    }
+/**
+ * Generate card image using html2canvas
+ * @param {boolean} smaller - Whether to generate a smaller image for email/mobile
+ */
+async function generateCardImage(smaller = false) {
+    // Determine which card to capture based on current design
+    const cardElement = currentCardDesign === 'minimalist'
+        ? document.getElementById('minimalist-card')
+        : document.getElementById('impact-card');
+    
+    return new Promise((resolve, reject) => {
+        html2canvas(cardElement, {
+            scale: smaller ? 1 : 2,  // Use scale 1 for smaller images
+            backgroundColor: currentCardDesign === 'minimalist' ? '#ffffff' : null,
+            useCORS: true,
+            allowTaint: true
+        }).then(canvas => {
+            if (smaller) {
+                // Create a smaller canvas for email sharing
+                const smallCanvas = document.createElement('canvas');
+                const ctx = smallCanvas.getContext('2d');
+                smallCanvas.width = 400;  // Fixed width for email
+                smallCanvas.height = (400 * canvas.height) / canvas.width;  // Maintain aspect ratio
+                ctx.drawImage(canvas, 0, 0, smallCanvas.width, smallCanvas.height);
+                smallCanvas.toBlob(resolve, 'image/png', 0.9);
+            } else {
+                canvas.toBlob(resolve, 'image/png', 0.9);
+            }
+        }).catch(reject);
+    });
+}
     
     /**
      * Show success message to user

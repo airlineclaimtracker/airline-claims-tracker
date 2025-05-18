@@ -2127,7 +2127,36 @@
     background: #f1f5f9;
     border: 1px solid #e2e8f0;
     padding: 0;
-}    
+}  
+/* ========================================= */
+/* EMERGENCY IMAGE HEIGHT FIX - OVERRIDE ALL */
+/* ========================================= */
+
+/* Force container heights */
+.evidence-photo {
+    height: 180px !important;
+}
+
+/* Force image display to fill space */
+.evidence-photo img,
+#card-photo,
+#impact-photo,
+#context-photo {
+    width: 100% !important;
+    height: 180px !important;
+    object-fit: cover !important;
+    display: block !important;
+}
+
+/* Force photo containers to take full space */
+#card-photo-container,
+#impact-photo-container,
+#context-photo-container {
+    width: 100% !important;
+    height: 180px !important;
+    display: block !important;
+}
+        
     </style>
 </head>
 
@@ -2689,6 +2718,9 @@
 function updateCard() {
     // Update both card designs
     updateBothCards();
+
+    // Force image heights after a slight delay to ensure DOM updates
+    setTimeout(forceImageHeight, 200);
     
     // Generate message for sharing
     const message = generateCampaignMessage();
@@ -2801,7 +2833,7 @@ function updateCardPhoto() {
     if (!currentPhoto) return;
     
     // Update photos on both cards
-    updateBothPhotos();
+    updateAllCardPhotos();
 }
     
 /**
@@ -3450,6 +3482,11 @@ function updateAllCardPhotos() {
             minimalistContainer.style.width = '100%';
             minimalistContainer.style.height = '100%';
             if (minimalistPlaceholder) minimalistPlaceholder.style.display = 'none';
+            
+            // ADD THESE CRITICAL STYLE PROPERTIES
+            minimalistPhoto.style.width = '100%';        // ADDED
+            minimalistPhoto.style.height = '180px';      // ADDED
+            minimalistPhoto.style.objectFit = 'cover';   // ADDED
             minimalistPhoto.style.transform = `rotate(${currentRotation}deg)`;
             minimalistPhoto.style.filter = `brightness(${currentBrightness}%)`;
         };
@@ -3465,6 +3502,11 @@ function updateAllCardPhotos() {
             impactContainer.style.display = 'block';
             impactContainer.style.width = '100%';
             impactContainer.style.height = '100%';
+
+            // ADD THESE CRITICAL STYLE PROPERTIES
+            impactPhoto.style.width = '100%';        // ADDED
+            impactPhoto.style.height = '180px';      // ADDED
+            impactPhoto.style.objectFit = 'cover';   // ADDED
             impactPhoto.style.transform = `rotate(${currentRotation}deg)`;
             impactPhoto.style.filter = `brightness(${currentBrightness}%)`;
         };
@@ -3482,10 +3524,30 @@ function updateAllCardPhotos() {
             contextContainer.style.width = '100%';
             contextContainer.style.height = '100%';
             if (contextPlaceholder) contextPlaceholder.style.display = 'none';
+
+            // ADD THESE CRITICAL STYLE PROPERTIES
+            contextPhoto.style.width = '100%';       // ADDED
+            contextPhoto.style.height = '180px';     // ADDED
+            contextPhoto.style.objectFit = 'cover';  // ADDED
             contextPhoto.style.transform = `rotate(${currentRotation}deg)`;
             contextPhoto.style.filter = `brightness(${currentBrightness}%)`;
         };
     }
+    // ADD CALL TO FORCE IMAGE HEIGHT AFTER DELAY
+    setTimeout(function() {
+        // Force heights on image containers
+        const photoContainers = document.querySelectorAll('.evidence-photo');
+        photoContainers.forEach(container => {
+            container.style.height = '180px';
+        });
+        
+        // Force heights on all images
+        const images = document.querySelectorAll('.evidence-photo img');
+        images.forEach(img => {
+            img.style.height = '180px';
+            img.style.objectFit = 'cover';
+        });
+    }, 200);
 }
 
 /**
@@ -3510,6 +3572,56 @@ function resetAllCardPhotos() {
     
     if (contextContainer) contextContainer.style.display = 'none';
     if (contextPlaceholder) contextPlaceholder.style.display = 'block';
+}
+    
+/**
+ * Emergency function to force image heights
+ */
+function forceImageHeight() {
+    console.log("Forcing image heights");
+    
+    // Get all evidence photo containers and set their height
+    const containers = document.querySelectorAll('.evidence-photo');
+    containers.forEach(container => {
+        container.style.height = '180px';
+    });
+    
+    // Force image heights
+    const images = document.querySelectorAll('.evidence-photo img');
+    images.forEach(img => {
+        img.style.width = '100%';
+        img.style.height = '180px';
+        img.style.objectFit = 'cover';
+    });
+    
+    // Target specific photo containers
+    const photoContainers = [
+        document.getElementById('card-photo-container'),
+        document.getElementById('impact-photo-container'),
+        document.getElementById('context-photo-container')
+    ];
+    
+    photoContainers.forEach(container => {
+        if (container) {
+            container.style.width = '100%';
+            container.style.height = '180px';
+        }
+    });
+    
+    // Target specific photos
+    const photos = [
+        document.getElementById('card-photo'),
+        document.getElementById('impact-photo'),
+        document.getElementById('context-photo')
+    ];
+    
+    photos.forEach(photo => {
+        if (photo) {
+            photo.style.width = '100%';
+            photo.style.height = '180px';
+            photo.style.objectFit = 'cover';
+        }
+    });
 }
     
 </script>

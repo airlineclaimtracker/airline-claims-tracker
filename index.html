@@ -2051,24 +2051,24 @@
 .claim-card-impact .evidence-photo,
 .claim-card-context .evidence-photo {
     width: 100%;
-    height: 180px;
-    min-height: 180px;
-    max-height: 180px;
+    height: 180px !important;
+    min-height: 180px !important;
+    max-height: 180px !important;
     border-radius: 12px;
     overflow: hidden;
     margin-bottom: 25px;
     position: relative;
     box-sizing: border-box;
     padding: 0;
-    display: block; /* Change to block for better image handling */
+    display: block !important; /* Change to block for better image handling */
 }
 
 /* Image container specific styles */
 #card-photo-container,
 #impact-photo-container,
 #context-photo-container {
-    width: 100%;
-    height: 100%;
+    width: 100% !important;
+    height: 100% !important;
     position: relative;
     overflow: hidden;
 }
@@ -2077,9 +2077,9 @@
 .claim-card-minimalist .evidence-photo img,
 .claim-card-impact .evidence-photo img,
 .claim-card-context .evidence-photo img {
-    width: 100%;
-    height: 100%;
-    object-fit: cover; /* Fill the container while maintaining aspect ratio */
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important; /* Fill the container while maintaining aspect ratio */
     object-position: center;
     display: block;
 }
@@ -2114,16 +2114,19 @@
 .claim-card-minimalist .evidence-photo {
     background: #f8fafc;
     border: 1px solid #e2e8f0;
+    padding: 0;
 }
 
 .claim-card-impact .evidence-photo {
     border: 2px solid #fde047;
     box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    padding: 0;
 }
 
 .claim-card-context .evidence-photo {
     background: #f1f5f9;
     border: 1px solid #e2e8f0;
+    padding: 0;
 }    
     </style>
 </head>

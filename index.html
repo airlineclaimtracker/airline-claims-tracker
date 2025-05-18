@@ -1979,6 +1979,51 @@
     font-size: 12px;
     /* Match the professional card styling */
 }
+        /* ========================================= */
+/* PHOTO SIZE FIX FOR INDUSTRY DATA CARD */
+/* ========================================= */
+
+.claim-card-context .evidence-photo {
+    width: 100%;
+    height: 135px !important; /* Force exact height match */
+    min-height: 135px !important; /* Ensure minimum height */
+    max-height: 135px !important; /* Enforce maximum height */
+    border-radius: 15px;
+    overflow: hidden;
+    margin-bottom: 25px;
+    background: #f1f5f9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    box-sizing: border-box;
+}
+
+.claim-card-context .evidence-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.claim-card-context .photo-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    color: #94a3b8;
+    height: 100%;
+    width: 100%;
+    font-size: 14px;
+}
+
+/* Force consistent dimensions for photo containers across all cards */
+.evidence-photo {
+    height: 135px !important;
+    min-height: 135px !important;
+    max-height: 135px !important;
+}
+        
     </style>
 </head>
 
@@ -2147,7 +2192,6 @@
         <!-- Card Header -->
         <div class="card-header">
             <div class="airline-name">SMARTWINGS</div>
-            <div class="claim-context">Luggage damage claim - ignored since <span id="minimalist-context-date"></span></div>
             <div class="time-icon">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" width="24" height="24">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
@@ -2228,7 +2272,6 @@
             <div class="card-header">
                 <div class="report-label">PASSENGER CLAIM IGNORED</div>
                 <div class="airline-name">SMARTWINGS</div>
-                <div class="claim-context">Luggage damage claim - ignored since <span id="impact-context-date"></span></div>
             </div>
             
             <!-- Damage Evidence Photo -->
@@ -2292,7 +2335,6 @@
     <div class="claim-card-context" id="context-card" style="display: none;">
         <div class="context-header">
             <div class="airline-name">SMARTWINGS</div>
-            <div class="claim-context">Luggage damage claim - ignored since <span id="context-context-date"></span></div>
             <div class="claim-days">
                 <span id="context-days-count">0</span> DAYS
                 <span class="waiting-label">WITHOUT RESPONSE</span>

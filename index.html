@@ -1826,19 +1826,7 @@
     font-style: italic;
 }
 
-.claim-card-context .evidence-photo {
-    width: 100%;
-    min-height: 180px !important;
-    border-radius: 12px;
-    overflow: hidden;
-    margin-bottom: 25px;
-    background: #f1f5f9;
-    position: relative;
-    box-sizing: border-box;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+
 
 .claim-card-context .evidence-photo img {
     width: 100%;
@@ -1967,19 +1955,7 @@
 /* PHOTO SIZE FIX FOR INDUSTRY DATA CARD */
 /* ========================================= */
 
-.claim-card-context .evidence-photo {
-    width: 100%;
-    min-height: 180px !important; /* Ensure minimum height */
-    border-radius: 12px;
-    overflow: hidden;
-    margin-bottom: 25px;
-    background: #f1f5f9;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    box-sizing: border-box;
-}
+
 
 .claim-card-context .evidence-photo img {
     width: 100%;
@@ -2010,20 +1986,59 @@
     min-height: 180px;
 }
 
-.claim-card-context .evidence-photo {
-    /* Set specific size only for context card */
-    height: 180px;
-    min-height: 180px;
-    max-height: 180px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
+
 
 .claim-card-context .evidence-photo img {
     width: 100%;
     height: 100%;
     object-fit: cover;
+}
+/* ========================================= */
+/* DEFINITIVE PHOTO SIZE FIX FOR INDUSTRY DATA CARD */
+/* ========================================= */
+
+.claim-card-context .evidence-photo {
+    width: 100%;
+    height: 180px !important;
+    min-height: 180px !important;
+    max-height: 180px !important;
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 25px;
+    background: #f1f5f9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    box-sizing: border-box;
+}
+
+.claim-card-context .evidence-photo img {
+    width: 100%;
+    height: 100% !important;
+    object-fit: cover;
+    object-position: center;
+}
+
+.claim-card-context .photo-placeholder {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    font-size: 14px;
+    color: #94a3b8;
+}
+        /* Consistent photo sizes across all card types */
+.claim-card-minimalist .evidence-photo {
+    min-height: 180px !important;
+    height: 180px !important;
+}
+
+.claim-card-impact .evidence-photo {
+    min-height: 180px !important;
+    height: 180px !important;
 }
         
     </style>

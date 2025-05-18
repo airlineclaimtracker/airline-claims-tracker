@@ -1731,7 +1731,187 @@
 .claim-card-impact .hashtags {
     margin-top: 15px;
 }
-        
+    /* ========================================= */
+/* INDUSTRY CONTEXT FOCUSED CARD STYLES */
+/* ========================================= */
+
+.claim-card-context {
+    width: 100%;
+    max-width: 600px;
+    margin: 0 auto;
+    background: linear-gradient(135deg, #f8f9fa, #e9ecef);
+    border-radius: 16px;
+    box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+    overflow: hidden;
+    padding: 30px;
+    font-family: 'SF Pro Display', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+    color: #1e293b;
+    position: relative;
+}
+
+.claim-card-context .context-header {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.claim-card-context .airline-name {
+    font-size: 32px;
+    font-weight: 900;
+    letter-spacing: -0.02em;
+    color: #dc2626;
+    margin-bottom: 15px;
+}
+
+.claim-card-context .claim-days {
+    font-size: 24px;
+    font-weight: 700;
+    color: #1e293b;
+}
+
+.claim-card-context .waiting-label {
+    font-weight: 600;
+    color: #dc2626;
+}
+
+.claim-card-context .claim-details {
+    display: flex;
+    justify-content: space-between;
+    background: white;
+    border-radius: 12px;
+    padding: 15px 20px;
+    margin-bottom: 25px;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+}
+
+.claim-card-context .claim-amount {
+    font-size: 18px;
+    font-weight: 700;
+    color: #1e293b;
+}
+
+.claim-card-context .claim-date {
+    font-size: 18px;
+    font-weight: 500;
+    color: #64748b;
+}
+
+.claim-card-context .industry-context-section {
+    background: #dc2626;
+    color: white;
+    padding: 25px;
+    border-radius: 12px;
+    margin-bottom: 25px;
+    box-shadow: 0 8px 20px rgba(220, 38, 38, 0.2);
+}
+
+.claim-card-context .context-title {
+    font-size: 20px;
+    font-weight: 800;
+    text-align: center;
+    margin-bottom: 20px;
+    letter-spacing: 0.03em;
+}
+
+.claim-card-context .context-stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 15px;
+    margin-bottom: 15px;
+}
+
+.claim-card-context .context-stat {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 15px 10px;
+    border-radius: 10px;
+    text-align: center;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.claim-card-context .context-stat-value {
+    font-size: 24px;
+    font-weight: 800;
+    margin-bottom: 5px;
+}
+
+.claim-card-context .context-stat-label {
+    font-size: 12px;
+    opacity: 0.8;
+    line-height: 1.3;
+}
+
+.claim-card-context .context-source {
+    font-size: 12px;
+    opacity: 0.6;
+    text-align: center;
+    font-style: italic;
+}
+
+.claim-card-context .evidence-photo {
+    width: 100%;
+    height: 150px;
+    border-radius: 12px;
+    overflow: hidden;
+    margin-bottom: 25px;
+    background: #f1f5f9;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.claim-card-context .evidence-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.claim-card-context .photo-placeholder {
+    color: #94a3b8;
+    font-size: 14px;
+}
+
+.claim-card-context .card-footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.claim-card-context .hashtags {
+    font-size: 14px;
+    font-weight: 600;
+    color: #0284c7;
+}
+
+.claim-card-context .tool-credit {
+    font-size: 12px;
+    color: #64748b;
+}
+
+.claim-card-context .qr-container {
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+    width: 70px;
+    height: 70px;
+    background: white;
+    border-radius: 8px;
+    padding: 5px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+}
+
+@media (max-width: 768px) {
+    .claim-card-context {
+        padding: 20px;
+    }
+    
+    .claim-card-context .context-stats {
+        grid-template-columns: 1fr;
+    }
+    
+    .claim-card-context .claim-details {
+        flex-direction: column;
+        gap: 10px;
+    }
+}    
     </style>
 </head>
 
@@ -1880,6 +2060,10 @@
         <button class="card-toggle-btn" data-design="impact">
             <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path><path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path><path d="M4 22h16"></path><path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"></path><path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"></path><path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"></path></svg>
             Maximum Impact
+        </button>
+        <button class="card-toggle-btn" data-design="context">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M3 3v18h18"/><path d="M7 17l4-4 4 4 6-6"/></svg>
+            Industry Data
         </button>
     </div>
 </div>
@@ -2031,6 +2215,63 @@
             <div class="hashtags">#SmartwingsWatch #PassengerRights</div>
         </div>
     </div>
+</div>
+    </div>
+
+    <!-- Industry Context Focused Card -->
+    <div class="claim-card-context" id="context-card" style="display: none;">
+        <div class="context-header">
+            <div class="airline-name">SMARTWINGS</div>
+            <div class="claim-days">
+                <span id="context-days-count">0</span> DAYS
+                <span class="waiting-label">WITHOUT RESPONSE</span>
+            </div>
+        </div>
+        
+        <div class="claim-details">
+            <div class="claim-amount">
+                My Claim: €<span id="context-amount-value">0</span>
+            </div>
+            <div class="claim-date">
+                Filed: <span id="context-submission-date">-</span>
+            </div>
+        </div>
+        
+        <div class="industry-context-section">
+            <h2 class="context-title">YOU ARE NOT ALONE</h2>
+            <div class="context-stats">
+                <div class="context-stat">
+                    <div class="context-stat-value">11,620</div>
+                    <div class="context-stat-label">damaged bags annually</div>
+                </div>
+                <div class="context-stat">
+                    <div class="context-stat-value">€1.16M</div>
+                    <div class="context-stat-label">in potential claims</div>
+                </div>
+                <div class="context-stat">
+                    <div class="context-stat-value">?</div>
+                    <div class="context-stat-label">how many others waiting?</div>
+                </div>
+            </div>
+            <div class="context-source">Based on SITA 2024 data (1.4 damaged bags per 1,000 passengers)</div>
+        </div>
+        
+        <div class="evidence-photo">
+            <div id="context-photo-container" style="display: none; width: 100%; height: 100%;">
+                <img id="context-photo" alt="Damaged luggage evidence" style="width: 100%; height: 100%; object-fit: cover;">
+            </div>
+            <div class="photo-placeholder" id="context-photo-placeholder">
+                📷 Evidence Photo
+            </div>
+        </div>
+        
+        <div class="card-footer">
+            <div class="hashtags">#SmartwingsWatch #PassengerRights</div>
+            <div class="tool-credit">Created with Claude.ai</div>
+        </div>
+    </div>
+</div>
+    
 </div>
         
         <!-- ========================================= -->
@@ -2242,11 +2483,16 @@ function showCard() {
     
     // Initialize photo display
     if (!currentPhoto) {
-        resetBothPhotos();
+        resetAllCardPhotos();
     }
     
     // Set up card toggle functionality
     setupCardToggle();
+
+     // Generate QR codes for the cards - if you have this function
+    if (typeof generateQRCodes === 'function') {
+        generateQRCodes();
+    }
     
     // Scroll to section
     document.getElementById('card-selection-container').scrollIntoView({ behavior: 'smooth' });
@@ -2376,8 +2622,8 @@ function removePhoto() {
     document.getElementById('photo-preview-section').style.display = 'none';
     document.getElementById('photo-input').value = '';
     
-    // Reset photos on both cards
-    resetBothPhotos();
+    // Reset photos on all cards
+    resetAllCardPhotos();
 }
     
   /**
@@ -2835,14 +3081,19 @@ TAG a friend who travels frequently! 👇`;
  */
 async function generateCardImage(smaller = false) {
     // Determine which card to capture based on current design
-    const cardElement = currentCardDesign === 'minimalist'
-        ? document.getElementById('minimalist-card')
-        : document.getElementById('impact-card');
+    let cardElement;
+    if (currentCardDesign === 'minimalist') {
+        cardElement = document.getElementById('minimalist-card');
+    } else if (currentCardDesign === 'impact') {
+        cardElement = document.getElementById('impact-card');
+    } else if (currentCardDesign === 'context') {
+        cardElement = document.getElementById('context-card');
+    }
     
     return new Promise((resolve, reject) => {
         html2canvas(cardElement, {
             scale: smaller ? 1 : 2,  // Use scale 1 for smaller images
-            backgroundColor: currentCardDesign === 'minimalist' ? '#ffffff' : null,
+            backgroundColor: currentCardDesign === 'minimalist' || currentCardDesign === 'context' ? '#ffffff' : null,
             useCORS: true,
             allowTaint: true
         }).then(canvas => {
@@ -2887,10 +3138,12 @@ function setupCardToggle() {
     const toggleButtons = document.querySelectorAll('.card-toggle-btn');
     const minimalistCard = document.getElementById('minimalist-card');
     const impactCard = document.getElementById('impact-card');
+    const contextCard = document.getElementById('context-card');
     
     // Set initial state
     minimalistCard.style.display = 'block';
     impactCard.style.display = 'none';
+    contextCard.style.display = 'none';
     
     // Add click handlers to toggle buttons
     toggleButtons.forEach(button => {
@@ -2911,9 +3164,15 @@ function setupCardToggle() {
             if (selectedDesign === 'minimalist') {
                 minimalistCard.style.display = 'block';
                 impactCard.style.display = 'none';
-            } else {
+                contextCard.style.display = 'none';
+            } else if (selectedDesign === 'impact') {
                 minimalistCard.style.display = 'none';
                 impactCard.style.display = 'block';
+                contextCard.style.display = 'none';
+            } else if (selectedDesign === 'context') {
+                minimalistCard.style.display = 'none';
+                impactCard.style.display = 'none';
+                contextCard.style.display = 'block';
             }
         });
     });
@@ -2933,16 +3192,22 @@ function updateBothCards() {
     document.getElementById('impact-amount-value').textContent = `€${claimData.amount}`;
     document.getElementById('impact-submission-date').textContent = claimData.submissionDate;
     
+    // Update context-focused card
+    document.getElementById('context-days-count').textContent = claimData.days;
+    document.getElementById('context-amount-value').textContent = claimData.amount;
+    document.getElementById('context-submission-date').textContent = claimData.submissionDate;
+    
     // Update photo if available
     if (currentPhoto) {
-        updateBothPhotos();
+        updateAllCardPhotos();
     }
 }
 
 /**
  * Update photos on both cards
  */
-function updateBothPhotos() {
+
+    function updateAllCardPhotos() {
     if (!currentPhoto) return;
     
     // Update minimalist card photo
@@ -2972,12 +3237,27 @@ function updateBothPhotos() {
             impactPhoto.style.filter = `brightness(${currentBrightness}%)`;
         };
     }
+    
+    // Update context card photo
+    const contextPhoto = document.getElementById('context-photo');
+    const contextContainer = document.getElementById('context-photo-container');
+    const contextPlaceholder = document.getElementById('context-photo-placeholder');
+    
+    if (contextPhoto && contextContainer) {
+        contextPhoto.src = currentPhoto;
+        contextPhoto.onload = function() {
+            contextContainer.style.display = 'block';
+            if (contextPlaceholder) contextPlaceholder.style.display = 'none';
+            contextPhoto.style.transform = `rotate(${currentRotation}deg)`;
+            contextPhoto.style.filter = `brightness(${currentBrightness}%)`;
+        };
+    }
 }
 
 /**
  * Reset photos on both cards
  */
-function resetBothPhotos() {
+function resetAllCardPhotos() {
     // Reset minimalist card photo
     const minimalistContainer = document.getElementById('card-photo-container');
     const minimalistPlaceholder = document.getElementById('photo-placeholder');
@@ -2989,6 +3269,13 @@ function resetBothPhotos() {
     const impactContainer = document.getElementById('impact-photo-container');
     
     if (impactContainer) impactContainer.style.display = 'none';
+    
+    // Reset context card photo
+    const contextContainer = document.getElementById('context-photo-container');
+    const contextPlaceholder = document.getElementById('context-photo-placeholder');
+    
+    if (contextContainer) contextContainer.style.display = 'none';
+    if (contextPlaceholder) contextPlaceholder.style.display = 'block';
 }
     
 </script>

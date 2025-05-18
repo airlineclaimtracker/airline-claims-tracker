@@ -1526,7 +1526,8 @@
     height: auto;
     display: block;
 }
-
+        
+/*
 .claim-card-impact .photo-overlay {
     position: absolute;
     top: 0;
@@ -1547,7 +1548,8 @@
     padding: 8px 16px;
     border-radius: 8px;
 }
-
+*/
+        
 .claim-card-impact .days-container {
     background: white;
     border-radius: 16px;
@@ -1959,6 +1961,24 @@
     border-radius: 8px;
     letter-spacing: 0.5px;
 }
+        /* Consistent evidence label styling */
+.evidence-label {
+    position: absolute;
+    bottom: 10px;
+    right: 10px;
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    font-size: 12px;
+    font-weight: 600;
+    padding: 5px 10px;
+    border-radius: 4px;
+    z-index: 5;
+}
+
+.claim-card-impact .evidence-label {
+    font-size: 12px;
+    /* Match the professional card styling */
+}
     </style>
 </head>
 
@@ -2215,9 +2235,7 @@
             <div class="evidence-photo">
                 <div id="impact-photo-container" style="display: none;">
                     <img id="impact-photo" alt="Damaged luggage evidence">
-                </div>
-                <div class="photo-overlay">
-                    <div class="damage-label">EVIDENCE OF DAMAGE</div>
+                    <div class="evidence-label">EVIDENCE OF DAMAGE</div>
                 </div>
             </div>
             

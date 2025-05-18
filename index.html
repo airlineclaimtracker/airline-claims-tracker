@@ -2127,7 +2127,7 @@
         <!-- Card Header -->
         <div class="card-header">
             <div class="airline-name">SMARTWINGS</div>
-            <div class="claim-context">Luggage damage claim - ignored since <span id="minimalist-context-date">Oct 2023</span></div>
+            <div class="claim-context">Luggage damage claim - ignored since <span id="minimalist-context-date"></span></div>
             <div class="time-icon">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" width="24" height="24">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
@@ -2208,7 +2208,7 @@
             <div class="card-header">
                 <div class="report-label">PASSENGER CLAIM IGNORED</div>
                 <div class="airline-name">SMARTWINGS</div>
-                <div class="claim-context">Luggage damage claim - ignored since <span id="minimalist-context-date">Oct 2023</span></div>
+                <div class="claim-context">Luggage damage claim - ignored since <span id="impact-context-date"></span></div>
             </div>
             
             <!-- Damage Evidence Photo -->
@@ -2274,7 +2274,7 @@
     <div class="claim-card-context" id="context-card" style="display: none;">
         <div class="context-header">
             <div class="airline-name">SMARTWINGS</div>
-            <div class="claim-context">Luggage damage claim - ignored since <span id="minimalist-context-date">Oct 2023</span></div>
+            <div class="claim-context">Luggage damage claim - ignored since <span id="context-context-date"></span></div>
             <div class="claim-days">
                 <span id="context-days-count">0</span> DAYS
                 <span class="waiting-label">WITHOUT RESPONSE</span>
@@ -2467,36 +2467,40 @@
      * Handle form submission and validation
      */
     function handleFormSubmit(e) {
-        e.preventDefault();
-        console.log('Form submitted');
+    e.preventDefault();
+    console.log('Form submitted');
+    
+    try {
+        const month = document.getElementById('submission-month').value;
+        const year = document.getElementById('submission-year').value;
+        const amount = document.getElementById('amount').value;
+        
+        if (!month || !year || !amount) {
+            showError('Please fill in all fields to expose the fraud');
+            return;
+        }
+        
+        const days = calculateDaysSince(month, year);
+        const submissionDate = new Date(year, month - 1, 1).toLocaleDateString('en-US', {
+            month: 'long',
+            year: 'numeric'
+        });
+        
+        claimData = { days, amount, submissionDate };
+        console.log('Claim data:', claimData);
         
         try {
-            const month = document.getElementById('submission-month').value;
-            const year = document.getElementById('submission-year').value;
-            const amount = document.getElementById('amount').value;
-            
-            if (!month || !year || !amount) {
-                showError('Please fill in all fields to expose the fraud');
-                return;
-            }
-            
-            const days = calculateDaysSince(month, year);
-            const submissionDate = new Date(year, month - 1, 1).toLocaleDateString('en-US', {
-                month: 'long',
-                year: 'numeric'
-            });
-            
-            claimData = { days, amount, submissionDate };
-            console.log('Claim data:', claimData);
-            
             updateCard();
             showCard();
-        } catch (error) {
-            console.error('Form error:', error);
+        } catch (updateError) {
+            console.error("Error in card update or display:", updateError);
             showError('Error creating card. Please check your input and try again.');
         }
+    } catch (error) {
+        console.error('Form error:', error);
+        showError('Error creating card. Please check your input and try again.');
     }
-    
+}    
     /**
      * Calculate days between submission date and today
      */
@@ -3235,27 +3239,28 @@ function setupCardToggle() {
  * Update both cards with claim data
  */
 function updateBothCards() {
-    // Update minimalist card
-    document.getElementById('days-count').textContent = claimData.days;
-    document.getElementById('amount-value').textContent = `€${claimData.amount}`;
-    document.getElementById('submission-date').textContent = claimData.submissionDate;
-    document.getElementById('minimalist-context-date').textContent = claimData.submissionDate;
-    
-    // Update impact card
-    document.getElementById('impact-days-count').textContent = claimData.days;
-    document.getElementById('impact-amount-value').textContent = `€${claimData.amount}`;
-    document.getElementById('impact-submission-date').textContent = claimData.submissionDate;
-    document.getElementById('impact-context-date').textContent = claimData.submissionDate;
-    
-    // Update context-focused card
-    document.getElementById('context-days-count').textContent = claimData.days;
-    document.getElementById('context-amount-value').textContent = claimData.amount;
-    document.getElementById('context-submission-date').textContent = claimData.submissionDate;
-    document.getElementById('context-context-date').textContent = claimData.submissionDate;
-    
-    // Update photo if available
-    if (currentPhoto) {
-        updateAllCardPhotos();
+    try {
+        // Update minimalist card - only update existing elements
+        document.getElementById('days-count').textContent = claimData.days;
+        document.getElementById('amount-value').textContent = `€${claimData.amount}`;
+        document.getElementById('submission-date').textContent = claimData.submissionDate;
+        
+        // Update impact card - only update existing elements
+        document.getElementById('impact-days-count').textContent = claimData.days;
+        document.getElementById('impact-amount-value').textContent = `€${claimData.amount}`;
+        document.getElementById('impact-submission-date').textContent = claimData.submissionDate;
+        
+        // Update context-focused card - only update existing elements
+        document.getElementById('context-days-count').textContent = claimData.days;
+        document.getElementById('context-amount-value').textContent = claimData.amount;
+        document.getElementById('context-submission-date').textContent = claimData.submissionDate;
+        
+        // Update photo if available
+        if (currentPhoto) {
+            updateAllCardPhotos();
+        }
+    } catch (error) {
+        console.error("Error in updateBothCards:", error);
     }
 }
 

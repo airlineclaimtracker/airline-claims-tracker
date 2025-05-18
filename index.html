@@ -1634,6 +1634,103 @@
         padding: 15px 20px;
     }
 }
+    /* ========================================= */
+/* INDUSTRY CONTEXT SECTION STYLES */
+/* ========================================= */
+
+.industry-context {
+    background: rgba(0, 0, 0, 0.05);
+    border: 1px solid rgba(0, 0, 0, 0.1);
+    border-radius: 10px;
+    padding: 15px;
+    margin: 20px 0;
+    font-size: 0.85rem;
+}
+
+.industry-context-title {
+    font-weight: 700;
+    margin-bottom: 10px;
+    color: #333;
+    text-align: center;
+    font-size: 0.9rem;
+}
+
+.industry-stats {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.stat-item {
+    flex: 1;
+    min-width: 100px;
+    text-align: center;
+    padding: 8px;
+    background: white;
+    border-radius: 8px;
+}
+
+.stat-value {
+    font-weight: 700;
+    font-size: 1.1rem;
+    color: #dc3545;
+}
+
+.stat-label {
+    font-size: 0.75rem;
+    color: #666;
+}
+
+.data-source {
+    font-size: 0.7rem;
+    color: #777;
+    text-align: center;
+    margin-top: 8px;
+    font-style: italic;
+}
+
+/* Styles for impact card version */
+.claim-card-impact .industry-context {
+    background: rgba(255, 255, 255, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.2);
+}
+
+.claim-card-impact .industry-context-title {
+    color: #fff;
+}
+
+.claim-card-impact .stat-item {
+    background: rgba(0, 0, 0, 0.2);
+}
+
+.claim-card-impact .stat-value {
+    color: #fde047;
+}
+
+.claim-card-impact .stat-label {
+    color: rgba(255, 255, 255, 0.7);
+}
+
+.claim-card-impact .data-source {
+    color: rgba(255, 255, 255, 0.6);
+}   
+/* Spacing adjustments for cards with industry context */
+.claim-card-minimalist .status-message {
+    margin-bottom: 15px;
+}
+
+.claim-card-minimalist .card-footer {
+    margin-top: 15px;
+}
+
+.claim-card-impact .cta {
+    margin-bottom: 15px;
+}
+
+.claim-card-impact .hashtags {
+    margin-top: 15px;
+}
         
     </style>
 </head>
@@ -1839,6 +1936,26 @@
         <div class="status-message">
             <span>Complete Silence From Airline</span>
         </div>
+
+        <!-- Industry Context Section -->
+<div class="industry-context">
+    <div class="industry-context-title">INDUSTRY CONTEXT</div>
+    <div class="industry-stats">
+        <div class="stat-item">
+            <div class="stat-value">11,620</div>
+            <div class="stat-label">damaged bags annually</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-value">€1.16M</div>
+            <div class="stat-label">in potential claims</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-value">?</div>
+            <div class="stat-label">others waiting?</div>
+        </div>
+    </div>
+    <div class="data-source">Based on SITA 2024 data (1.4 damaged bags per 1,000 passengers)</div>
+</div>
         
         <!-- Card Footer -->
         <div class="card-footer">
@@ -1889,6 +2006,26 @@
             
             <!-- Call to Action -->
             <div class="cta">HAVE THEY IGNORED YOUR CLAIM TOO?</div>
+            
+<!-- Industry Context Section -->
+<div class="industry-context">
+    <div class="industry-context-title">YOU ARE NOT ALONE</div>
+    <div class="industry-stats">
+        <div class="stat-item">
+            <div class="stat-value">11,620</div>
+            <div class="stat-label">damaged bags yearly</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-value">€1.16M</div>
+            <div class="stat-label">potential claims</div>
+        </div>
+        <div class="stat-item">
+            <div class="stat-value">?</div>
+            <div class="stat-label">how many waiting?</div>
+        </div>
+    </div>
+    <div class="data-source">Source: SITA 2024 Baggage IT Insights</div>
+</div>
             
             <!-- Hashtags -->
             <div class="hashtags">#SmartwingsWatch #PassengerRights</div>
@@ -2319,97 +2456,92 @@ Who else faces endless Smartwings delays?
     /**
      * Generate Twitter-optimized message
      */
-    function generateTwitterMessage() {
-        const currentUrl = window.location.href;
-        const pricePerDay = (claimData.amount / claimData.days).toFixed(3);
-        
-        return `Day ${claimData.days}: Smartwings owes me €${claimData.amount} for luggage damage.
-€${pricePerDay}/day 'saved' through systematic delays.
-Built an awareness tool to help passengers get heard & compensated.
-📊 Protect yourself: ${currentUrl}
-Who else faces endless Smartwings delays?
-#SmartwingsWatch #PassengerProtection`;
-    }
+function generateTwitterMessage() {
+    const currentUrl = window.location.href;
+    const amount = claimData.amount;
+    const days = claimData.days;
+    
+    return `Day ${days}: Smartwings still ignoring my €${amount} luggage damage claim.
+
+INDUSTRY FACT: SITA's 2024 data + Smartwings' own passenger numbers (8.3M) suggests ~11,600 damaged bags yearly.
+
+Are you one of the thousands waiting?
+
+Create your card: ${currentUrl} #SmartwingsWatch`;
+}
     
     /**
      * Generate LinkedIn-optimized message
      */
+    
     function generateLinkedInMessage() {
-        const currentUrl = window.location.href;
-        const pricePerDay = (claimData.amount / claimData.days).toFixed(3);
-        
-        return `Professional Update: Airline Customer Service Accountability
+    const currentUrl = window.location.href;
+    const amount = claimData.amount;
+    const days = claimData.days;
+    const submissionDate = claimData.submissionDate;
+    
+    return `My Smartwings luggage damage claim of €${amount} has been ignored for ${days} days.
 
-I'm sharing my experience to highlight systematic issues in airline customer service, specifically with Smartwings.
+INDUSTRY PERSPECTIVE (with sources):
+- According to SITA's 2024 Baggage IT Insights, the industry average is 1.4 damaged bags per 1,000 passengers
+- Smartwings' own reports show they carried 8.3 million passengers in 2024
+- Simple calculation: 8.3M × 0.0014 = ~11,620 damaged bags annually
+- At a conservative €100 average claim, that's €1.16M in potential claims
 
-Situation:
-- Claim filed: ${claimData.submissionDate}
-- Amount: €${claimData.amount} (luggage damage)
-- Status: ${claimData.days} days without resolution
-- Daily cost delay: €${pricePerDay}
+How many other passengers are facing similar delays?
 
-Rather than simply complaining, I developed an awareness tool to help passengers:
-✓ Document experiences systematically
-✓ Navigate claim processes effectively  
-✓ Get properly heard and compensated
-✓ Protect their rights as consumers
+I built this tool with Claude.ai to help visualize this issue. Create your own card: ${currentUrl}
 
-This tool transforms individual frustrations into collective awareness and accountability.
-
-Access the platform: ${currentUrl}
-
-Have others experienced similar systematic delays with airlines?
-
-#PassengerRights #CustomerService #InnovativeSolutions #SmartwingsWatch #ConsumerProtection`;
-    }
+#ConsumerRights #SmartwingsWatch`;
+}
     
     /**
      * Generate WhatsApp-optimized message
      */
+    
     function generateWhatsAppMessage() {
-        const currentUrl = window.location.href;
-        const pricePerDay = (claimData.amount / claimData.days).toFixed(3);
-        
-        return `🚨 Day ${claimData.days}: Smartwings still owes me €${claimData.amount}!
+    const currentUrl = window.location.href;
+    const amount = claimData.amount;
+    const days = claimData.days;
+    
+    return `📊 AIRLINE ACCOUNTABILITY CHECK:
+- My claim: €${amount} for damaged luggage
+- Days ignored by Smartwings: ${days}
 
-They've 'saved' €${pricePerDay} per day through delays.
+INDUSTRY DATA (with sources):
+- SITA 2024 Baggage IT Insights: 1.4 damaged bags per 1,000 passengers
+- Smartwings 2024 reported passengers: 8.3 million
+- Calculation: 8.3M × 0.0014 = ~11,620 damaged bags annually
 
-Instead of giving up, I built an awareness tool to help passengers get heard and get compensated properly.
+At a conservative €100 per claim, that's €1.16M in potential annual claims.
 
-📱 Check it out: ${currentUrl}
-
-Share if you've faced similar issues with airlines!
-#SmartwingsWatch #PassengerProtection`;
-    }
+Created with an AI-built tool: ${currentUrl}
+#SmartwingsWatch`;
+}
     
     /**
      * Generate Facebook-optimized message
      */
     function generateFacebookMessage() {
-        const currentUrl = window.location.href;
-        const pricePerDay = (claimData.amount / claimData.days).toFixed(3);
-        
-        return `✈️ PASSENGER RIGHTS UPDATE ✈️
+    const currentUrl = window.location.href;
+    const amount = claimData.amount;
+    const days = claimData.days;
+    
+    return `✈️ PASSENGER RIGHTS UPDATE ✈️
 
-Day ${claimData.days}: Still waiting for Smartwings to pay my €${claimData.amount} luggage damage claim.
+Day ${days}: Still waiting for Smartwings to resolve my €${amount} luggage damage claim.
 
-The math? They've 'saved' €${pricePerDay} per day through systematic delays.
+INDUSTRY DATA:
+- SITA 2024 Baggage IT Insights shows 1.4 damaged bags per 1,000 passengers
+- Smartwings carried 8.3 million passengers in 2024
+- That's approximately 11,620 damaged bags annually worth €1.16M in claims
 
-Instead of just complaining, I did something about it - I built an awareness tool that helps passengers:
-🔹 Get properly heard
-🔹 Document their experiences  
-🔹 Navigate claim processes
-🔹 Secure fair compensation
+I used an AI-built tool to document this systematic issue. If your claim has been ignored too, create your own accountability card: ${currentUrl}
 
-💡 Try the tool: ${currentUrl}
+#SmartwingsWatch #PassengerRights
 
-TAG someone who's had airline issues!
-How long have they kept you waiting?
-
-#SmartwingsWatch #PassengerProtection #TravelRights #GetCompensated
-
-Share this post to help fellow travelers! 👇`;
-    }
+TAG a friend who travels frequently! 👇`;
+}
     
     // ========================================
     // SOCIAL MEDIA SHARING FUNCTIONS

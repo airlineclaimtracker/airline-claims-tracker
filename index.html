@@ -3232,25 +3232,40 @@ function setupCardToggle() {
  */
 function updateBothCards() {
     try {
-        // Update minimalist card - only update existing elements
-        document.getElementById('days-count').textContent = claimData.days;
-        document.getElementById('amount-value').textContent = `€${claimData.amount}`;
-        document.getElementById('submission-date').textContent = claimData.submissionDate;
-        document.getElementById('minimalist-context-date').textContent = claimData.submissionDate;
+        // Update elements that actually exist in the HTML
         
-        // Update impact card - only update existing elements
-        document.getElementById('impact-days-count').textContent = claimData.days;
-        document.getElementById('impact-amount-value').textContent = `€${claimData.amount}`;
-        document.getElementById('impact-submission-date').textContent = claimData.submissionDate;
-        document.getElementById('impact-context-date').textContent = claimData.submissionDate;
+        // Professional card (minimalist card)
+        if (document.getElementById('days-count')) {
+            document.getElementById('days-count').textContent = claimData.days;
+        }
+        if (document.getElementById('amount-value')) {
+            document.getElementById('amount-value').textContent = `€${claimData.amount}`;
+        }
+        if (document.getElementById('submission-date')) {
+            document.getElementById('submission-date').textContent = claimData.submissionDate;
+        }
         
+        // Maximum Impact card
+        if (document.getElementById('impact-days-count')) {
+            document.getElementById('impact-days-count').textContent = claimData.days;
+        }
+        if (document.getElementById('impact-amount-value')) {
+            document.getElementById('impact-amount-value').textContent = `€${claimData.amount}`;
+        }
+        if (document.getElementById('impact-submission-date')) {
+            document.getElementById('impact-submission-date').textContent = claimData.submissionDate;
+        }
         
-        // Update context-focused card - only update existing elements
-        document.getElementById('context-days-count').textContent = claimData.days;
-        document.getElementById('context-amount-value').textContent = claimData.amount;
-        document.getElementById('context-submission-date').textContent = claimData.submissionDate;
-        document.getElementById('context-context-date').textContent = claimData.submissionDate;
-        
+        // Industry Data card (context card)
+        if (document.getElementById('context-days-count')) {
+            document.getElementById('context-days-count').textContent = claimData.days;
+        }
+        if (document.getElementById('context-amount-value')) {
+            document.getElementById('context-amount-value').textContent = claimData.amount;
+        }
+        if (document.getElementById('context-submission-date')) {
+            document.getElementById('context-submission-date').textContent = claimData.submissionDate;
+        }
         
         // Update photo if available
         if (currentPhoto) {

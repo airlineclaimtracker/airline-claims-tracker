@@ -2068,14 +2068,13 @@
 .claim-card-minimalist .evidence-photo img,
 .claim-card-impact .evidence-photo img,
 .claim-card-context .evidence-photo img {
-    max-width: 100%;
-    max-height: 100%;
-    width: auto;
-    height: auto;
+    width: 100%;
+    height: 100%;
     object-fit: contain;
     object-position: center;
-    display: block;
-    margin: 0 auto;
+    background-color: rgba(0, 0, 0, 0.02);
+    max-width: none;
+    max-height: none;
 }
 
 /* Placeholder styling */
@@ -2089,7 +2088,24 @@
     width: 100%;
     height: 100%;
 }
-        
+    /* Preserve card-specific styling while ensuring proper image display */
+.claim-card-minimalist .evidence-photo {
+    background: #f8fafc;
+    border: 1px solid #e2e8f0;
+    padding: 0;
+}
+
+.claim-card-impact .evidence-photo {
+    border: 2px solid #fde047;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+    padding: 0;
+}
+
+.claim-card-context .evidence-photo {
+    background: #f1f5f9;
+    border: 1px solid #e2e8f0;
+    padding: 0;
+}    
     </style>
 </head>
 
@@ -2436,7 +2452,7 @@
         </div>
         
         <div class="evidence-photo">
-            <div id="context-photo-container" style="display: none; width: 100%; height: 100%;">
+            <div id="context-photo-container" style="display: none;">
                 <img id="context-photo" alt="Damaged luggage evidence" style="width: 100%; height: 100%; object-fit: cover;">
             </div>
             <div class="photo-placeholder" id="context-photo-placeholder">
@@ -3394,7 +3410,7 @@ function updateBothCards() {
  * Update photos on both cards
  */
 
-    function updateAllCardPhotos() {
+  function updateAllCardPhotos() {
     if (!currentPhoto) return;
     
     // Update minimalist card photo
@@ -3406,6 +3422,8 @@ function updateBothCards() {
         minimalistPhoto.src = currentPhoto;
         minimalistPhoto.onload = function() {
             minimalistContainer.style.display = 'block';
+            minimalistContainer.style.width = '100%'; // Ensure full width
+            minimalistContainer.style.height = '100%'; // Ensure full height
             if (minimalistPlaceholder) minimalistPlaceholder.style.display = 'none';
             minimalistPhoto.style.transform = `rotate(${currentRotation}deg)`;
             minimalistPhoto.style.filter = `brightness(${currentBrightness}%)`;
@@ -3420,6 +3438,8 @@ function updateBothCards() {
         impactPhoto.src = currentPhoto;
         impactPhoto.onload = function() {
             impactContainer.style.display = 'block';
+            impactContainer.style.width = '100%'; // Ensure full width
+            impactContainer.style.height = '100%'; // Ensure full height
             impactPhoto.style.transform = `rotate(${currentRotation}deg)`;
             impactPhoto.style.filter = `brightness(${currentBrightness}%)`;
         };
@@ -3434,6 +3454,8 @@ function updateBothCards() {
         contextPhoto.src = currentPhoto;
         contextPhoto.onload = function() {
             contextContainer.style.display = 'block';
+            contextContainer.style.width = '100%'; // Ensure full width
+            contextContainer.style.height = '100%'; // Ensure full height
             if (contextPlaceholder) contextPlaceholder.style.display = 'none';
             contextPhoto.style.transform = `rotate(${currentRotation}deg)`;
             contextPhoto.style.filter = `brightness(${currentBrightness}%)`;

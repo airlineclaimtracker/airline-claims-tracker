@@ -2017,11 +2017,31 @@
     font-size: 14px;
 }
 
-/* Force consistent dimensions for photo containers across all cards */
-.evidence-photo {
-    height: 135px !important;
-    min-height: 135px !important;
-    max-height: 135px !important;
+/* Targeted photo sizing for each card type */
+.claim-card-minimalist .evidence-photo {
+    /* Keep original sizing for professional card */
+    min-height: 180px;
+}
+
+.claim-card-impact .evidence-photo {
+    /* Keep original sizing for impact card */
+    min-height: 180px;
+}
+
+.claim-card-context .evidence-photo {
+    /* Set specific size only for context card */
+    height: 180px;
+    min-height: 180px;
+    max-height: 180px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.claim-card-context .evidence-photo img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
 }
         
     </style>

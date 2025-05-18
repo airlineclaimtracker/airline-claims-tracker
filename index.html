@@ -1457,7 +1457,7 @@
     }
 }
 
-        /* ========================================= */
+/* ========================================= */
 /* MAXIMUM IMPACT CARD STYLES */
 /* ========================================= */
 
@@ -1848,7 +1848,7 @@
 
 .claim-card-context .evidence-photo {
     width: 100%;
-    height: 150px;
+    height: 180px;
     border-radius: 12px;
     overflow: hidden;
     margin-bottom: 25px;
@@ -1912,6 +1912,53 @@
         gap: 10px;
     }
 }    
+        /* Context line styling */
+.claim-context {
+    font-size: 14px;
+    color: #888;
+    margin-top: 5px;
+    margin-bottom: 10px;
+    font-weight: 500;
+}
+
+.claim-card-impact .claim-context {
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 14px;
+}
+
+/* Tool credit consistent styling */
+.tool-credit {
+    font-size: 12px;
+    color: #999;
+    position: absolute;
+    bottom: 15px;
+    right: 15px;
+}
+
+.claim-card-minimalist .tool-credit {
+    color: #999;
+}
+
+.claim-card-impact .tool-credit {
+    color: rgba(255, 255, 255, 0.6);
+}
+
+/* Make card footers have consistent position */
+.card-footer {
+    position: relative;
+    padding-bottom: 20px;
+}
+
+/* Update damage label */
+.claim-card-impact .damage-label {
+    background: rgba(0, 0, 0, 0.7);
+    color: white;
+    font-size: 14px;
+    font-weight: 700;
+    padding: 8px 16px;
+    border-radius: 8px;
+    letter-spacing: 0.5px;
+}
     </style>
 </head>
 
@@ -2073,12 +2120,14 @@
         <!-- ========================================= -->
         
 <div id="card-section" style="display: none;">
+    
     <!-- Professional Design -->
     <div class="claim-card-minimalist" id="minimalist-card">
         <!-- Keep your existing clean professional card HTML here -->
         <!-- Card Header -->
         <div class="card-header">
             <div class="airline-name">SMARTWINGS</div>
+            <div class="claim-context">Luggage damage claim - ignored since <span id="minimalist-context-date">Oct 2023</span></div>
             <div class="time-icon">
                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="2" stroke="currentColor" width="24" height="24">
                     <path stroke-linecap="round" stroke-linejoin="round" d="M12 6v6h4.5m4.5 0a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z" />
@@ -2144,6 +2193,7 @@
         <!-- Card Footer -->
         <div class="card-footer">
             <div class="hashtags">#SmartwingsWatch #PassengerRights</div>
+            <div class="tool-credit">Created with Claude.ai</div>
         </div>
     </div>
     
@@ -2156,8 +2206,9 @@
         <div class="card-content">
             <!-- Header -->
             <div class="card-header">
-                <div class="report-label">Customer Claim Report</div>
+                <div class="report-label">PASSENGER CLAIM IGNORED</div>
                 <div class="airline-name">SMARTWINGS</div>
+                <div class="claim-context">Luggage damage claim - ignored since <span id="minimalist-context-date">Oct 2023</span></div>
             </div>
             
             <!-- Damage Evidence Photo -->
@@ -2166,7 +2217,7 @@
                     <img id="impact-photo" alt="Damaged luggage evidence">
                 </div>
                 <div class="photo-overlay">
-                    <div class="damage-label">DESTROYED LUGGAGE</div>
+                    <div class="damage-label">EVIDENCE OF DAMAGE</div>
                 </div>
             </div>
             
@@ -2213,6 +2264,7 @@
             
             <!-- Hashtags -->
             <div class="hashtags">#SmartwingsWatch #PassengerRights</div>
+            <div class="tool-credit">Created with Claude.ai</div>
         </div>
     </div>
 </div>
@@ -2222,6 +2274,7 @@
     <div class="claim-card-context" id="context-card" style="display: none;">
         <div class="context-header">
             <div class="airline-name">SMARTWINGS</div>
+            <div class="claim-context">Luggage damage claim - ignored since <span id="minimalist-context-date">Oct 2023</span></div>
             <div class="claim-days">
                 <span id="context-days-count">0</span> DAYS
                 <span class="waiting-label">WITHOUT RESPONSE</span>
@@ -3186,16 +3239,19 @@ function updateBothCards() {
     document.getElementById('days-count').textContent = claimData.days;
     document.getElementById('amount-value').textContent = `€${claimData.amount}`;
     document.getElementById('submission-date').textContent = claimData.submissionDate;
+    document.getElementById('minimalist-context-date').textContent = claimData.submissionDate;
     
     // Update impact card
     document.getElementById('impact-days-count').textContent = claimData.days;
     document.getElementById('impact-amount-value').textContent = `€${claimData.amount}`;
     document.getElementById('impact-submission-date').textContent = claimData.submissionDate;
+    document.getElementById('impact-context-date').textContent = claimData.submissionDate;
     
     // Update context-focused card
     document.getElementById('context-days-count').textContent = claimData.days;
     document.getElementById('context-amount-value').textContent = claimData.amount;
     document.getElementById('context-submission-date').textContent = claimData.submissionDate;
+    document.getElementById('context-context-date').textContent = claimData.submissionDate;
     
     // Update photo if available
     if (currentPhoto) {

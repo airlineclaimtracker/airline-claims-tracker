@@ -2725,10 +2725,11 @@
     
     // Initialize the page when DOM loads
     document.addEventListener('DOMContentLoaded', function() {
-        console.log('DOM loaded, initializing...');
-        initializeYears();
-        setupEventListeners();
-    });
+    console.log('DOM loaded, initializing...');
+    initializeYears();
+    setupEventListeners();
+    fixMonthInputIssue(); // Add this line
+});
     
     // ========================================
     // FORM SETUP FUNCTIONS
@@ -2748,6 +2749,32 @@
             yearSelect.appendChild(option);
         }
     }
+// Add this function after initializeYears()
+function fixMonthInputIssue() {
+    console.log("Fixing month input...");
+    
+    // Debug the month select
+    const monthSelect = document.getElementById('submission-month');
+    if (!monthSelect) {
+        console.error("Month select element not found!");
+        return;
+    }
+    
+    console.log("Month options:", monthSelect.options.length);
+    
+    // Check if month selection is working
+    monthSelect.addEventListener('change', function() {
+        console.log("Month changed to:", this.value);
+    });
+    
+    // Force a reselection
+    const currentValue = monthSelect.value;
+    monthSelect.value = "";
+    setTimeout(() => {
+        monthSelect.value = currentValue || "1";
+        console.log("Reset month to:", monthSelect.value);
+    }, 100);
+}
     
     /**
      * Set up event listeners for form and photo upload
@@ -2798,22 +2825,59 @@
     console.log('Form submitted');
     
     try {
-        const month = document.getElementById('submission-month').value;
-        const year = document.getElementById('submission-year').value;
-        const amount = document.getElementById('amount').value;
+        // Get form values with detailed logging
+        const monthElement = document.getElementById('submission-month');
+        const yearElement = document.getElementById('submission-year');
+        const amountElement = document.getElementById('amount');
         
-        if (!month || !year || !amount) {
-            showError('Please fill in all fields to expose the fraud');
+        console.log("Month element:", monthElement);
+        console.log("Year element:", yearElement);
+        console.log("Amount element:", amountElement);
+        
+        if (!monthElement || !yearElement || !amountElement) {
+            console.error("Form elements not found!");
+            showError('Error: Form elements not found. Please refresh the page.');
             return;
         }
         
-        const days = calculateDaysSince(month, year);
-        const submissionDate = new Date(year, month - 1, 1).toLocaleDateString('en-US', {
+        const month = monthElement.value;
+        const year = yearElement.value;
+        const amount = amountElement.value;
+        
+        console.log("Form values - Month:", month, "Year:", year, "Amount:", amount);
+        
+        if (!month || !year || !amount) {
+            console.warn("Missing required fields:", {month, year, amount});
+            showError('Please fill in all fields to document your experience');
+            return;
+        }
+        
+        // Convert values to ensure they're numbers
+        const monthNum = parseInt(month, 10);
+        const yearNum = parseInt(year, 10);
+        const amountNum = parseInt(amount, 10);
+        
+        console.log("Parsed values:", {monthNum, yearNum, amountNum});
+        
+        if (isNaN(monthNum) || isNaN(yearNum) || isNaN(amountNum)) {
+            console.error("Invalid number conversion:", {monthNum, yearNum, amountNum});
+            showError('Please enter valid numbers for month, year, and amount');
+            return;
+        }
+        
+        const days = calculateDaysSince(monthNum, yearNum);
+        console.log("Calculated days:", days);
+        
+        const dateObj = new Date(yearNum, monthNum - 1, 1);
+        console.log("Date object:", dateObj);
+        
+        const submissionDate = dateObj.toLocaleDateString('en-US', {
             month: 'long',
             year: 'numeric'
         });
+        console.log("Submission date:", submissionDate);
         
-        claimData = { days, amount, submissionDate };
+        claimData = { days, amount: amountNum, submissionDate };
         console.log('Claim data:', claimData);
         
         try {
@@ -2827,16 +2891,31 @@
         console.error('Form error:', error);
         showError('Error creating card. Please check your input and try again.');
     }
-}    
+}
     /**
      * Calculate days between submission date and today
      */
     function calculateDaysSince(month, year) {
-        const submissionDate = new Date(year, month - 1, 1);
-        const today = new Date();
-        const diffTime = Math.abs(today - submissionDate);
-        return Math.ceil(diffTime / (1000 * 60 * 60 * 24));
-    }
+    console.log(`Calculating days since month=${month}, year=${year}`);
+    
+    // Create submission date (first day of the month)
+    const submissionDate = new Date(year, month - 1, 1);
+    console.log("Submission date object:", submissionDate);
+    
+    // Get current date
+    const today = new Date();
+    console.log("Today's date:", today);
+    
+    // Calculate time difference in milliseconds
+    const diffTime = Math.abs(today - submissionDate);
+    console.log("Time difference (ms):", diffTime);
+    
+    // Convert to days and round up
+    const days = Math.ceil(diffTime / (1000 * 60 * 60 * 24));
+    console.log("Calculated days:", days);
+    
+    return days;
+}
     
     // ========================================
     // CARD UPDATE & DISPLAY FUNCTIONS
@@ -3097,7 +3176,7 @@ INDUSTRY FACT: SITA's 2024 data + Smartwings' own passenger numbers (8.3M) sugge
 
 Are you one of the thousands waiting?
 
-Create your card: ${currentUrl} #SmartwingsWatch`#ClaudeAI;
+Create your card: ${currentUrl} #SmartwingsWatch #ClaudeAI`;
 }
     
     /**
@@ -3138,7 +3217,7 @@ Has your claim been ignored too? Or have you used AI to build something without 
      * Generate WhatsApp-optimized message
      */
     
-    function generateWhatsAppMessage() {
+function generateWhatsAppMessage() {
     const currentUrl = window.location.href;
     const amount = claimData.amount;
     const days = claimData.days;
@@ -3155,7 +3234,7 @@ INDUSTRY DATA (with sources):
 At a conservative €100 per claim, that's €1.16M in potential annual claims.
 
 Created with an AI-built tool: ${currentUrl}
-#SmartwingsWatch`#ClaudeAI ;
+#SmartwingsWatch #ClaudeAI`;
 }
     
     /**

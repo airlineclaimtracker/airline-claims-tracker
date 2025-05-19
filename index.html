@@ -2223,6 +2223,43 @@
     border-radius: 8px;
     letter-spacing: 0.5px;
 }
+        /* Add these styles to your CSS */
+.emotional-anchor {
+    margin: 30px auto;
+    text-align: center;
+    padding: 20px;
+    max-width: 300px;
+    position: relative;
+}
+
+.days-counter-large {
+    font-size: 120px;
+    font-weight: 900;
+    color: #dc2626;
+    line-height: 1;
+    margin-bottom: 5px;
+    animation: pulse-subtle 4s infinite;
+    text-shadow: 0 2px 10px rgba(220, 38, 38, 0.15);
+}
+
+.days-label-large {
+    font-size: 22px;
+    font-weight: 700;
+    color: #374151;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.highlight-text {
+    background: linear-gradient(to bottom, transparent 40%, rgba(220, 38, 38, 0.1) 40%, rgba(220, 38, 38, 0.1) 80%, transparent 80%);
+    padding: 0 4px;
+}
+
+@keyframes pulse-subtle {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.03); }
+    100% { transform: scale(1); }
+}
     </style>
 </head>
 
@@ -2249,17 +2286,18 @@
             
             <!-- Story Section -->
             <div class="story-part">
-                <div class="separator"></div>
+                <div class="emotional-anchor">
+                    <div class="days-counter-large">620</div>
+                    <div class="days-label-large">days of silence</div>
+                </div>
                 
                 <div class="context">
                     <p class="context-text">
-                        I filed Smartwings <strong>claim.smartwingsgroup.com/pl/</strong> 
-                        to be compensated for luggage damage. <strong>620 days later</strong>, I still 
-                        haven't received any response.
+                        I filed a Smartwings <strong>luggage damage claim</strong> and expected a response. 
+                        <span class="highlight-text">Instead, I've been met with <strong>complete silence</strong>.</span>
                     </p>
                     <p class="context-text">
-                        If you're facing the same silence, you're not alone. 
-                        This tool helps create accountability.
+                        You're not alone if you're experiencing the same. Together, we can make these patterns visible.
                     </p>
                 </div>
             </div>

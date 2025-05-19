@@ -2260,6 +2260,57 @@
     50% { transform: scale(1.03); }
     100% { transform: scale(1); }
 }
+        /* Add these styles to your CSS */
+.animated-label {
+    color: #1d3557;
+    font-weight: 600;
+    margin-bottom: 10px;
+    font-size: 0.95rem;
+    transition: all 0.3s ease;
+}
+
+.form-item:focus-within .animated-label {
+    color: #dc2626;
+    transform: translateY(-2px);
+}
+
+.select-container, 
+.input-container {
+    position: relative;
+    transition: all 0.3s ease;
+}
+
+.select-container:after {
+    content: '▼';
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    color: #888;
+    pointer-events: none;
+    font-size: 12px;
+}
+
+.form-item:focus-within .select-container,
+.form-item:focus-within .input-container {
+    transform: translateY(2px);
+}
+
+.btn-primary {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.btn-primary:hover {
+    transform: translateY(-3px) scale(1.03);
+}
+
+.btn-primary .btn-icon {
+    font-size: 1.2em;
+}
     </style>
 </head>
 
@@ -2312,34 +2363,40 @@
                     <!-- Form Grid -->
                     <div class="form-grid">
                         <div class="form-item">
-                            <label for="submission-month">Claim submission month</label>
-                            <select id="submission-month" required>
-                                <option value="">Select Month</option>
-                                <option value="1">January</option>
-                                <option value="2">February</option>
-                                <option value="3">March</option>
-                                <option value="4">April</option>
-                                <option value="5">May</option>
-                                <option value="6">June</option>
-                                <option value="7">July</option>
-                                <option value="8">August</option>
-                                <option value="9">September</option>
-                                <option value="10">October</option>
-                                <option value="11">November</option>
-                                <option value="12">December</option>
-                            </select>
-                        </div>
-                        <div class="form-item">
-                            <label for="submission-year">Year</label>
-                            <select id="submission-year" required>
-                                <option value="">Select Year</option>
-                            </select>
-                        </div>
-                        <div class="form-item">
-                            <label for="amount">Claim Amount (€)</label>
-                            <input type="number" id="amount" required min="1" placeholder="e.g. 200">
-                        </div>
-                    </div>
+    <label for="submission-month" class="animated-label">Claim submission month</label>
+    <div class="select-container">
+        <select id="submission-month" required>
+            <option value="">Select Month</option>
+            <option value="1">January</option>
+            <option value="2">February</option>
+            <option value="3">March</option>
+            <option value="4">April</option>
+            <option value="5">May</option>
+            <option value="6">June</option>
+            <option value="7">July</option>
+            <option value="8">August</option>
+            <option value="9">September</option>
+            <option value="10">October</option>
+            <option value="11">November</option>
+            <option value="12">December</option>
+        </select>
+    </div>
+</div>
+<div class="form-item">
+    <label for="submission-year" class="animated-label">Year</label>
+    <div class="select-container">
+        <select id="submission-year" required>
+            <option value="">Select Year</option>
+        </select>
+    </div>
+</div>
+<div class="form-item">
+    <label for="amount" class="animated-label">Claim Amount (€)</label>
+    <div class="input-container">
+        <input type="number" id="amount" required min="1" placeholder="e.g. 200">
+        <span class="input-icon">€</span>
+    </div>
+</div>
                     
                     <!-- ========================================= -->
                     <!-- PHOTO UPLOAD SECTION -->
@@ -2370,16 +2427,20 @@
                     <!-- Error Message Container -->
                     <div id="error-message" class="error-message"></div>
                     
-                    <!-- Submit Button -->
-                    <button type="submit" class="btn">🚀 Create Your Experience Card</button>
+                   <!-- Submit Button -->
+                    <button type="submit" class="btn btn-primary">
+                        <span class="btn-icon">📝</span>
+                        <span class="btn-text">Document My Experience</span>
+                        <span class="btn-hover-effect"></span>
+                    </button>
                     <!-- AI-Built Explanation -->
-<div class="ai-built-explanation">
-    <div class="ai-built-icon">🧩</div>
-    <h4>This tool was built without writing a single line of code</h4>
-    <p>As a frustrated passenger with no programming background, I described what I wanted to Claude.ai, and it generated all the necessary code, which I then implemented. This is how accessible technology creation has become.</p>
-    <div class="ai-built-note">Similar to how you don't need legal expertise to document your experience with this tool, I didn't need coding expertise to build it.</div>
-</div>
-                    
+                    <div class="ai-built-explanation">
+                        <div class="ai-built-icon">🧩</div>
+                        <h4>This tool was built without writing a single line of code</h4>
+                        <p>As a frustrated passenger with no programming background, I described what I wanted to Claude.ai, and it generated all the necessary code, which I then implemented. This is how accessible technology creation has become.</p>
+                        <div class="ai-built-note">Similar to how you don't need legal expertise to document your experience with this tool, I didn't need coding expertise to build it.</div>
+                    </div>
+                                        
                     <!-- ========================================= -->
                     <!-- PRIVACY NOTICE SECTION -->
                     <!-- ========================================= -->

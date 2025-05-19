@@ -178,6 +178,77 @@
             outline: none;
             border-color: var(--primary-red);
         }
+
+        /* ========================================= */
+/* ENHANCED FORM ELEMENT STYLES */
+/* ========================================= */
+
+/* Animated label effect */
+label {
+    transition: all 0.3s ease;
+    display: block;
+    position: relative;
+}
+
+/* Focus effect for labels */
+.form-item:focus-within label {
+    color: var(--primary-red);
+    transform: translateY(-2px);
+}
+
+/* Style inputs and selects on focus */
+input:focus,
+select:focus {
+    border-color: var(--primary-red);
+    box-shadow: 0 0 0 3px rgba(220, 53, 69, 0.1);
+}
+
+/* Input container styling */
+.form-item {
+    position: relative;
+}
+
+/* Add dropdown indicator for select */
+.form-item select {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml;charset=UTF-8,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='none' stroke='%23888' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3e%3cpolyline points='6 9 12 15 18 9'%3e%3c/polyline%3e%3c/svg%3e");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
+    background-size: 16px;
+    padding-right: 30px;
+}
+
+/* Style for currency icon */
+.form-item:last-child {
+    position: relative;
+}
+
+.form-item:last-child::after {
+    content: "€";
+    position: absolute;
+    right: 15px;
+    top: 50%;
+    transform: translateY(-5px);
+    color: #888;
+    font-weight: 600;
+    pointer-events: none;
+}
+
+/* Prevent icon from overlapping with input focus outline */
+.form-item:last-child:focus-within::after {
+    color: var(--primary-red);
+}
+
+/* Form grid adjustments */
+.form-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 20px;
+    margin-bottom: 25px;
+    align-items: start;
+}
         
         /* ========================================= */
         /* BUTTON STYLES */
@@ -2296,20 +2367,60 @@
     transform: translateY(2px);
 }
 
+/* ========================================= */
+/* ENHANCED BUTTON STYLES */
+/* ========================================= */
+
 .btn-primary {
+    background: linear-gradient(135deg, var(--primary-red), var(--dark-red));
+    color: white;
+    border: none;
+    padding: 14px 26px;
+    border-radius: 12px;
+    font-weight: 600;
+    cursor: pointer;
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 8px;
-    transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+    gap: 12px;
+    margin: 25px auto;
+    width: max-content;
+    box-shadow: 0 5px 15px rgba(220, 53, 69, 0.2);
+    transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+    position: relative;
+    overflow: hidden;
 }
 
 .btn-primary:hover {
-    transform: translateY(-3px) scale(1.03);
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(220, 53, 69, 0.3);
 }
 
-.btn-primary .btn-icon {
+.btn-primary:active {
+    transform: translateY(1px);
+    box-shadow: 0 4px 10px rgba(220, 53, 69, 0.3);
+}
+
+.btn-icon {
     font-size: 1.2em;
+}
+
+.btn-hover-effect {
+    position: absolute;
+    top: 0;
+    left: -100%;
+    width: 100%;
+    height: 100%;
+    background: linear-gradient(90deg, 
+        transparent, 
+        rgba(255, 255, 255, 0.2), 
+        transparent
+    );
+    transition: left 0.5s ease;
+}
+
+.btn:hover .btn-hover-effect {
+    left: 100%;
 }
     </style>
 </head>
@@ -2827,8 +2938,84 @@
     console.log('DOM loaded, initializing...');
     initializeYears();
     setupEventListeners();
-    fixMonthInputIssue(); // Add this line
+    function fixMonthInputIssue() {
+    console.log("Fixing month input...");
+    
+    // Debug the month select
+    const monthSelect = document.getElementById('submission-month');
+    if (!monthSelect) {
+        console.error("Month select element not found!");
+        return;
+    }
+    
+    console.log("Month options:", monthSelect.options.length);
+    
+    // Check if month selection is working
+    monthSelect.addEventListener('change', function() {
+        console.log("Month changed to:", this.value);
+    });
+    
+    // Force a reselection
+    const currentValue = monthSelect.value;
+    monthSelect.value = "";
+    setTimeout(() => {
+        monthSelect.value = currentValue || "1";
+        console.log("Reset month to:", monthSelect.value);
+    }, 100);
+}
+// Add the new function here
+    function setupFormFeedback() {
+        const formInputs = document.querySelectorAll('#claim-form input, #claim-form select');
+        
+        formInputs.forEach(input => {
+            // Add change listener to each input/select
+            input.addEventListener('change', function() {
+                if (this.value) {
+                    this.classList.add('filled');
+                    this.closest('.form-item').classList.add('has-value');
+                } else {
+                    this.classList.remove('filled');
+                    this.closest('.form-item').classList.remove('has-value');
+                }
+            });
+            
+            // Check initial state
+            if (input.value) {
+                input.classList.add('filled');
+                input.closest('.form-item').classList.add('has-value');
+            }
+        });
+    }
+    
+    // Call both functions
+    fixMonthInputIssue();
+    setupFormFeedback(); // Add this line to call the new function
 });
+/**
+ * Add subtle feedback when form fields are filled
+ */
+function setupFormFeedback() {
+    const formInputs = document.querySelectorAll('#claim-form input, #claim-form select');
+    
+    formInputs.forEach(input => {
+        // Add change listener to each input/select
+        input.addEventListener('change', function() {
+            if (this.value) {
+                this.classList.add('filled');
+                this.closest('.form-item').classList.add('has-value');
+            } else {
+                this.classList.remove('filled');
+                this.closest('.form-item').classList.remove('has-value');
+            }
+        });
+        
+        // Check initial state
+        if (input.value) {
+            input.classList.add('filled');
+            input.closest('.form-item').classList.add('has-value');
+        }
+    });
+}
     
     // ========================================
     // FORM SETUP FUNCTIONS

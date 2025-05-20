@@ -4117,7 +4117,172 @@ function setupMobileShare() {
         });
     }
 }
+/**
+ * Native share function that works across platforms
+ */
+async function nativeShare() {
+    const btn = document.getElementById('native-share-btn');
+    if (btn) {
+        btn.disabled = true;
+        btn.style.opacity = '0.7';
+    }
+    
+    try {
+        // Generate message and image
+        const message = generateCampaignMessage(); // Use a general message
+        const cardImage = await generateCardImage();
+        
+        // Check if Web Share API is available
+        if (navigator.share) {
+            try {
+                // Create share data object
+                const shareData = {
+                    title: "Airline Accountability Documentation",
+                    text: message,
+                    url: window.location.href
+                };
+                
+                // Try to add image if File sharing is supported
+                let canAddFile = false;
+                try {
+                    if (cardImage && navigator.canShare) {
+                        const file = new File([cardImage], 'smartwings-claim.png', { type: 'image/png' });
+                        canAddFile = navigator.canShare({ files: [file] });
+                        if (canAddFile) {
+                            shareData.files = [file];
+                        }
+                    }
+                } catch (e) {
+                    console.log('File sharing not supported');
+                }
+                
+                // Share!
+                await navigator.share(shareData);
+                showSuccess(canAddFile ? 
+                    '✅ Successfully shared your claim card with image!' : 
+                    '✅ Successfully shared your claim details!');
+            } catch (e) {
+                console.log('Native share failed:', e);
+                
+                // Fall back to clipboard + image download
+                tryClipboardWithDownload(message, cardImage);
+            }
+        } else {
+            // Web Share API not available, fall back
+            tryClipboardWithDownload(message, cardImage);
+        }
+    } catch (error) {
+        console.error('Share error:', error);
+        showError('Sorry, there was a problem sharing. Please try again.');
+    } finally {
+        if (btn) {
+            btn.disabled = false;
+            btn.style.opacity = '1';
+        }
+    }
+}
 
+/**
+ * Helper function for clipboard + download fallback
+ */
+async function tryClipboardWithDownload(message, cardImage) {
+    // Try copying message to clipboard
+    try {
+        if (navigator.clipboard) {
+            await navigator.clipboard.writeText(message);
+            showSuccess('Message copied! Image is being downloaded.');
+        }
+    } catch (e) {
+        console.log('Clipboard access failed');
+    }
+    
+    // Download image as fallback
+    if (cardImage) {
+        const link = document.createElement('a');
+        const dateString = new Date().toLocaleDateString().replace(/\//g, '-');
+        link.download = `Airline-Accountability-${dateString}.png`;
+        link.href = URL.createObjectURL(cardImage);
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
+}
+
+/**
+ * Initialize mobile sharing
+ */
+function setupMobileShare() {
+    // Set up native share button (general)
+    const nativeShareBtn = document.getElementById('native-share-btn');
+    if (nativeShareBtn) {
+        nativeShareBtn.addEventListener('click', nativeShare);
+    }
+    
+    // Platform-specific mobile buttons
+    const mobileLinkedInBtn = document.getElementById('mobile-linkedin-btn');
+    const mobileTwitterBtn = document.getElementById('mobile-twitter-btn');
+    const mobileFacebookBtn = document.getElementById('mobile-facebook-btn');
+    const mobileSaveBtn = document.getElementById('mobile-save-btn');
+    
+    if (mobileLinkedInBtn) {
+        mobileLinkedInBtn.addEventListener('click', shareToLinkedIn);
+    }
+    
+    if (mobileTwitterBtn) {
+        mobileTwitterBtn.addEventListener('click', shareToTwitter);
+    }
+    
+    if (mobileFacebookBtn) {
+        mobileFacebookBtn.addEventListener('click', shareToFacebook);
+    }
+    
+    if (mobileSaveBtn) {
+        mobileSaveBtn.addEventListener('click', saveToPhotos);
+    }
+}
+
+/**
+ * Save to photos function (mobile-friendly)
+ */
+async function saveToPhotos() {
+    const saveBtn = document.getElementById('mobile-save-btn') || document.getElementById('save-photo-btn');
+    if (saveBtn) {
+        saveBtn.disabled = true;
+        saveBtn.style.opacity = '0.7';
+    }
+    
+    try {
+        const cardImage = await generateCardImage();
+        
+        // Create download link
+        const link = document.createElement('a');
+        const dateString = new Date().toLocaleDateString().replace(/\//g, '-');
+        link.download = `Airline-Accountability-${dateString}.png`;
+        link.href = URL.createObjectURL(cardImage);
+        
+        // iOS handling vs normal download
+        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+        if (isIOS) {
+            // On iOS, open in new tab so user can save with press-and-hold
+            window.open(link.href, '_blank');
+            showSuccess('Image opened. Press and hold to save to Photos.');
+        } else {
+            // Normal download
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            showSuccess('✓ Image saved to your downloads!');
+        }
+    } catch (error) {
+        console.error('Save error:', error);
+        showError('Could not save image. Please try the download button instead.');
+    } finally {
+        if (saveBtn) {
+            saveBtn.disabled = false;
+            saveBtn.style.opacity = '1';
+        }
+    }
+}
 // ========================================
 // UTILITY FUNCTIONS
 // ========================================

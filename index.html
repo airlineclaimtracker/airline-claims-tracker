@@ -5,7 +5,8 @@
     <!-- META TAGS & DOCUMENT SETTINGS -->
     <!-- ========================================= -->
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Update the existing viewport meta tag with this -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
     <title>SmartwingsWatch - Document Airline Claim Experiences</title>
     <meta name="description" content="Help passengers document and share airline claim experiences for better accountability and awareness.">
     
@@ -2260,6 +2261,115 @@
     50% { transform: scale(1.03); }
     100% { transform: scale(1); }
 }
+        /* Add these mobile-first styles to your existing CSS */
+
+/* Improve form layout on mobile */
+@media (max-width: 768px) {
+    .form-grid {
+        grid-template-columns: 1fr;
+        gap: 15px;
+    }
+    
+    .btn, .share-btn, .card-toggle-btn {
+        width: 100%;
+        min-height: 44px; /* iOS minimum touch target size */
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+    
+    /* Fix card designs for mobile */
+    .claim-card-minimalist,
+    .claim-card-impact,
+    .claim-card-context {
+        width: 100%;
+        max-width: 100%;
+        padding: 20px;
+        height: auto;
+        min-height: 600px;
+    }
+    
+    /* Improve card toggle on mobile */
+    .card-toggle {
+        flex-direction: column;
+    }
+    
+    .card-toggle-btn {
+        width: 100%;
+        justify-content: center;
+    }
+    
+    /* Fix share grid on mobile */
+    .share-grid {
+        grid-template-columns: 1fr;
+    }
+}
+        /* Mobile form optimization */
+.upload-btn-clean.mobile-enhanced {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+    padding: 14px;
+    border-radius: 10px;
+    font-size: 1rem;
+    gap: 8px;
+    transition: all 0.2s ease;
+}
+
+.upload-btn-clean.mobile-enhanced:hover,
+.upload-btn-clean.mobile-enhanced:active {
+    background-color: #f0f0f0;
+    border-color: var(--primary-red);
+}
+
+.btn-icon {
+    font-size: 1.2rem;
+}
+
+@media (max-width: 768px) {
+    /* Make all form inputs larger and more touch-friendly */
+    input, select, .btn, .upload-btn-clean {
+        height: 50px;
+        font-size: 16px !important; /* Prevents iOS zoom on input focus */
+    }
+    
+    .form-item {
+        margin-bottom: 15px;
+    }
+    
+    /* Optimize photo preview section */
+    #photo-preview-section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    #photo-preview {
+        max-width: 90%;
+        max-height: 200px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    }
+    
+    .photo-controls {
+        margin-top: 15px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+    }
+    
+    .photo-btn {
+        min-height: 44px;
+        min-width: 90px;
+        padding: 10px 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
     </style>
 </head>
 
@@ -2351,9 +2461,11 @@
                             <strong>📸 Evidence photo</strong> 
                             <span style="color: #888; font-size: 0.9rem;">(optional)</span>
                         </p>
-                        <input type="file" id="photo-input" accept="image/*" style="display: none;">
-                        <button type="button" onclick="document.getElementById('photo-input').click()" class="upload-btn-clean">
-                            Choose Photo
+                        <input type="file" id="photo-input" accept="image/*;capture=camera" style="display: none;">
+                        
+                        <button type="button" onclick="document.getElementById('photo-input').click()" class="upload-btn-clean mobile-enhanced">
+                            <span class="btn-icon">📷</span>
+                            <span class="btn-text">Take or Choose Photo</span>
                         </button>
                         
                         <!-- Photo Preview Section -->
@@ -2429,7 +2541,7 @@
 
 <div class="card-selection-container" id="card-selection-container" style="display: none;">
     <h3>Choose Which Design to Share</h3>
-    <p>We've created two designs for you - select the one that works best for your audience</p>
+    <p>Select style that best represents your experience</p>
     
     <div class="card-toggle">
         <button class="card-toggle-btn active" data-design="minimalist">
@@ -2767,6 +2879,7 @@
     initializeYears();
     setupEventListeners();
     fixMonthInputIssue(); // Add this line
+    enhanceMobileForm(); // Add this line    
 });
     
     // ========================================
@@ -3306,35 +3419,65 @@ TAG a friend who travels frequently! 👇`;
     /**
      * Share to Twitter/X
      */
-    async function shareToTwitter() {
-        const btn = document.querySelector('.share-btn.twitter');
-        btn.style.opacity = '0.7';
-        btn.style.pointerEvents = 'none';
+ async function shareToTwitter() {
+    const btn = document.querySelector('.share-btn.twitter');
+    btn.style.opacity = '0.7';
+    btn.style.pointerEvents = 'none';
+    
+    try {
+        const message = generateTwitterMessage();
+        const cardImage = await generateCardImage();
         
-        try {
-            const message = generateTwitterMessage();
-            const cardImage = await generateCardImage();
-            
-            if (navigator.clipboard && cardImage) {
-                try {
-                    await navigator.clipboard.write([
-                        new ClipboardItem({ 'image/png': cardImage })
-                    ]);
-                    showSuccess('🐦 Twitter opened! Your story and evidence copied to clipboard - paste it with your post!');
-                } catch (e) {
-                    showSuccess('🐦 Twitter opened! Download the card and attach it to expose the delays!');
+        // Try native sharing first (works on mobile)
+        if (navigator.share) {
+            try {
+                // Create a sharing object
+                const shareData = {
+                    text: message,
+                    url: window.location.href
+                };
+                
+                // On supported browsers, also attach the image
+                if (cardImage && navigator.canShare) {
+                    try {
+                        const file = new File([cardImage], 'smartwings-claim.png', { type: 'image/png' });
+                        if (navigator.canShare({ files: [file] })) {
+                            shareData.files = [file];
+                        }
+                    } catch (e) {
+                        console.log('File sharing not supported');
+                    }
                 }
+                
+                // Trigger native share
+                await navigator.share(shareData);
+                showSuccess('✅ Successfully shared to Twitter!');
+                return;
+            } catch (e) {
+                console.log('Native share failed:', e);
             }
-            
-            const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(message)}`;
-            window.open(twitterUrl, '_blank');
-        } catch (error) {
-            showError('Error preparing Twitter post. Please try again.');
-        } finally {
-            btn.style.opacity = '1';
-            btn.style.pointerEvents = 'auto';
         }
+        
+        // Fall back to web approach if native sharing fails
+        try {
+            if (navigator.clipboard) {
+                await navigator.clipboard.writeText(message);
+                showSuccess('🐦 Twitter opened! Your message has been copied to clipboard');
+            }
+        } catch (clipboardError) {
+            console.log('Clipboard access failed');
+        }
+        
+        // Open Twitter intent URL as final fallback
+        const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(message)}`;
+        window.open(twitterUrl, '_blank');
+    } catch (error) {
+        showError('Error preparing Twitter post. Please try again.');
+    } finally {
+        btn.style.opacity = '1';
+        btn.style.pointerEvents = 'auto';
     }
+}
     
     // [Your existing shareToFacebook, shareToLinkedIn, shareToWhatsApp functions will stay here]
     
@@ -3636,6 +3779,148 @@ async function generateCardImage(smaller = false) {
             successEl.classList.remove('show');
         }, 15000); // Longer timeout for detailed instructions
     }
+/**
+ * Enhance form for better mobile experience
+ */
+function enhanceMobileForm() {
+    // Improve error messages visibility
+    const errorMessage = document.getElementById('error-message');
+    if (errorMessage) {
+        errorMessage.style.padding = '15px';
+        errorMessage.style.marginTop = '15px';
+        errorMessage.style.textAlign = 'center';
+        errorMessage.style.fontWeight = '500';
+    }
+
+    /**
+ * Focus on two most effective card designs
+ */
+function optimizeCardDesigns() {
+    // Get references to elements
+    const minimalistCard = document.getElementById('minimalist-card');
+    const impactCard = document.getElementById('impact-card');
+    const contextCard = document.getElementById('context-card');
+    const cardToggle = document.querySelector('.card-toggle');
+    
+    // Always hide minimalist card (least distinctive)
+    if (minimalistCard) {
+        minimalistCard.style.display = 'none';
+    }
+    
+    // Rebuild toggle buttons for clarity
+    if (cardToggle) {
+        // Clear existing buttons
+        cardToggle.innerHTML = '';
+        
+        // Create new impact button
+        const impactBtn = document.createElement('button');
+        impactBtn.className = 'card-toggle-btn active';
+        impactBtn.setAttribute('data-design', 'impact');
+        impactBtn.innerHTML = `
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path>
+                <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path>
+                <path d="M4 22h16"></path>
+                <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"></path>
+                <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"></path>
+                <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"></path>
+            </svg>
+            Emotional Impact
+        `;
+        
+        // Create new context button
+        const contextBtn = document.createElement('button');
+        contextBtn.className = 'card-toggle-btn';
+        contextBtn.setAttribute('data-design', 'context');
+        contextBtn.innerHTML = `
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 3v18h18"></path>
+                <path d="M7 17l4-4 4 4 6-6"></path>
+            </svg>
+            Industry Context
+        `;
+        
+        // Add buttons to toggle
+        cardToggle.appendChild(impactBtn);
+        cardToggle.appendChild(contextBtn);
+        
+        // Set up event handlers for new buttons
+        impactBtn.addEventListener('click', function() {
+            impactBtn.classList.add('active');
+            contextBtn.classList.remove('active');
+            impactCard.style.display = 'block';
+            contextCard.style.display = 'none';
+            currentCardDesign = 'impact';
+        });
+        
+        contextBtn.addEventListener('click', function() {
+            contextBtn.classList.add('active');
+            impactBtn.classList.remove('active');
+            contextCard.style.display = 'block';
+            impactCard.style.display = 'none';
+            currentCardDesign = 'context';
+        });
+    }
+    
+    // Set default display state
+    if (impactCard) {
+        impactCard.style.display = 'block';
+    }
+    if (contextCard) {
+        contextCard.style.display = 'none';
+    }
+    
+    // Update global tracking variable
+    currentCardDesign = 'impact';
+}
+    
+    // Add basic form validation with visual feedback
+    const formInputs = document.querySelectorAll('.form-item input, .form-item select');
+    formInputs.forEach(input => {
+        // Add visual feedback for form validation
+        input.addEventListener('invalid', function() {
+            this.style.borderColor = 'var(--primary-red)';
+            this.style.backgroundColor = 'rgba(220, 53, 69, 0.05)';
+            
+            // Show error message for this specific field
+            const fieldName = this.previousElementSibling?.textContent || 'This field';
+            showError(`${fieldName} is required`);
+        });
+        
+        // Remove error styling when user begins typing
+        input.addEventListener('input', function() {
+            this.style.borderColor = '';
+            this.style.backgroundColor = '';
+        });
+    });
+    
+    // Enhance photo preview experience
+    const photoPreview = document.getElementById('photo-preview');
+    if (photoPreview) {
+        // Add tap to enlarge functionality for mobile
+        photoPreview.addEventListener('click', function() {
+            if (window.innerWidth <= 768) {
+                if (this.style.maxHeight === '80vh') {
+                    this.style.maxHeight = '200px';
+                    this.style.position = '';
+                    this.style.zIndex = '';
+                } else {
+                    this.style.maxHeight = '80vh';
+                    this.style.position = 'relative';
+                    this.style.zIndex = '10';
+                }
+            }
+        });
+    }
+    
+    // Make form submission feedback more mobile-friendly
+    const successMessage = document.getElementById('success-message');
+    if (successMessage) {
+        successMessage.style.fontSize = '1rem';
+        successMessage.style.padding = '15px';
+        successMessage.style.textAlign = 'center';
+    }
+}
 
     // Global variable to track current card design
 let currentCardDesign = 'minimalist';
@@ -3644,48 +3929,43 @@ let currentCardDesign = 'minimalist';
  * Set up card design toggle functionality
  */
 function setupCardToggle() {
-    // Get toggle button elements
-    const toggleButtons = document.querySelectorAll('.card-toggle-btn');
-    const minimalistCard = document.getElementById('minimalist-card');
-    const impactCard = document.getElementById('impact-card');
-    const contextCard = document.getElementById('context-card');
+    // First call our new optimization function
+    optimizeCardDesigns();
     
-    // Set initial state
-    minimalistCard.style.display = 'block';
-    impactCard.style.display = 'none';
-    contextCard.style.display = 'none';
-    
-    // Add click handlers to toggle buttons
-    toggleButtons.forEach(button => {
-        button.addEventListener('click', function() {
-            // Remove active class from all buttons
-            toggleButtons.forEach(btn => btn.classList.remove('active'));
-            
-            // Add active class to clicked button
-            this.classList.add('active');
-            
-            // Get the selected design
-            const selectedDesign = this.getAttribute('data-design');
-            
-            // Update global variable for sharing functions
-            currentCardDesign = selectedDesign;
-            
-            // Toggle visibility based on selection
-            if (selectedDesign === 'minimalist') {
-                minimalistCard.style.display = 'block';
-                impactCard.style.display = 'none';
-                contextCard.style.display = 'none';
-            } else if (selectedDesign === 'impact') {
-                minimalistCard.style.display = 'none';
-                impactCard.style.display = 'block';
-                contextCard.style.display = 'none';
-            } else if (selectedDesign === 'context') {
-                minimalistCard.style.display = 'none';
-                impactCard.style.display = 'none';
-                contextCard.style.display = 'block';
+    // Add enhanced styling for mobile
+    const cardToggle = document.querySelector('.card-toggle');
+    if (cardToggle) {
+        // Add enhanced mobile styles
+        const toggleStyle = document.createElement('style');
+        toggleStyle.textContent = `
+            @media (max-width: 768px) {
+                .card-toggle {
+                    flex-direction: column;
+                    gap: 10px;
+                }
+                
+                .card-toggle-btn {
+                    width: 100%;
+                    height: 50px;
+                }
             }
-        });
-    });
+            
+            /* Enhanced toggle button styles */
+            .card-toggle-btn {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 8px;
+                font-weight: 600;
+                transition: all 0.2s ease;
+            }
+            
+            .card-toggle-btn.active {
+                transform: translateY(-2px);
+            }
+        `;
+        document.head.appendChild(toggleStyle);
+    }
 }
 
 /**

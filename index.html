@@ -2590,7 +2590,32 @@
         box-shadow: 0 4px 12px rgba(220, 53, 69, 0.2);
     }
 }
+     /* Add this to your CSS for better iOS handling */
+@media screen and (max-width: 768px) {
+    /* iOS-specific styles for better sharing */
+    @supports (-webkit-touch-callout: none) {
+        /* iOS devices only */
+        .share-btn, .mobile-share-btn, .mobile-share-option {
+            -webkit-appearance: none;
+            -webkit-touch-callout: none;
+            -webkit-tap-highlight-color: rgba(0,0,0,0);
+            touch-action: manipulation;
+        }
         
+        /* Avoid zoom on input selection */
+        input, select, textarea {
+            font-size: 16px !important;
+        }
+        
+        /* Fix iOS image rendering */
+        .claim-card-impact,
+        .claim-card-context,
+        .claim-card-minimalist {
+            -webkit-transform: translateZ(0);
+            transform: translateZ(0);
+        }
+    }
+}   
     </style>
 </head>
 
@@ -3693,40 +3718,50 @@ ${currentUrl}
     // SOCIAL MEDIA SHARING FUNCTIONS
     // ========================================
     
-    /**
-     * Share to Twitter/X
-     */
- async function shareToTwitter() {
+/**
+ * Optimized Twitter sharing with better image quality
+ */
+async function shareToTwitter() {
     const btn = document.querySelector('.share-btn.twitter');
-    btn.style.opacity = '0.7';
-    btn.style.pointerEvents = 'none';
+    if (btn) {
+        btn.disabled = true;
+        btn.style.opacity = '0.7';
+    }
     
     try {
         const message = generateTwitterMessage();
-        const cardImage = await generateCardImage();
         
-        // Try native sharing first (works on mobile)
+        // Generate a higher quality image
+        const cardImage = await generateCardImage(false, 2); // Use scale 2 for higher resolution
+        
+        // On mobile, try native sharing first
         if (navigator.share) {
             try {
-                // Create a sharing object
+                // For Twitter, it's better to not include the URL in the text
+                // as Twitter will unfurl it and it creates redundancy
+                const twitterMessage = message.replace(window.location.href, '').trim();
+                
                 const shareData = {
-                    text: message,
-                    url: window.location.href
+                    title: "Airline Accountability Documentation",
+                    text: twitterMessage
                 };
                 
-                // On supported browsers, also attach the image
-                if (cardImage && navigator.canShare) {
-                    try {
-                        const file = new File([cardImage], 'smartwings-claim.png', { type: 'image/png' });
+                // Always try to include the image for better presentation
+                try {
+                    if (cardImage && navigator.canShare) {
+                        const file = new File([cardImage], 'airline-accountability.png', { type: 'image/png' });
                         if (navigator.canShare({ files: [file] })) {
                             shareData.files = [file];
+                            await navigator.share(shareData);
+                            showSuccess('✅ Successfully shared to Twitter with image!');
+                            return;
                         }
-                    } catch (e) {
-                        console.log('File sharing not supported');
                     }
+                } catch (e) {
+                    console.log('File sharing not supported');
                 }
                 
-                // Trigger native share
+                // Fall back to text-only sharing
                 await navigator.share(shareData);
                 showSuccess('✅ Successfully shared to Twitter!');
                 return;
@@ -3735,24 +3770,37 @@ ${currentUrl}
             }
         }
         
-        // Fall back to web approach if native sharing fails
-        try {
-            if (navigator.clipboard) {
+        // Fall back to Twitter Web Intent
+        if (navigator.clipboard) {
+            try {
                 await navigator.clipboard.writeText(message);
-                showSuccess('🐦 Twitter opened! Your message has been copied to clipboard');
+                showSuccess('🐦 Twitter opened! Your message has been copied to clipboard - paste it and add your saved image.');
+            } catch (clipError) {
+                console.log('Clipboard access failed');
             }
-        } catch (clipboardError) {
-            console.log('Clipboard access failed');
         }
         
-        // Open Twitter intent URL as final fallback
-        const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(message)}`;
-        window.open(twitterUrl, '_blank');
+        // Download the image first, then open Twitter
+        const link = document.createElement('a');
+        link.download = `Airline-Accountability-Card.png`;
+        link.href = URL.createObjectURL(cardImage);
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        
+        setTimeout(() => {
+            // Use Twitter's web intent for a better experience
+            const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(message)}`;
+            window.open(twitterUrl, '_blank');
+        }, 500); // Small delay to ensure image downloads first
     } catch (error) {
-        showError('Error preparing Twitter post. Please try again.');
+        console.error('Twitter share error:', error);
+        showError('Error sharing to Twitter. Please try again.');
     } finally {
-        btn.style.opacity = '1';
-        btn.style.pointerEvents = 'auto';
+        if (btn) {
+            btn.disabled = false;
+            btn.style.opacity = '1';
+        }
     }
 }
     
@@ -3801,84 +3849,84 @@ ${currentUrl}
     }
     
 /**
- * Share to LinkedIn with improved UX
+ * Improved LinkedIn sharing for mobile
  */
 async function shareToLinkedIn() {
-    const btn = document.querySelector('.share-btn.linkedin');
+    const btn = document.querySelector('.share-btn.linkedin') || document.getElementById('mobile-linkedin-btn');
     if (btn) {
+        btn.disabled = true;
         btn.style.opacity = '0.7';
-        btn.style.pointerEvents = 'none';
     }
     
     try {
         const message = generateLinkedInMessage();
-        const cardImage = await generateCardImage();
+        const cardImage = await generateCardImage(false, 2); // Higher quality image
         
-        // Try native sharing first (works on mobile)
-        if (navigator.share) {
-            try {
-                const shareData = {
-                    title: "Airline Accountability & AI Innovation",
-                    text: message,
-                    url: window.location.href
-                };
-                
-                // Try to add image if supported
-                if (cardImage && navigator.canShare) {
-                    try {
-                        const file = new File([cardImage], 'smartwings-accountability.png', { type: 'image/png' });
-                        if (navigator.canShare({ files: [file] })) {
-                            shareData.files = [file];
-                        }
-                    } catch (e) {
-                        console.log('File sharing not supported');
-                    }
-                }
-                
-                await navigator.share(shareData);
-                showSuccess('✅ Successfully shared to your device!');
-                return;
-            } catch (e) {
-                console.log('Native share failed:', e);
-                // Continue to improved LinkedIn flow
-            }
-        }
-        
-        // Download the image first
+        // Download the image first for attaching to LinkedIn
         const link = document.createElement('a');
-        const dateString = new Date().toLocaleDateString().replace(/\//g, '-');
-        link.download = `Airline-Accountability-${dateString}.png`;
+        link.download = `Airline-Accountability-LinkedIn.png`;
         link.href = URL.createObjectURL(cardImage);
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
         
-        // Copy text to clipboard
+        // Copy the message to clipboard
         if (navigator.clipboard) {
             await navigator.clipboard.writeText(message);
         }
         
-        // Create a better LinkedIn sharing experience
-        const linkedInWindow = window.open('https://www.linkedin.com/feed/', '_blank');
+        // Check if on mobile
+        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
         
-        if (linkedInWindow) {
-            // Improved instructions in a banner
-            showSuccess(`
-                <strong>LinkedIn Sharing: Quick Steps</strong><br>
-                1. Image downloaded automatically<br>
-                2. Message copied to clipboard<br>
-                3. In LinkedIn, click "Start a post"<br>
-                4. Paste the message (Ctrl/Cmd+V)<br>
-                5. Click the image icon to add your downloaded image<br><br>
-                <em>LinkedIn window opened in a new tab</em>
-            `);
+        // Different approach for mobile vs desktop
+        if (isMobile) {
+            // On mobile, try to use the LinkedIn app if possible
+            try {
+                // Try to open the LinkedIn app (this may fail if app not installed)
+                window.location.href = 'linkedin://';
+                
+                // Show instructions after a delay (this will run if app opens)
+                setTimeout(() => {
+                    showSuccess(`
+                        <strong>LinkedIn Instructions:</strong><br>
+                        1. Image saved to your device<br>
+                        2. Message copied to clipboard<br>
+                        3. Create a new post in LinkedIn<br>
+                        4. Paste the message (long press → paste)<br>
+                        5. Tap the image icon to add your saved image
+                    `);
+                }, 1000);
+                
+                return;
+            } catch (e) {
+                console.log('LinkedIn app opening failed:', e);
+                // Will fall back to web
+            }
+            
+            // Fall back to LinkedIn mobile web
+            setTimeout(() => {
+                window.open('https://www.linkedin.com/feed/', '_blank');
+                
+                showSuccess(`
+                    <strong>LinkedIn Instructions:</strong><br>
+                    1. Image saved to your device<br>
+                    2. Message copied to clipboard<br>
+                    3. Click the "Create post" button<br>
+                    4. Paste the message (long press → paste)<br>
+                    5. Tap the image icon to add your saved image
+                `);
+            }, 500);
         } else {
-            // If popup blocked
+            // Desktop experience
+            window.open('https://www.linkedin.com/feed/', '_blank');
+            
             showSuccess(`
-                <strong>LinkedIn Sharing</strong><br>
-                1. Message copied to clipboard<br>
-                2. Image downloaded automatically<br>
-                3. Please open LinkedIn manually, start a post, paste the text, and add the image
+                <strong>LinkedIn Sharing:</strong><br>
+                1. Image downloaded automatically<br>
+                2. LinkedIn opened in new tab<br>
+                3. Message copied to clipboard<br>
+                4. Click "Start a post" and paste the message<br>
+                5. Click the image icon to add your downloaded image
             `);
         }
     } catch (error) {
@@ -3886,8 +3934,8 @@ async function shareToLinkedIn() {
         showError('Error preparing LinkedIn share. Please try again.');
     } finally {
         if (btn) {
+            btn.disabled = false;
             btn.style.opacity = '1';
-            btn.style.pointerEvents = 'auto';
         }
     }
 }
@@ -3943,7 +3991,7 @@ async function shareToLinkedIn() {
 // ========================================
 
 /**
- * Native share function that works across platforms
+ * Enhanced native share function with better image handling
  */
 async function nativeShare() {
     const btn = document.getElementById('native-share-btn');
@@ -3953,52 +4001,68 @@ async function nativeShare() {
     }
     
     try {
-        // Generate message and image
-        const message = generateCampaignMessage(); // Use a general message
-        const cardImage = await generateCardImage();
+        // Generate high-quality message and image
+        const message = generateCampaignMessage();
+        const cardImage = await generateCardImage(false, 3); // Use highest quality
         
-        // Check if Web Share API is available
-        if (navigator.share) {
-            try {
-                // Create share data object
-                const shareData = {
-                    title: "My Smartwings Claim",
-                    text: message,
-                    url: window.location.href
-                };
+        // Determine which platform's format we should use based on mobile OS
+        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+        const isAndroid = /android/i.test(navigator.userAgent);
+        
+        // Create appropriate share data based on platform
+        let shareData = {
+            title: "Airline Accountability Documentation",
+            text: message
+        };
+        
+        // Add URL only if it's not already in the message (prevents duplication)
+        if (!message.includes(window.location.href)) {
+            shareData.url = window.location.href;
+        }
+        
+        // Add image to share if supported
+        let imageAdded = false;
+        try {
+            if (cardImage && navigator.canShare) {
+                const fileName = isIOS ? 'airline-accountability.png' : 'airline-accountability.png';
+                const file = new File([cardImage], fileName, { type: 'image/png' });
                 
-                // Try to add image if File sharing is supported
-                let canAddFile = false;
-                try {
-                    if (cardImage && navigator.canShare) {
-                        const file = new File([cardImage], 'smartwings-claim.png', { type: 'image/png' });
-                        canAddFile = navigator.canShare({ files: [file] });
-                        if (canAddFile) {
-                            shareData.files = [file];
-                        }
-                    }
-                } catch (e) {
-                    console.log('File sharing not supported');
+                if (navigator.canShare({ files: [file] })) {
+                    shareData.files = [file];
+                    imageAdded = true;
                 }
-                
-                // Share!
-                await navigator.share(shareData);
-                showSuccess(canAddFile ? 
-                    '✅ Successfully shared your claim card with image!' : 
-                    '✅ Successfully shared your claim details!');
-            } catch (e) {
-                console.log('Native share failed:', e);
-                
-                // Fall back to clipboard + image download
-                tryClipboardWithDownload(message, cardImage);
             }
-        } else {
-            // Web Share API not available, fall back
-            tryClipboardWithDownload(message, cardImage);
+        } catch (e) {
+            console.log('File sharing not supported:', e);
+        }
+        
+        // Attempt to share
+        try {
+            await navigator.share(shareData);
+            showSuccess(imageAdded ? 
+                '✅ Successfully shared with image!' : 
+                '✅ Successfully shared your message!');
+        } catch (shareError) {
+            console.log('Native share failed:', shareError);
+            
+            // Fall back to clipboard + download
+            if (navigator.clipboard) {
+                await navigator.clipboard.writeText(message);
+            }
+            
+            // Download the image as fallback
+            const link = document.createElement('a');
+            link.download = `Airline-Accountability-${new Date().toISOString().slice(0, 10)}.png`;
+            link.href = URL.createObjectURL(cardImage);
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            
+            showSuccess('Message copied and image downloaded. You can now share them manually.');
         }
     } catch (error) {
         console.error('Share error:', error);
-        showError('Sorry, there was a problem sharing. Please try again.');
+        showError('Sorry, there was a problem sharing. Please try again or use the platform-specific buttons below.');
     } finally {
         if (btn) {
             btn.disabled = false;
@@ -4354,12 +4418,12 @@ function getDateString() {
             btn.style.pointerEvents = 'auto';
         }
     }
-    
-/**
- * Generate card image using html2canvas
- * @param {boolean} smaller - Whether to generate a smaller image for email/mobile
+    /**
+ * Generate card image with improved quality
+ * @param {boolean} smaller - Whether to generate a smaller image for email
+ * @param {number} scale - Scale factor for image quality (1-3)
  */
-async function generateCardImage(smaller = false) {
+async function generateCardImage(smaller = false, scale = 2) {
     // Determine which card to capture based on current design
     let cardElement;
     if (currentCardDesign === 'minimalist') {
@@ -4370,12 +4434,23 @@ async function generateCardImage(smaller = false) {
         cardElement = document.getElementById('context-card');
     }
     
+    // Ensure we use full-quality rendering
     return new Promise((resolve, reject) => {
         html2canvas(cardElement, {
-            scale: smaller ? 1 : 2,  // Use scale 1 for smaller images
+            scale: smaller ? 1 : scale, // Use higher scale for better quality
             backgroundColor: currentCardDesign === 'minimalist' || currentCardDesign === 'context' ? '#ffffff' : null,
             useCORS: true,
-            allowTaint: true
+            allowTaint: true,
+            logging: false,
+            imageTimeout: 0, // No timeout
+            onclone: function(clonedDoc) {
+                // Make sure any hidden elements are shown in the clone
+                const clonedCard = clonedDoc.querySelector(`#${cardElement.id}`);
+                if (clonedCard) {
+                    clonedCard.style.display = 'block';
+                    clonedCard.style.visibility = 'visible';
+                }
+            }
         }).then(canvas => {
             if (smaller) {
                 // Create a smaller canvas for email sharing
@@ -4384,9 +4459,10 @@ async function generateCardImage(smaller = false) {
                 smallCanvas.width = 400;  // Fixed width for email
                 smallCanvas.height = (400 * canvas.height) / canvas.width;  // Maintain aspect ratio
                 ctx.drawImage(canvas, 0, 0, smallCanvas.width, smallCanvas.height);
-                smallCanvas.toBlob(resolve, 'image/png', 0.9);
+                smallCanvas.toBlob(resolve, 'image/png', 0.95);
             } else {
-                canvas.toBlob(resolve, 'image/png', 0.9);
+                // Ensure we're using high quality for the image
+                canvas.toBlob(resolve, 'image/png', 0.95);
             }
         }).catch(reject);
     });

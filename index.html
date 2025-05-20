@@ -2522,7 +2522,75 @@
     .share-grid {
         display: none;
     }
-}      
+}  
+/* Improved mobile share container */
+@media (max-width: 768px) {
+    .mobile-share-container {
+        background: white;
+        border-radius: 16px;
+        padding: 20px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+        margin: 20px 0;
+    }
+    
+    .mobile-share-title {
+        font-size: 1.2rem;
+        font-weight: 700;
+        color: #333;
+        margin-top: 0;
+        margin-bottom: 15px;
+        text-align: center;
+    }
+    
+    .mobile-share-primary {
+        margin-bottom: 15px;
+    }
+    
+    .mobile-share-options {
+        display: grid;
+        grid-template-columns: repeat(2, 1fr);
+        gap: 10px;
+    }
+    
+    .mobile-share-option {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        gap: 8px;
+        background: #f8f9fa;
+        border: 1px solid #eee;
+        border-radius: 12px;
+        padding: 15px 10px;
+        font-size: 0.9rem;
+        font-weight: 600;
+        color: #333;
+        transition: all 0.2s ease;
+    }
+    
+    .mobile-share-option:hover, 
+    .mobile-share-option:active {
+        background: #f0f0f0;
+        transform: translateY(-2px);
+    }
+    
+    .mobile-share-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 10px;
+        width: 100%;
+        padding: 16px;
+        border-radius: 12px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        border: none;
+        background: var(--primary-red);
+        color: white;
+        box-shadow: 0 4px 12px rgba(220, 53, 69, 0.2);
+    }
+}
+        
     </style>
 </head>
 
@@ -2965,23 +3033,6 @@
 </div>
             <p style="color: #666;">Help others understand Smartwings' response times by sharing your experience</p>
             
-            <div class="share-grid">
-                <button class="share-btn twitter" onclick="shareToTwitter()">
-                    <span>🐦</span> Share on Twitter/X
-                </button>
-                <button class="share-btn facebook" onclick="shareToFacebook()">
-                    <span>📘</span> Post on Facebook
-                </button>
-                <button class="share-btn linkedin" onclick="shareToLinkedIn()">
-                    <span>💼</span> Post on LinkedIn
-                </button>
-                <button class="share-btn whatsapp" onclick="shareToWhatsApp()">
-                    <span>💬</span> Share Your Story
-                </button>
-                <button class="share-btn download" onclick="downloadCard()">
-                    <span>📸</span> Get Your Card
-                </button>
-            </div>
 
             <!-- Add this after your existing share-grid div -->
 <div class="mobile-share-container">
@@ -3005,26 +3056,74 @@
     </button>
 </div>
 
-            <!-- Mobile-optimized share container -->
+  <div class="share-grid">
+    <button class="share-btn twitter" onclick="shareToTwitter()">
+        <span>🐦</span> Share on Twitter/X
+    </button>
+    <button class="share-btn facebook" onclick="shareToFacebook()">
+        <span>📘</span> Post on Facebook
+    </button>
+    <button class="share-btn linkedin" onclick="shareToLinkedIn()">
+        <span>💼</span> Post on LinkedIn
+    </button>
+    <button class="share-btn whatsapp" onclick="shareToWhatsApp()">
+        <span>💬</span> Share Your Story
+    </button>
+    <button class="share-btn download" onclick="downloadCard()">
+        <span>📸</span> Get Your Card
+    </button>
+</div>
+
+<!-- Mobile-optimized share container -->
 <div class="mobile-share-container">
-    <button class="mobile-share-btn primary" id="native-share-btn">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="18" cy="5" r="3"></circle>
-            <circle cx="6" cy="12" r="3"></circle>
-            <circle cx="18" cy="19" r="3"></circle>
-            <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
-            <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
-        </svg>
-        Share Your Card
-    </button>
-    <button class="mobile-share-btn secondary" id="save-photo-btn">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-            <polyline points="7 10 12 15 17 10"></polyline>
-            <line x1="12" y1="15" x2="12" y2="3"></line>
-        </svg>
-        Save to Photos
-    </button>
+    <h3 class="mobile-share-title">Share Your Card</h3>
+    
+    <div class="mobile-share-primary">
+        <button class="mobile-share-btn primary" id="native-share-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <circle cx="18" cy="5" r="3"></circle>
+                <circle cx="6" cy="12" r="3"></circle>
+                <circle cx="18" cy="19" r="3"></circle>
+                <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+                <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+            </svg>
+            Share via App
+        </button>
+    </div>
+    
+    <div class="mobile-share-options">
+        <button class="mobile-share-option" id="mobile-linkedin-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="#0077b5">
+                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                <rect x="2" y="9" width="4" height="12"></rect>
+                <circle cx="4" cy="4" r="2"></circle>
+            </svg>
+            LinkedIn
+        </button>
+        
+        <button class="mobile-share-option" id="mobile-twitter-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="#1DA1F2">
+                <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+            </svg>
+            Twitter/X
+        </button>
+        
+        <button class="mobile-share-option" id="mobile-facebook-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="#1877F2">
+                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+            </svg>
+            Facebook
+        </button>
+        
+        <button class="mobile-share-option" id="mobile-save-btn">
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="#28a745">
+                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                <polyline points="7 10 12 15 17 10"></polyline>
+                <line x1="12" y1="15" x2="12" y2="3"></line>
+            </svg>
+            Save Image
+        </button>
+    </div>
 </div>
             
             <!-- Help Text -->
@@ -3496,118 +3595,98 @@ SYSTEM DESIGNED TO AVOID ACCOUNTABILITY
 Document your experience: ${url}`;
     }
     
-    /**
-     * Generate campaign-style message
-     */
-    function generateCampaignMessage() {
-        const currentUrl = window.location.href;
-        const pricePerDay = (claimData.amount / claimData.days).toFixed(3);
-        
-        return `Day ${claimData.days}: Smartwings owes me €${claimData.amount} for luggage damage.
-That's €${pricePerDay} per day 'saved' through systematic delays.
-Instead of giving up, I built an awareness tool to help passengers get properly heard and compensated.
-📊 Protect your rights: ${currentUrl}
-Who else faces endless Smartwings delays?
-#SmartwingsWatch #PassengerProtection`;
-    }
+/**
+ * Generate campaign-style message
+ */
+function generateCampaignMessage() {
+    const currentUrl = window.location.href;
+    
+    return `Documenting Airline Accountability: ${claimData.days} days without resolution for a €${claimData.amount} luggage damage claim.
+
+Industry data suggests thousands of passengers may face similar delays. I've created this visualization tool to bring transparency to the claims process.
+
+Explore the data: ${currentUrl}
+
+#PassengerRights #AirlineAccountability`;
+}
     
     /**
-     * Generate Twitter-optimized message
-     */
+ * Generate Twitter-optimized message
+ */
 function generateTwitterMessage() {
     const currentUrl = window.location.href;
-    const amount = claimData.amount;
-    const days = claimData.days;
     
-    return `Day ${days}: Smartwings still ignoring my €${amount} luggage damage claim.
+    return `Documenting Airline Accountability: ${claimData.days} days without response on my €${claimData.amount} claim.
 
-INDUSTRY FACT: SITA's 2024 data + Smartwings' own passenger numbers (8.3M) suggests ~11,600 damaged bags yearly.
+Industry data: ~11,620 damaged bags yearly (SITA 2024).
 
-Are you one of the thousands waiting?
+Are you also waiting? Create your visualization: ${currentUrl}
 
-Create your card: ${currentUrl} #SmartwingsWatch #ClaudeAI`;
+#PassengerRights #ConsumerProtection`;
 }
     
     /**
-     * Generate LinkedIn-optimized message
-     */
-    
-    function generateLinkedInMessage() {
+ * Generate LinkedIn-optimized message
+ */
+function generateLinkedInMessage() {
     const currentUrl = window.location.href;
-    const amount = claimData.amount;
-    const days = claimData.days;
-    const submissionDate = claimData.submissionDate;
     
-    return `After ${days} days of Smartwings ignoring my €${amount} luggage damage claim, I took action in an unexpected way.
+    return `# Documenting Airline Accountability & AI Innovation
 
-✈️ THE ISSUE:
-- Filed damage claim in ${submissionDate}
-- Complete silence for ${days} days
-- Based on industry data, thousands may face similar issues
+I'm sharing two interconnected stories today:
 
-🤖 THE SOLUTION:
-I used Claude.ai to build this awareness tool despite having zero coding experience. Through conversation with AI, I developed a complete web application that helps passengers document and share their experiences.
+## 1. Consumer Rights & Industry Patterns
+After ${claimData.days} days without response to a luggage damage claim, I documented this case study using industry data. SITA's 2024 Baggage Report shows over 11,000 damaged bags annually for this carrier, potentially creating a pattern affecting many passengers.
 
-🔍 INDUSTRY CONTEXT:
-- 1.4 damaged bags per 1,000 passengers (SITA 2024)
-- Smartwings' 8.3M annual passengers = ~11,620 damaged bags yearly
-- Potential €1.16M in annual claims
+## 2. AI-Enabled Consumer Advocacy
+Rather than accepting the status quo, I leveraged AI (Claude.ai) to create a data visualization tool despite having no coding background. This represents how emerging technologies can empower consumers to document, share, and create transparency.
 
-This experience demonstrates both the power of AI to democratize technology creation AND the need for better accountability in customer service.
+🔗 You can explore or create your own visualization here: ${currentUrl}
 
-Create your own experience card: ${currentUrl}
+Have you used AI to solve a problem in an unexpected way? Or experienced similar challenges with travel claims?
 
-Has your claim been ignored too? Or have you used AI to build something without coding skills? Share below ⬇️
-
-#ConsumerRights #SmartwingsWatch #ClaudeAI`;
+#ConsumerRights #AIInnovation #TravelTech #PassengerRights`;
 }
     
-    /**
-     * Generate WhatsApp-optimized message
-     */
-    
+/**
+ * Generate WhatsApp-optimized message
+ */
 function generateWhatsAppMessage() {
     const currentUrl = window.location.href;
-    const amount = claimData.amount;
-    const days = claimData.days;
     
-    return `📊 AIRLINE ACCOUNTABILITY CHECK:
-- My claim: €${amount} for damaged luggage
-- Days ignored by Smartwings: ${days}
+    return `🔍 *Airline Accountability Data Point*
 
-INDUSTRY DATA (with sources):
-- SITA 2024 Baggage IT Insights: 1.4 damaged bags per 1,000 passengers
-- Smartwings 2024 reported passengers: 8.3 million
-- Calculation: 8.3M × 0.0014 = ~11,620 damaged bags annually
+- Case study: €${claimData.amount} claim, ${claimData.days} days without response
+- Industry context: ~11,620 damaged bags annually (SITA 2024 data)
+- Potential systemic pattern affecting thousands of passengers
 
-At a conservative €100 per claim, that's €1.16M in potential annual claims.
+I created this visualization tool to bring transparency to the claims process (built with AI assistance).
 
-Created with an AI-built tool: ${currentUrl}
-#SmartwingsWatch #ClaudeAI`;
+Create your own visualization: ${currentUrl}
+
+#PassengerRights #ConsumerProtection`;
 }
     
-    /**
-     * Generate Facebook-optimized message
-     */
-    function generateFacebookMessage() {
+  /**
+ * Generate Facebook-optimized message
+ */
+function generateFacebookMessage() {
     const currentUrl = window.location.href;
-    const amount = claimData.amount;
-    const days = claimData.days;
     
-    return `✈️ PASSENGER RIGHTS UPDATE ✈️
+    return `✈️ *Documenting Airline Accountability*
 
-Day ${days}: Still waiting for Smartwings to resolve my €${amount} luggage damage claim.
+I'm participating in a passenger rights awareness campaign by sharing my experience: ${claimData.days} days without resolution for a €${claimData.amount} luggage claim.
 
-INDUSTRY DATA:
-- SITA 2024 Baggage IT Insights shows 1.4 damaged bags per 1,000 passengers
-- Smartwings carried 8.3 million passengers in 2024
-- That's approximately 11,620 damaged bags annually worth €1.16M in claims
+Industry data provides context:
+- SITA 2024 Baggage Report shows 1.4 damaged bags per 1,000 passengers
+- With 8.3M annual passengers, that's ~11,620 damaged bags yearly
+- Potentially €1.16M in claims requiring processing
 
-I used an AI-built tool to document this systematic issue. If your claim has been ignored too, create your own accountability card: ${currentUrl}
+Is this a pattern? I built this data visualization tool (with AI assistance) to help document these experiences. Create your own card if you've faced similar delays:
 
-#SmartwingsWatch #PassengerRights
+${currentUrl}
 
-TAG a friend who travels frequently! 👇`;
+#PassengerRights #ConsumerAwareness`;
 }
     
     // ========================================
@@ -3721,103 +3800,97 @@ TAG a friend who travels frequently! 👇`;
         }
     }
     
-    /**
-     * Share to LinkedIn with detailed modal instructions
-     */
-    async function shareToLinkedIn() {
-        const btn = document.querySelector('.share-btn.linkedin');
+/**
+ * Share to LinkedIn with improved UX
+ */
+async function shareToLinkedIn() {
+    const btn = document.querySelector('.share-btn.linkedin');
+    if (btn) {
         btn.style.opacity = '0.7';
         btn.style.pointerEvents = 'none';
+    }
+    
+    try {
+        const message = generateLinkedInMessage();
+        const cardImage = await generateCardImage();
         
-        try {
-            const message = generateLinkedInMessage();
-            const cardImage = await generateCardImage(true);
-            
-            // Create a modal with copy-paste instructions
-            const modal = document.createElement('div');
-            modal.className = 'linkedin-modal';
-            modal.style.cssText = `
-                position: fixed;
-                top: 0;
-                left: 0;
-                width: 100%;
-                height: 100%;
-                background: rgba(0,0,0,0.7);
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                z-index: 10000;
-            `;
-            
-            modal.innerHTML = `
-                <div style="background: white; padding: 30px; border-radius: 15px; max-width: 650px; max-height: 90vh; overflow-y: auto; box-shadow: 0 10px 30px rgba(0,0,0,0.3);">
-                    <h2 style="color: #0077b5; margin-top: 0;">Share on LinkedIn</h2>
-                    <p style="color: #666; margin-bottom: 20px;">Follow these steps to share your experience:</p>
-                    
-                    <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
-                        <h3 style="color: #0077b5; margin-top: 0; font-size: 1.1rem;">Step 1: Copy Your Message</h3>
-                        <textarea readonly style="width: 100%; height: 120px; margin: 10px 0; padding: 10px; border: 1px solid #ddd; border-radius: 5px; font-family: inherit; resize: vertical;">${message.replace(/'/g, "&#39;")}</textarea>
-                        <button onclick="navigator.clipboard.writeText(\`${message.replace(/`/g, '\\`').replace(/'/g, "\'")}\`).then(() => { this.textContent = '✅ Copied!'; this.style.background = '#28a745'; setTimeout(() => { this.textContent = 'Copy Message'; this.style.background = '#0077b5'; }, 2000); })" style="background: #0077b5; color: white; border: none; padding: 10px 20px; border-radius: 5px; cursor: pointer; font-weight: 600;">Copy Message</button>
-                    </div>
-                    
-                    <div style="background: #fff3cd; padding: 15px; border-radius: 8px; margin-bottom: 20px; border-left: 4px solid #ffc107;">
-                        <h3 style="color: #856404; margin-top: 0; font-size: 1.1rem;">Step 2: Add Your Image on LinkedIn</h3>
-                        <p style="color: #856404; margin-bottom: 10px; font-weight: 600;">Your evidence card is already downloaded! Look for:</p>
-                        <ul style="color: #856404; margin: 0; padding-left: 20px;">
-                            <li>📷 <strong>Image icon</strong> in the toolbar (appears when you click in the text area)</li>
-                            <li>If toolbar is hidden, click the <strong>❌ X</strong> button on the right side</li>
-                            <li>Upload the downloaded file: <em>"SmartwingsWatch-LinkedIn-${new Date().getDate()}${new Date().toLocaleString('default', {month: 'short'})}${new Date().getFullYear()}.png"</em></li>
-                        </ul>
-                    </div>
-                    
-                    <div style="background: #e7f3ff; padding: 15px; border-radius: 8px; margin-bottom: 20px;">
-                        <h3 style="color: #004589; margin-top: 0; font-size: 1.1rem;">Step 3: Post Your Experience</h3>
-                        <ol style="color: #004589; margin: 0; padding-left: 20px;">
-                            <li>Click the LinkedIn button below</li>
-                            <li>Paste your message in the text area</li>
-                            <li>Click the image icon (📷) in the toolbar</li>
-                            <li>Upload your downloaded card</li>
-                            <li>Click "Post" to share!</li>
-                        </ol>
-                    </div>
-                    
-                    <div style="margin-top: 30px; text-align: center;">
-                        <button onclick="window.open('https://www.linkedin.com/feed/', '_blank')" style="background: #0077b5; color: white; border: none; padding: 15px 30px; border-radius: 10px; cursor: pointer; margin-right: 10px; font-weight: 600; font-size: 1rem;">🚀 Open LinkedIn</button>
-                        <button onclick="document.body.removeChild(document.querySelector('.linkedin-modal')); document.querySelector('.share-btn.linkedin').style.opacity = '1'; document.querySelector('.share-btn.linkedin').style.pointerEvents = 'auto';" style="background: #666; color: white; border: none; padding: 15px 30px; border-radius: 10px; cursor: pointer; font-weight: 600; font-size: 1rem;">Close</button>
-                    </div>
-                </div>
-            `;
-            
-            // Click outside to close
-            modal.onclick = function(e) {
-                if (e.target === modal) {
-                    document.body.removeChild(modal);
-                    btn.style.opacity = '1';
-                    btn.style.pointerEvents = 'auto';
+        // Try native sharing first (works on mobile)
+        if (navigator.share) {
+            try {
+                const shareData = {
+                    title: "Airline Accountability & AI Innovation",
+                    text: message,
+                    url: window.location.href
+                };
+                
+                // Try to add image if supported
+                if (cardImage && navigator.canShare) {
+                    try {
+                        const file = new File([cardImage], 'smartwings-accountability.png', { type: 'image/png' });
+                        if (navigator.canShare({ files: [file] })) {
+                            shareData.files = [file];
+                        }
+                    } catch (e) {
+                        console.log('File sharing not supported');
+                    }
                 }
-            };
-            
-            document.body.appendChild(modal);
-            
-            // Auto-download the image
-            const link = document.createElement('a');
-            const today = new Date();
-            const dateString = `${today.getDate()}${today.toLocaleString('default', { month: 'short' })}${today.getFullYear()}`;
-            link.download = `SmartwingsWatch-LinkedIn-${dateString}.png`;
-            link.href = URL.createObjectURL(cardImage);
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            
-            showSuccess('💼 LinkedIn sharing ready! Follow the detailed steps in the popup.');
-            
-        } catch (error) {
-            console.error('LinkedIn share error:', error);
-            showError('Error preparing LinkedIn share. Please try again.');
-        } finally {
-            // Don't reset button here - it gets reset when modal closes
+                
+                await navigator.share(shareData);
+                showSuccess('✅ Successfully shared to your device!');
+                return;
+            } catch (e) {
+                console.log('Native share failed:', e);
+                // Continue to improved LinkedIn flow
+            }
+        }
+        
+        // Download the image first
+        const link = document.createElement('a');
+        const dateString = new Date().toLocaleDateString().replace(/\//g, '-');
+        link.download = `Airline-Accountability-${dateString}.png`;
+        link.href = URL.createObjectURL(cardImage);
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        
+        // Copy text to clipboard
+        if (navigator.clipboard) {
+            await navigator.clipboard.writeText(message);
+        }
+        
+        // Create a better LinkedIn sharing experience
+        const linkedInWindow = window.open('https://www.linkedin.com/feed/', '_blank');
+        
+        if (linkedInWindow) {
+            // Improved instructions in a banner
+            showSuccess(`
+                <strong>LinkedIn Sharing: Quick Steps</strong><br>
+                1. Image downloaded automatically<br>
+                2. Message copied to clipboard<br>
+                3. In LinkedIn, click "Start a post"<br>
+                4. Paste the message (Ctrl/Cmd+V)<br>
+                5. Click the image icon to add your downloaded image<br><br>
+                <em>LinkedIn window opened in a new tab</em>
+            `);
+        } else {
+            // If popup blocked
+            showSuccess(`
+                <strong>LinkedIn Sharing</strong><br>
+                1. Message copied to clipboard<br>
+                2. Image downloaded automatically<br>
+                3. Please open LinkedIn manually, start a post, paste the text, and add the image
+            `);
+        }
+    } catch (error) {
+        console.error('LinkedIn share error:', error);
+        showError('Error preparing LinkedIn share. Please try again.');
+    } finally {
+        if (btn) {
+            btn.style.opacity = '1';
+            btn.style.pointerEvents = 'auto';
         }
     }
+}
     
     /**
      * Share to WhatsApp

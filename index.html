@@ -2370,6 +2370,71 @@
         justify-content: center;
     }
 }
+
+        /* Mobile form optimization */
+@media (max-width: 768px) {
+    /* Make all form inputs larger and more touch-friendly */
+    input, select, .btn, .upload-btn-clean {
+        height: 50px;
+        font-size: 16px !important; /* Prevents iOS zoom on input focus */
+        -webkit-appearance: none; /* Removes default styling on iOS */
+        appearance: none;
+    }
+    
+    .form-item {
+        margin-bottom: 15px;
+    }
+    
+    /* Optimize photo preview section */
+    #photo-preview-section {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    #photo-preview {
+        max-width: 90%;
+        max-height: 200px;
+        box-shadow: 0 4px 15px rgba(0,0,0,0.15);
+    }
+    
+    .photo-controls {
+        margin-top: 15px;
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: center;
+        gap: 10px;
+    }
+    
+    .photo-btn {
+        min-height: 44px;
+        min-width: 90px;
+        padding: 10px 16px;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+}
+
+.upload-btn-clean {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    max-width: 300px;
+    margin: 0 auto;
+    padding: 14px;
+    border-radius: 10px;
+    font-size: 1rem;
+    gap: 8px;
+    transition: all 0.2s ease;
+}
+
+.upload-btn-clean:hover,
+.upload-btn-clean:active {
+    background-color: #f0f0f0;
+    border-color: var(--primary-red);
+}
     </style>
 </head>
 

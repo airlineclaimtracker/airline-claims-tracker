@@ -2435,6 +2435,94 @@
     background-color: #f0f0f0;
     border-color: var(--primary-red);
 }
+/* Mobile share container styles */
+.mobile-share-container {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .mobile-share-container {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        margin: 20px 0;
+    }
+    
+    .mobile-share-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        padding: 16px;
+        border-radius: 12px;
+        border: none;
+        width: 100%;
+        min-height: 54px;
+    }
+    
+    .mobile-share-btn.primary {
+        background: var(--primary-red);
+        color: white;
+        box-shadow: 0 4px 10px rgba(220, 53, 69, 0.2);
+    }
+    
+    .mobile-share-btn.secondary {
+        background: #f8f9fa;
+        color: #333;
+        border: 1px solid #ddd;
+    }
+    
+    /* Hide the regular share grid on mobile */
+    .share-grid {
+        display: none;
+    }
+}
+  /* Mobile share container styles */
+.mobile-share-container {
+    display: none;
+}
+
+@media (max-width: 768px) {
+    .mobile-share-container {
+        display: flex;
+        flex-direction: column;
+        gap: 15px;
+        margin: 20px 0;
+    }
+    
+    .mobile-share-btn {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 12px;
+        font-size: 1.1rem;
+        font-weight: 600;
+        padding: 16px;
+        border-radius: 12px;
+        border: none;
+        width: 100%;
+        min-height: 54px;
+    }
+    
+    .mobile-share-btn.primary {
+        background: var(--primary-red);
+        color: white;
+        box-shadow: 0 4px 10px rgba(220, 53, 69, 0.2);
+    }
+    
+    .mobile-share-btn.secondary {
+        background: #f8f9fa;
+        color: #333;
+        border: 1px solid #ddd;
+    }
+    
+    /* Optional: Hide desktop share grid on mobile */
+    .share-grid {
+        display: none;
+    }
+}      
     </style>
 </head>
 
@@ -2894,6 +2982,50 @@
                     <span>📸</span> Get Your Card
                 </button>
             </div>
+
+            <!-- Add this after your existing share-grid div -->
+<div class="mobile-share-container">
+    <button class="mobile-share-btn primary" id="native-share-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="18" cy="5" r="3"></circle>
+            <circle cx="6" cy="12" r="3"></circle>
+            <circle cx="18" cy="19" r="3"></circle>
+            <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+            <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+        </svg>
+        Share Via App
+    </button>
+    <button class="mobile-share-btn secondary" id="save-photo-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+        </svg>
+        Save to Photos
+    </button>
+</div>
+
+            <!-- Mobile-optimized share container -->
+<div class="mobile-share-container">
+    <button class="mobile-share-btn primary" id="native-share-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="18" cy="5" r="3"></circle>
+            <circle cx="6" cy="12" r="3"></circle>
+            <circle cx="18" cy="19" r="3"></circle>
+            <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+            <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+        </svg>
+        Share Your Card
+    </button>
+    <button class="mobile-share-btn secondary" id="save-photo-btn">
+        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+            <polyline points="7 10 12 15 17 10"></polyline>
+            <line x1="12" y1="15" x2="12" y2="3"></line>
+        </svg>
+        Save to Photos
+    </button>
+</div>
             
             <!-- Help Text -->
             <div class="help-text" style="margin-top: 25px; background: #f8f9fa; padding: 20px; border-radius: 10px; text-align: center;">
@@ -2944,7 +3076,8 @@
     initializeYears();
     setupEventListeners();
     fixMonthInputIssue(); // Add this line
-    enhanceMobileForm(); // Add this line    
+    enhanceMobileForm(); // Add this line
+    setupMobileShare(); // Add this line
 });
     
     // ========================================
@@ -3732,6 +3865,197 @@ TAG a friend who travels frequently! 👇`;
             btn.style.pointerEvents = 'auto';
         }
     }
+// ========================================
+// MOBILE SHARE FUNCTIONS
+// ========================================
+
+/**
+ * Native share function that works across platforms
+ */
+async function nativeShare() {
+    const btn = document.getElementById('native-share-btn');
+    if (btn) {
+        btn.disabled = true;
+        btn.style.opacity = '0.7';
+    }
+    
+    try {
+        // Generate message and image
+        const message = generateCampaignMessage(); // Use a general message
+        const cardImage = await generateCardImage();
+        
+        // Check if Web Share API is available
+        if (navigator.share) {
+            try {
+                // Create share data object
+                const shareData = {
+                    title: "My Smartwings Claim",
+                    text: message,
+                    url: window.location.href
+                };
+                
+                // Try to add image if File sharing is supported
+                let canAddFile = false;
+                try {
+                    if (cardImage && navigator.canShare) {
+                        const file = new File([cardImage], 'smartwings-claim.png', { type: 'image/png' });
+                        canAddFile = navigator.canShare({ files: [file] });
+                        if (canAddFile) {
+                            shareData.files = [file];
+                        }
+                    }
+                } catch (e) {
+                    console.log('File sharing not supported');
+                }
+                
+                // Share!
+                await navigator.share(shareData);
+                showSuccess(canAddFile ? 
+                    '✅ Successfully shared your claim card with image!' : 
+                    '✅ Successfully shared your claim details!');
+            } catch (e) {
+                console.log('Native share failed:', e);
+                
+                // Fall back to clipboard + image download
+                tryClipboardWithDownload(message, cardImage);
+            }
+        } else {
+            // Web Share API not available, fall back
+            tryClipboardWithDownload(message, cardImage);
+        }
+    } catch (error) {
+        console.error('Share error:', error);
+        showError('Sorry, there was a problem sharing. Please try again.');
+    } finally {
+        if (btn) {
+            btn.disabled = false;
+            btn.style.opacity = '1';
+        }
+    }
+}
+
+/**
+ * Save to photos function (mobile-friendly)
+ */
+async function saveToPhotos() {
+    const btn = document.getElementById('save-photo-btn');
+    if (btn) {
+        btn.disabled = true;
+        btn.style.opacity = '0.7';
+    }
+    
+    try {
+        const cardImage = await generateCardImage();
+        
+        // Create download link
+        const link = document.createElement('a');
+        const dateString = new Date().toLocaleDateString().replace(/\//g, '-');
+        link.download = `Smartwings-Claim-${dateString}.png`;
+        link.href = URL.createObjectURL(cardImage);
+        
+        // iOS handling vs normal download
+        const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+        if (isIOS) {
+            // On iOS, open in new tab so user can save with press-and-hold
+            window.open(link.href, '_blank');
+            showSuccess('Image opened. Press and hold to save to Photos.');
+        } else {
+            // Normal download
+            document.body.appendChild(link);
+            link.click();
+            document.body.removeChild(link);
+            showSuccess('✓ Image saved to your downloads!');
+        }
+    } catch (error) {
+        console.error('Save error:', error);
+        showError('Could not save image. Please try the download button instead.');
+    } finally {
+        if (btn) {
+            btn.disabled = false;
+            btn.style.opacity = '1';
+        }
+    }
+}
+
+/**
+ * Helper function for clipboard + download fallback
+ */
+async function tryClipboardWithDownload(message, cardImage) {
+    // Try copying message to clipboard
+    try {
+        if (navigator.clipboard) {
+            await navigator.clipboard.writeText(message);
+            showSuccess('Message copied! Image is being downloaded.');
+        }
+    } catch (e) {
+        console.log('Clipboard access failed');
+    }
+    
+    // Download image as fallback
+    if (cardImage) {
+        const link = document.createElement('a');
+        const dateString = new Date().toLocaleDateString().replace(/\//g, '-');
+        link.download = `Smartwings-Claim-${dateString}.png`;
+        link.href = URL.createObjectURL(cardImage);
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+    }
+}
+
+/**
+ * Initialize mobile sharing
+ */
+function setupMobileShare() {
+    // Set up native share button
+    const nativeShareBtn = document.getElementById('native-share-btn');
+    if (nativeShareBtn) {
+        nativeShareBtn.addEventListener('click', nativeShare);
+    }
+    
+    // Set up save to photos button
+    const savePhotoBtn = document.getElementById('save-photo-btn');
+    if (savePhotoBtn) {
+        savePhotoBtn.addEventListener('click', saveToPhotos);
+    }
+    
+    // Check if we're on a mobile device
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    
+    if (isMobile) {
+        // Make regular share buttons use native sharing on mobile if possible
+        const platformButtons = document.querySelectorAll('.share-btn');
+        platformButtons.forEach(btn => {
+            const platform = 
+                btn.classList.contains('twitter') ? 'twitter' :
+                btn.classList.contains('facebook') ? 'facebook' :
+                btn.classList.contains('linkedin') ? 'linkedin' : 
+                btn.classList.contains('whatsapp') ? 'whatsapp' : '';
+                
+            if (platform && !btn.classList.contains('download')) {
+                btn.addEventListener('click', function(e) {
+                    if (navigator.share) {
+                        e.preventDefault();
+                        nativeShare();
+                    }
+                    // Otherwise let the original click handler work
+                });
+            }
+        });
+    }
+}
+
+// ========================================
+// UTILITY FUNCTIONS
+// ========================================
+
+/**
+ * Get formatted date string for file naming
+ */
+function getDateString() {
+    // ... existing function code ...
+}
+
     
     // ========================================
     // UTILITY FUNCTIONS

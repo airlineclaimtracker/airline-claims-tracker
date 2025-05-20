@@ -3990,6 +3990,89 @@ function optimizeCardDesigns() {
     // Global variable to track current card design
 let currentCardDesign = 'minimalist';
 
+    /**
+ * Focus on two most effective card designs
+ */
+function optimizeCardDesigns() {
+    // Get references to elements
+    const minimalistCard = document.getElementById('minimalist-card');
+    const impactCard = document.getElementById('impact-card');
+    const contextCard = document.getElementById('context-card');
+    const cardToggle = document.querySelector('.card-toggle');
+    
+    // Always hide minimalist card (least distinctive)
+    if (minimalistCard) {
+        minimalistCard.style.display = 'none';
+    }
+    
+    // Rebuild toggle buttons for clarity
+    if (cardToggle) {
+        // Clear existing buttons
+        cardToggle.innerHTML = '';
+        
+        // Create new impact button
+        const impactBtn = document.createElement('button');
+        impactBtn.className = 'card-toggle-btn active';
+        impactBtn.setAttribute('data-design', 'impact');
+        impactBtn.innerHTML = `
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path>
+                <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path>
+                <path d="M4 22h16"></path>
+                <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"></path>
+                <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"></path>
+                <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"></path>
+            </svg>
+            Emotional Impact
+        `;
+        
+        // Create new context button
+        const contextBtn = document.createElement('button');
+        contextBtn.className = 'card-toggle-btn';
+        contextBtn.setAttribute('data-design', 'context');
+        contextBtn.innerHTML = `
+            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M3 3v18h18"></path>
+                <path d="M7 17l4-4 4 4 6-6"></path>
+            </svg>
+            Industry Context
+        `;
+        
+        // Add buttons to toggle
+        cardToggle.appendChild(impactBtn);
+        cardToggle.appendChild(contextBtn);
+        
+        // Set up event handlers for new buttons
+        impactBtn.addEventListener('click', function() {
+            impactBtn.classList.add('active');
+            contextBtn.classList.remove('active');
+            impactCard.style.display = 'block';
+            contextCard.style.display = 'none';
+            currentCardDesign = 'impact';
+        });
+        
+        contextBtn.addEventListener('click', function() {
+            contextBtn.classList.add('active');
+            impactBtn.classList.remove('active');
+            contextCard.style.display = 'block';
+            impactCard.style.display = 'none';
+            currentCardDesign = 'context';
+        });
+    }
+    
+    // Set default display state
+    if (impactCard) {
+        impactCard.style.display = 'block';
+    }
+    if (contextCard) {
+        contextCard.style.display = 'none';
+    }
+    
+    // Update global tracking variable
+    currentCardDesign = 'impact';
+}
+
+
 /**
  * Set up card design toggle functionality
  */

@@ -66,17 +66,18 @@ exports.handler = async function(event, context) {
     const buffer = canvas.toBuffer('image/png');
     
     return {
-      statusCode: 200,
-      headers: {
-        'Content-Type': 'image/png',
-        'Cache-Control': 'public, max-age=31536000',
-        // Add CORS headers to allow sharing from different origins
-        'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods': 'GET',
-        'Access-Control-Allow-Headers': 'Content-Type'
-      },
-      body: buffer.toString('base64'),
-      isBase64Encoded: true
+  statusCode: 200,
+  headers: {
+    'Content-Type': 'image/png',
+    'Cache-Control': 'public, max-age=3600',
+    'Pragma': 'no-cache',
+    'Access-Control-Allow-Origin': '*',
+    'Access-Control-Allow-Methods': 'GET',
+    'Access-Control-Allow-Headers': 'Content-Type'
+  },
+  body: buffer.toString('base64'),
+  isBase64Encoded: true
+};
     };
   } catch (error) {
     console.log('Error generating image:', error);

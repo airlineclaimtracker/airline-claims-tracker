@@ -18,13 +18,17 @@ exports.handler = async function(event, context) {
     const title = `${days} days waiting for Smartwings to respond`;
     const description = `I filed a €${amount} claim in ${submissionDate}. Still waiting for a response. Are you experiencing delays too?`;
     
-    // Encoded share URLs
-    const twitterShareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(description)}&url=${encodeURIComponent(`${process.env.URL || 'https://airline-claims-tracker.netlify.app'}/share?days=${days}&amount=${amount}&month=${month}&year=${year}`)}`;
+    // Twitter focused message
+    const twitterText = `${days} days waiting for @Smartwings to respond to my €${amount} claim from ${submissionDate}. Industry data shows I'm not alone. #PassengerRights #SmartwingsWatch`;
+    const twitterShareUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(twitterText)}&url=${encodeURIComponent(`${process.env.URL || 'https://dainty-gaufre-7b2c2f.netlify.app'}/share?days=${days}&amount=${amount}&month=${month}&year=${year}`)}`;
     
-    const linkedinShareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(`${process.env.URL || 'https://airline-claims-tracker.netlify.app'}/share?days=${days}&amount=${amount}&month=${month}&year=${year}`)}`;
+    // LinkedIn more professional message
+    const linkedinDescription = `I've been waiting ${days} days for a response to my €${amount} airline claim. This is part of a broader issue affecting thousands of passengers annually.\n\nLearn more:`;
+    const linkedinShareUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${encodeURIComponent(`${process.env.URL || 'https://dainty-gaufre-7b2c2f.netlify.app'}/share?days=${days}&amount=${amount}&month=${month}&year=${year}`)}&summary=${encodeURIComponent(linkedinDescription)}`;
     
-    const facebookShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(`${process.env.URL || 'https://airline-claims-tracker.netlify.app'}/share?days=${days}&amount=${amount}&month=${month}&year=${year}`)}`;
-    
+    // Facebook URL - make sure this uses your correct domain
+    const facebookShareUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(`${process.env.URL || 'https://dainty-gaufre-7b2c2f.netlify.app'}/share?days=${days}&amount=${amount}&month=${month}&year=${year}`)}`;
+   
     // Generate the HTML
     const html = `
 <!DOCTYPE html>
@@ -404,6 +408,40 @@ exports.handler = async function(event, context) {
             transform: translateY(-2px);
         }
     }
+    .sharing-tip {
+    background-color: #f8f9fa;
+    border: 1px solid #e9ecef;
+    border-radius: 8px;
+    padding: 12px 15px;
+    margin-top: 20px;
+    margin-bottom: 20px;
+    font-size: 0.9rem;
+    color: #6c757d;
+}
+
+.sharing-tip strong {
+    color: #212529;
+}
+
+.share-btn.download {
+    border-color: #28a745;
+    color: #28a745;
+}
+
+.share-btn.download:hover {
+    background: #28a745;
+    color: white;
+}
+
+.share-btn.copy {
+    border-color: #6c757d;
+    color: #6c757d;
+}
+
+.share-btn.copy:hover {
+    background: #6c757d;
+    color: white;
+}
     </style>
 </head>
 <body>
@@ -460,66 +498,87 @@ exports.handler = async function(event, context) {
             </div>
         </div>
         
-        <div class="share-section" style="display: block;">
-            <h2>Share Your Experience</h2>
-            <p class="share-subtitle">Help others understand Smartwings' response times by sharing your experience</p>
-            
-            <div class="share-grid">
-                <a href="${twitterShareUrl}" target="_blank" class="share-btn twitter">
-                    <span>🐦</span> Share on Twitter/X
-                </a>
-                
-                <a href="${facebookShareUrl}" target="_blank" class="share-btn facebook">
-                    <span>📘</span> Post on Facebook
-                </a>
-                
-                <a href="${linkedinShareUrl}" target="_blank" class="share-btn linkedin">
-                    <span>💼</span> Post on LinkedIn
-                </a>
-            </div>
-            
-            <div class="mobile-share-container">
-                <h3 class="mobile-share-title">Share Your Card</h3>
-                
-                <div class="mobile-share-primary">
-                    <button class="mobile-share-btn primary" id="native-share-btn" onclick="nativeShare()">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                            <circle cx="18" cy="5" r="3"></circle>
-                            <circle cx="6" cy="12" r="3"></circle>
-                            <circle cx="18" cy="19" r="3"></circle>
-                            <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
-                            <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
-                        </svg>
-                        Share via App
-                    </button>
-                </div>
-                
-                <div class="mobile-share-options">
-                    <a href="${linkedinShareUrl}" target="_blank" class="mobile-share-option">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="#0077b5">
-                            <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
-                            <rect x="2" y="9" width="4" height="12"></rect>
-                            <circle cx="4" cy="4" r="2"></circle>
-                        </svg>
-                        LinkedIn
-                    </a>
-                    
-                    <a href="${twitterShareUrl}" target="_blank" class="mobile-share-option">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="#1DA1F2">
-                            <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
-                        </svg>
-                        Twitter/X
-                    </a>
-                    
-                    <a href="${facebookShareUrl}" target="_blank" class="mobile-share-option">
-                        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="#1877F2">
-                            <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
-                        </svg>
-                        Facebook
-                    </a>
-                </div>
-            </div>
+<div class="share-section" style="display: block;">
+    <h2>Share Your Experience</h2>
+    <p class="share-subtitle">Help others understand Smartwings' response times by sharing your experience</p>
+    
+    <div class="sharing-tip">
+        <strong>Pro Tip:</strong> For best results when sharing, download or copy the image first, then attach it to your post.
+    </div>
+    
+    <div class="share-grid">
+        <a href="${imageUrl}" download="airline-claim-card.png" target="_blank" class="share-btn download">
+            <span>📸</span> Download Image
+        </a>
+        
+        <button onclick="copyImageToClipboard('${imageUrl}')" class="share-btn copy">
+            <span>📋</span> Copy Image
+        </button>
+        
+        <a href="${twitterShareUrl}" target="_blank" class="share-btn twitter">
+            <span>🐦</span> Share on Twitter/X
+        </a>
+        
+        <a href="${facebookShareUrl}" target="_blank" class="share-btn facebook">
+            <span>📘</span> Post on Facebook
+        </a>
+        
+        <a href="${linkedinShareUrl}" target="_blank" class="share-btn linkedin">
+            <span>💼</span> Post on LinkedIn
+        </a>
+    </div>
+    
+    <div class="mobile-share-container">
+        <h3 class="mobile-share-title">Share Your Card</h3>
+        
+        <div class="mobile-share-primary">
+            <button class="mobile-share-btn primary" id="native-share-btn" onclick="nativeShare()">
+                <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                    <circle cx="18" cy="5" r="3"></circle>
+                    <circle cx="6" cy="12" r="3"></circle>
+                    <circle cx="18" cy="19" r="3"></circle>
+                    <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
+                    <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
+                </svg>
+                Share via App
+            </button>
         </div>
+        
+        <div class="mobile-share-options">
+            <a href="${linkedinShareUrl}" target="_blank" class="mobile-share-option">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="#0077b5">
+                    <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
+                    <rect x="2" y="9" width="4" height="12"></rect>
+                    <circle cx="4" cy="4" r="2"></circle>
+                </svg>
+                LinkedIn
+            </a>
+            
+            <a href="${twitterShareUrl}" target="_blank" class="mobile-share-option">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="#1DA1F2">
+                    <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
+                </svg>
+                Twitter/X
+            </a>
+            
+            <a href="${facebookShareUrl}" target="_blank" class="mobile-share-option">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="#1877F2">
+                    <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
+                </svg>
+                Facebook
+            </a>
+            
+            <a href="${imageUrl}" download="airline-claim-card.png" class="mobile-share-option">
+                <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="#28a745">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="7 10 12 15 17 10"></polyline>
+                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                </svg>
+                Save Image
+            </a>
+        </div>
+    </div>
+</div>
 
         <div class="create-your-own">
             <h3>Waiting for your own claim to be processed?</h3>
@@ -548,6 +607,45 @@ exports.handler = async function(event, context) {
                 nativeShareBtn.addEventListener('click', nativeShare);
             }
         });
+
+        async function copyImageToClipboard(url) {
+    try {
+        // Fetch the image
+        const response = await fetch(url);
+        const blob = await response.blob();
+        
+        // Create an image element to get dimensions
+        const img = new Image();
+        img.src = URL.createObjectURL(blob);
+        await new Promise(resolve => img.onload = resolve);
+        
+        // Create a canvas
+        const canvas = document.createElement('canvas');
+        canvas.width = img.width;
+        canvas.height = img.height;
+        
+        // Draw the image on the canvas
+        const ctx = canvas.getContext('2d');
+        ctx.drawImage(img, 0, 0);
+        
+        // Convert canvas to blob
+        canvas.toBlob(async function(blob) {
+            try {
+                // Try to copy the image
+                const item = new ClipboardItem({ 'image/png': blob });
+                await navigator.clipboard.write([item]);
+                
+                alert('Image copied! You can now paste it into your social media post.');
+            } catch (err) {
+                console.error('Failed to copy image:', err);
+                alert('Could not copy image. Please use the download button instead.');
+            }
+        });
+    } catch (err) {
+        console.error('Error:', err);
+        alert('Could not copy image. Please use the download button instead.');
+    }
+}
     </script>
 </body>
 </html>

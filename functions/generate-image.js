@@ -14,6 +14,10 @@ exports.handler = async function(event, context) {
     if (isNaN(parseInt(days)) || isNaN(parseInt(amount))) {
       return {
         statusCode: 400,
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*'
+        },
         body: JSON.stringify({ error: 'Invalid parameters' })
       };
     }
@@ -25,8 +29,50 @@ exports.handler = async function(event, context) {
     // Create a canvas for the card (Twitter card size)
     const width = 1200;
     const height = 630;
-    const canvas = createCanvas(width, height);
-    const ctx = canvas.getContext('2d');
+    
+    // Create canvas with error handling
+    let canvas;
+    try {
+      canvas = createCanvas(width, height);
+      if (!canvas) {
+        throw new Error('Canvas creation failed');
+      }
+    } catch (canvasError) {
+      console.error('Canvas creation error:', canvasError);
+      return {
+        statusCode: 500,
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*'
+        },
+        body: JSON.stringify({ 
+          error: 'Failed to create canvas',
+          message: canvasError.message
+        })
+      };
+    }
+    
+    // Get context with error handling
+    let ctx;
+    try {
+      ctx = canvas.getContext('2d');
+      if (!ctx) {
+        throw new Error('Failed to get canvas context');
+      }
+    } catch (ctxError) {
+      console.error('Context creation error:', ctxError);
+      return {
+        statusCode: 500,
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*'
+        },
+        body: JSON.stringify({ 
+          error: 'Failed to get canvas context',
+          message: ctxError.message
+        })
+      };
+    }
     
     // Draw background
     ctx.fillStyle = '#dc2626';
@@ -62,22 +108,41 @@ exports.handler = async function(event, context) {
     ctx.font = 'bold 36px Arial';
     ctx.fillText('#PassengerRights #SmartwingsWatch', width / 2, 600);
     
-    // Convert canvas to buffer
-    const buffer = canvas.toBuffer('image/png');
+    // Convert canvas to buffer with error handling
+    let buffer;
+    try {
+      buffer = canvas.toBuffer('image/png');
+      if (!buffer || buffer.length === 0) {
+        throw new Error('Generated image buffer is empty');
+      }
+    } catch (bufferError) {
+      console.error('Buffer creation error:', bufferError);
+      return {
+        statusCode: 500,
+        headers: {
+          'Content-Type': 'application/json',
+          'Access-Control-Allow-Origin': '*'
+        },
+        body: JSON.stringify({ 
+          error: 'Failed to create image buffer',
+          message: bufferError.message
+        })
+      };
+    }
     
     return {
-  statusCode: 200,
-  headers: {
-    'Content-Type': 'image/png',
-    'Cache-Control': 'public, max-age=3600',
-    'Pragma': 'no-cache',
-    'Access-Control-Allow-Origin': '*',
-    'Access-Control-Allow-Methods': 'GET',
-    'Access-Control-Allow-Headers': 'Content-Type'
-  },
-  body: buffer.toString('base64'),
-  isBase64Encoded: true
-};
+      statusCode: 200,
+      headers: {
+        'Content-Type': 'image/png',
+        'Cache-Control': 'public, max-age=3600',
+        'Pragma': 'no-cache',
+        // Add CORS headers to allow sharing from different origins
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET',
+        'Access-Control-Allow-Headers': 'Content-Type'
+      },
+      body: buffer.toString('base64'),
+      isBase64Encoded: true
     };
   } catch (error) {
     console.log('Error generating image:', error);

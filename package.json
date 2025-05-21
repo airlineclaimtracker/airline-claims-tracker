@@ -1,0 +1,12 @@
+{
+  "name": "airline-claims-tracker",
+  "version": "1.0.0",
+  "description": "Airline accountability campaign tool",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "dependencies": {
+    "canvas": "^2.11.0"
+  }
+}

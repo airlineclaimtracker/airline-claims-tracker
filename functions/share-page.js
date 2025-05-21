@@ -587,19 +587,24 @@ exports.handler = async function(event, context) {
     </div>
 
     <script>
-        function nativeShare() {
-            if (navigator.share) {
-                navigator.share({
-                    title: "${title}",
-                    text: "${description}",
-                    url: window.location.href
-                })
-                .then(() => console.log('Successful share'))
-                .catch((error) => console.log('Error sharing:', error));
-            } else {
-                alert('Share not supported on this browser. Please use one of the social media buttons below.');
-            }
-        }
+    
+      function nativeShare() {
+      if (navigator.share) {
+          // Try to share the URL first
+          navigator.share({
+              title: "Airline Accountability Campaign",
+              text: "Check out how long I've been waiting for my airline claim to be processed",
+              url: window.location.href
+          })
+          .then(() => console.log('Shared successfully'))
+          .catch(err => {
+              console.error('Share error:', err);
+              alert('There was an error sharing. Please use one of the platform buttons below.');
+          });
+      } else {
+          alert('Native sharing is not supported on this browser. Please use the platform buttons below.');
+      }
+  }
 
         document.addEventListener('DOMContentLoaded', function() {
             const nativeShareBtn = document.getElementById('native-share-btn');

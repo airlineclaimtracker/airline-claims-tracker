@@ -588,6 +588,17 @@ exports.handler = async function(event, context) {
     </ol>
     <button onclick="document.getElementById('linkedin-instructions').style.display='none'" style="background: #0077b5; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer;">Got it</button>
 </div>
+<div class="sharing-tip" id="twitter-instructions" style="display: none;">
+    <strong>Twitter/X Sharing Tip:</strong>
+    <ol>
+        <li>First download the image using the Download button above</li>
+        <li>When Twitter/X opens, type your message</li>
+        <li>Click the image icon in Twitter's compose box</li>
+        <li>Select the downloaded image from your device</li>
+        <li>Complete your tweet</li>
+    </ol>
+    <button onclick="document.getElementById('twitter-instructions').style.display='none'" style="background: #1da1f2; color: white; border: none; padding: 5px 10px; border-radius: 4px; cursor: pointer;">Got it</button>
+</div>
     
     <div class="mobile-share-container">
         <h3 class="mobile-share-title">Share Your Card</h3>

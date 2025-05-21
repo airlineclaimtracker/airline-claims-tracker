@@ -52,6 +52,11 @@ exports.handler = async function(event, context) {
     <meta name="twitter:title" content="${title}">
     <meta name="twitter:description" content="${description}">
     <meta name="twitter:image" content="${imageUrl}">
+
+    <!-- LinkedIn specific tags -->
+<meta property="og:image:secure_url" content="${imageUrl}">
+<meta name="author" content="SmartwingsWatch">
+<meta name="image" property="og:image" content="${imageUrl}">
     
     <style>
     /* Include critical CSS here to ensure styling works */
@@ -551,9 +556,9 @@ exports.handler = async function(event, context) {
     </div>
     
     <div class="share-grid">
-        <a href="${imageUrl}" download="airline-claim-card.png" target="_blank" class="share-btn download">
+        <button onclick="downloadImage('${imageUrl}', 'airline-claim-card.png')" class="share-btn download">
             <span>📸</span> Download Image
-        </a>
+        </button>
         
         <button onclick="copyImageToClipboard('${imageUrl}')" class="share-btn copy">
             <span>📋</span> Copy Image
@@ -612,7 +617,7 @@ exports.handler = async function(event, context) {
                 Facebook
             </a>
             
-            <a href="${imageUrl}" download="airline-claim-card.png" class="mobile-share-option">
+            <button onclick="downloadImage('${imageUrl}', 'airline-claim-card.png')" class="mobile-share-option">
                 <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="#28a745">
                     <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
                     <polyline points="7 10 12 15 17 10"></polyline>
@@ -631,7 +636,35 @@ exports.handler = async function(event, context) {
     </div>
 
     <script>
-    
+    async function downloadImage(url, filename) {
+    try {
+        // Fetch the image as a blob
+        const response = await fetch(url);
+        const blob = await response.blob();
+        
+        // Create a temporary URL for the blob
+        const blobUrl = window.URL.createObjectURL(blob);
+        
+        // Create a temporary anchor element
+        const a = document.createElement('a');
+        a.style.display = 'none';
+        a.href = blobUrl;
+        a.download = filename || 'smartwings-claim-card.png';
+        
+        // Append to body, click to download, then clean up
+        document.body.appendChild(a);
+        a.click();
+        
+        // Clean up
+        window.URL.revokeObjectURL(blobUrl);
+        document.body.removeChild(a);
+        
+        console.log('Image downloaded successfully');
+    } catch (error) {
+        console.error('Download failed:', error);
+        alert('Could not download the image. Please try another sharing option.');
+    }
+}
       function nativeShare() {
       if (navigator.share) {
           // Try to share the URL first
@@ -657,44 +690,104 @@ exports.handler = async function(event, context) {
             }
         });
 
-        async function copyImageToClipboard(url) {
+async function copyImageToClipboard(url) {
     try {
-        // Fetch the image
-        const response = await fetch(url);
-        const blob = await response.blob();
+        // Create a temporary image element
+        const img = document.createElement('img');
+        img.crossOrigin = 'anonymous';
+        img.src = url;
         
-        // Create an image element to get dimensions
-        const img = new Image();
-        img.src = URL.createObjectURL(blob);
-        await new Promise(resolve => img.onload = resolve);
+        // Wait for image to load
+        await new Promise((resolve, reject) => {
+            img.onload = resolve;
+            img.onerror = () => {
+                alert('Could not copy image. Please try downloading instead.');
+                reject(new Error('Image failed to load'));
+            };
+        });
         
-        // Create a canvas
+        // Create canvas
         const canvas = document.createElement('canvas');
         canvas.width = img.width;
         canvas.height = img.height;
         
-        // Draw the image on the canvas
+        // Draw image to canvas
         const ctx = canvas.getContext('2d');
         ctx.drawImage(img, 0, 0);
         
-        // Convert canvas to blob
-        canvas.toBlob(async function(blob) {
-            try {
-                // Try to copy the image
-                const item = new ClipboardItem({ 'image/png': blob });
-                await navigator.clipboard.write([item]);
-                
-                alert('Image copied! You can now paste it into your social media post.');
-            } catch (err) {
-                console.error('Failed to copy image:', err);
-                alert('Could not copy image. Please use the download button instead.');
-            }
-        });
-    } catch (err) {
-        console.error('Error:', err);
-        alert('Could not copy image. Please use the download button instead.');
+        // Show manual copy instructions (works in all browsers)
+        const dataUrl = canvas.toDataURL('image/png');
+        const tempImg = document.createElement('img');
+        tempImg.src = dataUrl;
+        tempImg.style.position = 'fixed';
+        tempImg.style.left = '0';
+        tempImg.style.top = '0';
+        tempImg.style.right = '0';
+        tempImg.style.bottom = '0';
+        tempImg.style.margin = 'auto';
+        tempImg.style.maxWidth = '90%';
+        tempImg.style.maxHeight = '70%';
+        tempImg.style.zIndex = '10001';
+        
+        const overlay = document.createElement('div');
+        overlay.style.position = 'fixed';
+        overlay.style.left = '0';
+        overlay.style.top = '0';
+        overlay.style.width = '100%';
+        overlay.style.height = '100%';
+        overlay.style.backgroundColor = 'rgba(0,0,0,0.8)';
+        overlay.style.zIndex = '10000';
+        overlay.style.display = 'flex';
+        overlay.style.flexDirection = 'column';
+        overlay.style.justifyContent = 'center';
+        overlay.style.alignItems = 'center';
+        
+        const instructions = document.createElement('div');
+        instructions.style.color = 'white';
+        instructions.style.padding = '20px';
+        instructions.style.textAlign = 'center';
+        instructions.style.maxWidth = '500px';
+        instructions.style.backgroundColor = 'rgba(0,0,0,0.7)';
+        instructions.style.borderRadius = '10px';
+        instructions.style.margin = '20px';
+        instructions.innerHTML = `
+            <h3>Right-click on the image and select "Copy Image"</h3>
+            <p>Then click anywhere to close this window</p>
+            <p>You can then paste the image into your social media post</p>
+        `;
+        
+        overlay.appendChild(tempImg);
+        overlay.appendChild(instructions);
+        document.body.appendChild(overlay);
+        
+        overlay.onclick = function() {
+            document.body.removeChild(overlay);
+        };
+        
+    } catch (error) {
+        console.error('Copy image failed:', error);
+        alert('Could not copy image. Please try downloading instead.');
     }
 }
+// Show LinkedIn instructions when LinkedIn button is clicked
+document.addEventListener('DOMContentLoaded', function() {
+    const linkedinBtn = document.querySelector('.share-btn.linkedin');
+    if (linkedinBtn) {
+        linkedinBtn.addEventListener('click', function() {
+            document.getElementById('linkedin-instructions').style.display = 'block';
+        });
+    }
+});
+
+// Show Twitter instructions when Twitter button is clicked
+document.addEventListener('DOMContentLoaded', function() {
+    const twitterBtn = document.querySelector('.share-btn.twitter');
+    if (twitterBtn) {
+        twitterBtn.addEventListener('click', function() {
+            document.getElementById('twitter-instructions').style.display = 'block';
+        });
+    }
+});
     </script>
 </body>
 </html>

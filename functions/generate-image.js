@@ -1,3 +1,4 @@
+// First, add the proper import at the top of the file
 const { createCanvas, loadImage } = require('canvas');
 
 exports.handler = async function(event, context) {
@@ -68,16 +69,30 @@ exports.handler = async function(event, context) {
       statusCode: 200,
       headers: {
         'Content-Type': 'image/png',
-        'Cache-Control': 'public, max-age=31536000'
+        'Cache-Control': 'public, max-age=31536000',
+        // Add CORS headers to allow sharing from different origins
+        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Methods': 'GET',
+        'Access-Control-Allow-Headers': 'Content-Type'
       },
       body: buffer.toString('base64'),
       isBase64Encoded: true
     };
   } catch (error) {
     console.log('Error generating image:', error);
+    
+    // More detailed error reporting
     return {
       statusCode: 500,
-      body: JSON.stringify({ error: 'Failed to generate image' })
+      headers: {
+        'Content-Type': 'application/json',
+        'Access-Control-Allow-Origin': '*'
+      },
+      body: JSON.stringify({ 
+        error: 'Failed to generate image', 
+        message: error.message,
+        stack: error.stack
+      })
     };
   }
 };

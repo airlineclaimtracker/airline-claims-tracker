@@ -5483,6 +5483,57 @@ function resetAllCardPhotos() {
     if (contextContainer) contextContainer.style.display = 'none';
     if (contextPlaceholder) contextPlaceholder.style.display = 'block';
 }
+    /**
+ * ADD THESE MISSING FUNCTIONS to your JavaScript section in index.html
+ * Place them with your other function definitions
+ */
+
+function shareToLinkedIn() {
+    if (!claimData || !claimData.days) {
+        showError('Please create a card first');
+        return;
+    }
+    
+    const message = `# Documenting Airline Accountability
+
+After ${claimData.days} days without response to a luggage damage claim, I documented this case study. SITA's 2024 data shows over 11,000 damaged bags annually.
+
+I used AI (Claude.ai) to create this visualization tool despite having no coding background, showing how technology can empower consumer advocacy.
+
+#ConsumerRights #AIInnovation #PassengerRights`;
+
+    // Copy message to clipboard
+    if (navigator.clipboard) {
+        navigator.clipboard.writeText(message);
+        showSuccess('LinkedIn message copied! Download your card image, open LinkedIn, paste the message, and attach the image.');
+    }
+    
+    window.open('https://www.linkedin.com/feed/', '_blank');
+}
+
+function shareToTwitter() {
+    if (!claimData || !claimData.days) {
+        showError('Please create a card first');
+        return;
+    }
+    
+    const message = `📊 Documenting Airline Accountability: ${claimData.days} days without response on my €${claimData.amount} claim. Industry data shows ~11,620 damaged bags yearly. Are you also waiting? #PassengerRights #SmartwingsWatch`;
+    const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(message)}`;
+    window.open(twitterUrl, '_blank');
+    showSuccess('Twitter opened! Download your card image and attach it to your tweet.');
+}
+
+function shareToFacebook() {
+    if (!claimData || !claimData.days) {
+        showError('Please create a card first');
+        return;
+    }
+    
+    const message = `Documenting Airline Accountability: ${claimData.days} days without resolution for a €${claimData.amount} luggage claim. Industry data suggests thousands of passengers may face similar delays. #PassengerRights #ConsumerAwareness`;
+    const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}&quote=${encodeURIComponent(message)}`;
+    window.open(facebookUrl, '_blank');
+    showSuccess('Facebook opened! Download your card image and attach it to your post.');
+}
     
 </script>
 

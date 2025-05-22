@@ -3244,15 +3244,17 @@
 <!-- ========================================= -->
 
 <script>
+    
     // ========================================
     // GLOBAL VARIABLES
     // ========================================
     
-    let claimData = {};
+    let currentCardDesign = 'impact';
     let currentPhoto = null;
     let currentRotation = 0;
     let currentBrightness = 100;
-    let currentCardDesign = 'impact';
+    let claimData = {};
+    
     
     
     // ========================================
@@ -5077,10 +5079,7 @@ function optimizeCardDesigns() {
     }
 }
 
-    // Global variable to track current card design
-let currentCardDesign = 'minimalist';
-
-    /**
+/**
  * Focus on two most effective card designs
  */
 function optimizeCardDesigns() {

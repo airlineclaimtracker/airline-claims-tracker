@@ -11,3 +11,57 @@
   from = "/share"
   to = "/.netlify/functions/share-page"
   status = 200
+
+# Netlify Configuration for Enhanced Share URLs
+# File: netlify.toml
+
+[build]
+  publish = "public"
+  functions = "functions"
+
+[build.environment]
+  NODE_VERSION = "18"
+
+# URL Redirects for Enhanced Share System
+[[redirects]]
+  # Enhanced share URLs - /passenger-experience/{days}-days-waiting
+  from = "/passenger-experience/*"
+  to = "/.netlify/functions/enhanced-share-page"
+  status = 200
+
+[[redirects]]
+  # Legacy API routes
+  from = "/api/*"
+  to = "/.netlify/functions/:splat"
+  status = 200
+
+[[redirects]]
+  # Legacy share URLs (maintain compatibility)
+  from = "/share"
+  to = "/.netlify/functions/share-page"
+  status = 200
+
+[[redirects]]
+  # Root redirects
+  from = "/index.html"
+  to = "/"
+  status = 301
+
+# Headers for enhanced social sharing
+[[headers]]
+  for = "/passenger-experience/*"
+  [headers.values]
+    X-Frame-Options = "SAMEORIGIN"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "strict-origin-when-cross-origin"
+
+# Headers for image generation
+[[headers]]
+  for = "/api/generate-image"
+  [headers.values]
+    Cache-Control = "public, max-age=3600"
+    Access-Control-Allow-Origin = "*"
+
+# Function settings
+[functions]
+  timeout = 30

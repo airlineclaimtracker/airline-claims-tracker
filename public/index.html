@@ -3380,16 +3380,13 @@ function setupEventListeners() {
     // ========================================
     // FORM SUBMISSION & VALIDATION
     // ========================================
-    
- /**
- * FIXED: Handle form submission and validation - GENERATES CARDS LOCALLY
- */
-/**
- * UPDATED: Handle form submission - Generate enhanced share URLs
+    /**
+ * STEP 1: Replace ONLY this function in your index.html
+ * Find the existing handleFormSubmit function and replace it with this
  */
 function handleFormSubmit(e) {
     e.preventDefault();
-    console.log('Form submitted for enhanced share URL generation');
+    console.log('Form submitted for LOCAL card generation');
     
     try {
         // Get form values
@@ -3435,7 +3432,7 @@ function handleFormSubmit(e) {
         const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
         const submissionDate = `${months[monthNum - 1]} ${yearNum}`;
         
-        // Store data globally
+        // Store data globally for card generation
         claimData = {
             days: days,
             amount: amountNum,
@@ -3453,32 +3450,25 @@ function handleFormSubmit(e) {
             claimData.photoBrightness = currentBrightness;
         }
         
-        // Generate enhanced share URL
-        const shareUrl = generateEnhancedShareURL(claimData);
-        console.log("Generated enhanced share URL:", shareUrl);
+        // FIXED: Generate cards locally and show them
+        updateBothCards();
+        showCard();
         
         // Show success message
         const successEl = document.getElementById('success-message');
         if (successEl) {
             successEl.innerHTML = `
-                ✅ Your shareable experience page is being created...<br>
-                <strong>URL:</strong> <code>${shareUrl}</code>
+                ✅ Your experience card has been created successfully!<br>
+                <strong>Choose your design below and share to make your voice heard.</strong>
             `;
             successEl.classList.add('show');
         }
         
-        // Store data for the share page
-        storeShareData(claimData);
-        
-        // Redirect to the enhanced share URL after a short delay
-        setTimeout(() => {
-            console.log("Redirecting to enhanced share URL:", shareUrl);
-            window.location.href = shareUrl;
-        }, 2000);
+        console.log("Cards generated and displayed successfully");
         
     } catch (error) {
         console.error('Form error:', error);
-        showError('Error creating your experience page. Please try again.');
+        showError('Error creating your experience card. Please try again.');
     }
 }
     

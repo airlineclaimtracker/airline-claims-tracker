@@ -3157,6 +3157,9 @@
     <button class="share-btn download" onclick="downloadCard()">
         <span>📸</span> Get Your Card
     </button>
+    <button class="share-btn copy" onclick="copyImageToClipboard()">
+        <span>📋</span> Copy Image
+    </button>
 </div>
 
 <!-- Mobile-optimized share container -->
@@ -3319,7 +3322,13 @@ function fixMonthInputIssue() {
         
         // Photo upload setup
         const photoInput = document.getElementById('photo-input');
-        
+
+        // Add this to your setupEventListeners function
+        const copyBtn = document.querySelector('.share-btn.copy');
+        if (copyBtn) {
+            copyBtn.addEventListener('click', copyImageToClipboard);
+        }
+                
         if (photoInput) {
             photoInput.addEventListener('change', (e) => {
                 if (e.target.files.length > 0) {
@@ -3482,31 +3491,194 @@ function updateCard() {
 }
     
 /**
- * Show the generated card and share section
+ * FIXED: Show the generated card and share section
  */
 function showCard() {
+    console.log("Showing card section...");
+    
     // Show card selection toggle
-    document.getElementById('card-selection-container').style.display = 'block';
+    const cardSelectionContainer = document.getElementById('card-selection-container');
+    if (cardSelectionContainer) {
+        cardSelectionContainer.style.display = 'block';
+    }
     
     // Show card section and share options
-    document.getElementById('card-section').style.display = 'block';
-    document.getElementById('share-section').style.display = 'block';
+    const cardSection = document.getElementById('card-section');
+    const shareSection = document.getElementById('share-section');
+    
+    if (cardSection) {
+        cardSection.style.display = 'block';
+        console.log("Card section displayed");
+    }
+    
+    if (shareSection) {
+        shareSection.style.display = 'block';
+        console.log("Share section displayed");
+    }
     
     // Initialize photo display
-    if (!currentPhoto) {
+    if (currentPhoto) {
+        console.log("Updating card photos...");
+        updateAllCardPhotos();
+    } else {
+        console.log("No photo to display, showing placeholders");
         resetAllCardPhotos();
     }
     
-    // Set up card toggle functionality
+    // Set up card toggle functionality and show correct design
     setupCardToggle();
-
-     // Generate QR codes for the cards - if you have this function
-    if (typeof generateQRCodes === 'function') {
-        generateQRCodes();
+    
+    // Ensure the impact card is visible by default
+    const impactCard = document.getElementById('impact-card');
+    const contextCard = document.getElementById('context-card');
+    const minimalistCard = document.getElementById('minimalist-card');
+    
+    if (impactCard) {
+        impactCard.style.display = 'block';
+        console.log("Impact card displayed");
+    }
+    if (contextCard) {
+        contextCard.style.display = 'none';
+    }
+    if (minimalistCard) {
+        minimalistCard.style.display = 'none';
     }
     
+    // Set current design
+    currentCardDesign = 'impact';
+    
     // Scroll to section
-    document.getElementById('card-selection-container').scrollIntoView({ behavior: 'smooth' });
+    if (cardSelectionContainer) {
+        setTimeout(() => {
+            cardSelectionContainer.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }, 100);
+    }
+    
+    console.log("Card display setup complete");
+}
+    
+/**
+ * FIXED: Copy image to clipboard with better quality
+ */
+async function copyImageToClipboard() {
+    const btn = document.querySelector('.share-btn.copy');
+    if (btn) {
+        btn.disabled = true;
+        btn.style.opacity = '0.7';
+        btn.textContent = 'Copying...';
+    }
+    
+    try {
+        console.log('Starting copy to clipboard...');
+        
+        const cardImage = await generateCardImage(false, 3); // High quality
+        
+        // Try modern clipboard API first
+        if (navigator.clipboard && navigator.clipboard.write) {
+            try {
+                await navigator.clipboard.write([
+                    new ClipboardItem({
+                        'image/png': cardImage
+                    })
+                ]);
+                showSuccess('✅ Image copied to clipboard! You can now paste it anywhere.');
+                return;
+            } catch (clipboardError) {
+                console.log('Modern clipboard API failed:', clipboardError);
+            }
+        }
+        
+        // Fallback: Show image in overlay for manual copying
+        const imageUrl = URL.createObjectURL(cardImage);
+        
+        // Create overlay
+        const overlay = document.createElement('div');
+        overlay.style.cssText = `
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 10000;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            box-sizing: border-box;
+        `;
+        
+        // Create image
+        const img = document.createElement('img');
+        img.src = imageUrl;
+        img.style.cssText = `
+            max-width: 90%;
+            max-height: 70%;
+            border-radius: 10px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        `;
+        
+        // Create instructions
+        const instructions = document.createElement('div');
+        instructions.style.cssText = `
+            color: white;
+            text-align: center;
+            margin-top: 20px;
+            padding: 20px;
+            background: rgba(0,0,0,0.7);
+            border-radius: 10px;
+            max-width: 400px;
+        `;
+        
+        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+        
+        instructions.innerHTML = `
+            <h3 style="margin-top: 0; color: white;">Copy Image Instructions</h3>
+            <p style="margin: 10px 0; color: white;">
+                ${isMobile 
+                    ? 'Long-press on the image and select "Copy" or "Save to Photos"' 
+                    : 'Right-click on the image and select "Copy Image"'}
+            </p>
+            <button id="close-overlay" style="
+                background: #dc2626;
+                color: white;
+                border: none;
+                padding: 10px 20px;
+                border-radius: 5px;
+                cursor: pointer;
+                margin-top: 10px;
+            ">Close</button>
+        `;
+        
+        overlay.appendChild(img);
+        overlay.appendChild(instructions);
+        document.body.appendChild(overlay);
+        
+        // Close overlay handlers
+        const closeBtn = document.getElementById('close-overlay');
+        const closeOverlay = () => {
+            document.body.removeChild(overlay);
+            URL.revokeObjectURL(imageUrl);
+        };
+        
+        closeBtn.addEventListener('click', closeOverlay);
+        overlay.addEventListener('click', (e) => {
+            if (e.target === overlay) closeOverlay();
+        });
+        
+        showSuccess('Image ready for copying! Follow the instructions above.');
+        
+    } catch (error) {
+        console.error('Copy image failed:', error);
+        showError(`Copy failed: ${error.message}. Please try the download option instead.`);
+    } finally {
+        if (btn) {
+            btn.disabled = false;
+            btn.style.opacity = '1';
+            btn.textContent = '📋 Copy Image';
+        }
+    }
 }
     
     // ========================================
@@ -4450,96 +4622,202 @@ function getDateString() {
     }
     
     /**
-     * Download the generated claim card
-     */
-    async function downloadCard() {
-        const btn = document.querySelector('.share-btn.download');
-        if (!btn) {
-            showError('Download button not found');
-            return;
-        }
-        
-        btn.style.opacity = '0.7';
-        btn.style.pointerEvents = 'none';
-        
-        try {
-            console.log('Starting download...'); // Debug line
-            console.log('claimData:', claimData); // Debug line
-            
-            const cardImage = await generateCardImage(true);
-            console.log('Image generated successfully'); // Debug line
-            
-            const today = new Date();
-            const day = today.getDate();
-            const month = today.toLocaleString('default', { month: 'short' });
-            const year = today.getFullYear();
-            const dateString = `${day}${month}${year}`;
-            
-            const link = document.createElement('a');
-            link.download = `My-Smartwings-Card-${dateString}-${claimData.days}days.png`;
-            link.href = URL.createObjectURL(cardImage);
-            
-            document.body.appendChild(link);
-            link.click();
-            document.body.removeChild(link);
-            
-            console.log('Download completed'); // Debug line
-            showSuccess('💾 Card downloaded successfully!');
-        } catch (error) {
-            console.error('Download error:', error);
-            showError('Error downloading card. Please try again.');
-        } finally {
-            btn.style.opacity = '1';
-            btn.style.pointerEvents = 'auto';
-        }
-    }
-    /**
- * Generate card image with improved quality
- * @param {boolean} smaller - Whether to generate a smaller image for email
- * @param {number} scale - Scale factor for image quality (1-3)
+ * FIXED: Download the generated claim card
  */
-async function generateCardImage(smaller = false, scale = 2) {
-    // Determine which card to capture based on current design
-    let cardElement;
-    if (currentCardDesign === 'minimalist') {
-        cardElement = document.getElementById('minimalist-card');
-    } else if (currentCardDesign === 'impact') {
-        cardElement = document.getElementById('impact-card');
-    } else if (currentCardDesign === 'context') {
-        cardElement = document.getElementById('context-card');
+async function downloadCard() {
+    const btn = document.querySelector('.share-btn.download');
+    if (btn) {
+        btn.disabled = true;
+        btn.style.opacity = '0.7';
+        btn.textContent = 'Generating...';
     }
     
-    // Ensure we use full-quality rendering
+    try {
+        console.log('Starting download process...');
+        console.log('Current claimData:', claimData);
+        
+        if (!claimData || !claimData.days) {
+            throw new Error("No claim data available. Please fill out the form first.");
+        }
+        
+        const cardImage = await generateCardImage(false, 3); // Use highest quality
+        console.log('Image generated successfully, size:', cardImage.size);
+        
+        const today = new Date();
+        const day = today.getDate();
+        const month = today.toLocaleString('default', { month: 'short' });
+        const year = today.getFullYear();
+        const dateString = `${day}${month}${year}`;
+        
+        const link = document.createElement('a');
+        link.download = `Smartwings-Claim-${claimData.days}days-${dateString}.png`;
+        link.href = URL.createObjectURL(cardImage);
+        
+        // Force download by adding to DOM, clicking, and removing
+        document.body.appendChild(link);
+        link.click();
+        document.body.removeChild(link);
+        
+        // Clean up the blob URL
+        setTimeout(() => {
+            URL.revokeObjectURL(link.href);
+        }, 1000);
+        
+        console.log('Download completed successfully');
+        showSuccess('💾 High-quality card downloaded successfully!');
+        
+    } catch (error) {
+        console.error('Download error:', error);
+        showError(`Download failed: ${error.message}. Please try again.`);
+    } finally {
+        if (btn) {
+            btn.disabled = false;
+            btn.style.opacity = '1';
+            btn.textContent = '📸 Get Your Card';
+        }
+    }
+}
+  
+/**
+ * FIXED: Generate card image with improved quality and error handling
+ */
+async function generateCardImage(smaller = false, scale = 2) {
+    console.log("Starting generateCardImage...");
+    
+    // Determine which card to capture based on current design
+    let cardElement;
+    const cardElements = {
+        'minimalist': document.getElementById('minimalist-card'),
+        'impact': document.getElementById('impact-card'), 
+        'context': document.getElementById('context-card')
+    };
+    
+    // Find the visible card
+    for (const [design, element] of Object.entries(cardElements)) {
+        if (element && element.style.display !== 'none') {
+            cardElement = element;
+            currentCardDesign = design;
+            console.log(`Found visible card: ${design}`);
+            break;
+        }
+    }
+    
+    // Fallback to impact card if none found
+    if (!cardElement) {
+        cardElement = cardElements.impact;
+        if (cardElement) {
+            cardElement.style.display = 'block';
+            currentCardDesign = 'impact';
+            console.log("Fallback to impact card");
+        }
+    }
+    
+    if (!cardElement) {
+        throw new Error("No card element found to capture");
+    }
+    
+    // Ensure the card is properly visible and styled
+    const originalStyles = {
+        display: cardElement.style.display,
+        visibility: cardElement.style.visibility,
+        position: cardElement.style.position,
+        zIndex: cardElement.style.zIndex
+    };
+    
+    // Force visibility
+    cardElement.style.display = 'block';
+    cardElement.style.visibility = 'visible';
+    cardElement.style.position = 'relative';
+    cardElement.style.zIndex = '1';
+    
+    // Wait for any images to load
+    const images = cardElement.querySelectorAll('img');
+    await Promise.all(Array.from(images).map(img => {
+        if (img.complete) return Promise.resolve();
+        return new Promise((resolve, reject) => {
+            img.onload = resolve;
+            img.onerror = resolve; // Don't fail on image errors
+            setTimeout(resolve, 2000); // Timeout after 2 seconds
+        });
+    }));
+    
+    console.log("Images loaded, generating canvas...");
+    
     return new Promise((resolve, reject) => {
-        html2canvas(cardElement, {
-            scale: smaller ? 1 : scale, // Use higher scale for better quality
-            backgroundColor: currentCardDesign === 'minimalist' || currentCardDesign === 'context' ? '#ffffff' : null,
+        const options = {
+            scale: smaller ? 1 : scale,
+            backgroundColor: (currentCardDesign === 'minimalist' || currentCardDesign === 'context') ? '#ffffff' : null,
             useCORS: true,
             allowTaint: true,
             logging: false,
-            imageTimeout: 0, // No timeout
+            imageTimeout: 0,
+            removeContainer: false,
+            foreignObjectRendering: false,
+            width: cardElement.offsetWidth,
+            height: cardElement.offsetHeight,
             onclone: function(clonedDoc) {
-                // Make sure any hidden elements are shown in the clone
+                console.log("Cloning document...");
+                // Find the cloned card element
                 const clonedCard = clonedDoc.querySelector(`#${cardElement.id}`);
                 if (clonedCard) {
                     clonedCard.style.display = 'block';
                     clonedCard.style.visibility = 'visible';
+                    clonedCard.style.position = 'relative';
+                    clonedCard.style.zIndex = '1';
+                    
+                    // Ensure fonts are loaded
+                    const style = clonedDoc.createElement('style');
+                    style.textContent = `
+                        * { font-family: 'Arial', sans-serif !important; }
+                        .claim-card-impact { background: linear-gradient(135deg, #dc2626, #b91c1c) !important; }
+                        .claim-card-context { background: linear-gradient(135deg, #f8f9fa, #e9ecef) !important; }
+                    `;
+                    clonedDoc.head.appendChild(style);
                 }
             }
-        }).then(canvas => {
+        };
+        
+        html2canvas(cardElement, options).then(canvas => {
+            console.log("Canvas generated successfully", canvas.width, canvas.height);
+            
+            // Restore original styles
+            Object.assign(cardElement.style, originalStyles);
+            
+            if (canvas.width === 0 || canvas.height === 0) {
+                reject(new Error("Generated canvas has zero dimensions"));
+                return;
+            }
+            
             if (smaller) {
                 // Create a smaller canvas for email sharing
                 const smallCanvas = document.createElement('canvas');
                 const ctx = smallCanvas.getContext('2d');
-                smallCanvas.width = 400;  // Fixed width for email
-                smallCanvas.height = (400 * canvas.height) / canvas.width;  // Maintain aspect ratio
+                smallCanvas.width = 400;
+                smallCanvas.height = (400 * canvas.height) / canvas.width;
                 ctx.drawImage(canvas, 0, 0, smallCanvas.width, smallCanvas.height);
-                smallCanvas.toBlob(resolve, 'image/png', 0.95);
+                smallCanvas.toBlob(blob => {
+                    if (blob && blob.size > 0) {
+                        resolve(blob);
+                    } else {
+                        reject(new Error("Failed to create smaller image blob"));
+                    }
+                }, 'image/png', 0.95);
             } else {
-                // Ensure we're using high quality for the image
-                canvas.toBlob(resolve, 'image/png', 0.95);
+                canvas.toBlob(blob => {
+                    if (blob && blob.size > 0) {
+                        console.log("Image blob created successfully, size:", blob.size);
+                        resolve(blob);
+                    } else {
+                        reject(new Error("Failed to create image blob"));
+                    }
+                }, 'image/png', 0.95);
             }
-        }).catch(reject);
+        }).catch(error => {
+            console.error("html2canvas error:", error);
+            // Restore original styles on error
+            Object.assign(cardElement.style, originalStyles);
+            reject(error);
+        });
     });
 }
     
@@ -4879,11 +5157,14 @@ function updateBothCards() {
 }
 
 /**
- * Update photos on both cards
+ * FIXED: Update photos on all cards
  */
-
-    function updateAllCardPhotos() {
-    if (!currentPhoto) return;
+function updateAllCardPhotos() {
+    console.log("Updating all card photos...");
+    if (!currentPhoto) {
+        console.log("No current photo to update");
+        return;
+    }
     
     // Update minimalist card photo
     const minimalistPhoto = document.getElementById('card-photo');
@@ -4891,12 +5172,17 @@ function updateBothCards() {
     const minimalistPlaceholder = document.getElementById('photo-placeholder');
     
     if (minimalistPhoto && minimalistContainer) {
+        console.log("Updating minimalist card photo");
         minimalistPhoto.src = currentPhoto;
         minimalistPhoto.onload = function() {
             minimalistContainer.style.display = 'block';
             if (minimalistPlaceholder) minimalistPlaceholder.style.display = 'none';
             minimalistPhoto.style.transform = `rotate(${currentRotation}deg)`;
             minimalistPhoto.style.filter = `brightness(${currentBrightness}%)`;
+            console.log("Minimalist card photo updated successfully");
+        };
+        minimalistPhoto.onerror = function() {
+            console.error("Failed to load photo in minimalist card");
         };
     }
     
@@ -4905,11 +5191,16 @@ function updateBothCards() {
     const impactContainer = document.getElementById('impact-photo-container');
     
     if (impactPhoto && impactContainer) {
+        console.log("Updating impact card photo");
         impactPhoto.src = currentPhoto;
         impactPhoto.onload = function() {
             impactContainer.style.display = 'block';
             impactPhoto.style.transform = `rotate(${currentRotation}deg)`;
             impactPhoto.style.filter = `brightness(${currentBrightness}%)`;
+            console.log("Impact card photo updated successfully");
+        };
+        impactPhoto.onerror = function() {
+            console.error("Failed to load photo in impact card");
         };
     }
     
@@ -4919,12 +5210,17 @@ function updateBothCards() {
     const contextPlaceholder = document.getElementById('context-photo-placeholder');
     
     if (contextPhoto && contextContainer) {
+        console.log("Updating context card photo");
         contextPhoto.src = currentPhoto;
         contextPhoto.onload = function() {
             contextContainer.style.display = 'block';
             if (contextPlaceholder) contextPlaceholder.style.display = 'none';
             contextPhoto.style.transform = `rotate(${currentRotation}deg)`;
             contextPhoto.style.filter = `brightness(${currentBrightness}%)`;
+            console.log("Context card photo updated successfully");
+        };
+        contextPhoto.onerror = function() {
+            console.error("Failed to load photo in context card");
         };
     }
 }

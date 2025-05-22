@@ -56,8 +56,285 @@ exports.handler = async function(event, context) {
     <meta name="image" property="og:image" content="${imageUrl}">
     
     <style>
-    /* Your CSS remains unchanged */
-    /* ... [include all your original CSS here] ... */
+        body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .content-section {
+            max-width: 800px;
+            margin: 0 auto;
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .card-container {
+            text-align: center;
+            margin: 30px 0;
+        }
+        .claim-card-impact {
+            background: linear-gradient(135deg, #dc2626 0%, #b91c1c 100%);
+            color: white;
+            padding: 40px;
+            border-radius: 15px;
+            box-shadow: 0 8px 32px rgba(220, 38, 38, 0.3);
+            max-width: 600px;
+            margin: 0 auto;
+        }
+        .card-header {
+            margin-bottom: 30px;
+        }
+        .report-label {
+            font-size: 14px;
+            font-weight: bold;
+            background: rgba(255,255,255,0.2);
+            padding: 8px 16px;
+            border-radius: 20px;
+            display: inline-block;
+            margin-bottom: 15px;
+        }
+        .airline-name {
+            font-size: 48px;
+            font-weight: bold;
+            letter-spacing: 2px;
+        }
+        .days-container {
+            margin: 40px 0;
+        }
+        .days-count {
+            font-size: 120px;
+            font-weight: bold;
+            line-height: 1;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+        .days-label {
+            font-size: 24px;
+            font-weight: bold;
+            margin-top: 10px;
+        }
+        .details-band {
+            background: rgba(0,0,0,0.2);
+            padding: 20px;
+            border-radius: 10px;
+            display: flex;
+            justify-content: space-around;
+            margin: 30px 0;
+        }
+        .detail-item {
+            text-align: center;
+        }
+        .detail-label {
+            font-size: 12px;
+            opacity: 0.8;
+            margin-bottom: 5px;
+        }
+        .detail-value {
+            font-size: 18px;
+            font-weight: bold;
+        }
+        .cta {
+            font-size: 20px;
+            font-weight: bold;
+            margin: 30px 0;
+            padding: 15px;
+            background: rgba(255,255,255,0.1);
+            border-radius: 8px;
+        }
+        .industry-context {
+            background: rgba(0,0,0,0.3);
+            padding: 25px;
+            border-radius: 10px;
+            margin: 30px 0;
+        }
+        .industry-context-title {
+            font-size: 16px;
+            font-weight: bold;
+            margin-bottom: 15px;
+        }
+        .industry-stats {
+            display: flex;
+            justify-content: space-around;
+            margin: 20px 0;
+        }
+        .stat-item {
+            text-align: center;
+        }
+        .stat-value {
+            font-size: 24px;
+            font-weight: bold;
+            color: #fbbf24;
+        }
+        .stat-label {
+            font-size: 12px;
+            opacity: 0.8;
+            margin-top: 5px;
+        }
+        .data-source {
+            font-size: 10px;
+            opacity: 0.6;
+            text-align: center;
+            margin-top: 15px;
+        }
+        .hashtags {
+            font-size: 16px;
+            margin-top: 20px;
+            opacity: 0.8;
+        }
+        .share-section {
+            margin: 40px 0;
+            text-align: center;
+        }
+        .share-subtitle {
+            color: #666;
+            margin-bottom: 30px;
+        }
+        .sharing-tip {
+            background: #e3f2fd;
+            border: 1px solid #2196f3;
+            border-radius: 8px;
+            padding: 15px;
+            margin: 20px 0;
+            color: #1976d2;
+        }
+        .share-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 15px;
+            margin: 30px 0;
+        }
+        .share-btn {
+            padding: 15px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: bold;
+            cursor: pointer;
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: transform 0.2s;
+        }
+        .share-btn:hover {
+            transform: translateY(-2px);
+        }
+        .share-btn.download {
+            background: #28a745;
+            color: white;
+        }
+        .share-btn.copy {
+            background: #6c757d;
+            color: white;
+        }
+        .share-btn.twitter {
+            background: #1da1f2;
+            color: white;
+        }
+        .share-btn.facebook {
+            background: #1877f2;
+            color: white;
+        }
+        .share-btn.linkedin {
+            background: #0077b5;
+            color: white;
+        }
+        .mobile-share-container {
+            display: none;
+            margin: 40px 0;
+            padding: 30px;
+            background: #f8f9fa;
+            border-radius: 15px;
+        }
+        .mobile-share-title {
+            margin-bottom: 20px;
+            color: #333;
+        }
+        .mobile-share-primary {
+            margin-bottom: 20px;
+        }
+        .mobile-share-btn {
+            width: 100%;
+            padding: 15px;
+            background: #007bff;
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 18px;
+            font-weight: bold;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+        }
+        .mobile-share-options {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+        }
+        .mobile-share-option {
+            padding: 15px;
+            border: 2px solid #dee2e6;
+            border-radius: 10px;
+            text-decoration: none;
+            color: #333;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            background: white;
+            font-weight: bold;
+            cursor: pointer;
+        }
+        .create-your-own {
+            text-align: center;
+            margin: 50px 0;
+            padding: 30px;
+            background: #f8f9fa;
+            border-radius: 10px;
+        }
+        .btn {
+            display: inline-block;
+            padding: 15px 30px;
+            background: #dc2626;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: bold;
+            margin-top: 15px;
+        }
+        
+        @media (max-width: 768px) {
+            .content-section {
+                padding: 20px;
+            }
+            .claim-card-impact {
+                padding: 30px 20px;
+            }
+            .airline-name {
+                font-size: 36px;
+            }
+            .days-count {
+                font-size: 80px;
+            }
+            .details-band {
+                flex-direction: column;
+                gap: 15px;
+            }
+            .industry-stats {
+                flex-direction: column;
+                gap: 15px;
+            }
+            .share-grid {
+                grid-template-columns: 1fr;
+            }
+            .mobile-share-container {
+                display: block;
+            }
+        }
     </style>
 </head>
 <body>
@@ -336,11 +613,11 @@ exports.handler = async function(event, context) {
             instructions.style.backgroundColor = 'rgba(0,0,0,0.7)';
             instructions.style.borderRadius = '10px';
             instructions.style.margin = '20px';
-            instructions.innerHTML = `
+            instructions.innerHTML = \`
                 <h3>Right-click on the image and select "Copy Image"</h3>
                 <p>Then click anywhere to close this window</p>
                 <p>You can then paste the image into your social media post</p>
-            `;
+            \`;
             
             overlay.appendChild(tempImg);
             overlay.appendChild(instructions);

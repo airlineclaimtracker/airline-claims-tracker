@@ -1,12 +1,37 @@
 {
-  "name": "airline-claims-tracker",
-  "version": "1.0.0",
-  "description": "Airline accountability campaign tool",
-  "main": "index.js",
+  "name": "smartwings-watch",
+  "version": "2.0.0",
+  "description": "AI-powered airline accountability campaign tool with enhanced social sharing",
+  "main": "public/index.html",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "build": "echo \"Static site - no build needed\" && exit 0"
+    "dev": "netlify dev",
+    "build": "echo 'Static site build complete'",
+    "test": "echo 'No tests configured'",
+    "deploy": "netlify deploy --prod"
   },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/airlineclaimtracker/airline-claims-tracker"
+  },
+  "keywords": [
+    "airline",
+    "passenger-rights",
+    "claims",
+    "accountability",
+    "social-sharing",
+    "ai-powered"
+  ],
+  "author": "SmartwingsWatch",
+  "license": "MIT",
   "dependencies": {
+    "netlify-cli": "^17.0.0"
+  },
+  "devDependencies": {},
+  "engines": {
+    "node": ">=18.0.0"
+  },
+  "netlify": {
+    "functions": "./functions",
+    "publish": "./public"
   }
 }

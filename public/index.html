@@ -3252,6 +3252,8 @@
     let currentPhoto = null;
     let currentRotation = 0;
     let currentBrightness = 100;
+    let currentCardDesign = 'impact';
+    
     
     // ========================================
     // PAGE INITIALIZATION
@@ -3312,31 +3314,48 @@ function fixMonthInputIssue() {
     }, 100);
 }
     
-    /**
-     * Set up event listeners for form and photo upload
-     */
-    function setupEventListeners() {
-        // Form submission handler
-        const form = document.getElementById('claim-form');
+/**
+ * FIXED: Set up event listeners with proper photo handling
+ */
+function setupEventListeners() {
+    console.log("Setting up event listeners...");
+    
+    // Form submission handler
+    const form = document.getElementById('claim-form');
+    if (form) {
         form.addEventListener('submit', handleFormSubmit);
-        
-        // Photo upload setup
-        const photoInput = document.getElementById('photo-input');
-
-        // Add this to your setupEventListeners function
-        const copyBtn = document.querySelector('.share-btn.copy');
-        if (copyBtn) {
-            copyBtn.addEventListener('click', copyImageToClipboard);
-        }
-                
-        if (photoInput) {
-            photoInput.addEventListener('change', (e) => {
-                if (e.target.files.length > 0) {
-                    processFile(e.target.files[0]);
-                }
-            });
-        }
+        console.log("Form submit listener added");
     }
+    
+    // Photo upload setup - FIXED
+    const photoInput = document.getElementById('photo-input');
+    if (photoInput) {
+        photoInput.addEventListener('change', function(e) {
+            console.log("Photo input changed, files:", e.target.files.length);
+            if (e.target.files.length > 0) {
+                processFile(e.target.files[0]);
+            }
+        });
+        console.log("Photo input listener added");
+    }
+    
+    // Download button
+    const downloadBtn = document.querySelector('.share-btn.download');
+    if (downloadBtn) {
+        downloadBtn.addEventListener('click', downloadCard);
+        console.log("Download button listener added");
+    }
+    
+    // Copy button
+    const copyBtn = document.querySelector('.share-btn.copy');
+    if (copyBtn) {
+        copyBtn.addEventListener('click', copyImageToClipboard);
+        console.log("Copy button listener added");
+    }
+    
+    console.log("Event listeners setup complete");
+}
+
     
     // ========================================
     // ERROR HANDLING FUNCTIONS
@@ -3720,47 +3739,89 @@ async function copyImageToClipboard() {
     /**
      * Process uploaded photo file
      */
-    function processFile(file) {
-        if (!file.type.match('image.*')) {
-            showError('Please select an image file showing the damage');
-            return;
-        }
-        
-        if (file.size > 5 * 1024 * 1024) {
-            showError('File size must be less than 5MB');
-            return;
-        }
-        
-        const reader = new FileReader();
-        reader.onload = function(e) {
-            currentPhoto = e.target.result;
-            console.log('Photo loaded successfully');
-            showPhotoPreview();
-            updateCardPhoto();
-        };
-        reader.readAsDataURL(file);
+/**
+ * FIXED: Process uploaded photo file
+ */
+function processFile(file) {
+    console.log('Processing file:', file.name, file.type, file.size);
+    
+    if (!file.type.match('image.*')) {
+        showError('Please select an image file showing the damage');
+        return;
     }
     
-    /**
-     * Show photo preview in form
-     */
-    function showPhotoPreview() {
-        const preview = document.getElementById('photo-preview');
-        const previewSection = document.getElementById('photo-preview-section');
-        
-        preview.src = currentPhoto;
-        previewSection.style.display = 'block';
+    if (file.size > 10 * 1024 * 1024) { // Increased to 10MB
+        showError('File size must be less than 10MB');
+        return;
     }
+    
+    const reader = new FileReader();
+    reader.onload = function(e) {
+        currentPhoto = e.target.result;
+        currentRotation = 0;
+        currentBrightness = 100;
+        console.log('Photo loaded successfully, length:', currentPhoto.length);
+        showPhotoPreview();
+        updateAllCardPhotos();
+        showSuccess('✅ Photo uploaded and added to your card!');
+    };
+    reader.onerror = function() {
+        showError('Error reading the photo file. Please try again.');
+    };
+    reader.readAsDataURL(file);
+}
     
 /**
- * Update photo on the claim card
+ * FIXED: Show photo preview in form
  */
-function updateCardPhoto() {
-    if (!currentPhoto) return;
+function showPhotoPreview() {
+    const preview = document.getElementById('photo-preview');
+    const previewSection = document.getElementById('photo-preview-section');
     
-    // Update photos on both cards
-    updateAllCardPhotos();
+    if (preview && previewSection && currentPhoto) {
+        preview.src = currentPhoto;
+        preview.style.transform = `rotate(${currentRotation}deg)`;
+        preview.style.filter = `brightness(${currentBrightness}%)`;
+        previewSection.style.display = 'block';
+        console.log('Photo preview shown');
+    }
 }
+    
+/**
+ * Helper function to update individual card photos
+ */
+function updateCardPhoto(cardType, photoId, containerId, placeholderId) {
+    const photo = document.getElementById(photoId);
+    const container = document.getElementById(containerId);
+    const placeholder = placeholderId ? document.getElementById(placeholderId) : null;
+    
+    if (photo && container) {
+        console.log(`Updating ${cardType} card photo`);
+        photo.src = currentPhoto;
+        
+        photo.onload = function() {
+            container.style.display = 'block';
+            if (placeholder) placeholder.style.display = 'none';
+            photo.style.transform = `rotate(${currentRotation}deg)`;
+            photo.style.filter = `brightness(${currentBrightness}%)`;
+            photo.style.width = '100%';
+            photo.style.height = '100%';
+            photo.style.objectFit = 'cover';
+            console.log(`${cardType} card photo updated successfully`);
+        };
+        
+        photo.onerror = function() {
+            console.error(`Failed to load photo in ${cardType} card`);
+        };
+    } else {
+        console.warn(`Missing elements for ${cardType} card:`, {
+            photo: !!photo,
+            container: !!container,
+            placeholder: !!placeholder
+        });
+    }
+}
+
     
 /**
  * Reset photo display when no photo is selected
@@ -3777,69 +3838,67 @@ function resetCardPhoto() {
     }
 }
     
-    /**
-     * Rotate photo 90 degrees
-     */
-    function rotatePhoto() {
-        currentRotation = (currentRotation + 90) % 360;
-        applyImageTransforms();
-    }
-    
-    /**
-     * Adjust photo brightness
-     */
-    function adjustPhoto() {
-        currentBrightness = currentBrightness === 100 ? 130 : 100;
-        applyImageTransforms();
-    }
+/**
+ * Rotate photo 90 degrees
+ */
+function rotatePhoto() {
+    currentRotation = (currentRotation + 90) % 360;
+    applyImageTransforms();
+    console.log("Photo rotated to:", currentRotation);
+}
     
 /**
- * Remove photo from form and card
+ * Adjust photo brightness
+ */
+function adjustPhoto() {
+    currentBrightness = currentBrightness === 100 ? 130 : 100;
+    applyImageTransforms();
+    console.log("Photo brightness:", currentBrightness);
+}
+    
+/**
+ * Remove photo
  */
 function removePhoto() {
     currentPhoto = null;
     currentRotation = 0;
     currentBrightness = 100;
     
-    // Update preview section
     document.getElementById('photo-preview-section').style.display = 'none';
     document.getElementById('photo-input').value = '';
     
-    // Reset photos on all cards
     resetAllCardPhotos();
+    console.log("Photo removed");
 }
     
-  /**
- * Apply rotation and brightness transforms to photos
+/**
+ * FIXED: Apply transforms to photos
  */
 function applyImageTransforms() {
-    // Preview photo
-    const preview = document.getElementById('photo-preview');
-    
-    // Minimalist card photo
-    const minimalistPhoto = document.getElementById('card-photo');
-    
-    // Impact card photo
-    const impactPhoto = document.getElementById('impact-photo');
-    
     const transform = `rotate(${currentRotation}deg)`;
     const filter = `brightness(${currentBrightness}%)`;
     
-    // Apply transforms to all photos
+    // Apply to preview
+    const preview = document.getElementById('photo-preview');
     if (preview) {
         preview.style.transform = transform;
         preview.style.filter = filter;
     }
     
-    if (minimalistPhoto) {
-        minimalistPhoto.style.transform = transform;
-        minimalistPhoto.style.filter = filter;
-    }
+    // Apply to all card photos
+    const cardPhotos = [
+        'card-photo',
+        'impact-photo', 
+        'context-photo'
+    ];
     
-    if (impactPhoto) {
-        impactPhoto.style.transform = transform;
-        impactPhoto.style.filter = filter;
-    }
+    cardPhotos.forEach(photoId => {
+        const photo = document.getElementById(photoId);
+        if (photo) {
+            photo.style.transform = transform;
+            photo.style.filter = filter;
+        }
+    });
 }
     
     // ========================================
@@ -4621,59 +4680,99 @@ function getDateString() {
         return `${day}${month}${year}`;
     }
     
-    /**
- * FIXED: Download the generated claim card
+/**
+ * SIMPLIFIED: Download card using direct canvas export
  */
 async function downloadCard() {
     const btn = document.querySelector('.share-btn.download');
     if (btn) {
         btn.disabled = true;
         btn.style.opacity = '0.7';
-        btn.textContent = 'Generating...';
+        btn.innerHTML = '<span>⏳</span> Creating...';
     }
     
     try {
-        console.log('Starting download process...');
-        console.log('Current claimData:', claimData);
+        console.log('Starting download...');
         
         if (!claimData || !claimData.days) {
-            throw new Error("No claim data available. Please fill out the form first.");
+            throw new Error("Please fill out the form first");
         }
         
-        const cardImage = await generateCardImage(false, 3); // Use highest quality
-        console.log('Image generated successfully, size:', cardImage.size);
+        // Find the visible card
+        let cardElement = null;
+        const cards = ['impact-card', 'context-card', 'minimalist-card'];
         
-        const today = new Date();
-        const day = today.getDate();
-        const month = today.toLocaleString('default', { month: 'short' });
-        const year = today.getFullYear();
-        const dateString = `${day}${month}${year}`;
+        for (const cardId of cards) {
+            const element = document.getElementById(cardId);
+            if (element && element.style.display !== 'none') {
+                cardElement = element;
+                console.log(`Found visible card: ${cardId}`);
+                break;
+            }
+        }
         
+        if (!cardElement) {
+            // Fallback to impact card
+            cardElement = document.getElementById('impact-card');
+            if (cardElement) {
+                cardElement.style.display = 'block';
+            }
+        }
+        
+        if (!cardElement) {
+            throw new Error("No card found to download");
+        }
+        
+        console.log('Generating image from card...');
+        
+        // Simple html2canvas with basic options
+        const canvas = await html2canvas(cardElement, {
+            scale: 2,
+            backgroundColor: null,
+            useCORS: true,
+            allowTaint: true,
+            logging: false
+        });
+        
+        console.log('Canvas created:', canvas.width, 'x', canvas.height);
+        
+        if (canvas.width === 0 || canvas.height === 0) {
+            throw new Error("Generated image has no size");
+        }
+        
+        // Convert to blob
+        const blob = await new Promise(resolve => {
+            canvas.toBlob(resolve, 'image/png', 1.0);
+        });
+        
+        if (!blob || blob.size === 0) {
+            throw new Error("Failed to create image file");
+        }
+        
+        console.log('Image blob created, size:', blob.size);
+        
+        // Download
+        const url = URL.createObjectURL(blob);
         const link = document.createElement('a');
-        link.download = `Smartwings-Claim-${claimData.days}days-${dateString}.png`;
-        link.href = URL.createObjectURL(cardImage);
+        link.download = `Smartwings-Claim-${claimData.days}days.png`;
+        link.href = url;
         
-        // Force download by adding to DOM, clicking, and removing
         document.body.appendChild(link);
         link.click();
         document.body.removeChild(link);
         
-        // Clean up the blob URL
-        setTimeout(() => {
-            URL.revokeObjectURL(link.href);
-        }, 1000);
+        setTimeout(() => URL.revokeObjectURL(url), 1000);
         
-        console.log('Download completed successfully');
-        showSuccess('💾 High-quality card downloaded successfully!');
+        showSuccess('✅ Card downloaded successfully!');
         
     } catch (error) {
-        console.error('Download error:', error);
-        showError(`Download failed: ${error.message}. Please try again.`);
+        console.error('Download failed:', error);
+        showError(`Download failed: ${error.message}`);
     } finally {
         if (btn) {
             btn.disabled = false;
             btn.style.opacity = '1';
-            btn.textContent = '📸 Get Your Card';
+            btn.innerHTML = '<span>📸</span> Get Your Card';
         }
     }
 }
@@ -5065,46 +5164,106 @@ function optimizeCardDesigns() {
 
 
 /**
- * Set up card design toggle functionality
+ * FIXED: Set up card design toggle functionality
  */
 function setupCardToggle() {
-    // First call our new optimization function
-    optimizeCardDesigns();
+    console.log("Setting up card toggle...");
     
-    // Add enhanced styling for mobile
     const cardToggle = document.querySelector('.card-toggle');
-    if (cardToggle) {
-        // Add enhanced mobile styles
-        const toggleStyle = document.createElement('style');
-        toggleStyle.textContent = `
-            @media (max-width: 768px) {
-                .card-toggle {
-                    flex-direction: column;
-                    gap: 10px;
-                }
-                
-                .card-toggle-btn {
-                    width: 100%;
-                    height: 50px;
-                }
-            }
-            
-            /* Enhanced toggle button styles */
-            .card-toggle-btn {
-                display: flex;
-                align-items: center;
-                justify-content: center;
-                gap: 8px;
-                font-weight: 600;
-                transition: all 0.2s ease;
-            }
-            
-            .card-toggle-btn.active {
-                transform: translateY(-2px);
-            }
-        `;
-        document.head.appendChild(toggleStyle);
+    if (!cardToggle) {
+        console.error("Card toggle element not found");
+        return;
     }
+    
+    // Get all cards
+    const minimalistCard = document.getElementById('minimalist-card');
+    const impactCard = document.getElementById('impact-card');
+    const contextCard = document.getElementById('context-card');
+    
+    console.log("Cards found:", {
+        minimalist: !!minimalistCard,
+        impact: !!impactCard,
+        context: !!contextCard
+    });
+    
+    // Clear existing buttons and create new ones
+    cardToggle.innerHTML = '';
+    
+    // Create Impact button
+    const impactBtn = document.createElement('button');
+    impactBtn.className = 'card-toggle-btn active';
+    impactBtn.setAttribute('data-design', 'impact');
+    impactBtn.innerHTML = `
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M6 9H4.5a2.5 2.5 0 0 1 0-5H6"></path>
+            <path d="M18 9h1.5a2.5 2.5 0 0 0 0-5H18"></path>
+            <path d="M4 22h16"></path>
+            <path d="M10 14.66V17c0 .55-.47.98-.97 1.21C7.85 18.75 7 20.24 7 22"></path>
+            <path d="M14 14.66V17c0 .55.47.98.97 1.21C16.15 18.75 17 20.24 17 22"></path>
+            <path d="M18 2H6v7a6 6 0 0 0 12 0V2Z"></path>
+        </svg>
+        Maximum Impact
+    `;
+    
+    // Create Context button  
+    const contextBtn = document.createElement('button');
+    contextBtn.className = 'card-toggle-btn';
+    contextBtn.setAttribute('data-design', 'context');
+    contextBtn.innerHTML = `
+        <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M3 3v18h18"></path>
+            <path d="M7 17l4-4 4 4 6-6"></path>
+        </svg>
+        Industry Data
+    `;
+    
+    // Add buttons to toggle
+    cardToggle.appendChild(impactBtn);
+    cardToggle.appendChild(contextBtn);
+    
+    // Set up click handlers
+    impactBtn.addEventListener('click', function() {
+        console.log("Switching to impact card");
+        impactBtn.classList.add('active');
+        contextBtn.classList.remove('active');
+        
+        if (impactCard) impactCard.style.display = 'block';
+        if (contextCard) contextCard.style.display = 'none';
+        if (minimalistCard) minimalistCard.style.display = 'none';
+        
+        currentCardDesign = 'impact';
+        console.log("Current card design:", currentCardDesign);
+    });
+    
+    contextBtn.addEventListener('click', function() {
+        console.log("Switching to context card");
+        contextBtn.classList.add('active');
+        impactBtn.classList.remove('active');
+        
+        if (contextCard) contextCard.style.display = 'block';
+        if (impactCard) impactCard.style.display = 'none';
+        if (minimalistCard) minimalistCard.style.display = 'none';
+        
+        currentCardDesign = 'context';
+        console.log("Current card design:", currentCardDesign);
+    });
+    
+    // Set initial state
+    if (impactCard) {
+        impactCard.style.display = 'block';
+        console.log("Impact card set to display: block");
+    }
+    if (contextCard) {
+        contextCard.style.display = 'none';
+        console.log("Context card set to display: none");
+    }
+    if (minimalistCard) {
+        minimalistCard.style.display = 'none';
+        console.log("Minimalist card set to display: none");
+    }
+    
+    currentCardDesign = 'impact';
+    console.log("Card toggle setup complete. Current design:", currentCardDesign);
 }
 
 /**
@@ -5157,94 +5316,45 @@ function updateBothCards() {
 }
 
 /**
- * FIXED: Update photos on all cards
+ * FIXED: Update photos on all cards with better error handling
  */
 function updateAllCardPhotos() {
-    console.log("Updating all card photos...");
+    console.log("Starting updateAllCardPhotos, currentPhoto exists:", !!currentPhoto);
+    
     if (!currentPhoto) {
         console.log("No current photo to update");
+        resetAllCardPhotos();
         return;
     }
     
     // Update minimalist card photo
-    const minimalistPhoto = document.getElementById('card-photo');
-    const minimalistContainer = document.getElementById('card-photo-container');
-    const minimalistPlaceholder = document.getElementById('photo-placeholder');
+    updateCardPhoto('minimalist', 'card-photo', 'card-photo-container', 'photo-placeholder');
     
-    if (minimalistPhoto && minimalistContainer) {
-        console.log("Updating minimalist card photo");
-        minimalistPhoto.src = currentPhoto;
-        minimalistPhoto.onload = function() {
-            minimalistContainer.style.display = 'block';
-            if (minimalistPlaceholder) minimalistPlaceholder.style.display = 'none';
-            minimalistPhoto.style.transform = `rotate(${currentRotation}deg)`;
-            minimalistPhoto.style.filter = `brightness(${currentBrightness}%)`;
-            console.log("Minimalist card photo updated successfully");
-        };
-        minimalistPhoto.onerror = function() {
-            console.error("Failed to load photo in minimalist card");
-        };
-    }
-    
-    // Update impact card photo
-    const impactPhoto = document.getElementById('impact-photo');
-    const impactContainer = document.getElementById('impact-photo-container');
-    
-    if (impactPhoto && impactContainer) {
-        console.log("Updating impact card photo");
-        impactPhoto.src = currentPhoto;
-        impactPhoto.onload = function() {
-            impactContainer.style.display = 'block';
-            impactPhoto.style.transform = `rotate(${currentRotation}deg)`;
-            impactPhoto.style.filter = `brightness(${currentBrightness}%)`;
-            console.log("Impact card photo updated successfully");
-        };
-        impactPhoto.onerror = function() {
-            console.error("Failed to load photo in impact card");
-        };
-    }
+    // Update impact card photo  
+    updateCardPhoto('impact', 'impact-photo', 'impact-photo-container', null);
     
     // Update context card photo
-    const contextPhoto = document.getElementById('context-photo');
-    const contextContainer = document.getElementById('context-photo-container');
-    const contextPlaceholder = document.getElementById('context-photo-placeholder');
-    
-    if (contextPhoto && contextContainer) {
-        console.log("Updating context card photo");
-        contextPhoto.src = currentPhoto;
-        contextPhoto.onload = function() {
-            contextContainer.style.display = 'block';
-            if (contextPlaceholder) contextPlaceholder.style.display = 'none';
-            contextPhoto.style.transform = `rotate(${currentRotation}deg)`;
-            contextPhoto.style.filter = `brightness(${currentBrightness}%)`;
-            console.log("Context card photo updated successfully");
-        };
-        contextPhoto.onerror = function() {
-            console.error("Failed to load photo in context card");
-        };
-    }
+    updateCardPhoto('context', 'context-photo', 'context-photo-container', 'context-photo-placeholder');
 }
 
+
 /**
- * Reset photos on both cards
+ * FIXED: Reset photos on all cards
  */
 function resetAllCardPhotos() {
-    // Reset minimalist card photo
+    // Reset minimalist card
     const minimalistContainer = document.getElementById('card-photo-container');
     const minimalistPlaceholder = document.getElementById('photo-placeholder');
-    
     if (minimalistContainer) minimalistContainer.style.display = 'none';
     if (minimalistPlaceholder) minimalistPlaceholder.style.display = 'flex';
     
-    // Reset impact card photo
+    // Reset impact card (no placeholder to show)
     const impactContainer = document.getElementById('impact-photo-container');
-    
     if (impactContainer) impactContainer.style.display = 'none';
     
-    // Reset context card photo
+    // Reset context card
     const contextContainer = document.getElementById('context-photo-container');
     const contextPlaceholder = document.getElementById('context-photo-placeholder');
-    
     if (contextContainer) contextContainer.style.display = 'none';
     if (contextPlaceholder) contextPlaceholder.style.display = 'block';
 }

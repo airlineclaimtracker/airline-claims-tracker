@@ -4,9 +4,9 @@
   "description": "Airline accountability campaign tool",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "echo \"Static site - no build needed\" && exit 0"
   },
   "dependencies": {
-    "canvas": "^2.11.0"
   }
 }

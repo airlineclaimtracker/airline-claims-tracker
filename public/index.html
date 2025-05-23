@@ -602,7 +602,7 @@
             font-size: 0.95rem;
         }
 
-        /* Platform-optimized buttons */
+        /* Platform-optimized buttons *
  /* Platform-optimized buttons - COMPACT VERSION */
 .platform-shares {
     display: grid;
@@ -678,45 +678,55 @@
 
         /* Instagram-specific styles */
         .instagram-workflow {
-            background: linear-gradient(135deg, rgba(240, 148, 51, 0.1), rgba(188, 24, 136, 0.1));
-            border-radius: 12px;
-            padding: 20px;
-            margin-top: 15px;
-        }
+    background: linear-gradient(135deg, rgba(240, 148, 51, 0.1), rgba(188, 24, 136, 0.1));
+    border-radius: 8px;
+    padding: 12px;
+    margin-top: 12px;
+    width: 100%;
+    box-sizing: border-box;
+    /* FIX: Reduce overall size */
+    max-width: 100%;
+    overflow: hidden;
+}
 
-        .workflow-steps {
-            display: flex;
-            flex-direction: column;
-            gap: 12px;
-        }
+.workflow-steps {
+    display: flex;
+    flex-direction: column;
+    gap: 6px; /* Much smaller gap */
+}
 
-        .workflow-step {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            padding: 12px;
-            background: white;
-            border-radius: 8px;
-            border-left: 4px solid #e4405f;
-        }
+.workflow-step {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 10px; /* Much smaller padding */
+    background: white;
+    border-radius: 6px;
+    border-left: 3px solid #e4405f; /* Thinner border */
+    font-size: 0.75rem; /* Smaller text */
+    min-height: 28px; /* Fixed height */
+}
 
-        .step-number {
-            width: 24px;
-            height: 24px;
-            background: #e4405f;
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-size: 12px;
-            font-weight: 700;
-        }
+.step-number {
+    width: 16px;  /* Much smaller */
+    height: 16px; /* Much smaller */
+    background: #e4405f;
+    color: white;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 10px;
+    font-weight: 700;
+    flex-shrink: 0;
+}
 
-        .step-text {
-            font-size: 0.9rem;
-            color: #333;
-        }
+.step-text {
+    font-size: 0.75rem; /* Much smaller text */
+    color: #333;
+    line-height: 1.2;
+    flex: 1;
+}
 
         /* Mobile optimization */
         .mobile-native-share {

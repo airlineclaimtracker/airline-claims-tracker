@@ -2040,6 +2040,20 @@
             if (desktopShare) desktopShare.style.display = 'none';
         }
     });
+
+    // Platform detection utility
+        function getPlatformInstructions(platform) {
+            const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+            const isIOS = /iPad|iPhone|iPod/.test(navigator.userAgent);
+            const isAndroid = /Android/.test(navigator.userAgent);
+            
+            return {
+                isMobile,
+                isIOS,
+                isAndroid,
+                pasteKey: navigator.platform.indexOf('Mac') > -1 ? 'Cmd+V' : 'Ctrl+V'
+            };
+        }
     
     // ========================================
     // FORM SETUP FUNCTIONS
@@ -2579,14 +2593,18 @@ Sharing for awareness and to help other travelers understand their rights.
             
             // Open Twitter with pre-filled message
             const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(message)}`;
-            window.open(twitterUrl, '_blank', 'width=600,height=400');
+            window.open('https://twitter.com/intent/tweet', '_blank', 'width=600,height=400');
             
             showSuccess(`
                 ✅ <strong>Twitter Ready!</strong><br>
                 📸 Image saved to your device<br>
                 📝 Message copied to clipboard<br>
-                💡 <strong>Next:</strong> Attach the saved image to your tweet
-            `);
+                🐦 <strong>Twitter Steps:</strong><br>
+                1. Click "Tweet" in the opened window<br>
+                2. Paste your message (Ctrl/Cmd+V)<br>
+                3. Click the image icon and select your saved image<br>
+                4. Send your tweet!
+            `, 12000);
         } catch (error) {
             showSuccess('❌ Twitter sharing failed. Please try again.', 2000);
         }
@@ -2598,17 +2616,24 @@ Sharing for awareness and to help other travelers understand their rights.
             const saved = await saveImageToDevice('linkedin-professional-post.png');
             const copied = await copyToClipboard(message);
             
+            // Try to open LinkedIn sharing, fallback to feed
+        try {
+            window.open('https://www.linkedin.com/sharing/share-offsite/', '_blank');
+        } catch(error) {
             window.open('https://www.linkedin.com/feed/', '_blank');
+        }
             
             showSuccess(`
-                ✅ <strong>LinkedIn Professional Post Ready!</strong><br>
-                📸 High-quality image saved<br>
-                📝 Professional message copied<br>
-                💼 <strong>Next Steps:</strong><br>
-                1. Click "Start a post" in LinkedIn<br>
-                2. Paste your message (Ctrl+V)<br>
-                3. Click the image icon and select your saved image
-            `, 8000);
+            ✅ <strong>LinkedIn Professional Post Ready!</strong><br>
+            📸 High-quality image saved to your device<br>
+            📝 Professional message copied to clipboard<br>
+            💼 <strong>LinkedIn Steps:</strong><br>
+            1. If compose window didn't open, click "Start a post"<br>
+            2. Paste your message (Ctrl/Cmd+V)<br>
+            3. Click the image/media icon<br>
+            4. Select your saved image<br>
+            5. Publish your post!
+        `, 15000);
         } catch (error) {
             showSuccess('❌ LinkedIn preparation failed. Please try again.', 2000);
         }
@@ -2620,17 +2645,22 @@ Sharing for awareness and to help other travelers understand their rights.
             const saved = await saveImageToDevice('instagram-story-card.png');
             const copied = await copyToClipboard(caption);
             
-            // Try to open Instagram app, fallback to web
-            const instagramAppUrl = 'instagram://camera';
-            const instagramWebUrl = 'https://www.instagram.com/';
+           // Detect mobile vs desktop
+            const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
             
-            try {
-                window.location.href = instagramAppUrl;
-                setTimeout(() => {
-                    window.open(instagramWebUrl, '_blank');
-                }, 1000);
-            } catch {
-                window.open(instagramWebUrl, '_blank');
+            if (isMobile) {
+                // Try app first on mobile
+                try {
+                    window.location.href = 'instagram://camera';
+                    setTimeout(() => {
+                        window.open('https://www.instagram.com/', '_blank');
+                    }, 1500);
+                } catch {
+                    window.open('https://www.instagram.com/', '_blank');
+                }
+            } else {
+                // Desktop - just open web version
+                window.open('https://www.instagram.com/', '_blank');
             }
             
             showSuccess(`

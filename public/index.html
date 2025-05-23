@@ -1513,6 +1513,36 @@
                 }
             }
         }
+
+        /* Enhanced success messages for manual steps */
+.sharing-success {
+    background: #e3f2fd;
+    border: 2px solid #1976d2;
+    color: #0d47a1;
+    padding: 20px;
+    border-radius: 12px;
+    margin: 15px 0;
+    display: none;
+    font-size: 0.95rem;
+    line-height: 1.5;
+}
+
+.sharing-success.show {
+    display: block;
+    animation: slideInBounce 0.5s ease;
+}
+
+.sharing-success strong {
+    color: #1976d2;
+    display: block;
+    margin-bottom: 8px;
+}
+
+@keyframes slideInBounce {
+    0% { opacity: 0; transform: translateY(-20px) scale(0.9); }
+    50% { opacity: 1; transform: translateY(5px) scale(1.02); }
+    100% { opacity: 1; transform: translateY(0) scale(1); }
+}
       
     </style>
 </head>
@@ -2560,9 +2590,9 @@ Sharing for awareness and to help other travelers understand their rights.
         }
 
         // LinkedIn sharing
-        const linkedinProfessionalBtn = document.getElementById('linkedin-professional-share');
-        if (linkedinProfessionalBtn) {
-            linkedinProfessionalBtn.addEventListener('click', shareToLinkedInViral);
+        const linkedinPreparelBtn = document.getElementById('linkedin-professional-share');
+        if (linkedinPrepareBtn) {
+            linkedinPrepareBtn.addEventListener('click', linkedInPreparePost);
         }
 
         // Instagram sharing
@@ -2610,56 +2640,79 @@ Sharing for awareness and to help other travelers understand their rights.
         }
     }
 
-    async function shareToLinkedInViral() {
-        try {
-            const message = generateViralLinkedInMessage();
-            const saved = await saveImageToDevice('linkedin-professional-post.png');
-            const copied = await copyToClipboard(message);
-            
-            // Try to open LinkedIn sharing, fallback to feed
-        try {
-            window.open('https://www.linkedin.com/sharing/share-offsite/', '_blank');
-        } catch(error) {
-            window.open('https://www.linkedin.com/feed/', '_blank');
+          async function shareToLinkedInViral() {
+            try {
+                const message = generateViralLinkedInMessage();
+                const saved = await saveImageToDevice('linkedin-professional-post.png');
+                const copied = await copyToClipboard(message);
+                
+                // Open LinkedIn feed - user must manually create post
+                window.open('https://www.linkedin.com/feed/', '_blank');
+                
+                showSuccess(`
+                    ✅ <strong>LinkedIn Professional Post Ready!</strong><br>
+                    📸 High-quality image saved to Downloads<br>
+                    📝 Professional message copied to clipboard<br>
+                    💼 <strong>Manual Steps Required:</strong><br>
+                    1. Click "Start a post" in LinkedIn<br>
+                    2. Paste your message (Ctrl/Cmd+V)<br>
+                    3. Click the image/media icon<br>
+                    4. Upload your downloaded image<br>
+                    5. Publish your professional post!
+                `, 15000);
+            } catch (error) {
+                showSuccess('❌ LinkedIn preparation failed. Please try again.', 2000);
+            }
         }
-            
-            showSuccess(`
-            ✅ <strong>LinkedIn Professional Post Ready!</strong><br>
-            📸 High-quality image saved to your device<br>
-            📝 Professional message copied to clipboard<br>
-            💼 <strong>LinkedIn Steps:</strong><br>
-            1. If compose window didn't open, click "Start a post"<br>
-            2. Paste your message (Ctrl/Cmd+V)<br>
-            3. Click the image/media icon<br>
-            4. Select your saved image<br>
-            5. Publish your post!
+    async function linkedInPreparePost() {
+    try {
+        const message = generateViralLinkedInMessage();
+        const saved = await saveImageToDevice('linkedin-post-image.png');
+        const copied = await copyToClipboard(message);
+        
+        showSuccess(`
+            ✅ <strong>LinkedIn Content Prepared!</strong><br>
+            📝 Message copied to clipboard<br>
+            📸 Image saved to Downloads folder<br>
+            ⚠️ <strong>Important:</strong> LinkedIn requires manual image upload<br>
+            📋 <strong>Steps:</strong><br>
+            1. Go to LinkedIn manually<br>
+            2. Start a new post<br>
+            3. Paste message (Ctrl/Cmd+V)<br>
+            4. Click image icon and select downloaded file<br>
+            5. Post to your network!
         `, 15000);
-        } catch (error) {
-            showSuccess('❌ LinkedIn preparation failed. Please try again.', 2000);
-        }
+    } catch (error) {
+        showSuccess('❌ LinkedIn prep failed. Please try again.', 2000);
     }
-
+}
     async function prepareInstagramStoryViral() {
         try {
             const caption = generateViralInstagramStoryCaption();
             const saved = await saveImageToDevice('instagram-story-card.png');
             const copied = await copyToClipboard(caption);
             
-           // Detect mobile vs desktop
+          // Detect mobile vs desktop and remove console errors
             const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
             
             if (isMobile) {
-                // Try app first on mobile
-                try {
-                    window.location.href = 'instagram://camera';
-                    setTimeout(() => {
-                        window.open('https://www.instagram.com/', '_blank');
-                    }, 1500);
-                } catch {
-                    window.open('https://www.instagram.com/', '_blank');
-                }
+                // Mobile: Try app first, then fallback
+                const instagramAppUrl = 'instagram://camera';
+                const instagramWebUrl = 'https://www.instagram.com/';
+                
+                // Create a hidden iframe to test app availability without console errors
+                const iframe = document.createElement('iframe');
+                iframe.style.display = 'none';
+                iframe.src = instagramAppUrl;
+                document.body.appendChild(iframe);
+                
+                // Fallback to web after short delay
+                setTimeout(() => {
+                    document.body.removeChild(iframe);
+                    window.open(instagramWebUrl, '_blank');
+                }, 1500);
             } else {
-                // Desktop - just open web version
+                // Desktop: Direct to web, no app attempt
                 window.open('https://www.instagram.com/', '_blank');
             }
             
@@ -2683,7 +2736,29 @@ Sharing for awareness and to help other travelers understand their rights.
             const saved = await saveImageToDevice('instagram-post-card.png');
             const copied = await copyToClipboard(caption);
             
-            window.open('https://www.instagram.com/', '_blank');
+            // Detect mobile vs desktop and remove console errors
+const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+
+if (isMobile) {
+    // Mobile: Try app first, then fallback
+    const instagramAppUrl = 'instagram://camera';
+    const instagramWebUrl = 'https://www.instagram.com/';
+    
+    // Create a hidden iframe to test app availability without console errors
+    const iframe = document.createElement('iframe');
+    iframe.style.display = 'none';
+    iframe.src = instagramAppUrl;
+    document.body.appendChild(iframe);
+    
+    // Fallback to web after short delay
+    setTimeout(() => {
+        document.body.removeChild(iframe);
+        window.open(instagramWebUrl, '_blank');
+    }, 1500);
+} else {
+    // Desktop: Direct to web, no app attempt
+    window.open('https://www.instagram.com/', '_blank');
+}
             
             showSuccess(`
                 ✅ <strong>Instagram Post Ready!</strong><br>
@@ -3403,6 +3478,7 @@ Sharing for awareness and to help other travelers understand their rights.
      */
     function updateAllCardPhotos() {
         console.log("Starting updateAllCardPhotos, currentPhoto exists:", !!currentPhoto);
+        console.log("Current photo preview:", currentPhoto ? currentPhoto.substring(0, 50)
         
         if (!currentPhoto) {
             console.log("No current photo to update");
@@ -3416,12 +3492,21 @@ Sharing for awareness and to help other travelers understand their rights.
         // Update impact card photo
         const impactPhoto = document.getElementById('impact-photo');
         const impactContainer = document.getElementById('impact-photo-container');
+        const impactOverlay = impactContainer ? impactContainer.closest('.evidence-photo')
         
         if (impactPhoto && impactContainer) {
             console.log("Updating impact card photo");
             impactPhoto.src = currentPhoto;
             impactPhoto.onload = function() {
+                
                 impactContainer.style.display = 'block';
+                impactPhoto.style.transform = `rotate(${currentRotation}deg)`;
+                impactPhoto.style.filter = `brightness(${currentBrightness}%)`;
+                impactPhoto.style.width = '100%';
+                impactPhoto.style.height = '100%';
+                if (impactOverlay) {
+                impactOverlay.querySelector('.photo-overlay').style.display = 'none';
+                }
                 impactPhoto.style.transform = `rotate(${currentRotation}deg)`;
                 impactPhoto.style.filter = `brightness(${currentBrightness}%)`;
                 impactPhoto.style.width = '100%';
@@ -3434,20 +3519,25 @@ Sharing for awareness and to help other travelers understand their rights.
         // Update context card photo
         const contextPhoto = document.getElementById('context-photo');
         const contextContainer = document.getElementById('context-photo-container');
-        const contextPlaceholder = document.getElementById('context-photo-placeholder');
+        const impactOverlay = impactContainer ? impactContainer.closest('.evidence-photo') :
         
         if (contextPhoto && contextContainer) {
             console.log("Updating context card photo");
             contextPhoto.src = currentPhoto;
             contextPhoto.onload = function() {
-                contextContainer.style.display = 'block';
-                if (contextPlaceholder) contextPlaceholder.style.display = 'none';
-                contextPhoto.style.transform = `rotate(${currentRotation}deg)`;
-                contextPhoto.style.filter = `brightness(${currentBrightness}%)`;
-                contextPhoto.style.width = '100%';
-                contextPhoto.style.height = '100%';
-                contextPhoto.style.objectFit = 'cover';
-                console.log("Context card photo updated successfully");
+            // FORCE VISIBLE
+            impactContainer.style.display = 'block';
+            impactContainer.style.width = '100%';
+            impactContainer.style.height = '100%';
+            if (impactOverlay) {
+                impactOverlay.querySelector('.photo-overlay').style.display = 'none';
+            }
+            impactPhoto.style.transform = `rotate(${currentRotation}deg)`;
+            impactPhoto.style.filter = `brightness(${currentBrightness}%)`;
+            impactPhoto.style.width = '100%';
+            impactPhoto.style.height = '100%';
+            impactPhoto.style.objectFit = 'cover';
+            console.log("Impact card photo updated successfully");
             };
         }
         

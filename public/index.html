@@ -2590,7 +2590,11 @@ Sharing for awareness and to help other travelers understand their rights.
         }
 
         // LinkedIn sharing
-        const linkedinPreparelBtn = document.getElementById('linkedin-professional-share');
+        const linkedinProfessionallBtn = document.getElementById('linkedin-professional-share');
+        if (linkedinProfessionalBtn) {
+            linkedinProfessionalBtn.addEventListener('click', linkedInPreparePost);
+        }
+        const linkedinPrepareBtn = document.getElementById('linkedin-prepare-post');
         if (linkedinPrepareBtn) {
             linkedinPrepareBtn.addEventListener('click', linkedInPreparePost);
         }
@@ -3478,60 +3482,34 @@ if (isMobile) {
      * FIXED: Update photos on all cards with complete rebuild
      */
     function updateAllCardPhotos() {
-        console.log("Starting updateAllCardPhotos, currentPhoto exists:", !!currentPhoto);
-        console.log("Current photo preview:", currentPhoto ? currentPhoto.substring(0, 50)
-        
-        if (!currentPhoto) {
-            console.log("No current photo to update");
-            resetAllCardPhotos();
-            return;
-        }
-        
-        // Force show photo sections on all cards
-        console.log("Updating all card photos with current photo");
-        
-        // Update impact card photo
-        const impactPhoto = document.getElementById('impact-photo');
-        const impactContainer = document.getElementById('impact-photo-container');
-        const impactOverlay = impactContainer ? impactContainer.closest('.evidence-photo')
-        
-        if (impactPhoto && impactContainer) {
-            console.log("Updating impact card photo");
-            impactPhoto.src = currentPhoto;
-            impactPhoto.onload = function() {
-                
-                impactContainer.style.display = 'block';
-                impactPhoto.style.transform = `rotate(${currentRotation}deg)`;
-                impactPhoto.style.filter = `brightness(${currentBrightness}%)`;
-                impactPhoto.style.width = '100%';
-                impactPhoto.style.height = '100%';
-                if (impactOverlay) {
-                impactOverlay.querySelector('.photo-overlay').style.display = 'none';
-                }
-                impactPhoto.style.transform = `rotate(${currentRotation}deg)`;
-                impactPhoto.style.filter = `brightness(${currentBrightness}%)`;
-                impactPhoto.style.width = '100%';
-                impactPhoto.style.height = '100%';
-                impactPhoto.style.objectFit = 'cover';
-                console.log("Impact card photo updated successfully");
-            };
-        }
-        
-        // Update context card photo
-        const contextPhoto = document.getElementById('context-photo');
-        const contextContainer = document.getElementById('context-photo-container');
-        const impactOverlay = impactContainer ? impactContainer.closest('.evidence-photo') :
-        
-        if (contextPhoto && contextContainer) {
-            console.log("Updating context card photo");
-            contextPhoto.src = currentPhoto;
-            contextPhoto.onload = function() {
+    console.log("Starting updateAllCardPhotos, currentPhoto exists:", !!currentPhoto);
+    console.log("Current photo preview:", currentPhoto ? currentPhoto.substring(0, 50) + "..." : "none");
+    
+    if (!currentPhoto) {
+        console.log("No current photo to update");
+        resetAllCardPhotos();
+        return;
+    }
+    
+    // Force show photo sections on all cards
+    console.log("Updating all card photos with current photo");
+    
+    // Update impact card photo
+    const impactPhoto = document.getElementById('impact-photo');
+    const impactContainer = document.getElementById('impact-photo-container');
+    const impactOverlay = impactContainer ? impactContainer.closest('.evidence-photo') : null;
+    
+    if (impactPhoto && impactContainer) {
+        console.log("Updating impact card photo");
+        impactPhoto.src = currentPhoto;
+        impactPhoto.onload = function() {
             // FORCE VISIBLE
             impactContainer.style.display = 'block';
             impactContainer.style.width = '100%';
             impactContainer.style.height = '100%';
             if (impactOverlay) {
-                impactOverlay.querySelector('.photo-overlay').style.display = 'none';
+                const overlay = impactOverlay.querySelector('.photo-overlay');
+                if (overlay) overlay.style.display = 'none';
             }
             impactPhoto.style.transform = `rotate(${currentRotation}deg)`;
             impactPhoto.style.filter = `brightness(${currentBrightness}%)`;
@@ -3539,11 +3517,31 @@ if (isMobile) {
             impactPhoto.style.height = '100%';
             impactPhoto.style.objectFit = 'cover';
             console.log("Impact card photo updated successfully");
-            };
-        }
-        
-        console.log("Photo update process completed");
+        };
     }
+    
+    // Update context card photo
+    const contextPhoto = document.getElementById('context-photo');
+    const contextContainer = document.getElementById('context-photo-container');
+    const contextPlaceholder = document.getElementById('context-photo-placeholder');
+    
+    if (contextPhoto && contextContainer) {
+        console.log("Updating context card photo");
+        contextPhoto.src = currentPhoto;
+        contextPhoto.onload = function() {
+            contextContainer.style.display = 'block';
+            if (contextPlaceholder) contextPlaceholder.style.display = 'none';
+            contextPhoto.style.transform = `rotate(${currentRotation}deg)`;
+            contextPhoto.style.filter = `brightness(${currentBrightness}%)`;
+            contextPhoto.style.width = '100%';
+            contextPhoto.style.height = '100%';
+            contextPhoto.style.objectFit = 'cover';
+            console.log("Context card photo updated successfully");
+        };
+    }
+    
+    console.log("Photo update process completed");
+}
 
     /**
      * FIXED: Reset photos on all cards

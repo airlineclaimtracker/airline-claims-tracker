@@ -603,91 +603,62 @@
         }
 
         /* Platform-optimized buttons */
-        .platform-shares {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 15px;
-            margin: 25px 0;
-        }
+ /* Platform-optimized buttons - COMPACT VERSION */
+.platform-shares {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); /* Smaller min-width */
+    gap: 12px; /* Smaller gap */
+    margin: 20px 0; /* Smaller margin */
+}
 
-        .platform-share-card {
-            border: 2px solid #f0f0f0;
-            border-radius: 12px;
-            padding: 20px;
-            background: white;
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
+.platform-share-card {
+    border: 2px solid #f0f0f0;
+    border-radius: 10px; /* Smaller radius */
+    padding: 15px; /* Much smaller padding */
+    background: white;
+    transition: all 0.3s ease;
+    position: relative;
+    overflow: hidden;
+    /* FIX: Reduce overall size */
+    min-height: auto;
+}
 
-        .platform-share-card:hover {
-            border-color: var(--platform-color);
-            transform: translateY(-2px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
-        }
+.platform-header {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Smaller gap */
+    margin-bottom: 10px; /* Smaller margin */
+}
 
-        .platform-share-card.twitter { --platform-color: #1da1f2; }
-        .platform-share-card.linkedin { --platform-color: #0077b5; }
-        .platform-share-card.instagram { --platform-color: #e4405f; }
-        .platform-share-card.facebook { --platform-color: #1877f2; }
+.platform-strategy {
+    font-size: 0.8rem; /* Smaller text */
+    color: #666;
+    margin-bottom: 12px; /* Smaller margin */
+    line-height: 1.3;
+}
 
-        .platform-header {
-            display: flex;
-            align-items: center;
-            gap: 12px;
-            margin-bottom: 15px;
-        }
+.platform-buttons {
+    display: flex;
+    gap: 8px; /* Smaller gap */
+    flex-wrap: wrap;
+}
 
-        .platform-icon {
-            width: 32px;
-            height: 32px;
-            border-radius: 8px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            color: white;
-            font-size: 18px;
-        }
-
-        .platform-icon.twitter { background: #1da1f2; }
-        .platform-icon.linkedin { background: #0077b5; }
-        .platform-icon.instagram { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
-        .platform-icon.facebook { background: #1877f2; }
-
-        .platform-name {
-            font-size: 1.1rem;
-            font-weight: 700;
-            color: #333;
-        }
-
-        .platform-strategy {
-            font-size: 0.85rem;
-            color: #666;
-            margin-bottom: 15px;
-            line-height: 1.4;
-        }
-
-        .platform-buttons {
-            display: flex;
-            gap: 10px;
-            flex-wrap: wrap;
-        }
-
-        .viral-btn {
-            padding: 10px 16px;
-            border: none;
-            border-radius: 8px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.2s ease;
-            display: flex;
-            align-items: center;
-            gap: 6px;
-            flex: 1;
-            min-width: 120px;
-            justify-content: center;
-        }
+.viral-btn {
+    padding: 8px 12px; /* Smaller padding */
+    border: none;
+    border-radius: 6px; /* Smaller radius */
+    font-size: 0.85rem; /* Smaller text */
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: flex;
+    align-items: center;
+    gap: 5px; /* Smaller gap */
+    flex: 1;
+    min-width: 100px; /* Smaller min-width */
+    justify-content: center;
+    min-height: 36px; /* Fixed smaller height */
+}
 
         .viral-btn.primary {
             background: var(--platform-color);
@@ -1543,7 +1514,34 @@
     50% { opacity: 1; transform: translateY(5px) scale(1.02); }
     100% { opacity: 1; transform: translateY(0) scale(1); }
 }
-      
+      /* Overall compact design improvements */
+.viral-sharing-container {
+    background: white;
+    border-radius: 12px;
+    padding: 20px; /* Reduced from 25px */
+    box-shadow: 0 6px 20px rgba(0,0,0,0.08); /* Lighter shadow */
+    margin: 15px 0; /* Reduced margin */
+}
+
+.sharing-strategy-header {
+    text-align: center;
+    margin-bottom: 20px; /* Reduced margin */
+    padding: 15px; /* Reduced padding */
+    background: linear-gradient(135deg, #e3f2fd, #f3e5f5);
+    border-radius: 10px; /* Smaller radius */
+}
+
+.strategy-title {
+    font-size: 1.2rem; /* Slightly smaller */
+    font-weight: 700;
+    color: #1976d2;
+    margin-bottom: 6px; /* Smaller margin */
+}
+
+.strategy-subtitle {
+    color: #666;
+    font-size: 0.9rem; /* Smaller text */
+}
     </style>
 </head>
 
@@ -2571,53 +2569,76 @@ Sharing for awareness and to help other travelers understand their rights.
     // VIRAL SHARING FUNCTIONS
     // ========================================
     
-    function setupViralSharingEventListeners() {
-        // Mobile native sharing
-        const mobileNativeBtn = document.getElementById('mobile-native-share');
-        if (mobileNativeBtn) {
-            mobileNativeBtn.addEventListener('click', mobileNativeShare);
-        }
-
-        // Twitter/X sharing
-        const twitterStoryBtn = document.getElementById('twitter-story-share');
-        if (twitterStoryBtn) {
-            twitterStoryBtn.addEventListener('click', shareToTwitterViral);
-        }
-
-        const twitterImageBtn = document.getElementById('twitter-image-copy');
-        if (twitterImageBtn) {
-            twitterImageBtn.addEventListener('click', copyTwitterImage);
-        }
-
-        // LinkedIn sharing
-        const linkedinProfessionalBtn = document.getElementById('linkedin-professional-share');
-        if (linkedinProfessionalBtn) {
-            linkedinProfessionalBtn.addEventListener('click', linkedInPreparePost);
-        }
-        const linkedinPrepareBtn = document.getElementById('linkedin-prepare-post');
-        if (linkedinPrepareBtn) {
-            linkedinPrepareBtn.addEventListener('click', linkedInPreparePost);
-        }
-
-        // Instagram sharing
-        const instagramStoryBtn = document.getElementById('instagram-story-ready');
-        if (instagramStoryBtn) {
-            instagramStoryBtn.addEventListener('click', prepareInstagramStoryViral);
-        }
-
-        const instagramPostBtn = document.getElementById('instagram-post-ready');
-        if (instagramPostBtn) {
-            instagramPostBtn.addEventListener('click', prepareInstagramPostViral);
-        }
-
-        // Facebook sharing
-        const facebookCommunityBtn = document.getElementById('facebook-community-share');
-        if (facebookCommunityBtn) {
-            facebookCommunityBtn.addEventListener('click', shareToFacebookViral);
-        }
-
-        console.log('Viral sharing event listeners initialized');
+  function setupViralSharingEventListeners() {
+    console.log('Setting up viral sharing listeners...');
+    
+    // Mobile native sharing
+    const mobileNativeBtn = document.getElementById('mobile-native-share');
+    if (mobileNativeBtn) {
+        mobileNativeBtn.addEventListener('click', mobileNativeShare);
+        console.log('Mobile native listener added');
     }
+
+    // Twitter/X sharing
+    const twitterStoryBtn = document.getElementById('twitter-story-share');
+    if (twitterStoryBtn) {
+        twitterStoryBtn.addEventListener('click', shareToTwitterViral);
+        console.log('Twitter story listener added');
+    }
+
+    const twitterImageBtn = document.getElementById('twitter-image-copy');
+    if (twitterImageBtn) {
+        twitterImageBtn.addEventListener('click', copyTwitterImage);
+        console.log('Twitter image listener added');
+    }
+
+    // LinkedIn sharing - CRITICAL FIX
+    const linkedinProfessionalBtn = document.getElementById('linkedin-professional-share');
+    if (linkedinProfessionalBtn) {
+        linkedinProfessionalBtn.addEventListener('click', function(e) {
+            e.preventDefault(); // Prevent default action
+            console.log('LinkedIn professional button clicked');
+            shareToLinkedInViral(); // Call LinkedIn function, NOT download
+        });
+        console.log('LinkedIn professional listener added');
+    } else {
+        console.error('LinkedIn professional button not found');
+    }
+
+    const linkedinPrepareBtn = document.getElementById('linkedin-prepare-post');
+    if (linkedinPrepareBtn) {
+        linkedinPrepareBtn.addEventListener('click', function(e) {
+            e.preventDefault(); // Prevent default action
+            console.log('LinkedIn prepare button clicked');
+            linkedInPreparePost(); // Call LinkedIn function, NOT download
+        });
+        console.log('LinkedIn prepare listener added');
+    } else {
+        console.error('LinkedIn prepare button not found');
+    }
+
+    // Instagram sharing
+    const instagramStoryBtn = document.getElementById('instagram-story-ready');
+    if (instagramStoryBtn) {
+        instagramStoryBtn.addEventListener('click', prepareInstagramStoryViral);
+        console.log('Instagram story listener added');
+    }
+
+    const instagramPostBtn = document.getElementById('instagram-post-ready');
+    if (instagramPostBtn) {
+        instagramPostBtn.addEventListener('click', prepareInstagramPostViral);
+        console.log('Instagram post listener added');
+    }
+
+    // Facebook sharing
+    const facebookCommunityBtn = document.getElementById('facebook-community-share');
+    if (facebookCommunityBtn) {
+        facebookCommunityBtn.addEventListener('click', shareToFacebookViral);
+        console.log('Facebook listener added');
+    }
+
+    console.log('Viral sharing event listeners initialized');
+}
 
 async function shareToTwitterViral() {
     try {

@@ -2640,13 +2640,13 @@ Sharing for awareness and to help other travelers understand their rights.
         }
     }
 
-          async function shareToLinkedInViral() {
+        async function shareToLinkedInViral() {
             try {
                 const message = generateViralLinkedInMessage();
                 const saved = await saveImageToDevice('linkedin-professional-post.png');
                 const copied = await copyToClipboard(message);
                 
-                // Open LinkedIn feed - user must manually create post
+                
                 window.open('https://www.linkedin.com/feed/', '_blank');
                 
                 showSuccess(`
@@ -2663,7 +2663,8 @@ Sharing for awareness and to help other travelers understand their rights.
             } catch (error) {
                 showSuccess('❌ LinkedIn preparation failed. Please try again.', 2000);
             }
-        }
+        }     
+    
     async function linkedInPreparePost() {
     try {
         const message = generateViralLinkedInMessage();

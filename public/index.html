@@ -2664,6 +2664,294 @@
         }
     }
 }   
+
+        const NEW_CSS_STYLES = `
+        /* =============================================
+           VIRAL SHARING SYSTEM STYLES
+           ============================================= */
+        
+        .viral-sharing-container {
+            background: white;
+            border-radius: 16px;
+            padding: 25px;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            margin: 20px 0;
+        }
+
+        .sharing-strategy-header {
+            text-align: center;
+            margin-bottom: 25px;
+            padding: 20px;
+            background: linear-gradient(135deg, #e3f2fd, #f3e5f5);
+            border-radius: 12px;
+        }
+
+        .strategy-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: #1976d2;
+            margin-bottom: 8px;
+        }
+
+        .strategy-subtitle {
+            color: #666;
+            font-size: 0.95rem;
+        }
+
+        /* Platform-optimized buttons */
+        .platform-shares {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 15px;
+            margin: 25px 0;
+        }
+
+        .platform-share-card {
+            border: 2px solid #f0f0f0;
+            border-radius: 12px;
+            padding: 20px;
+            background: white;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .platform-share-card:hover {
+            border-color: var(--platform-color);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+        }
+
+        .platform-share-card.twitter { --platform-color: #1da1f2; }
+        .platform-share-card.linkedin { --platform-color: #0077b5; }
+        .platform-share-card.instagram { --platform-color: #e4405f; }
+        .platform-share-card.facebook { --platform-color: #1877f2; }
+
+        .platform-header {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            margin-bottom: 15px;
+        }
+
+        .platform-icon {
+            width: 32px;
+            height: 32px;
+            border-radius: 8px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 18px;
+        }
+
+        .platform-icon.twitter { background: #1da1f2; }
+        .platform-icon.linkedin { background: #0077b5; }
+        .platform-icon.instagram { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); }
+        .platform-icon.facebook { background: #1877f2; }
+
+        .platform-name {
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: #333;
+        }
+
+        .platform-strategy {
+            font-size: 0.85rem;
+            color: #666;
+            margin-bottom: 15px;
+            line-height: 1.4;
+        }
+
+        .platform-buttons {
+            display: flex;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .viral-btn {
+            padding: 10px 16px;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            flex: 1;
+            min-width: 120px;
+            justify-content: center;
+        }
+
+        .viral-btn.primary {
+            background: var(--platform-color);
+            color: white;
+        }
+
+        .viral-btn.secondary {
+            background: #f8f9fa;
+            color: #666;
+            border: 1px solid #e0e0e0;
+        }
+
+        .viral-btn:hover {
+            transform: translateY(-1px);
+            box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+        }
+
+        /* Instagram-specific styles */
+        .instagram-workflow {
+            background: linear-gradient(135deg, rgba(240, 148, 51, 0.1), rgba(188, 24, 136, 0.1));
+            border-radius: 12px;
+            padding: 20px;
+            margin-top: 15px;
+        }
+
+        .workflow-steps {
+            display: flex;
+            flex-direction: column;
+            gap: 12px;
+        }
+
+        .workflow-step {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            padding: 12px;
+            background: white;
+            border-radius: 8px;
+            border-left: 4px solid #e4405f;
+        }
+
+        .step-number {
+            width: 24px;
+            height: 24px;
+            background: #e4405f;
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 12px;
+            font-weight: 700;
+        }
+
+        .step-text {
+            font-size: 0.9rem;
+            color: #333;
+        }
+
+        /* Mobile optimization */
+        .mobile-native-share {
+            background: linear-gradient(135deg, #667eea, #764ba2);
+            border-radius: 16px;
+            padding: 25px;
+            color: white;
+            text-align: center;
+            margin: 25px 0;
+        }
+
+        .native-share-btn {
+            background: rgba(255,255,255,0.2);
+            backdrop-filter: blur(10px);
+            border: 2px solid rgba(255,255,255,0.3);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 12px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            width: 100%;
+            margin-top: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .native-share-btn:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-2px);
+        }
+
+        /* Success feedback */
+        .sharing-success {
+            background: #d4edda;
+            border: 1px solid #c3e6cb;
+            color: #155724;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 15px 0;
+            display: none;
+        }
+
+        .sharing-success.show {
+            display: block;
+            animation: slideIn 0.3s ease;
+        }
+
+        @keyframes slideIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Campaign mechanics indicators */
+        .viral-indicator {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            background: #ff6b6b;
+            color: white;
+            font-size: 0.7rem;
+            padding: 4px 8px;
+            border-radius: 12px;
+            font-weight: 700;
+        }
+
+        .engagement-boost {
+            background: #51cf66;
+        }
+
+        .reach-amplifier {
+            background: #339af0;
+        }
+
+        .viral-catalyst {
+            background: #ff6b6b;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .platform-shares {
+                grid-template-columns: 1fr;
+            }
+            
+            .platform-buttons {
+                flex-direction: column;
+            }
+            
+            .viral-btn {
+                min-width: 100%;
+            }
+
+            .mobile-native-share {
+                display: block;
+            }
+
+            .platform-shares {
+                display: none;
+            }
+        }
+
+        @media (min-width: 769px) {
+            .mobile-native-share {
+                display: none;
+            }
+        }
+`;
       
     </style>
 </head>
@@ -3098,140 +3386,138 @@
         <!-- ========================================= -->
         <!-- SHARE SECTION -->
         <!-- ========================================= -->
-        
-        <div class="share-section" id="share-section" style="display: none;">
-            <h2>📢 Share Your Experience & This AI-Built Tool</h2>
-            <p class="share-subtitle">This tool was created by a passenger like you, using AI to build technology without coding skills</p>
-            <div class="platform-tips">
-    <div class="tip-item">
-        <span class="tip-icon">🐦</span>
-        <span class="tip-text">Twitter/X: Reaches aviation journalists & consumer advocates</span>
-    </div>
-    <div class="tip-item">
-        <span class="tip-icon">💼</span>
-        <span class="tip-text">LinkedIn: Impacts business professionals & shows AI innovation</span>
-    </div>
-    <div class="tip-item">
-        <span class="tip-icon">📘</span>
-        <span class="tip-text">Facebook: Best for reaching travel communities & support groups</span>
-    </div>
-</div>
-            <p style="color: #666;">Help others understand Smartwings' response times by sharing your experience</p>
-            
+     /* 
+STEP 1: Replace the existing share section in your main HTML file
+Replace the entire share-section div (around line 1200+ in paste.txt) with this:
+*/
 
-            <!-- Add this after your existing share-grid div -->
-<div class="mobile-share-container">
-    <button class="mobile-share-btn primary" id="native-share-btn">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="18" cy="5" r="3"></circle>
-            <circle cx="6" cy="12" r="3"></circle>
-            <circle cx="18" cy="19" r="3"></circle>
-            <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
-            <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
-        </svg>
-        Share Via App
-    </button>
-    <button class="mobile-share-btn secondary" id="save-photo-btn">
-        <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-            <polyline points="7 10 12 15 17 10"></polyline>
-            <line x1="12" y1="15" x2="12" y2="3"></line>
-        </svg>
-        Save to Photos
-    </button>
-</div>
-
-  <div class="share-grid">
-    <button class="share-btn twitter" onclick="shareToTwitter()">
-        <span>🐦</span> Share on Twitter/X
-    </button>
-    <button class="share-btn facebook" onclick="shareToFacebook()">
-        <span>📘</span> Post on Facebook
-    </button>
-    <button class="share-btn linkedin" onclick="shareToLinkedIn()">
-        <span>💼</span> Post on LinkedIn
-    </button>
-    <button class="share-btn whatsapp" onclick="shareToWhatsApp()">
-        <span>💬</span> Share Your Story
-    </button>
-    <button class="share-btn download" onclick="downloadCard()">
-        <span>📸</span> Get Your Card
-    </button>
-    <button class="share-btn copy" onclick="copyImageToClipboard()">
-        <span>📋</span> Copy Image
-    </button>
-</div>
-
-<!-- Mobile-optimized share container -->
-<div class="mobile-share-container">
-    <h3 class="mobile-share-title">Share Your Card</h3>
-    
-    <div class="mobile-share-primary">
-        <button class="mobile-share-btn primary" id="native-share-btn">
-            <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-                <circle cx="18" cy="5" r="3"></circle>
-                <circle cx="6" cy="12" r="3"></circle>
-                <circle cx="18" cy="19" r="3"></circle>
-                <line x1="8.59" y1="13.51" x2="15.42" y2="17.49"></line>
-                <line x1="15.41" y1="6.51" x2="8.59" y2="10.49"></line>
-            </svg>
-            Share via App
-        </button>
-    </div>
-    
-    <div class="mobile-share-options">
-        <button class="mobile-share-option" id="mobile-linkedin-btn">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="#0077b5">
-                <path d="M16 8a6 6 0 0 1 6 6v7h-4v-7a2 2 0 0 0-2-2 2 2 0 0 0-2 2v7h-4v-7a6 6 0 0 1 6-6z"></path>
-                <rect x="2" y="9" width="4" height="12"></rect>
-                <circle cx="4" cy="4" r="2"></circle>
-            </svg>
-            LinkedIn
-        </button>
-        
-        <button class="mobile-share-option" id="mobile-twitter-btn">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="#1DA1F2">
-                <path d="M23 3a10.9 10.9 0 0 1-3.14 1.53 4.48 4.48 0 0 0-7.86 3v1A10.66 10.66 0 0 1 3 4s-4 9 5 13a11.64 11.64 0 0 1-7 2c9 5 20 0 20-11.5a4.5 4.5 0 0 0-.08-.83A7.72 7.72 0 0 0 23 3z"></path>
-            </svg>
-            Twitter/X
-        </button>
-        
-        <button class="mobile-share-option" id="mobile-facebook-btn">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="#1877F2">
-                <path d="M18 2h-3a5 5 0 0 0-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 0 1 1-1h3z"></path>
-            </svg>
-            Facebook
-        </button>
-        
-        <button class="mobile-share-option" id="mobile-save-btn">
-            <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="#28a745">
-                <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
-                <polyline points="7 10 12 15 17 10"></polyline>
-                <line x1="12" y1="15" x2="12" y2="3"></line>
-            </svg>
-            Save Image
-        </button>
-    </div>
-</div>
-            
-            <!-- Help Text -->
-            <div class="help-text" style="margin-top: 25px; background: #f8f9fa; padding: 20px; border-radius: 10px; text-align: center;">
-                <p style="margin: 0; color: #555; font-size: 0.95rem;">
-                    <strong>💡 Pro tip:</strong> Click "Get Your Card" to download the image. 
-                    Then share it anywhere - Instagram stories, LinkedIn, emails, forums.
-                </p>
-            </div>
-            
-            <!-- Success Message -->
-            <div class="success-message" id="success-message"></div>
-            
-            <!-- Share Message Display -->
-            <div style="background: #f8f9fa; padding: 15px; border-radius: 8px; margin-top: 20px; font-family: monospace; font-size: 0.9rem; line-height: 1.5;" id="share-message"></div>
+const NEW_SHARE_SECTION_HTML = `
+<div class="share-section" id="share-section" style="display: none;">
+    <div class="viral-sharing-container">
+        <!-- Strategy Header -->
+        <div class="sharing-strategy-header">
+            <div class="strategy-title">🚀 Viral Campaign Sharing</div>
+            <div class="strategy-subtitle">Each platform optimized for maximum impact and zero friction</div>
         </div>
+
+        <!-- Mobile Native Sharing (shown on mobile only) -->
+        <div class="mobile-native-share">
+            <h3>📱 One-Tap Sharing</h3>
+            <p>Share to any app instantly with your story and image attached</p>
+            <button class="native-share-btn" id="mobile-native-share">
+                <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor">
+                    <path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92s2.92-1.31 2.92-2.92-1.31-2.92-2.92-2.92z"/>
+                </svg>
+                Share Your Story
+            </button>
+        </div>
+
+        <!-- Platform-Specific Sharing (desktop) -->
+        <div class="platform-shares">
+            <!-- Twitter/X Card -->
+            <div class="platform-share-card twitter">
+                <div class="viral-indicator viral-catalyst">VIRAL CATALYST</div>
+                <div class="platform-header">
+                    <div class="platform-icon twitter">𝕏</div>
+                    <div class="platform-name">Twitter/X</div>
+                </div>
+                <div class="platform-strategy">
+                    <strong>Strategy:</strong> Reaches aviation journalists & consumer advocates. Optimized for retweets and viral spread.
+                </div>
+                <div class="platform-buttons">
+                    <button class="viral-btn primary" id="twitter-story-share">
+                        <span>📖</span> Share Story
+                    </button>
+                    <button class="viral-btn secondary" id="twitter-image-copy">
+                        <span>📸</span> Copy Image
+                    </button>
+                </div>
+            </div>
+
+            <!-- LinkedIn Card -->
+            <div class="platform-share-card linkedin">
+                <div class="viral-indicator engagement-boost">ENGAGEMENT BOOST</div>
+                <div class="platform-header">
+                    <div class="platform-icon linkedin">in</div>
+                    <div class="platform-name">LinkedIn</div>
+                </div>
+                <div class="platform-strategy">
+                    <strong>Strategy:</strong> Professional network impact. Showcases AI innovation + consumer rights advocacy.
+                </div>
+                <div class="platform-buttons">
+                    <button class="viral-btn primary" id="linkedin-professional-share">
+                        <span>💼</span> Professional Post
+                    </button>
+                    <button class="viral-btn secondary" id="linkedin-prepare-post">
+                        <span>📝</span> Prepare & Copy
+                    </button>
+                </div>
+            </div>
+
+            <!-- Instagram Card -->
+            <div class="platform-share-card instagram">
+                <div class="viral-indicator reach-amplifier">REACH AMPLIFIER</div>
+                <div class="platform-header">
+                    <div class="platform-icon instagram">📷</div>
+                    <div class="platform-name">Instagram</div>
+                </div>
+                <div class="platform-strategy">
+                    <strong>Strategy:</strong> Visual storytelling for maximum viral potential. Stories + Posts optimization.
+                </div>
+                <div class="platform-buttons">
+                    <button class="viral-btn primary" id="instagram-story-ready">
+                        <span>📱</span> Story Ready
+                    </button>
+                    <button class="viral-btn secondary" id="instagram-post-ready">
+                        <span>📋</span> Post Ready
+                    </button>
+                </div>
+                
+                <!-- Instagram workflow -->
+                <div class="instagram-workflow">
+                    <div class="workflow-steps">
+                        <div class="workflow-step">
+                            <div class="step-number">1</div>
+                            <div class="step-text">Image automatically saved to your device</div>
+                        </div>
+                        <div class="workflow-step">
+                            <div class="step-number">2</div>
+                            <div class="step-text">Story caption copied to clipboard</div>
+                        </div>
+                        <div class="workflow-step">
+                            <div class="step-number">3</div>
+                            <div class="step-text">Instagram opens - add image & paste caption</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Facebook Card -->
+            <div class="platform-share-card facebook">
+                <div class="viral-indicator engagement-boost">ENGAGEMENT BOOST</div>
+                <div class="platform-header">
+                    <div class="platform-icon facebook">f</div>
+                    <div class="platform-name">Facebook</div>
+                </div>
+                <div class="platform-strategy">
+                    <strong>Strategy:</strong> Travel communities & support groups. Optimized for shares and group discussions.
+                </div>
+                <div class="platform-buttons">
+                    <button class="viral-btn primary" id="facebook-community-share">
+                        <span>👥</span> Community Post
+                    </button>
+                    <button class="viral-btn secondary" id="facebook-copy-ready">
+                        <span>📄</span> Copy & Prepare
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Success feedback -->
+        <div class="sharing-success" id="sharing-success"></div>
     </div>
-    
-    <!-- Closing content-section -->
 </div>
+`;
 
 <!-- ========================================= -->
 <!-- JAVASCRIPT LIBRARIES -->
@@ -3269,6 +3555,21 @@
     fixMonthInputIssue(); // Add this line
     enhanceMobileForm(); // Add this line
     setupMobileShare(); // Add this line
+        
+    // Add viral sharing setup
+    setupViralSharingEventListeners();
+    
+    // Auto-detect mobile and optimize interface
+    const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
+    
+    if (isMobile) {
+        // Show mobile-optimized interface
+        const mobileShare = document.querySelector('.mobile-native-share');
+        const desktopShare = document.querySelector('.platform-shares');
+        
+        if (mobileShare) mobileShare.style.display = 'block';
+        if (desktopShare) desktopShare.style.display = 'none';
+    }
 });
     
     // ========================================
@@ -3985,43 +4286,70 @@ Explore the data: ${currentUrl}
 #PassengerRights #AirlineAccountability`;
 }
     
-    /**
- * Generate Twitter-optimized message
- */
-function generateTwitterMessage() {
-    const currentUrl = window.location.href;
-    
-    return `Documenting Airline Accountability: ${claimData.days} days without response on my €${claimData.amount} claim.
+// Platform-optimized message generators
+function generateViralTwitterMessage() {
+    return `🚨 ACCOUNTABILITY UPDATE: ${claimData.days} days without response from @Smartwings to my €${claimData.amount} luggage damage claim.
 
-Industry data: ~11,620 damaged bags yearly (SITA 2024).
+Industry data: ~11,620 damaged bags yearly. Are you also waiting?
 
-Are you also waiting? Create your visualization: ${currentUrl}
+#SmartwingsWatch #PassengerRights #ConsumerProtection
 
-#PassengerRights #ConsumerProtection`;
+Create your documentation: ${window.location.origin}`;
 }
     
-    /**
+/**
  * Generate LinkedIn-optimized message
  */
-function generateLinkedInMessage() {
-    const currentUrl = window.location.href;
-    
-    return `# Documenting Airline Accountability & AI Innovation
+function generateViralLinkedInMessage() {
+    return `# AI-Enabled Consumer Advocacy + Airline Accountability
 
-I'm sharing two interconnected stories today:
+I'm sharing two interconnected stories:
 
-## 1. Consumer Rights & Industry Patterns
-After ${claimData.days} days without response to a luggage damage claim, I documented this case study using industry data. SITA's 2024 Baggage Report shows over 11,000 damaged bags annually for this carrier, potentially creating a pattern affecting many passengers.
+## 1. Industry Pattern Documentation
+After ${claimData.days} days without response to a luggage damage claim, I documented this case using industry data. SITA's 2024 report shows 11,000+ damaged bags annually for this carrier.
 
-## 2. AI-Enabled Consumer Advocacy
-Rather than accepting the status quo, I leveraged AI (Claude.ai) to create a data visualization tool despite having no coding background. This represents how emerging technologies can empower consumers to document, share, and create transparency.
+## 2. AI Innovation for Consumer Rights  
+Rather than accepting silence, I leveraged AI (Claude.ai) to create a transparency tool despite having no coding background. This represents how emerging tech empowers consumer advocacy.
 
-🔗 You can explore or create your own visualization here: ${currentUrl}
+🔗 Document your experience: ${window.location.origin}
 
-Have you used AI to solve a problem in an unexpected way? Or experienced similar challenges with travel claims?
+Have you used AI to solve unexpected problems? Or faced similar travel claim delays?
 
-#ConsumerRights #AIInnovation #TravelTech #PassengerRights`;
+#ConsumerRights #AIInnovation #PassengerRights #TravelTech`;
 }
+
+function generateViralInstagramStoryCaption() {
+    return `DAY ${claimData.days}: Still waiting for @smartwings to respond to my €${claimData.amount} claim 😤
+
+Swipe up to create your own accountability card ⬆️
+
+#SmartwingsWatch #PassengerRights #TravelFail #AirlineAccountability #ConsumerRights`;
+}
+    function generateViralInstagramStoryCaption() {
+    return `DAY ${claimData.days}: Still waiting for @smartwings to respond to my €${claimData.amount} claim 😤
+
+Swipe up to create your own accountability card ⬆️
+
+#SmartwingsWatch #PassengerRights #TravelFail #AirlineAccountability #ConsumerRights`;
+}
+
+function generateViralInstagramPostCaption() {
+    return `✈️ TRAVEL INDUSTRY REALITY CHECK ✈️
+
+${claimData.days} days of complete silence from @smartwings on my €${claimData.amount} luggage damage claim.
+
+Here's what the data shows:
+📊 11,620+ damaged bags annually (SITA 2024)
+💰 €1.16M+ in potential claims  
+❓ How many passengers are waiting?
+
+I built this transparency tool with AI to document these patterns. No coding skills needed - just frustration and Claude.ai 🤖
+
+Are you also waiting for an airline response? Link in bio to document your experience.
+
+#PassengerRights #AirlineAccountability #TravelRights #ConsumerProtection #SmartwingsWatch #TravelTips #AIInnovation`;
+}
+    
     
 /**
  * Generate WhatsApp-optimized message
@@ -4045,297 +4373,77 @@ Create your own visualization: ${currentUrl}
   /**
  * Generate Facebook-optimized message
  */
-function generateFacebookMessage() {
-    const currentUrl = window.location.href;
-    
-    return `✈️ *Documenting Airline Accountability*
+function generateViralFacebookMessage() {
+    return `✈️ AIRLINE ACCOUNTABILITY AWARENESS ✈️
 
-I'm participating in a passenger rights awareness campaign by sharing my experience: ${claimData.days} days without resolution for a €${claimData.amount} luggage claim.
+I'm sharing my experience as part of a passenger rights transparency campaign:
 
-Industry data provides context:
-- SITA 2024 Baggage Report shows 1.4 damaged bags per 1,000 passengers
-- With 8.3M annual passengers, that's ~11,620 damaged bags yearly
-- Potentially €1.16M in claims requiring processing
+📅 ${claimData.days} days without response to a €${claimData.amount} luggage claim
+🏢 Company: Smartwings
+📊 Industry context: 11,620+ damaged bags annually (SITA 2024 data)
 
-Is this a pattern? I built this data visualization tool (with AI assistance) to help document these experiences. Create your own card if you've faced similar delays:
+This might be a systemic pattern affecting thousands of passengers. I created a data visualization tool (with AI assistance) to help document these experiences.
 
-${currentUrl}
+Have you faced similar delays with travel claims? You can create your own documentation card here: ${window.location.origin}
 
-#PassengerRights #ConsumerAwareness`;
+Sharing for awareness and to help other travelers understand their rights.
+
+#PassengerRights #TravelRights #ConsumerAwareness #AirlineAccountability`;
 }
     
     // ========================================
     // SOCIAL MEDIA SHARING FUNCTIONS
     // ========================================
     
-/**
- * Optimized Twitter sharing with better image quality
- */
-async function shareToTwitter() {
-    const btn = document.querySelector('.share-btn.twitter');
-    if (btn) {
-        btn.disabled = true;
-        btn.style.opacity = '0.7';
+// =============================================
+// SETUP NEW EVENT LISTENERS
+// =============================================
+
+// Add these to your existing setupEventListeners() function:
+function setupViralSharingEventListeners() {
+    // Mobile native sharing
+    const mobileNativeBtn = document.getElementById('mobile-native-share');
+    if (mobileNativeBtn) {
+        mobileNativeBtn.addEventListener('click', mobileNativeShare);
     }
-    
-    try {
-        const message = generateTwitterMessage();
-        
-        // Generate a higher quality image
-        const cardImage = await generateCardImage(false, 2); // Use scale 2 for higher resolution
-        
-        // On mobile, try native sharing first
-        if (navigator.share) {
-            try {
-                // For Twitter, it's better to not include the URL in the text
-                // as Twitter will unfurl it and it creates redundancy
-                const twitterMessage = message.replace(window.location.href, '').trim();
-                
-                const shareData = {
-                    title: "Airline Accountability Documentation",
-                    text: twitterMessage
-                };
-                
-                // Always try to include the image for better presentation
-                try {
-                    if (cardImage && navigator.canShare) {
-                        const file = new File([cardImage], 'airline-accountability.png', { type: 'image/png' });
-                        if (navigator.canShare({ files: [file] })) {
-                            shareData.files = [file];
-                            await navigator.share(shareData);
-                            showSuccess('✅ Successfully shared to Twitter with image!');
-                            return;
-                        }
-                    }
-                } catch (e) {
-                    console.log('File sharing not supported');
-                }
-                
-                // Fall back to text-only sharing
-                await navigator.share(shareData);
-                showSuccess('✅ Successfully shared to Twitter!');
-                return;
-            } catch (e) {
-                console.log('Native share failed:', e);
-            }
-        }
-        
-        // Fall back to Twitter Web Intent
-        if (navigator.clipboard) {
-            try {
-                await navigator.clipboard.writeText(message);
-                showSuccess('🐦 Twitter opened! Your message has been copied to clipboard - paste it and add your saved image.');
-            } catch (clipError) {
-                console.log('Clipboard access failed');
-            }
-        }
-        
-        // Download the image first, then open Twitter
-        const link = document.createElement('a');
-        link.download = `Airline-Accountability-Card.png`;
-        link.href = URL.createObjectURL(cardImage);
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        
-        setTimeout(() => {
-            // Use Twitter's web intent for a better experience
-            const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(message)}`;
-            window.open(twitterUrl, '_blank');
-        }, 500); // Small delay to ensure image downloads first
-    } catch (error) {
-        console.error('Twitter share error:', error);
-        showError('Error sharing to Twitter. Please try again.');
-    } finally {
-        if (btn) {
-            btn.disabled = false;
-            btn.style.opacity = '1';
-        }
+
+    // Twitter/X sharing
+    const twitterStoryBtn = document.getElementById('twitter-story-share');
+    if (twitterStoryBtn) {
+        twitterStoryBtn.addEventListener('click', shareToTwitterViral);
     }
+
+    const twitterImageBtn = document.getElementById('twitter-image-copy');
+    if (twitterImageBtn) {
+        twitterImageBtn.addEventListener('click', copyTwitterImage);
+    }
+
+    // LinkedIn sharing
+    const linkedinProfessionalBtn = document.getElementById('linkedin-professional-share');
+    if (linkedinProfessionalBtn) {
+        linkedinProfessionalBtn.addEventListener('click', shareToLinkedInViral);
+    }
+
+    // Instagram sharing
+    const instagramStoryBtn = document.getElementById('instagram-story-ready');
+    if (instagramStoryBtn) {
+        instagramStoryBtn.addEventListener('click', prepareInstagramStoryViral);
+    }
+
+    const instagramPostBtn = document.getElementById('instagram-post-ready');
+    if (instagramPostBtn) {
+        instagramPostBtn.addEventListener('click', prepareInstagramPostViral);
+    }
+
+    // Facebook sharing
+    const facebookCommunityBtn = document.getElementById('facebook-community-share');
+    if (facebookCommunityBtn) {
+        facebookCommunityBtn.addEventListener('click', shareToFacebookViral);
+    }
+
+    console.log('Viral sharing event listeners initialized');
 }
-    
-    // [Your existing shareToFacebook, shareToLinkedIn, shareToWhatsApp functions will stay here]
-    
-    async function shareToFacebook() {
-        const btn = document.querySelector('.share-btn.facebook');
-        btn.style.opacity = '0.7';
-        btn.style.pointerEvents = 'none';
-        
-        try {
-            const message = generateFacebookMessage();
-            const cardImage = await generateCardImage();
-            
-            if (navigator.share && cardImage) {
-                try {
-                    const file = new File([cardImage], 'smartwings-delay-evidence.png', { type: 'image/png' });
-                    await navigator.share({
-                        text: message,
-                        files: [file]
-                    });
-                    showSuccess('✅ Successfully shared to Facebook with your story!');
-                    return;
-                } catch (e) {
-                    console.log('Native share failed');
-                }
-            }
-            
-            if (navigator.clipboard) {
-                try {
-                    await navigator.clipboard.writeText(message);
-                    showSuccess('📘 Facebook opened! Your story copied to clipboard - paste it with your card!');
-                } catch (e) {
-                    showSuccess('📘 Facebook opened! Copy the message below and share your experience');
-                }
-            }
-            
-            window.open('https://www.facebook.com/', '_blank');
-        } catch (error) {
-            console.error('Facebook share error:', error);
-            showError('Error preparing Facebook post. Please try again.');
-        } finally {
-            btn.style.opacity = '1';
-            btn.style.pointerEvents = 'auto';
-        }
-    }
-    
-/**
- * Improved LinkedIn sharing for mobile
- */
-async function shareToLinkedIn() {
-    const btn = document.querySelector('.share-btn.linkedin') || document.getElementById('mobile-linkedin-btn');
-    if (btn) {
-        btn.disabled = true;
-        btn.style.opacity = '0.7';
-    }
-    
-    try {
-        const message = generateLinkedInMessage();
-        const cardImage = await generateCardImage(false, 2); // Higher quality image
-        
-        // Download the image first for attaching to LinkedIn
-        const link = document.createElement('a');
-        link.download = `Airline-Accountability-LinkedIn.png`;
-        link.href = URL.createObjectURL(cardImage);
-        document.body.appendChild(link);
-        link.click();
-        document.body.removeChild(link);
-        
-        // Copy the message to clipboard
-        if (navigator.clipboard) {
-            await navigator.clipboard.writeText(message);
-        }
-        
-        // Check if on mobile
-        const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-        
-        // Different approach for mobile vs desktop
-        if (isMobile) {
-            // On mobile, try to use the LinkedIn app if possible
-            try {
-                // Try to open the LinkedIn app (this may fail if app not installed)
-                window.location.href = 'linkedin://';
-                
-                // Show instructions after a delay (this will run if app opens)
-                setTimeout(() => {
-                    showSuccess(`
-                        <strong>LinkedIn Instructions:</strong><br>
-                        1. Image saved to your device<br>
-                        2. Message copied to clipboard<br>
-                        3. Create a new post in LinkedIn<br>
-                        4. Paste the message (long press → paste)<br>
-                        5. Tap the image icon to add your saved image
-                    `);
-                }, 1000);
-                
-                return;
-            } catch (e) {
-                console.log('LinkedIn app opening failed:', e);
-                // Will fall back to web
-            }
-            
-            // Fall back to LinkedIn mobile web
-            setTimeout(() => {
-                window.open('https://www.linkedin.com/feed/', '_blank');
-                
-                showSuccess(`
-                    <strong>LinkedIn Instructions:</strong><br>
-                    1. Image saved to your device<br>
-                    2. Message copied to clipboard<br>
-                    3. Click the "Create post" button<br>
-                    4. Paste the message (long press → paste)<br>
-                    5. Tap the image icon to add your saved image
-                `);
-            }, 500);
-        } else {
-            // Desktop experience
-            window.open('https://www.linkedin.com/feed/', '_blank');
-            
-            showSuccess(`
-                <strong>LinkedIn Sharing:</strong><br>
-                1. Image downloaded automatically<br>
-                2. LinkedIn opened in new tab<br>
-                3. Message copied to clipboard<br>
-                4. Click "Start a post" and paste the message<br>
-                5. Click the image icon to add your downloaded image
-            `);
-        }
-    } catch (error) {
-        console.error('LinkedIn share error:', error);
-        showError('Error preparing LinkedIn share. Please try again.');
-    } finally {
-        if (btn) {
-            btn.disabled = false;
-            btn.style.opacity = '1';
-        }
-    }
-}
-    
-    /**
-     * Share to WhatsApp
-     */
-    async function shareToWhatsApp() {
-        const btn = document.querySelector('.share-btn.whatsapp');
-        btn.style.opacity = '0.7';
-        btn.style.pointerEvents = 'none';
-        
-        try {
-            const message = generateWhatsAppMessage();
-            const cardImage = await generateCardImage();
-            
-            // Try native sharing first (works on mobile)
-            if (navigator.share && cardImage) {
-                try {
-                    const file = new File([cardImage], 'smartwings-delay-evidence.png', { type: 'image/png' });
-                    await navigator.share({
-                        text: message,
-                        files: [file]
-                    });
-                    showSuccess('✅ Successfully shared via WhatsApp with your story!');
-                    return;
-                } catch (e) {
-                    console.log('Native share failed');
-                }
-            }
-            
-            // Fallback: Copy message and download image
-            if (navigator.clipboard) {
-                await navigator.clipboard.writeText(message);
-            }
-            
-            downloadCard(); // Auto-download the image
-            
-            const whatsappUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(message)}`;
-            window.open(whatsappUrl, '_blank');
-            
-            showSuccess('💬 WhatsApp opened! Your story copied and evidence downloaded - attach the image!');
-        } catch (error) {
-            console.error('WhatsApp share error:', error);
-            showError('Error preparing WhatsApp share. Please try again.');
-        } finally {
-            btn.style.opacity = '1';
-            btn.style.pointerEvents = 'auto';
-        }
-    }
+
 // ========================================
 // MOBILE SHARE FUNCTIONS
 // ========================================

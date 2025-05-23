@@ -2644,36 +2644,41 @@ async function shareToTwitterViral() {
     }
 }
 
-       async function shareToLinkedInViral() {
+async function shareToLinkedInViral() {
     try {
+        console.log('LinkedIn sharing started...');
+        
         const message = generateViralLinkedInMessage();
         await saveImageToDevice('linkedin-professional-post.png');
         await copyToClipboard(message);
         
-        // Official LinkedIn shareArticle URL - WORKS 2025
-        const encodedUrl = encodeURIComponent(window.location.origin);
-        const encodedTitle = encodeURIComponent("AI-Enabled Consumer Advocacy + Airline Accountability");
-        const encodedSummary = encodeURIComponent(message.substring(0, 200) + "...");
+        // CORRECT 2025 LinkedIn URL - URL parameter ONLY
+        const baseUrl = encodeURIComponent(window.location.origin);
+        const linkedinUrl = `https://www.linkedin.com/sharing/share-offsite/?url=${baseUrl}`;
         
-        const linkedinUrl = `https://www.linkedin.com/shareArticle?mini=true&url=${encodedUrl}&title=${encodedTitle}&summary=${encodedSummary}`;
+        console.log('Opening LinkedIn URL:', linkedinUrl);
         window.open(linkedinUrl, '_blank');
         
         showSuccess(`
-            ✅ <strong>LinkedIn Professional Post Ready!</strong><br>
+            ✅ <strong>LinkedIn Ready!</strong><br>
             📸 Image saved to Downloads<br>
-            📝 Title and summary pre-filled<br>
-            💼 <strong>Next Steps:</strong><br>
-            1. Add your full message in LinkedIn<br>
-            2. Upload your saved image<br>
-            3. Publish to your network!
+            📝 Full message copied to clipboard<br>
+            ⚠️ <strong>LinkedIn 2025 Update:</strong><br>
+            1. LinkedIn will auto-pull title from your page<br>
+            2. Paste your copied message in the text area<br>
+            3. Upload your saved image<br>
+            4. Publish to your network!
         `, 15000);
     } catch (error) {
-        showSuccess('❌ LinkedIn prep failed. Please try again.', 3000);
+        console.error('LinkedIn sharing error:', error);
+        showSuccess('❌ LinkedIn sharing failed. Please try again.', 3000);
     }
 }
 
 async function linkedInPreparePost() {
     try {
+        console.log('LinkedIn prepare started...');
+        
         const message = generateViralLinkedInMessage();
         await saveImageToDevice('linkedin-prepared-post.png');
         await copyToClipboard(message);
@@ -2682,17 +2687,18 @@ async function linkedInPreparePost() {
             ✅ <strong>LinkedIn Content Prepared!</strong><br>
             📝 Full message copied to clipboard<br>
             📸 Image saved to Downloads<br>
-            📋 <strong>Manual Steps:</strong><br>
-            1. Go to LinkedIn.com<br>
+            📋 <strong>Manual LinkedIn Steps:</strong><br>
+            1. Go to LinkedIn.com manually<br>
             2. Click "Start a post"<br>
-            3. Paste full message (Ctrl/Cmd+V)<br>
+            3. Paste your full message (Ctrl/Cmd+V)<br>
             4. Upload your saved image<br>
             5. Share with your network!
         `, 15000);
     } catch (error) {
-        showSuccess('❌ Preparation failed. Please try again.', 3000);
+        console.error('LinkedIn prepare error:', error);
+        showSuccess('❌ LinkedIn preparation failed. Please try again.', 3000);
     }
-}     
+}   
     
    async function prepareInstagramStoryViral() {
     try {

@@ -2590,7 +2590,7 @@ Sharing for awareness and to help other travelers understand their rights.
         }
 
         // LinkedIn sharing
-        const linkedinProfessionallBtn = document.getElementById('linkedin-professional-share');
+        const linkedinProfessionalBtn = document.getElementById('linkedin-professional-share');
         if (linkedinProfessionalBtn) {
             linkedinProfessionalBtn.addEventListener('click', linkedInPreparePost);
         }
@@ -2619,165 +2619,127 @@ Sharing for awareness and to help other travelers understand their rights.
         console.log('Viral sharing event listeners initialized');
     }
 
-    async function shareToTwitterViral() {
-        try {
-            const message = generateViralTwitterMessage();
-            const saved = await saveImageToDevice('twitter-accountability-card.png');
-            const copied = await copyToClipboard(message);
-            
-            // Open Twitter with pre-filled message
-            const twitterUrl = `https://twitter.com/intent/tweet?text=${encodeURIComponent(message)}`;
-            window.open('https://twitter.com/intent/tweet', '_blank', 'width=600,height=400');
-            
-            showSuccess(`
-                ✅ <strong>Twitter Ready!</strong><br>
-                📸 Image saved to your device<br>
-                📝 Message copied to clipboard<br>
-                🐦 <strong>Twitter Steps:</strong><br>
-                1. Click "Tweet" in the opened window<br>
-                2. Paste your message (Ctrl/Cmd+V)<br>
-                3. Click the image icon and select your saved image<br>
-                4. Send your tweet!
-            `, 12000);
-        } catch (error) {
-            showSuccess('❌ Twitter sharing failed. Please try again.', 2000);
-        }
+async function shareToTwitterViral() {
+    try {
+        const message = generateViralTwitterMessage();
+        await saveImageToDevice('twitter-accountability-card.png');
+        await copyToClipboard(message);
+        
+        // Official Twitter web intent with text parameter - WORKS 2025
+        const encodedText = encodeURIComponent(message);
+        const twitterUrl = `https://twitter.com/intent/tweet?text=${encodedText}`;
+        window.open(twitterUrl, '_blank', 'width=600,height=500');
+        
+        showSuccess(`
+            ✅ <strong>Twitter Ready!</strong><br>
+            📸 Image saved to Downloads<br>
+            📝 Message pre-filled in Twitter<br>
+            🐦 <strong>Next Steps:</strong><br>
+            1. Click the image icon (📷) in Twitter<br>
+            2. Select your saved image<br>
+            3. Click "Post"!
+        `, 12000);
+    } catch (error) {
+        showSuccess('❌ Twitter prep failed. Please try again.', 3000);
     }
+}
 
-        async function shareToLinkedInViral() {
-            try {
-                const message = generateViralLinkedInMessage();
-                const saved = await saveImageToDevice('linkedin-professional-post.png');
-                const copied = await copyToClipboard(message);
-                
-                
-                window.open('https://www.linkedin.com/feed/', '_blank');
-                
-                showSuccess(`
-                    ✅ <strong>LinkedIn Professional Post Ready!</strong><br>
-                    📸 High-quality image saved to Downloads<br>
-                    📝 Professional message copied to clipboard<br>
-                    💼 <strong>Manual Steps Required:</strong><br>
-                    1. Click "Start a post" in LinkedIn<br>
-                    2. Paste your message (Ctrl/Cmd+V)<br>
-                    3. Click the image/media icon<br>
-                    4. Upload your downloaded image<br>
-                    5. Publish your professional post!
-                `, 15000);
-            } catch (error) {
-                showSuccess('❌ LinkedIn preparation failed. Please try again.', 2000);
-            }
-        }     
-    
-    async function linkedInPreparePost() {
+       async function shareToLinkedInViral() {
     try {
         const message = generateViralLinkedInMessage();
-        const saved = await saveImageToDevice('linkedin-post-image.png');
-        const copied = await copyToClipboard(message);
+        await saveImageToDevice('linkedin-professional-post.png');
+        await copyToClipboard(message);
+        
+        // Official LinkedIn shareArticle URL - WORKS 2025
+        const encodedUrl = encodeURIComponent(window.location.origin);
+        const encodedTitle = encodeURIComponent("AI-Enabled Consumer Advocacy + Airline Accountability");
+        const encodedSummary = encodeURIComponent(message.substring(0, 200) + "...");
+        
+        const linkedinUrl = `https://www.linkedin.com/shareArticle?mini=true&url=${encodedUrl}&title=${encodedTitle}&summary=${encodedSummary}`;
+        window.open(linkedinUrl, '_blank');
+        
+        showSuccess(`
+            ✅ <strong>LinkedIn Professional Post Ready!</strong><br>
+            📸 Image saved to Downloads<br>
+            📝 Title and summary pre-filled<br>
+            💼 <strong>Next Steps:</strong><br>
+            1. Add your full message in LinkedIn<br>
+            2. Upload your saved image<br>
+            3. Publish to your network!
+        `, 15000);
+    } catch (error) {
+        showSuccess('❌ LinkedIn prep failed. Please try again.', 3000);
+    }
+}
+
+async function linkedInPreparePost() {
+    try {
+        const message = generateViralLinkedInMessage();
+        await saveImageToDevice('linkedin-prepared-post.png');
+        await copyToClipboard(message);
         
         showSuccess(`
             ✅ <strong>LinkedIn Content Prepared!</strong><br>
-            📝 Message copied to clipboard<br>
-            📸 Image saved to Downloads folder<br>
-            ⚠️ <strong>Important:</strong> LinkedIn requires manual image upload<br>
-            📋 <strong>Steps:</strong><br>
-            1. Go to LinkedIn manually<br>
-            2. Start a new post<br>
-            3. Paste message (Ctrl/Cmd+V)<br>
-            4. Click image icon and select downloaded file<br>
-            5. Post to your network!
+            📝 Full message copied to clipboard<br>
+            📸 Image saved to Downloads<br>
+            📋 <strong>Manual Steps:</strong><br>
+            1. Go to LinkedIn.com<br>
+            2. Click "Start a post"<br>
+            3. Paste full message (Ctrl/Cmd+V)<br>
+            4. Upload your saved image<br>
+            5. Share with your network!
         `, 15000);
     } catch (error) {
-        showSuccess('❌ LinkedIn prep failed. Please try again.', 2000);
+        showSuccess('❌ Preparation failed. Please try again.', 3000);
+    }
+}     
+    
+   async function prepareInstagramStoryViral() {
+    try {
+        const caption = generateViralInstagramStoryCaption();
+        await saveImageToDevice('instagram-story-card.png');
+        await copyToClipboard(caption);
+        
+        // Instagram doesn't support web intents - open web version
+        window.open('https://www.instagram.com/', '_blank');
+        
+        showSuccess(`
+            ✅ <strong>Instagram Story Ready!</strong><br>
+            📸 Story-optimized image saved<br>
+            📝 Caption copied to clipboard<br>
+            📱 <strong>Manual Instagram Steps:</strong><br>
+            1. Open Instagram app on mobile OR<br>
+            2. Use Instagram web (stories limited)<br>
+            3. Upload saved image<br>
+            4. Paste caption text
+        `, 12000);
+    } catch (error) {
+        showSuccess('❌ Instagram prep failed. Please try again.', 3000);
     }
 }
-    async function prepareInstagramStoryViral() {
-        try {
-            const caption = generateViralInstagramStoryCaption();
-            const saved = await saveImageToDevice('instagram-story-card.png');
-            const copied = await copyToClipboard(caption);
-            
-          // Detect mobile vs desktop and remove console errors
-            const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-            
-            if (isMobile) {
-                // Mobile: Try app first, then fallback
-                const instagramAppUrl = 'instagram://camera';
-                const instagramWebUrl = 'https://www.instagram.com/';
-                
-                // Create a hidden iframe to test app availability without console errors
-                const iframe = document.createElement('iframe');
-                iframe.style.display = 'none';
-                iframe.src = instagramAppUrl;
-                document.body.appendChild(iframe);
-                
-                // Fallback to web after short delay
-                setTimeout(() => {
-                    document.body.removeChild(iframe);
-                    window.open(instagramWebUrl, '_blank');
-                }, 1500);
-            } else {
-                // Desktop: Direct to web, no app attempt
-                window.open('https://www.instagram.com/', '_blank');
-            }
-            
-            showSuccess(`
-                ✅ <strong>Instagram Story Ready!</strong><br>
-                📸 Square image saved for Stories<br>
-                📝 Story caption copied<br>
-                📱 <strong>Instagram Workflow:</strong><br>
-                1. Create new Story<br>
-                2. Add your saved image<br>
-                3. Paste caption as text overlay
-            `, 10000);
-        } catch (error) {
-            showSuccess('❌ Instagram Story prep failed. Please try again.', 2000);
-        }
+
+async function prepareInstagramPostViral() {
+    try {
+        const caption = generateViralInstagramPostCaption();
+        await saveImageToDevice('instagram-post-card.png');
+        await copyToClipboard(caption);
+        
+        window.open('https://www.instagram.com/', '_blank');
+        
+        showSuccess(`
+            ✅ <strong>Instagram Post Ready!</strong><br>
+            📸 High-quality image saved<br>
+            📝 Detailed caption copied<br>
+            📱 <strong>Manual Instagram Steps:</strong><br>
+            1. Click + to create new post<br>
+            2. Upload your saved image<br>
+            3. Paste caption in description<br>
+            4. Share to feed!
+        `, 12000);
+    } catch (error) {
+        showSuccess('❌ Instagram prep failed. Please try again.', 3000);
     }
-
-    async function prepareInstagramPostViral() {
-        try {
-            const caption = generateViralInstagramPostCaption();
-            const saved = await saveImageToDevice('instagram-post-card.png');
-            const copied = await copyToClipboard(caption);
-            
-            // Detect mobile vs desktop and remove console errors
-const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent);
-
-if (isMobile) {
-    // Mobile: Try app first, then fallback
-    const instagramAppUrl = 'instagram://camera';
-    const instagramWebUrl = 'https://www.instagram.com/';
-    
-    // Create a hidden iframe to test app availability without console errors
-    const iframe = document.createElement('iframe');
-    iframe.style.display = 'none';
-    iframe.src = instagramAppUrl;
-    document.body.appendChild(iframe);
-    
-    // Fallback to web after short delay
-    setTimeout(() => {
-        document.body.removeChild(iframe);
-        window.open(instagramWebUrl, '_blank');
-    }, 1500);
-} else {
-    // Desktop: Direct to web, no app attempt
-    window.open('https://www.instagram.com/', '_blank');
 }
-            
-            showSuccess(`
-                ✅ <strong>Instagram Post Ready!</strong><br>
-                📸 High-quality image saved<br>
-                📝 Detailed caption copied<br>
-                📱 <strong>Post Workflow:</strong><br>
-                1. Click + to create new post<br>
-                2. Select your saved image<br>
-                3. Paste caption in description
-            `, 8000);
-        } catch (error) {
-            showSuccess('❌ Instagram Post prep failed. Please try again.', 2000);
-        }
-    }
 
     async function shareToFacebookViral() {
         try {
